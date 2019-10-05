@@ -1,0 +1,17 @@
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\ess_api.Infrastructure.dll.config
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\ess_api.Infrastructure.dll
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\ess_api.Infrastructure.pdb
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\EntityFramework.dll
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\EntityFramework.SqlServer.dll
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\ess_api.Core.dll
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\ess_api.Core.pdb
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\ess_api.Core.dll.config
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\EntityFramework.xml
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\EntityFramework.SqlServer.xml
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.Infrastructure.csprojAssemblyReference.cache
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.Infrastructure.csproj.CoreCompileInputs.cache
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.Infrastructure.csproj.CopyComplete
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.Infrastructure.dll
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.Infrastructure.pdb
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.Infrastructure.Migrations.Initial.resources
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.Infrastructure.csproj.GenerateResource.cache

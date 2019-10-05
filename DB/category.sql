@@ -1,0 +1,3 @@
+CREATE TABLE `ess`.`category` (
+  `Id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`Id`));

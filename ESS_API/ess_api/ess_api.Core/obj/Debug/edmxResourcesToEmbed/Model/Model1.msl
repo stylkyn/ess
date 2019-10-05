@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="essModelStoreContainer" CdmEntityContainer="essEntities1">
+    <EntitySetMapping Name="articles">
+      <EntityTypeMapping TypeName="essModel.article">
+        <MappingFragment StoreEntitySet="article">
+          <ScalarProperty Name="description_t" ColumnName="description_t" />
+          <ScalarProperty Name="name_t" ColumnName="name_t" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="categories">
+      <EntityTypeMapping TypeName="essModel.category">
+        <MappingFragment StoreEntitySet="category">
+          <ScalarProperty Name="description_t" ColumnName="description_t" />
+          <ScalarProperty Name="name_t" ColumnName="name_t" />
+          <ScalarProperty Name="parent_category_Id" ColumnName="parent_category_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="languages">
+      <EntityTypeMapping TypeName="essModel.language">
+        <MappingFragment StoreEntitySet="language">
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="products">
+      <EntityTypeMapping TypeName="essModel.product">
+        <MappingFragment StoreEntitySet="product">
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="name_t" ColumnName="name_t" />
+          <ScalarProperty Name="category_Id" ColumnName="category_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="product_copy1">
+      <EntityTypeMapping TypeName="essModel.product_copy1">
+        <MappingFragment StoreEntitySet="product_copy1">
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="name_t" ColumnName="name_t" />
+          <ScalarProperty Name="category_Id" ColumnName="category_Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="rights">
+      <EntityTypeMapping TypeName="essModel.right">
+        <MappingFragment StoreEntitySet="right">
+          <ScalarProperty Name="rightName" ColumnName="rightName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="roles">
+      <EntityTypeMapping TypeName="essModel.role">
+        <MappingFragment StoreEntitySet="role">
+          <ScalarProperty Name="name_t" ColumnName="name_t" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="role_has_right">
+      <EntityTypeMapping TypeName="essModel.role_has_right">
+        <MappingFragment StoreEntitySet="role_has_right">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="right_Id" ColumnName="right_Id" />
+          <ScalarProperty Name="role_Id" ColumnName="role_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="translations">
+      <EntityTypeMapping TypeName="essModel.translation">
+        <MappingFragment StoreEntitySet="translation">
+          <ScalarProperty Name="key" ColumnName="key" />
+          <ScalarProperty Name="language_Id" ColumnName="language_Id" />
+          <ScalarProperty Name="text" ColumnName="text" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="essModel.user">
+        <MappingFragment StoreEntitySet="user">
+          <ScalarProperty Name="google_Id" ColumnName="google_Id" />
+          <ScalarProperty Name="fb_Id" ColumnName="fb_Id" />
+          <ScalarProperty Name="role_Id" ColumnName="role_Id" />
+          <ScalarProperty Name="department_Id" ColumnName="department_Id" />
+          <ScalarProperty Name="sendEmail" ColumnName="sendEmail" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="correctedAtDate" ColumnName="correctedAtDate" />
+          <ScalarProperty Name="createdAtDate" ColumnName="createdAtDate" />
+          <ScalarProperty Name="hidden" ColumnName="hidden" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

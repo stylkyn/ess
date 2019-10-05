@@ -1,0 +1,33 @@
+rozbalit projekt z https://mdbootstrap.com/
+nainstalovat npm
+npm install
+
+25.07.2018 
+- komponenta pro automaticke generovani meta tagu - https://github.com/vinaygopinath/ng2-meta
+npm install ng2-meta --save
+
+oprava chyby webpacku problem je v tom ze se nainstaluje 2x  je potreba jej mit jen jednou protoze se to navzajem bije - vyvolava chybu, nelze pote spustit ng serve 
+- oprava na - https://stackoverflow.com/questions/46809626/angular-no-module-factory-available-for-dependency-type-contextelementdependenc
+1] Package.json: remove webpack from DevDependencies
+2] rm -R node_modules (remove node_modules folder)
+3] npm i -g webpack
+4] npm i -g webpack-dev-server
+5] remove package-lock.json (if it's there)
+6] npm i
+// pro overeni jestli existuje webpack - npm ls webpack
+
+// TRANSLATE - https://github.com/ngx-translate/core
+npm install @ngx-translate/core --save
+npm install @ngx-translate/http-loader --save
+
+// SOCIAL LOGIN - https://github.com/high54/angular-6-social-login
+npm install --save angular-6-social-login
+
+// VALIDATOS pro porovanni inputu - https://github.com/GeorgDangl/angular-compare-validator
+npm install angular-compare-validator --save
+
+// KALENDAR pro planovani - https://github.com/mattlewis92/angular-calendar#getting-started
+npm install --save angular-calendar date-fns
+
+// GAPI - Google API - https://github.com/rubenCodeforges/ng-gapi
+npm install ng-gapi

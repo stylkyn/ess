@@ -1,0 +1,12 @@
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Core\bin\Debug\ess_api.Core.dll.config
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Core\bin\Debug\ess_api.Core.dll
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Core\bin\Debug\ess_api.Core.pdb
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Core\bin\Debug\EntityFramework.dll
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Core\bin\Debug\EntityFramework.SqlServer.dll
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Core\bin\Debug\EntityFramework.xml
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Core\bin\Debug\EntityFramework.SqlServer.xml
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Core\obj\Debug\ess_api.Core.csproj.CoreCompileInputs.cache
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Core\obj\Debug\ess_api.Core.csproj.CopyComplete
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Core\obj\Debug\ess_api.Core.dll
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Core\obj\Debug\ess_api.Core.pdb
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Core\obj\Debug\ess_api.Core.csprojAssemblyReference.cache

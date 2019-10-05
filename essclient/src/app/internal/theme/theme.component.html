@@ -1,0 +1,128 @@
+<!--Double navigation-->
+<header>
+    <!-- Sidebar navigation -->
+    <mdb-side-nav #sidenav class="sn-bg-1 fixed" [fixed]="true">
+
+    <mdb-navbar-brand>
+        <!-- Logo -->
+        <li>
+            <div class="logo-wrapper waves-light">
+                <div class="text-center mt-4">
+                    <h3 class="white-text font-weight-bold">
+                        <strong>ES</strong><strong class="blue-text font-weight-bold is-logo">is</strong> 
+                    </h3>
+                </div>
+                <!-- <a href="#"><img src="http://www.elitecsoftware.cz/wp-content/themes/images/ELITECsoftwareLogo.png" class="img-fluid flex-center"></a> -->
+            </div>
+        </li>
+        <!--/. Logo -->
+    </mdb-navbar-brand>
+    <links>
+        <!--Search Form-->
+        <!-- <li>
+            <form class="search-form" role="search">
+                <div class="form-group md-form mt-0 pt-1 waves-light" mdbWavesEffect>
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+            </form>
+        </li> -->
+        <!--/.Search Form-->
+        <!-- Side navigation links -->
+        <li>
+            <ul class="collapsible collapsible-accordion">
+                <mdb-accordion [multiple]="false" aria-multiselectable="false">
+                    <mdb-accordion-item class="no-collase" (click)="goTo('dash')">
+                        <mdb-accordion-item-head mdbWavesEffect><i class="fa fa-dashboard"></i> {{'ADMINISTRATION.DASHBOARD' | translate}}</mdb-accordion-item-head>
+                        <mdb-accordion-item-body></mdb-accordion-item-body>
+                    </mdb-accordion-item>
+                    <mdb-accordion-item class="no-collase" (click)="goTo('task')">
+                        <mdb-accordion-item-head mdbWavesEffect><i class="fa fa-tasks"></i> {{'ADMINISTRATION.ORDERS' | translate}}</mdb-accordion-item-head>
+                        <mdb-accordion-item-body></mdb-accordion-item-body>
+                    </mdb-accordion-item>
+                    <mdb-accordion-item class="no-collase" (click)="goTo('task')">
+                        <mdb-accordion-item-head mdbWavesEffect><i class="fa fa-tasks"></i> {{'ADMINISTRATION.TASKS' | translate}}</mdb-accordion-item-head>
+                        <mdb-accordion-item-body></mdb-accordion-item-body>
+                    </mdb-accordion-item>
+                    <!-- Collapsible link -->
+                    <mdb-accordion-item class="no-collase" (click)="goTo('bank')">
+                            <mdb-accordion-item-head mdbWavesEffect><i class="fa fa-file-text"></i> {{'ADMINISTRATION.BANK' | translate}}</mdb-accordion-item-head>
+                            <mdb-accordion-item-body>
+                            </mdb-accordion-item-body>
+                        </mdb-accordion-item>
+                    <mdb-accordion-item class="no-collase" (click)="goTo('invoice')">
+                        <mdb-accordion-item-head mdbWavesEffect><i class="fa fa-file-text"></i> {{'ADMINISTRATION.INVOICES' | translate}}</mdb-accordion-item-head>
+                        <mdb-accordion-item-body>
+                            <!-- <ul>
+                                <li><a href="#" class="waves-effect" mdbWavesEffect>Link 1</a></li>
+                                <li><a href="#" class="waves-effect" mdbWavesEffect>Link 2</a></li>
+                            </ul> -->
+                        </mdb-accordion-item-body>
+                    </mdb-accordion-item>
+
+                    <!-- Simple link -->
+                    <mdb-accordion-item class="no-collase">
+                        <mdb-accordion-item-head mdbWavesEffect><i class="fa fa-gear"></i> {{'ADMINISTRATION.SETTINGS' | translate}}</mdb-accordion-item-head>
+                        <mdb-accordion-item-body></mdb-accordion-item-body>
+                    </mdb-accordion-item>
+                </mdb-accordion>
+            </ul>
+        </li>
+        <!--/. Side navigation links -->
+        </links>
+        <div class="sidenav-bg mask-strong"></div>
+    </mdb-side-nav>
+    <!--/. Sidebar navigation -->
+        <!-- Navbar -->
+    <mdb-navbar SideClass="navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav" [containerInside]="false">
+
+    <navlinks class="navbar-container">
+        <!-- SideNav slide-out button -->
+        <div class="float-left">
+            <a (click)="sidenav.show()" class="button-collapse"><i class="fa fa-bars"></i></a>
+        </div>
+        <!--/. SideNav slide-out button -->
+    </navlinks>
+    <mdb-navbar-brand>
+        <!-- Breadcrumb-->
+        <div class="breadcrumbs breadcrumb-dn mr-auto">
+            <!-- <p>Menu</p> -->
+        </div>
+        <!--/. Breadcrumb-->
+        <app-select-language class="pl-4"></app-select-language>
+    </mdb-navbar-brand>
+    <navlinks>
+        <ul class="nav navbar-nav nav-flex-icons ml-auto ie-double-nav">
+            <!-- <li class="nav-item">
+                <a class="nav-link waves-light" mdbWavesEffect><i class="fa fa-envelope"></i> <span class="clearfix d-none d-sm-inline-block">Contact</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link waves-light" mdbWavesEffect><i class="fa fa-comments-o"></i> <span class="clearfix d-none d-sm-inline-block">Support</span></a>
+            </li> -->
+            <!-- <li class="nav-item">
+                <a class="nav-link waves-light" mdbWavesEffect><i class="fa fa-user"></i> <span class="clearfix d-none d-sm-inline-block">Account</span></a>
+            </li> -->
+            <li class="nav-item dropdown btn-group" dropdown>
+                <a type="button"  dropdownToggle class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+                    <i class="fa fa-user"></i> 
+                    <span class="clearfix d-none d-sm-inline-block">{{this._auth.user.username}}</span>
+                </a>
+                <!-- <a dropdownToggle type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+                    Dropdown
+                </a> -->
+                <div class="dropdown-menu dropdown-primary dropdown-menu-right" role="menu">
+                    <a class="dropdown-item" href="#">{{'ADMINISTRATION.LOG_OUT' | translate}}</a>
+                </div>
+            </li>
+        </ul>
+    </navlinks>
+</mdb-navbar>
+        <!--/. Navbar -->
+</header>
+<!--/.Double navigation-->
+<!--Main Layout-->
+<main>
+    <div class="container-fluid mt-5">
+        <router-outlet></router-outlet>
+    </div>
+</main>
+<!--/Main layout-->

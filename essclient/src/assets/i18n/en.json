@@ -1,0 +1,27 @@
+{
+  "ELITEC_SOFTWARE_INTERNAL_SYSTEM": "Elitec software internal system",
+  "LOGIN": {
+    "HAVE_AN_ACCOUNT": "Have an account",
+    "REGISTER": "Register",
+    "SIGN_IN": "Sign In",
+    "LOGIN": "Log in",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "CONFIRM_PASSWORD": "Confirm password",
+    "SAVE_PASSWORD": "Save password",
+    "SIGN_IN_WITH": "Sign In with",
+    "USERNAME": "Username",
+    "FIRSTNAME": "Firstname",
+    "LASTNAME": "Lastname",
+    "BAD_USER_ACCESS": "Bad login access"
+  },
+  "ADMINISTRATION": {
+    "DASHBOARD": "Dashboard",
+    "TASKS": "Tasks",
+    "INVOICES": "Invoices",
+    "SETTINGS": "Settings",
+    "ORDERS": "Orders",
+    "BANK": "Bank",
+    "LOG_OUT": "Log out"
+  }
+}

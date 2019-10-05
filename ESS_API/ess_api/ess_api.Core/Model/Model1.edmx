@@ -1,0 +1,598 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="essModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="article">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_t" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="description_t" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="parent_category_Id" Type="uint" />
+          <Property Name="name_t" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="description_t" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="language">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="55" Nullable="false" />
+          <Property Name="code" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category_Id" Type="uint" Nullable="false" />
+          <Property Name="name_t" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="product_copy1">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category_Id" Type="uint" Nullable="false" />
+          <Property Name="name_t" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="150" />
+        </EntityType>
+        <EntityType Name="right">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rightName" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_t" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="role_has_right">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="role_Id" Type="uint" Nullable="false" />
+          <Property Name="right_Id" Type="uint" Nullable="false" />
+          <Property Name="Id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="translation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="text" Type="varchar" MaxLength="2000" Nullable="false" />
+          <Property Name="language_Id" Type="uint" Nullable="false" />
+          <Property Name="key" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="255" />
+          <Property Name="firstName" Type="varchar" MaxLength="45" />
+          <Property Name="lastName" Type="varchar" MaxLength="45" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="hidden" Type="tinyint" Nullable="false" />
+          <Property Name="createdAtDate" Type="datetime" Precision="0" />
+          <Property Name="correctedAtDate" Type="datetime" Precision="0" />
+          <Property Name="title" Type="varchar" MaxLength="45" />
+          <Property Name="email" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="sendEmail" Type="tinyint" Nullable="false" />
+          <Property Name="department_Id" Type="int" Nullable="false" />
+          <Property Name="role_Id" Type="uint" Nullable="false" />
+          <Property Name="fb_Id" Type="varchar" MaxLength="255" />
+          <Property Name="google_Id" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="fk_category_category1">
+          <End Role="category" Type="Self.category" Multiplicity="0..1" />
+          <End Role="category1" Type="Self.category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="category1">
+              <PropertyRef Name="parent_category_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_product_category1">
+          <End Role="category" Type="Self.category" Multiplicity="1" />
+          <End Role="product" Type="Self.product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="category_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_product_category10">
+          <End Role="category" Type="Self.category" Multiplicity="1" />
+          <End Role="product_copy1" Type="Self.product_copy1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="product_copy1">
+              <PropertyRef Name="category_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_role_has_right_right1">
+          <End Role="right" Type="Self.right" Multiplicity="1" />
+          <End Role="role_has_right" Type="Self.role_has_right" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="right">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="role_has_right">
+              <PropertyRef Name="right_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_role_has_right_role1">
+          <End Role="role" Type="Self.role" Multiplicity="1" />
+          <End Role="role_has_right" Type="Self.role_has_right" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="role_has_right">
+              <PropertyRef Name="role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_translation_language1">
+          <End Role="language" Type="Self.language" Multiplicity="1" />
+          <End Role="translation" Type="Self.translation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="translation">
+              <PropertyRef Name="language_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_user_role1">
+          <End Role="role" Type="Self.role" Multiplicity="1" />
+          <End Role="user" Type="Self.user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="essModelStoreContainer">
+          <EntitySet Name="article" EntityType="Self.article" Schema="ess" store:Type="Tables" />
+          <EntitySet Name="category" EntityType="Self.category" Schema="ess" store:Type="Tables" />
+          <EntitySet Name="language" EntityType="Self.language" Schema="ess" store:Type="Tables" />
+          <EntitySet Name="product" EntityType="Self.product" Schema="ess" store:Type="Tables" />
+          <EntitySet Name="product_copy1" EntityType="Self.product_copy1" Schema="ess" store:Type="Tables" />
+          <EntitySet Name="right" EntityType="Self.right" Schema="ess" store:Type="Tables" />
+          <EntitySet Name="role" EntityType="Self.role" Schema="ess" store:Type="Tables" />
+          <EntitySet Name="role_has_right" EntityType="Self.role_has_right" Schema="ess" store:Type="Tables" />
+          <EntitySet Name="translation" EntityType="Self.translation" Schema="ess" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="ess" store:Type="Tables" />
+          <AssociationSet Name="fk_category_category1" Association="Self.fk_category_category1">
+            <End Role="category" EntitySet="category" />
+            <End Role="category1" EntitySet="category" />
+          </AssociationSet>
+          <AssociationSet Name="fk_product_category1" Association="Self.fk_product_category1">
+            <End Role="category" EntitySet="category" />
+            <End Role="product" EntitySet="product" />
+          </AssociationSet>
+          <AssociationSet Name="fk_product_category10" Association="Self.fk_product_category10">
+            <End Role="category" EntitySet="category" />
+            <End Role="product_copy1" EntitySet="product_copy1" />
+          </AssociationSet>
+          <AssociationSet Name="fk_role_has_right_right1" Association="Self.fk_role_has_right_right1">
+            <End Role="right" EntitySet="right" />
+            <End Role="role_has_right" EntitySet="role_has_right" />
+          </AssociationSet>
+          <AssociationSet Name="fk_role_has_right_role1" Association="Self.fk_role_has_right_role1">
+            <End Role="role" EntitySet="role" />
+            <End Role="role_has_right" EntitySet="role_has_right" />
+          </AssociationSet>
+          <AssociationSet Name="fk_translation_language1" Association="Self.fk_translation_language1">
+            <End Role="language" EntitySet="language" />
+            <End Role="translation" EntitySet="translation" />
+          </AssociationSet>
+          <AssociationSet Name="fk_user_role1" Association="Self.fk_user_role1">
+            <End Role="role" EntitySet="role" />
+            <End Role="user" EntitySet="user" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="essModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="essEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="articles" EntityType="essModel.article" />
+          <EntitySet Name="categories" EntityType="essModel.category" />
+          <EntitySet Name="languages" EntityType="essModel.language" />
+          <EntitySet Name="products" EntityType="essModel.product" />
+          <EntitySet Name="product_copy1" EntityType="essModel.product_copy1" />
+          <EntitySet Name="rights" EntityType="essModel.right" />
+          <EntitySet Name="roles" EntityType="essModel.role" />
+          <EntitySet Name="role_has_right" EntityType="essModel.role_has_right" />
+          <EntitySet Name="translations" EntityType="essModel.translation" />
+          <AssociationSet Name="fk_category_category1" Association="essModel.fk_category_category1">
+            <End Role="category" EntitySet="categories" />
+            <End Role="category1" EntitySet="categories" />
+          </AssociationSet>
+          <AssociationSet Name="fk_product_category1" Association="essModel.fk_product_category1">
+            <End Role="category" EntitySet="categories" />
+            <End Role="product" EntitySet="products" />
+          </AssociationSet>
+          <AssociationSet Name="fk_product_category10" Association="essModel.fk_product_category10">
+            <End Role="category" EntitySet="categories" />
+            <End Role="product_copy1" EntitySet="product_copy1" />
+          </AssociationSet>
+          <AssociationSet Name="fk_translation_language1" Association="essModel.fk_translation_language1">
+            <End Role="language" EntitySet="languages" />
+            <End Role="translation" EntitySet="translations" />
+          </AssociationSet>
+          <AssociationSet Name="fk_role_has_right_right1" Association="essModel.fk_role_has_right_right1">
+            <End Role="right" EntitySet="rights" />
+            <End Role="role_has_right" EntitySet="role_has_right" />
+          </AssociationSet>
+          <AssociationSet Name="fk_role_has_right_role1" Association="essModel.fk_role_has_right_role1">
+            <End Role="role" EntitySet="roles" />
+            <End Role="role_has_right" EntitySet="role_has_right" />
+          </AssociationSet>
+          <EntitySet Name="users" EntityType="essModel.user" />
+          <AssociationSet Name="fk_user_role1" Association="essModel.fk_user_role1">
+            <End Role="role" EntitySet="roles" />
+            <End Role="user" EntitySet="users" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="article">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_t" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="description_t" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="parent_category_Id" Type="Int64" />
+          <Property Name="name_t" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="description_t" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="category1" Relationship="essModel.fk_category_category1" FromRole="category" ToRole="category1" />
+          <NavigationProperty Name="category2" Relationship="essModel.fk_category_category1" FromRole="category1" ToRole="category" />
+          <NavigationProperty Name="products" Relationship="essModel.fk_product_category1" FromRole="category" ToRole="product" />
+          <NavigationProperty Name="product_copy1" Relationship="essModel.fk_product_category10" FromRole="category" ToRole="product_copy1" />
+        </EntityType>
+        <EntityType Name="language">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="55" FixedLength="false" Unicode="false" />
+          <Property Name="code" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="translations" Relationship="essModel.fk_translation_language1" FromRole="language" ToRole="translation" />
+        </EntityType>
+        <EntityType Name="product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category_Id" Type="Int64" Nullable="false" />
+          <Property Name="name_t" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="category" Relationship="essModel.fk_product_category1" FromRole="product" ToRole="category" />
+        </EntityType>
+        <EntityType Name="product_copy1">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category_Id" Type="Int64" Nullable="false" />
+          <Property Name="name_t" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="category" Relationship="essModel.fk_product_category10" FromRole="product_copy1" ToRole="category" />
+        </EntityType>
+        <EntityType Name="right">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rightName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="role_has_right" Relationship="essModel.fk_role_has_right_right1" FromRole="right" ToRole="role_has_right" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_t" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="role_has_right" Relationship="essModel.fk_role_has_right_role1" FromRole="role" ToRole="role_has_right" />
+          <NavigationProperty Name="users" Relationship="essModel.fk_user_role1" FromRole="role" ToRole="user" />
+        </EntityType>
+        <EntityType Name="role_has_right">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="role_Id" Type="Int64" Nullable="false" />
+          <Property Name="right_Id" Type="Int64" Nullable="false" />
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="right" Relationship="essModel.fk_role_has_right_right1" FromRole="role_has_right" ToRole="right" />
+          <NavigationProperty Name="role" Relationship="essModel.fk_role_has_right_role1" FromRole="role_has_right" ToRole="role" />
+        </EntityType>
+        <EntityType Name="translation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="text" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="language_Id" Type="Int64" Nullable="false" />
+          <Property Name="key" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="language" Relationship="essModel.fk_translation_language1" FromRole="translation" ToRole="language" />
+        </EntityType>
+        <Association Name="fk_category_category1">
+          <End Type="essModel.category" Role="category" Multiplicity="0..1" />
+          <End Type="essModel.category" Role="category1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="category1">
+              <PropertyRef Name="parent_category_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_product_category1">
+          <End Type="essModel.category" Role="category" Multiplicity="1" />
+          <End Type="essModel.product" Role="product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="product">
+              <PropertyRef Name="category_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_product_category10">
+          <End Type="essModel.category" Role="category" Multiplicity="1" />
+          <End Type="essModel.product_copy1" Role="product_copy1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="product_copy1">
+              <PropertyRef Name="category_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_translation_language1">
+          <End Type="essModel.language" Role="language" Multiplicity="1" />
+          <End Type="essModel.translation" Role="translation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="translation">
+              <PropertyRef Name="language_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_role_has_right_right1">
+          <End Type="essModel.right" Role="right" Multiplicity="1" />
+          <End Type="essModel.role_has_right" Role="role_has_right" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="right">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="role_has_right">
+              <PropertyRef Name="right_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_role_has_right_role1">
+          <End Type="essModel.role" Role="role" Multiplicity="1" />
+          <End Type="essModel.role_has_right" Role="role_has_right" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="role_has_right">
+              <PropertyRef Name="role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="firstName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="hidden" Type="SByte" Nullable="false" />
+          <Property Name="createdAtDate" Type="DateTime" />
+          <Property Name="correctedAtDate" Type="DateTime" />
+          <Property Name="title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="sendEmail" Type="SByte" Nullable="false" />
+          <Property Name="department_Id" Type="Int32" Nullable="false" />
+          <Property Name="role_Id" Type="Int64" Nullable="false" />
+          <Property Name="fb_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="google_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="role" Relationship="essModel.fk_user_role1" FromRole="user" ToRole="role" />
+        </EntityType>
+        <Association Name="fk_user_role1">
+          <End Type="essModel.role" Role="role" Multiplicity="1" />
+          <End Type="essModel.user" Role="user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="essModelStoreContainer" CdmEntityContainer="essEntities1">
+          <EntitySetMapping Name="articles">
+            <EntityTypeMapping TypeName="essModel.article">
+              <MappingFragment StoreEntitySet="article">
+                <ScalarProperty Name="description_t" ColumnName="description_t" />
+                <ScalarProperty Name="name_t" ColumnName="name_t" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="essModel.category">
+              <MappingFragment StoreEntitySet="category">
+                <ScalarProperty Name="description_t" ColumnName="description_t" />
+                <ScalarProperty Name="name_t" ColumnName="name_t" />
+                <ScalarProperty Name="parent_category_Id" ColumnName="parent_category_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="languages">
+            <EntityTypeMapping TypeName="essModel.language">
+              <MappingFragment StoreEntitySet="language">
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="products">
+            <EntityTypeMapping TypeName="essModel.product">
+              <MappingFragment StoreEntitySet="product">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name_t" ColumnName="name_t" />
+                <ScalarProperty Name="category_Id" ColumnName="category_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product_copy1">
+            <EntityTypeMapping TypeName="essModel.product_copy1">
+              <MappingFragment StoreEntitySet="product_copy1">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name_t" ColumnName="name_t" />
+                <ScalarProperty Name="category_Id" ColumnName="category_Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="rights">
+            <EntityTypeMapping TypeName="essModel.right">
+              <MappingFragment StoreEntitySet="right">
+                <ScalarProperty Name="rightName" ColumnName="rightName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="essModel.role">
+              <MappingFragment StoreEntitySet="role">
+                <ScalarProperty Name="name_t" ColumnName="name_t" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="role_has_right">
+            <EntityTypeMapping TypeName="essModel.role_has_right">
+              <MappingFragment StoreEntitySet="role_has_right">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="right_Id" ColumnName="right_Id" />
+                <ScalarProperty Name="role_Id" ColumnName="role_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="translations">
+            <EntityTypeMapping TypeName="essModel.translation">
+              <MappingFragment StoreEntitySet="translation">
+                <ScalarProperty Name="key" ColumnName="key" />
+                <ScalarProperty Name="language_Id" ColumnName="language_Id" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="essModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="google_Id" ColumnName="google_Id" />
+                <ScalarProperty Name="fb_Id" ColumnName="fb_Id" />
+                <ScalarProperty Name="role_Id" ColumnName="role_Id" />
+                <ScalarProperty Name="department_Id" ColumnName="department_Id" />
+                <ScalarProperty Name="sendEmail" ColumnName="sendEmail" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="correctedAtDate" ColumnName="correctedAtDate" />
+                <ScalarProperty Name="createdAtDate" ColumnName="createdAtDate" />
+                <ScalarProperty Name="hidden" ColumnName="hidden" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

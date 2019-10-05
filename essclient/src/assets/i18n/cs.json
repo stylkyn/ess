@@ -1,0 +1,27 @@
+{
+  "ELITEC_SOFTWARE_INTERNAL_SYSTEM": "Elitec software interní systém",
+  "LOGIN": {
+    "HAVE_AN_ACCOUNT": "Nemáte ještě účet",
+    "REGISTER": "Zaregistrovat",
+    "SIGN_IN": "Přihlásit",
+    "LOGIN": "Přihlášení",
+    "EMAIL": "Email",
+    "PASSWORD": "Heslo",
+    "CONFIRM_PASSWORD": "Potvrzení hesla",
+    "SAVE_PASSWORD": "Uložit heslo",
+    "SIGN_IN_WITH": "Přihlásit pomocí",
+    "USERNAME": "Uživatelské jméno",
+    "FIRSTNAME": "Jméno",
+    "LASTNAME": "Přijmení",
+    "BAD_USER_ACCESS": "Špatné přihlašovací údaje"
+  },
+  "ADMINISTRATION": {
+    "DASHBOARD": "Přehled",
+    "TASKS": "Tásky",
+    "INVOICES": "Faktury",
+    "SETTINGS": "Nastavení",
+    "ORDERS": "Objednávky",
+    "BANK": "Banka",
+    "LOG_OUT": "Odhlásit"
+  }
+}

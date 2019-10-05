@@ -1,0 +1,6 @@
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.DAL.csprojAssemblyReference.cache
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.DAL.Migrations.Initial.resources
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.DAL.csproj.GenerateResource.cache
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.DAL.csproj.CoreCompileInputs.cache
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.Infrastructure.dll
+C:\DEVWORK\svn\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.Infrastructure.pdb

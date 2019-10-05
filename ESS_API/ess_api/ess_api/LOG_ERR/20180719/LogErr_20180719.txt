@@ -1,0 +1,2 @@
+2018-07-19 16:17:23.450	ERROR	nemuze byt prazdne
+2018-07-19 16:17:23.503	ERROR	nemuze byt prazdne

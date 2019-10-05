@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="essModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="article">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="type" Type="Int16" Nullable="false" />
+    <NavigationProperty Name="article_lan" Relationship="Self.fk_article_lan_article" FromRole="article" ToRole="article_lan" />
+  </EntityType>
+  <EntityType Name="article_lan">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="language_Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+    <Property Name="src_image" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="article_Id" Type="Int64" Nullable="false" />
+    <Property Name="language_Id" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="article" Relationship="Self.fk_article_lan_article" FromRole="article_lan" ToRole="article" />
+    <NavigationProperty Name="language" Relationship="Self.fk_article_lan_language1" FromRole="article_lan" ToRole="language" />
+  </EntityType>
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="category_lan" Relationship="Self.fk_category_lan_category1" FromRole="category" ToRole="category_lan" />
+  </EntityType>
+  <EntityType Name="category_lan">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="category_Id" Type="Int64" Nullable="false" />
+    <Property Name="language_Id" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="category" Relationship="Self.fk_category_lan_category1" FromRole="category_lan" ToRole="category" />
+    <NavigationProperty Name="language" Relationship="Self.fk_category_lan_language1" FromRole="category_lan" ToRole="language" />
+  </EntityType>
+  <EntityType Name="language">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="55" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="article_lan" Relationship="Self.fk_article_lan_language1" FromRole="language" ToRole="article_lan" />
+    <NavigationProperty Name="category_lan" Relationship="Self.fk_category_lan_language1" FromRole="language" ToRole="category_lan" />
+  </EntityType>
+  <Association Name="fk_article_lan_article">
+    <End Type="Self.article" Multiplicity="1" Role="article" />
+    <End Type="Self.article_lan" Multiplicity="*" Role="article_lan" />
+    <ReferentialConstraint>
+      <Principal Role="article">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="article_lan">
+        <PropertyRef Name="article_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_article_lan_language1">
+    <End Type="Self.language" Multiplicity="1" Role="language" />
+    <End Type="Self.article_lan" Multiplicity="*" Role="article_lan" />
+    <ReferentialConstraint>
+      <Principal Role="language">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="article_lan">
+        <PropertyRef Name="language_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_category_lan_category1">
+    <End Type="Self.category" Multiplicity="1" Role="category" />
+    <End Type="Self.category_lan" Multiplicity="*" Role="category_lan" />
+    <ReferentialConstraint>
+      <Principal Role="category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="category_lan">
+        <PropertyRef Name="category_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_category_lan_language1">
+    <End Type="Self.language" Multiplicity="1" Role="language" />
+    <End Type="Self.category_lan" Multiplicity="*" Role="category_lan" />
+    <ReferentialConstraint>
+      <Principal Role="language">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="category_lan">
+        <PropertyRef Name="language_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="essEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="articles" EntityType="Self.article" />
+    <EntitySet Name="article_lan" EntityType="Self.article_lan" />
+    <EntitySet Name="categories" EntityType="Self.category" />
+    <EntitySet Name="category_lan" EntityType="Self.category_lan" />
+    <EntitySet Name="languages" EntityType="Self.language" />
+    <AssociationSet Name="fk_article_lan_article" Association="Self.fk_article_lan_article">
+      <End EntitySet="articles" Role="article" />
+      <End EntitySet="article_lan" Role="article_lan" />
+    </AssociationSet>
+    <AssociationSet Name="fk_article_lan_language1" Association="Self.fk_article_lan_language1">
+      <End EntitySet="languages" Role="language" />
+      <End EntitySet="article_lan" Role="article_lan" />
+    </AssociationSet>
+    <AssociationSet Name="fk_category_lan_category1" Association="Self.fk_category_lan_category1">
+      <End EntitySet="categories" Role="category" />
+      <End EntitySet="category_lan" Role="category_lan" />
+    </AssociationSet>
+    <AssociationSet Name="fk_category_lan_language1" Association="Self.fk_category_lan_language1">
+      <End EntitySet="languages" Role="language" />
+      <End EntitySet="category_lan" Role="category_lan" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

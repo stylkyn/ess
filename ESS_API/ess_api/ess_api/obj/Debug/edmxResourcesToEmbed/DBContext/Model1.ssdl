@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="essModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="article">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="type" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="article_lan">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="language_Id" />
+    </Key>
+    <Property Name="Id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="description" Type="text" />
+    <Property Name="src_image" Type="varchar" MaxLength="255" />
+    <Property Name="article_Id" Type="uint" Nullable="false" />
+    <Property Name="language_Id" Type="uint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="category_lan">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="45" />
+    <Property Name="category_Id" Type="uint" Nullable="false" />
+    <Property Name="language_Id" Type="uint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="language">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="55" Nullable="false" />
+    <Property Name="code" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <Association Name="fk_article_lan_article">
+    <End Role="article" Type="Self.article" Multiplicity="1" />
+    <End Role="article_lan" Type="Self.article_lan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="article">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="article_lan">
+        <PropertyRef Name="article_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_article_lan_language1">
+    <End Role="language" Type="Self.language" Multiplicity="1" />
+    <End Role="article_lan" Type="Self.article_lan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="language">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="article_lan">
+        <PropertyRef Name="language_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_category_lan_category1">
+    <End Role="category" Type="Self.category" Multiplicity="1" />
+    <End Role="category_lan" Type="Self.category_lan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="category_lan">
+        <PropertyRef Name="category_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_category_lan_language1">
+    <End Role="language" Type="Self.language" Multiplicity="1" />
+    <End Role="category_lan" Type="Self.category_lan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="language">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="category_lan">
+        <PropertyRef Name="language_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="essModelStoreContainer">
+    <EntitySet Name="article" EntityType="Self.article" Schema="ess" store:Type="Tables" />
+    <EntitySet Name="article_lan" EntityType="Self.article_lan" Schema="ess" store:Type="Tables" />
+    <EntitySet Name="category" EntityType="Self.category" Schema="ess" store:Type="Tables" />
+    <EntitySet Name="category_lan" EntityType="Self.category_lan" Schema="ess" store:Type="Tables" />
+    <EntitySet Name="language" EntityType="Self.language" Schema="ess" store:Type="Tables" />
+    <AssociationSet Name="fk_article_lan_article" Association="Self.fk_article_lan_article">
+      <End Role="article" EntitySet="article" />
+      <End Role="article_lan" EntitySet="article_lan" />
+    </AssociationSet>
+    <AssociationSet Name="fk_article_lan_language1" Association="Self.fk_article_lan_language1">
+      <End Role="language" EntitySet="language" />
+      <End Role="article_lan" EntitySet="article_lan" />
+    </AssociationSet>
+    <AssociationSet Name="fk_category_lan_category1" Association="Self.fk_category_lan_category1">
+      <End Role="category" EntitySet="category" />
+      <End Role="category_lan" EntitySet="category_lan" />
+    </AssociationSet>
+    <AssociationSet Name="fk_category_lan_language1" Association="Self.fk_category_lan_language1">
+      <End Role="language" EntitySet="language" />
+      <End Role="category_lan" EntitySet="category_lan" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
