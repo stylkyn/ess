@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private _gapiSrv: GapiService) {
+  constructor(public _gapiSrv: GapiService) {
   }
 
   ngOnInit() {

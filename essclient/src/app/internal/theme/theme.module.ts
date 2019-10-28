@@ -4,7 +4,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ThemeComponent } from './theme.component';
 import { ButtonsModule, DropdownModule, SidenavModule, AccordionModule,
   IconsModule, CardsModule, NavbarModule, SelectModule} from 'ng-uikit-pro-standard';
-import { routing } from './internal.routing.';
+import { routing } from './internal.routing';
 import { SharedModule } from '../../shared/shared.module';
 import { RegisterCardComponent } from '../pages/login/register-card/register-card.component';
 import { CompareValidatorModule } from 'angular-compare-validator';
