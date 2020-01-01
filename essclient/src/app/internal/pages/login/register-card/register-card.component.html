@@ -30,13 +30,13 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="md-form">
-                    <input type="text" id="firstName" class="form-control white-text" formControlName="firstName" data-success=" "  mdbInputDirective>
+                    <input type="text" id="firstName" class="form-control white-text" formControlName="firstName" data-success=" "  mdbInput>
                     <label for="firstName" class="text-white opacity-8">{{ 'LOGIN.FIRSTNAME' | translate}}</label>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="md-form">
-                    <input type="text" id="lastName" class="form-control white-text" formControlName="lastName" data-success=" " mdbInputDirective>
+                    <input type="text" id="lastName" class="form-control white-text" formControlName="lastName" data-success=" " mdbInput>
                     <label for="lastName" class="text-white opacity-8">{{ 'LOGIN.LASTNAME' | translate}}</label>
                   </div>
                 </div>
@@ -44,13 +44,13 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="md-form">
-                    <input type="email" id="email" class="form-control white-text" formControlName="email" data-success=" " mdbInputDirective>
+                    <input type="email" id="email" class="form-control white-text" formControlName="email" data-success=" " mdbInput>
                     <label for="email" class="text-white opacity-8">{{ 'LOGIN.EMAIL' | translate}}</label>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="md-form">
-                    <input type="text" id="username" class="form-control white-text" formControlName="username" data-success=" " mdbInputDirective>
+                    <input type="text" id="username" class="form-control white-text" formControlName="username" data-success=" " mdbInput>
                     <label for="username" class="text-white opacity-8">{{ 'LOGIN.USERNAME' | translate}}</label>
                   </div>
                 </div>
@@ -58,13 +58,13 @@
               <div class="row pb-4">
                 <div class="col-md-6">
                   <div class="md-form">
-                    <input type="password" id="password" class="form-control white-text" formControlName="password" data-success=" " mdbInputDirective>
+                    <input type="password" id="password" class="form-control white-text" formControlName="password" data-success=" " mdbInput>
                     <label for="password" class="text-white opacity-8">{{ 'LOGIN.PASSWORD' | translate}}</label>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="md-form">
-                    <input [compareEqual]="rf.password.value" type="password" id="passwordConfirm" class="form-control white-text" formControlName="passwordConfirm" data-success=" " mdbInputDirective>
+                    <input [compareEqual]="rf.password.value" type="password" id="passwordConfirm" class="form-control white-text" formControlName="passwordConfirm" data-success=" " mdbInput>
                     <label for="passwordConfirm" class="text-white opacity-8">{{ 'LOGIN.CONFIRM_PASSWORD' | translate}}</label>
                   </div>
                 </div>

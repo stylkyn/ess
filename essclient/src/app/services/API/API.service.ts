@@ -1,9 +1,8 @@
 import { LoaderService } from './../loader.service';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map ,  tap } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

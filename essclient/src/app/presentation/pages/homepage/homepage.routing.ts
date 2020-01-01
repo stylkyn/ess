@@ -5,7 +5,7 @@ import { ModuleWithProviders } from '@angular/core';
 
 const APP_ROUTES: Routes = [
     { path: '', component: HomepageComponent, children: [
-        {path: '', component: ShopMainComponent}
+        // {path: '', component: ShopMainComponent}
     ] },
 ];
 

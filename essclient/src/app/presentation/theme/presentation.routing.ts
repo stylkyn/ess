@@ -29,6 +29,17 @@ const APP_ROUTES: Routes = [
                     }
                 }
             },
+            {
+                path: 'eshop',
+                loadChildren: './../pages/eshop/eshop.module#EshopModule',
+                canActivate: [MetaGuard],
+                data: {
+                    meta: {
+                        title: 'Eshop',
+                        keywords: 'Elitec software eshop'
+                    }
+                }
+            },
         ]
     }
 ];
