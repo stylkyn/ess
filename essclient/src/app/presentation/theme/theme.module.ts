@@ -6,10 +6,12 @@ import { ThemeComponent } from './theme.component';
 import { MDBSpinningPreloader, SidenavModule,
   WavesModule, AccordionModule, CarouselModule, InputsModule, NavbarModule } from 'ng-uikit-pro-standard';
 import { routing, metaConf } from './presentation.routing';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   imports: [
-    CommonModule,
+  CommonModule,
     // plugins
     SidenavModule,
     WavesModule,
@@ -27,8 +29,8 @@ import { routing, metaConf } from './presentation.routing';
     InputsModule
 
   ],
-  declarations: [ThemeComponent],
-  exports: [ThemeComponent],
+  declarations: [ThemeComponent, FooterComponent, HeaderComponent],
+  exports: [ThemeComponent, FooterComponent, HeaderComponent],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [MDBSpinningPreloader]
 })

@@ -1,4 +1,7 @@
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
+@import "./styles/mdbCustomize/sideMenu.scss";
+@import "./styles/mdbCustomize/headerMenu";
+@import "./styles/mdbCustomize/shopCard";
 
 @mixin placeholder {
 &::-webkit-input-placeholder {@content}
@@ -6,15 +9,21 @@
 &::-moz-placeholder          {@content}
 &:-ms-input-placeholder      {@content}  
 }
+
+h2 {
+    font-size: 2.2rem;
+}
+
  
 /* You can add global styles to this file, and also import other style files */
 html{
     height: 100%;
     body{
         height: 100%;
-        background-color: #e8f2f7;
+        background-color: #fff;
     }
 }
+
 
 .is-logo{
     border-right: 4px solid white;
@@ -27,7 +36,7 @@ html{
 }
 
 .light-blue-skin .pres-navbar{
-    background-color:rgba(78, 168, 230, 0.5) !important;
+    background-color: rgb(255, 255, 255) !important;
 }
 //
 //

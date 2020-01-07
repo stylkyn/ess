@@ -1,14 +1,30 @@
-<ul class="shop-menu nav flex-column grey lighten-4 py-4">
-    <li class="nav-item">
-        <a class="nav-link active" href="#!">Active</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#!">Link</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="#!">Link</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link disabled" href="#!">Disabled</a>
-    </li>
+<ul class="_SideMenu collapsible collapsible-accordion">
+  <mdb-accordion [multiple]="false" aria-multiselectable="false">
+
+    <!-- Collapsible link -->
+    <mdb-accordion-item class="_SideMenu-item">
+      <mdb-accordion-item-head class="_SideMenu-item-header" mdbWavesEffect>Outsorcing</mdb-accordion-item-head>
+      <mdb-accordion-item-body class="_SideMenu-item-body">
+        <ul>
+          <li><a routerLink="/example-route" routerLinkActive="active" href="#"
+                  mdbWavesEffect>Spoluprace na fulltime</a></li>
+          <li><a routerLink="/example-route-1" routerLinkActive="active" href="#"
+                  mdbWavesEffect>Parttime</a></li>
+        </ul>
+      </mdb-accordion-item-body>
+    </mdb-accordion-item>
+
+    <!-- Simple link -->
+    <mdb-accordion-item class="no-collase">
+      <mdb-accordion-item-head class="_SideMenu-item-header"  routerLink="/example-route-2" routerLinkActive="active" mdbWavesEffect> Tiskove resenis </mdb-accordion-item-head>
+      <mdb-accordion-item-body class="_SideMenu-item-body">
+        <ul>
+          <li><a routerLink="/example-route" routerLinkActive="active" href="#"
+                  mdbWavesEffect>Servis tiskaren</a></li>
+          <li><a routerLink="/example-route-1" routerLinkActive="active" href="#"
+                  mdbWavesEffect>Montaz</a></li>
+        </ul>
+      </mdb-accordion-item-body>
+    </mdb-accordion-item>
+  </mdb-accordion>
 </ul>

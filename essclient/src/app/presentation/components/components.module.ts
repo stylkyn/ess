@@ -4,7 +4,7 @@ import { ShopProductsComponent } from './shop-main/shop-products/shop-products.c
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ComponentsComponent } from './components.component';
-import { SidenavModule, NavbarModule, WavesModule, AccordionModule } from 'ng-uikit-pro-standard'
+import { SidenavModule, NavbarModule, WavesModule, AccordionModule, IconsModule, CardsModule, BadgeModule } from 'ng-uikit-pro-standard';
 
 @NgModule({
   imports: [
@@ -13,7 +13,15 @@ import { SidenavModule, NavbarModule, WavesModule, AccordionModule } from 'ng-ui
     SidenavModule,
     NavbarModule,
     WavesModule,
-    AccordionModule
+    AccordionModule,
+    WavesModule,
+    SidenavModule,
+    AccordionModule,
+    IconsModule,
+    NavbarModule,
+    IconsModule,
+    CardsModule,
+    BadgeModule
   ],
   declarations: [
     ComponentsComponent,
