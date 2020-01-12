@@ -1,7 +1,4 @@
-import { SocialLoginService } from './../../../services/social-login.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { TranslateMyService } from '../../../services/translate-my.service';
 
 @Component({
   selector: 'app-login',

@@ -5,7 +5,6 @@ import { Observable, Subscription } from 'rxjs';
 import { SocialLoginService } from './../../../../services/social-login.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
-import { TranslateMyService } from '../../../../services/translate-my.service';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/API/user.service';
 import { ILogin } from 'src/app/model/ILogin';
@@ -30,7 +29,6 @@ export class LoginCardComponent implements OnInit {
 
   constructor(
     public _fb: FormBuilder,
-    public _translateMy: TranslateMyService,
     public _socialLogin: SocialLoginService,
     public _router: Router,
     private _userSrv: UserService,

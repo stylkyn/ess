@@ -2,6 +2,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 import { ThemeComponent } from './theme.component';
 import { MetaGuard, MetaModule, MetaConfig } from 'ng2-meta';
+import { HomepageComponent } from '../pages/homepage/homepage.component';
+import { EshopComponent } from '../pages/eshop/eshop.component';
 
 
 // defaultni data pro meta tagy
@@ -20,7 +22,7 @@ const APP_ROUTES: Routes = [
     { path: '', component: ThemeComponent, children: [
             {
                 path: 'homepage',
-                loadChildren: './../pages/homepage/homepage.module#HomepageModule',
+                component: HomepageComponent,
                 canActivate: [MetaGuard],
                 data: {
                     meta: {
@@ -31,7 +33,7 @@ const APP_ROUTES: Routes = [
             },
             {
                 path: 'eshop',
-                loadChildren: './../pages/eshop/eshop.module#EshopModule',
+                component: EshopComponent,
                 canActivate: [MetaGuard],
                 data: {
                     meta: {
@@ -46,31 +48,3 @@ const APP_ROUTES: Routes = [
 
 export const metaConf = metaConfig;
 export const routing: ModuleWithProviders = RouterModule.forChild(APP_ROUTES);
-
-// import { ThemeComponent } from './theme.component';
-// import { RouterModule, Routes } from '@angular/router';
-// import { NgModule } from '@angular/core';
-// import { MetaGuard, MetaModule, MetaConfig } from 'ng2-meta';
-
-
-
-// // defaultni data pro meta tagy
-// const metaConfig: MetaConfig = {
-//     useTitleSuffix: true,
-//     defaults: {
-//         description: 'Elitec software zpracovani internich systemu na zakazku',
-//         // 'og:image': 'assets/img/embroidery-broderie-website.png',
-//         author: 'elitecsoftware.cz'
-//     }
-//   };
-
-// @NgModule({
-//     imports: [
-//         RouterModule.forRoot(APP_ROUTES, {useHash: true}),
-//         MetaModule.forRoot(metaConfig),
-//     ],
-//     exports: [ ],
-// })
-
-// export class PresentationRouterModule {}
-

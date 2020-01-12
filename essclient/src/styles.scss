@@ -2,6 +2,7 @@
 @import "./styles/mdbCustomize/sideMenu.scss";
 @import "./styles/mdbCustomize/headerMenu";
 @import "./styles/mdbCustomize/shopCard";
+@import "./styles/mdbCustomize/shopMain";
 
 @mixin placeholder {
 &::-webkit-input-placeholder {@content}

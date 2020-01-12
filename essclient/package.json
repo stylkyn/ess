@@ -8,7 +8,11 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "compile:server": "webpack --config webpack.server.config.js --progress --colors",
+    "serve:ssr": "node dist/server",
+    "build:ssr": "npm run build:client-and-server-bundles && npm run compile:server",
+    "build:client-and-server-bundles": "ng build --prod && ng run mdb-angular-pro:server:production --bundleDependencies all"
   },
   "private": true,
   "dependencies": {
@@ -20,8 +24,11 @@
     "@angular/http": "^7.2.15",
     "@angular/platform-browser": "^8.2.14",
     "@angular/platform-browser-dynamic": "^8.2.14",
+    "@angular/platform-server": "^8.2.14",
     "@angular/router": "^8.2.14",
     "@kentico/kontent-delivery": "^8.2.0",
+    "@nguniversal/express-engine": "^8.2.6",
+    "@nguniversal/module-map-ngfactory-loader": "v8.2.6",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "angular-6-social-login": "^1.1.1",
@@ -32,6 +39,8 @@
     "core-js": "3.6.x",
     "date-fns": "^2.8.1",
     "easy-pie-chart": "2.1.x",
+    "enhanced-resolve": "^3.3.0",
+    "express": "^4.15.2",
     "font-awesome": "4.7.x",
     "hammerjs": "2.0.x",
     "jarallax": "^1.12.0",
@@ -52,6 +61,7 @@
     "@angular/compiler": "^8.2.14",
     "@angular/compiler-cli": "^8.2.14",
     "@angular/language-service": "^8.2.14",
+    "@types/express": "^4.17.0",
     "@types/jasmine": "3.5.0",
     "@types/node": "~13.1.2",
     "codelyzer": "~5.2.1",
@@ -64,8 +74,10 @@
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.5.1",
     "protractor": "~5.4.2",
+    "ts-loader": "^5.2.0",
     "ts-node": "~8.5.4",
     "tslint": "~5.20.1",
-    "typescript": "^3.5.3"
+    "typescript": "^3.5.3",
+    "webpack-cli": "^3.1.0"
   }
 }

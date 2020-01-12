@@ -1,14 +1,13 @@
-import { ShopMenuComponent } from './shop-main/shop-menu/shop-menu.component';
-import { ShopMainComponent } from './shop-main/shop-main.component';
-import { ShopProductsComponent } from './shop-main/shop-products/shop-products.component';
+import { ShopMenuComponent } from './shop-menu/shop-menu.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ComponentsComponent } from './components.component';
-import { SidenavModule, NavbarModule, WavesModule, AccordionModule, IconsModule, CardsModule, BadgeModule } from 'ng-uikit-pro-standard';
+import { SidenavModule, NavbarModule, WavesModule, AccordionModule, IconsModule, CardsModule, BadgeModule, ButtonsModule } from 'ng-uikit-pro-standard';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
-    CommonModule,
+  CommonModule,
+    RouterModule,
     // plugins
     SidenavModule,
     NavbarModule,
@@ -21,16 +20,14 @@ import { SidenavModule, NavbarModule, WavesModule, AccordionModule, IconsModule,
     NavbarModule,
     IconsModule,
     CardsModule,
-    BadgeModule
+    BadgeModule,
+    ButtonsModule
   ],
   declarations: [
-    ComponentsComponent,
     ShopMenuComponent,
-    ShopProductsComponent,
-    ShopMainComponent
   ],
   exports: [
-    ShopMainComponent
+    ShopMenuComponent,
   ]
 })
 export class ComponentsModule { }

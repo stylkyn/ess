@@ -1,4 +1,3 @@
-import { TranslateMyService } from '../../../services/translate-my.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -11,12 +10,10 @@ export class SelectLanguageComponent implements OnInit {
   public langs: any[];
   public selected: string;
 
-  constructor(public _translateMy: TranslateMyService) {
-    this.langs = this._translateMy.getLangs();
+  constructor() {
   }
 
   ngOnInit() {
-    this.selected = this._translateMy.currentLang;
     console.log(this.selected);
   }
 

@@ -8,6 +8,11 @@ import { MDBSpinningPreloader, SidenavModule,
 import { routing, metaConf } from './presentation.routing';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+import { HomepageComponent } from './../pages/homepage/homepage.component';
+import { EshopComponent } from './../pages/eshop/eshop.component';
+import { EshopDetailComponent } from './../pages/eshop/eshop-detail/eshop-detail.component';
+import { ShopProductsComponent } from '../pages/eshop/shop-products/shop-products.component';
+import { ComponentsModule } from './../components/components.module';
 
 @NgModule({
   imports: [
@@ -26,11 +31,25 @@ import { HeaderComponent } from './header/header.component';
     MetaModule.forRoot(metaConf),
     CarouselModule,
     WavesModule,
-    InputsModule
+    InputsModule,
+
+    ComponentsModule
+  ],
+  declarations: [
+    ThemeComponent,
+    FooterComponent,
+    HeaderComponent,
+    HomepageComponent,
+    EshopComponent,
+    EshopDetailComponent,
+    ShopProductsComponent,
 
   ],
-  declarations: [ThemeComponent, FooterComponent, HeaderComponent],
-  exports: [ThemeComponent, FooterComponent, HeaderComponent],
+  exports: [
+    ThemeComponent,
+    FooterComponent,
+    HeaderComponent,
+  ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [MDBSpinningPreloader]
 })
