@@ -1,5 +1,9 @@
-﻿using ess_api.Core.Model;
+﻿using ess_api._4_BL.Services.Requests;
+using ess_api._4_BL.Services.Responses;
+using ess_api.Core.Model;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ess_api._4_BL.Services
 {
@@ -9,42 +13,42 @@ namespace ess_api._4_BL.Services
         /*
          * GET
          * **/
-        public IEnumerable<article> Get()
+        public List<ArticleResponse> Get()
         {
-            return _uow.Articles.GetAll();
+            return MapArticles(_uow.Articles.FindMany().ToList());
         }
 
-        public article Get(int Id)
+        public ArticleResponse Get(string Id)
         {
-            return _uow.Articles.Find(Id);
+            return MapArticle(_uow.Articles.Find(new Guid(Id)));
         }
 
         /*
          *  SET
          * **/
-        public void Add(article article)
+        public void Add(ArticleRequest article)
         {
-            _uow.Articles.Add(article);
-            _uow.Complete();
+            _uow.Articles.Insert(article);
         }
 
-        public void Update(article article)
+        public void Update(ArticleRequest article)
         {
-            _uow.Articles.Update(article);
-            _uow.Complete();
+            _uow.Articles.Replace(article.Id, article);
         }
 
-        public void Remove(int Id)
+        public void Remove(string id)
         {
-            article article = Get(Id);
-            _uow.Articles.Remove(article);
-            _uow.Complete();
+            _uow.Articles.Delete(new Guid(id));
         }
 
-        public void RemoveRange(IEnumerable<article> articles)
+        private ArticleResponse MapArticle(ArticleModel article)
         {
-            _uow.Articles.RemoveRange(articles);
-            _uow.Complete();
+            return (ArticleResponse)article;
+        }
+
+        private List<ArticleResponse> MapArticles(List<ArticleModel> articles)
+        {
+            return articles.Select(x => MapArticle(x)).ToList();
         }
     }
 }

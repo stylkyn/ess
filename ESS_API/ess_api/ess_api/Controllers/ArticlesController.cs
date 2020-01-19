@@ -1,4 +1,6 @@
 ﻿using ess_api._4_BL.Services;
+using ess_api._4_BL.Services.Requests;
+using ess_api._4_BL.Services.Responses;
 using ess_api.Core.Model;
 using ess_api.LogEx;
 using System;
@@ -8,6 +10,7 @@ using System.Web.Http.Description;
 
 namespace ess_api.Controllers
 {
+    [RoutePrefix("api/articles")]
     public class ArticlesController : BaseApiController
     {
         private ArticleService _as;
@@ -18,10 +21,9 @@ namespace ess_api.Controllers
         }
 
         // GET: api/Articles
-        [ResponseType(typeof(IEnumerable<article>))]
         public IHttpActionResult Get()
         {
-            IEnumerable<article> articles = _as.Get();
+            List<ArticleResponse> articles = _as.Get();
             if (articles == null)
             {
                 return NotFound();
@@ -31,10 +33,9 @@ namespace ess_api.Controllers
         }
 
         // GET: api/Articles/5
-        [ResponseType(typeof(article))]
-        public IHttpActionResult Get(int Id)
+        public IHttpActionResult Get(string Id)
         {
-            article article = _as.Get(Id);
+            ArticleResponse article = _as.Get(Id);
             if (article == null)
             {
                 return NotFound();
@@ -44,8 +45,7 @@ namespace ess_api.Controllers
         }
 
         // PUT: api/Articles/5
-        [ResponseType(typeof(int))]
-        public IHttpActionResult Put(int Id, [FromBody]article article)
+        public IHttpActionResult Put(int Id, [FromBody]ArticleRequest article)
         {
             try
             {
@@ -60,8 +60,7 @@ namespace ess_api.Controllers
         }
 
         // POST: api/Articles
-        [ResponseType(typeof(article))]
-        public IHttpActionResult Post([FromBody]article article)
+        public IHttpActionResult Post([FromBody]ArticleRequest article)
         {
             try
             {
@@ -75,8 +74,7 @@ namespace ess_api.Controllers
         }
 
         // DELETE: api/Articles/5
-        [ResponseType(typeof(article))]
-        public IHttpActionResult Delete(int Id)
+        public IHttpActionResult Delete(string Id)
         {
             try
             {

@@ -7,17 +7,14 @@ import { HttpModule } from '@angular/http';
 import { AgmCoreModule } from '@agm/core';
 import { AppComponent } from './app.component';
 import { MDBSpinningPreloader, MDBBootstrapModulesPro, ToastModule } from 'ng-uikit-pro-standard';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import {
   SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider, LinkedinLoginProvider
 } from 'angular-6-social-login';
 import {
   GoogleApiModule,
-  GoogleApiService,
-  GoogleAuthService,
   NgGapiClientConfig,
   NG_GAPI_CONFIG,
-  GoogleApiConfig
 } from 'ng-gapi';
 
 // settings for google API, scopes(permisions) for google contacts

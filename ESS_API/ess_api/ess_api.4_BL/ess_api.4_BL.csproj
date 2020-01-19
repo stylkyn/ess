@@ -51,7 +51,12 @@
     <Compile Include="MainService.cs" />
     <Compile Include="Services\ArticleService.cs" />
     <Compile Include="Services\CategoryService.cs" />
-    <Compile Include="Services\LanguageService.cs" />
+    <Compile Include="Services\Requests\UserRequest.cs" />
+    <Compile Include="Services\Requests\CategoryRequest.cs" />
+    <Compile Include="Services\Requests\ArticleRequest.cs" />
+    <Compile Include="Services\Responses\UserResponse.cs" />
+    <Compile Include="Services\Responses\CategoryResponse.cs" />
+    <Compile Include="Services\Responses\ArticleResponse.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

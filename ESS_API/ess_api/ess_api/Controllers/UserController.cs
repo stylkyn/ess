@@ -1,4 +1,5 @@
 ﻿using ess_api._4_BL.Services;
+using ess_api._4_BL.Services.Responses;
 using ess_api.Core.Model;
 using ess_api.LogEx;
 using System;
@@ -8,18 +9,17 @@ using System.Web.Http.Description;
 
 namespace ess_api.Controllers
 {
-    [RoutePrefix("api/{lang}/User")]
+    [RoutePrefix("api/User")]
     public class UserController : BaseApiController
     {
-        private UserService _as;
+        private UserService _userService;
 
         public UserController()
         {
-            _as = new UserService();
+            _userService = new UserService();
         }
 
         // LOGIN - VERIFY USER
-        [ResponseType(typeof(IEnumerable<user>))]
         [Route("VerifyLogin")]
         public IHttpActionResult VerifyLogin([FromBody]Login login)
         {
@@ -28,10 +28,9 @@ namespace ess_api.Controllers
             {
                 return NotFound();
             }
-            return Ok(_as.VerifyLogin(login));
+            return Ok(_userService.VerifyLogin(login));
         }
         // LOGIN - VERIFY SOCIAL LOGIN
-        [ResponseType(typeof(IEnumerable<user>))]
         [Route("VerifySocialLogin")]
         public IHttpActionResult VerifySocialLogin([FromBody]SocialLogin socialLogin)
         {
@@ -40,14 +39,13 @@ namespace ess_api.Controllers
             {
                 return NotFound();
             }
-            return Ok(_as.VerifySocialLogin(socialLogin));
+            return Ok(_userService.VerifySocialLogin(socialLogin));
         }
 
         // GET: api/users
-        [ResponseType(typeof(IEnumerable<user>))]
         public IHttpActionResult Get()
         {
-            IEnumerable<user> users = _as.Get();
+            List<UserResponse> users = _userService.Get();
             if (users == null)
             {
                 return NotFound();
@@ -57,10 +55,9 @@ namespace ess_api.Controllers
         }
 
         // GET: api/users/5
-        [ResponseType(typeof(user))]
-        public IHttpActionResult Get(int Id)
+        public IHttpActionResult Get(string Id)
         {
-            user user = _as.Get(Id);
+            UserResponse user = _userService.Get(Id);
             if (user == null)
             {
                 return NotFound();
@@ -70,12 +67,11 @@ namespace ess_api.Controllers
         }
 
         // PUT: api/users/5
-        [ResponseType(typeof(int))]
-        public IHttpActionResult Put(int Id, [FromBody]user user)
+        public IHttpActionResult Put(int Id, [FromBody]UserRequest user)
         {
             try
             {
-                _as.Update(user);
+                _userService.Update(user);
                 return Ok(Id);
             }
             catch (Exception e)
@@ -86,28 +82,12 @@ namespace ess_api.Controllers
         }
 
         // POST: api/users
-        [ResponseType(typeof(user))]
-        public IHttpActionResult Post([FromBody]user user)
+        public IHttpActionResult Post([FromBody]UserRequest user)
         {
             try
             {
-                _as.Add(user);
+                _userService.Add(user);
                 return Ok(user);
-            }
-            catch (Exception e)
-            {
-                throw new MyException(e);
-            }
-        }
-
-        // DELETE: api/users/5
-        [ResponseType(typeof(user))]
-        public IHttpActionResult Delete(int Id)
-        {
-            try
-            {
-                _as.Remove(Id);
-                return Ok(Id);
             }
             catch (Exception e)
             {

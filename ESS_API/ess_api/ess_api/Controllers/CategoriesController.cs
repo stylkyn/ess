@@ -1,6 +1,6 @@
 ﻿using ess_api._4_BL.Services;
-using ess_api.Core.LanguageModel;
-using ess_api.Core.Model;
+using ess_api._4_BL.Services.Requests;
+using ess_api._4_BL.Services.Responses;
 using ess_api.LogEx;
 using System;
 using System.Collections.Generic;
@@ -10,21 +10,20 @@ using System.Web.Routing;
 
 namespace ess_api.Controllers
 {
-    [RoutePrefix("api/{lang}/Categories")]
+    [RoutePrefix("api/Categories")]
     public class CategoriesController : BaseApiController
     {
-        private CategoryService _cs;
+        private CategoryService _categoryService;
 
         public CategoriesController()
         {
-            _cs = new CategoryService();
+            _categoryService = new CategoryService();
         }
 
         // GET: api/categories
-        [ResponseType(typeof(IEnumerable<category>))]
         public IHttpActionResult Get()
         {
-            IEnumerable<category> categories = _cs.Get();
+            List<CategoryResponse> categories = _categoryService.Get();
             if (categories == null)
             {
                 return NotFound();
@@ -34,10 +33,9 @@ namespace ess_api.Controllers
         }
 
         // GET: api/categories/5
-        [ResponseType(typeof(category))]
-        public IHttpActionResult Get(int Id)
+        public IHttpActionResult Get(string Id)
         {
-            category Category = _cs.Get(Id);
+            CategoryResponse Category = _categoryService.Get(Id);
             if (Category == null)
             {
                 return NotFound();
@@ -46,28 +44,12 @@ namespace ess_api.Controllers
             return Ok(Category);
         }
 
-        // GET: api/Categories
-        [ResponseType(typeof(IEnumerable<CategoryLan>))]
-        [Route("GetLan")]
-        public IHttpActionResult GetLan()
-        {
-
-            IEnumerable<CategoryLan> categories = _cs.GetLan();
-            if (categories == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(categories);
-        }
-
         // PUT: api/categories/5
-        [ResponseType(typeof(int))]
-        public IHttpActionResult Put(int Id, [FromBody]category Category)
+        public IHttpActionResult Put(int Id, [FromBody]CategoryRequest Category)
         {
             try
             {
-                _cs.Update(Category);
+                _categoryService.Update(Category);
                 return Ok(Id);
             }
             catch (Exception e)
@@ -78,12 +60,11 @@ namespace ess_api.Controllers
         }
 
         // POST: api/categories
-        [ResponseType(typeof(category))]
-        public IHttpActionResult Post([FromBody]category Category)
+        public IHttpActionResult Post([FromBody]CategoryRequest Category)
         {
             try
             {
-                _cs.Add(Category);
+                _categoryService.Add(Category);
                 return Ok(Category.Id);
             }
             catch (Exception e)
@@ -93,12 +74,11 @@ namespace ess_api.Controllers
         }
 
         // DELETE: api/categories/5
-        [ResponseType(typeof(category))]
-        public IHttpActionResult Delete(int Id)
+        public IHttpActionResult Delete(string Id)
         {
             try
             {
-                _cs.Remove(Id);
+                _categoryService.Remove(Id);
                 return Ok(Id);
             }
             catch (Exception e)

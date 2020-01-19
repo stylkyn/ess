@@ -1,87 +1,154 @@
 ﻿using ess_api.Core.Interface;
 using ess_api.Core.Model;
 using ess_api.DAL;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
-namespace ess_api.Repository
+namespace ess_api.DAL.Repository
 {
     public class RepositorySettings
     {
         public static string language_code { get; set; } = "cs";
 
     }
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class Repository<T> : IRepository<T> where T : BaseModel
     {
-        protected readonly EssContext _db;
+        protected readonly DBContext _db;
 
-        public Repository(EssContext dataContext)
+        public Repository(DBContext db)
         {
-            _db = dataContext;
+            _db = db;
         }
 
-        IEnumerable<TEntity> IRepository<TEntity>.GetAll()
+        private IMongoCollection<T> Collection()
         {
-            return DbSet.ToList();
+            return MongoDB._db.GetCollection<T>(typeof(T).Name);
         }
 
-        TEntity IRepository<TEntity>.Find(Expression<Func<TEntity, bool>> predicate)
+        /**
+         *  SYNC
+         */
+
+        public T Find(Guid Id)
         {
-            return DbSet.Find(predicate);
+            return Collection().Find(x => x.Id == Id).FirstOrDefault();
         }
 
-        TEntity IRepository<TEntity>.Find(int Id)
+        // GET
+
+        public IEnumerable<T> FindMany(Expression<Func<T, bool>> condition)
         {
-            return DbSet.Find(Id);
+            return Collection().AsQueryable().Where(condition);
         }
 
-        void IRepository<TEntity>.Add(TEntity entity)
+
+        public IEnumerable<T> FindMany()
         {
-            DbSet.Add(entity);
+            return Collection().AsQueryable();
         }
 
-        void IRepository<TEntity>.AddRange(IEnumerable<TEntity> entities)
+
+        // INSERT
+
+        public void Insert(T document)
         {
-            DbSet.AddRange(entities);
+            Collection().InsertOne(document, null);
         }
 
-        void IRepository<TEntity>.Remove(TEntity entity)
+        public void InsertMany(IEnumerable<T> documents)
         {
-            DbSet.Remove(entity);
+            Collection().InsertMany(documents, null);
         }
 
-        void IRepository<TEntity>.RemoveRange(IEnumerable<TEntity> entities)
+        // UPDATE
+
+        public long Replace(Guid id, T document)
         {
-            DbSet.RemoveRange(entities);
+            return Collection().ReplaceOne(x => x.Id == id, document).ModifiedCount;
         }
 
-        void IRepository<TEntity>.Update(TEntity entity)
+        public T FindAndReplace(Guid id, T document)
         {
-            _db.Entry(entity).State = EntityState.Modified;
-        }
-        // Multijazycnost - vyhlednai hodnoty dle klice
-        protected string Lan(string key)
-        {
-            language lan = _db.languages.Where(l => l.code == RepositorySettings.language_code).FirstOrDefault();
-            long language_id;
-
-            if (lan == null) language_id = 1;
-            else language_id = lan.Id;
-
-            var v = _db.translations.Where(t => t.key == key && t.language_Id == language_id);
-            if (v.Count() == 0)
-                return null;
-            else
-                return v.First().text;
+            return Collection().FindOneAndReplace<T>(
+                x => x.Id == id,
+                document, 
+                new FindOneAndReplaceOptions<T, T> { ReturnDocument = ReturnDocument.After });
         }
 
-        // internal method for Syntax sugar
-        private DbSet<TEntity> DbSet
+        // REMOVE
+
+        public long Delete(Guid id)
         {
-            get { return _db.Set<TEntity>(); }
+            return Collection().DeleteOne(x => x.Id == id).DeletedCount;
         }
+
+        public long DeleteMany(List<Guid> ids)
+        {
+            return Collection().DeleteMany(x => ids.Contains(x.Id)).DeletedCount;
+        }
+
+
+        /**
+         *  ASYNC
+         */
+
+        public async Task<T> FindAsync(Guid Id)
+        {
+            return await Collection().Find(x => x.Id == Id).FirstOrDefaultAsync();
+        }
+
+        public async Task<List<T>> FindManyAsymc(Expression<Func<T, bool>> condition)
+        {
+            return await Collection().Find(condition).ToListAsync();
+        }
+
+        public async Task<List<T>> FindManyAsymc()
+        {
+            return await Collection().Find(_ => true).ToListAsync();
+        }
+
+
+        // INSERT ASYNC
+
+        public async Task InsertAsync(T document)
+        {
+            await Collection().InsertOneAsync(document, null);
+        }
+
+        public async Task InsertManyAsync(IEnumerable<T> documents)
+        {
+            await Collection().InsertManyAsync(documents, null);
+        }
+
+        // UPDATE ASYNC
+
+        public async Task<ReplaceOneResult> ReplaceAsync(Guid id, T document)
+        {
+            return await Collection().ReplaceOneAsync(x => x.Id == id, document);
+        }
+
+        public async Task<T> FindAndReplaceAsync(Guid id, T document)
+        {
+            return await Collection().FindOneAndReplaceAsync<T>(
+                x => x.Id == id,
+                document,
+                new FindOneAndReplaceOptions<T, T> { ReturnDocument = ReturnDocument.After });
+        }
+
+        public async Task<DeleteResult> DeleteAsync(Guid id)
+        {
+            return await Collection().DeleteOneAsync(x => x.Id == id);
+        }
+
+        public async Task<DeleteResult> DeleteManyAsync(List<Guid> ids)
+        {
+            return await Collection().DeleteManyAsync(x => ids.Contains(x.Id));
+        }
+
     }
 }

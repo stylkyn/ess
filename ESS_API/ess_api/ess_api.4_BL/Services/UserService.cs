@@ -1,5 +1,8 @@
-﻿using ess_api.Core.Model;
+﻿using ess_api._4_BL.Services.Responses;
+using ess_api.Core.Model;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ess_api._4_BL.Services
 {
@@ -8,52 +11,47 @@ namespace ess_api._4_BL.Services
         /*
         * GET
         * **/
-        public user VerifySocialLogin(SocialLogin socialLogin)
+        public UserResponse VerifySocialLogin(SocialLogin socialLogin)
         {
-            return _uow.Users.GetUserBySocialLogin(socialLogin);
+            return null;
         }
 
-        public user VerifyLogin(Login login)
+        public UserResponse VerifyLogin(Login login)
         {
-            return _uow.Users.GetUserByLogin(login);
+            return null;
         }
 
-        public IEnumerable<user> Get()
+        public List<UserResponse> Get()
         {
-            return _uow.Users.GetAll();
+            return MapUsers(_uow.Users.FindMany().ToList());
         }
 
-        public user Get(int Id)
+        public UserResponse Get(string id)
         {
-            return _uow.Users.Find(Id);
+            return MapUser(_uow.Users.Find(new Guid(id)));
         }
 
         /*
          *  SET
          * **/
-        public void Add(user user)
+        public void Add(UserRequest user)
         {
-            _uow.Users.Add(user);
-            _uow.Complete();
+            _uow.Users.Insert(user);
         }
 
-        public void Update(user user)
+        public void Update(UserRequest user)
         {
-            _uow.Users.Update(user);
-            _uow.Complete();
+            _uow.Users.Replace(user.Id, user);
         }
 
-        public void Remove(int Id)
+        private UserResponse MapUser(UserModel user)
         {
-            user user = Get(Id);
-            _uow.Users.Remove(user);
-            _uow.Complete();
+            return (UserResponse)user;
         }
 
-        public void RemoveRange(IEnumerable<user> users)
+        private List<UserResponse> MapUsers(List<UserModel> users)
         {
-            _uow.Users.RemoveRange(users);
-            _uow.Complete();
+            return users.Select(x => MapUser(x)).ToList();
         }
     }
 }

@@ -1,6 +1,9 @@
-﻿using ess_api.Core.LanguageModel;
+﻿using ess_api._4_BL.Services.Requests;
+using ess_api._4_BL.Services.Responses;
 using ess_api.Core.Model;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ess_api._4_BL.Services
 {
@@ -9,47 +12,47 @@ namespace ess_api._4_BL.Services
         /*
          * GET
          * **/
-        public IEnumerable<category> Get()
+        public List<CategoryResponse> Get()
         {
-            return _uow.Categories.GetAll();
+            return MapCategories(_uow.Categories.FindMany().ToList());
         }
 
-        public category Get(int Id)
+        public CategoryResponse Get(string Id)
         {
-            return _uow.Categories.Find(Id);
-        }
-
-        public IEnumerable<CategoryLan> GetLan()
-        {
-            return _uow.Categories.GetAllLan();
+            return MapCategory(_uow.Categories.Find(new Guid(Id)));
         }
 
         /*
          *  SET
          * **/
-        public void Add(category Category)
+        public void Add(CategoryRequest category)
         {
-            _uow.Categories.Add(Category);
-            _uow.Complete();
+            _uow.Categories.Insert(category);
         }
 
-        public void Update(category Category)
+        public void Update(CategoryRequest category)
         {
-            _uow.Categories.Update(Category);
-            _uow.Complete();
+            _uow.Categories.Replace(category.Id, category);
         }
 
-        public void Remove(int Id)
+        public void Remove(string id)
         {
-            category Category = Get(Id);
-            _uow.Categories.Remove(Category);
-            _uow.Complete();
+            _uow.Categories.Delete(new Guid(id));
         }
 
-        public void RemoveRange(IEnumerable<category> Categories)
+        private CategoryResponse MapCategory(CategoryModel category)
         {
-            _uow.Categories.RemoveRange(Categories);
-            _uow.Complete();
+            return new CategoryResponse
+            {
+                Id = category.Id,
+                Name = category.Name,
+                ParentCategoryId = category.ParentCategoryId
+            };
+        }
+
+        private List<CategoryResponse> MapCategories(List<CategoryModel> categories)
+        {
+            return categories.Select(x => MapCategory(x)).ToList();
         }
     }
 }

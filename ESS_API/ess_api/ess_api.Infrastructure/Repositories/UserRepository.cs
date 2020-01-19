@@ -1,28 +1,29 @@
 ﻿using ess_api.Core.Interfaces;
 using ess_api.Core.Model;
 using ess_api.DAL;
-using ess_api.Repository;
-using System.Linq;
+using ess_api.DAL.Repository;
 
 namespace ess_api.Infrastructure.Repositories
 {
-    public class UserRepository : Repository<user>, IUserRepository
+    public class UserRepository : Repository<UserModel>, IUserRepository
     {
-        public UserRepository(EssContext _db) : base(_db) { }
+        public UserRepository(DBContext _db) : base(_db) { }
 
-        public user GetUserByLogin(Login login)
+        public UserModel GetUserByLogin(Login login)
         {
-            return _db.users
-                .Where(u => u.password == login.password && (u.username == login.username || u.email == login.username))
-                .FirstOrDefault();
+            return null;
+            //return _db.
+            //    .Where(u => u.password == login.password && (u.username == login.username || u.email == login.username))
+            //    .FirstOrDefault();
         }
 
-        public user GetUserBySocialLogin(SocialLogin socialLogin)
+        public UserModel GetUserBySocialLogin(SocialLogin socialLogin)
         {
-            return _db.users
-                .Where(u => (u.fb_Id == socialLogin.fb_Id && u.fb_Id != null)
-                    || (u.google_Id == socialLogin.google_Id && u.google_Id != null))
-                .FirstOrDefault();
+            return null;
+            //return _db.users
+            //    .Where(u => (u.fb_Id == socialLogin.fb_Id && u.fb_Id != null)
+            //        || (u.google_Id == socialLogin.google_Id && u.google_Id != null))
+            //    .FirstOrDefault();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace ess_api._4_BL
 
         public MainService()
         {
-            _uow = new UnitOfWork(new EssContext());
+            _uow = new UnitOfWork(new DBContext());
         }
     }
 }

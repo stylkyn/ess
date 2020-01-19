@@ -24,8 +24,7 @@ namespace ess_api
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{lang}/{controller}/{id}",
-                constraints: new { lang = @"(\w{2})|(\w{2}-\w{2})" },
+                routeTemplate: "api/{controller}/{id}",
                 defaults: new
                 {
                     id = RouteParameter.Optional,

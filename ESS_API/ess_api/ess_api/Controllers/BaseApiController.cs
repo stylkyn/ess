@@ -13,10 +13,6 @@ namespace ess_api.Controllers
 
         public override Task<HttpResponseMessage> ExecuteAsync(HttpControllerContext controllerContext, CancellationToken cancellationToken)
         {
-            string lang = controllerContext.Request.RequestUri.Segments[2];
-            lang = lang.Remove(lang.Length - 1, 1); // orezani lomitka (z cs/ udela cs)
-            RepositorySettings.language_code = lang;
-
             return base.ExecuteAsync(controllerContext, cancellationToken);
         }
     }
