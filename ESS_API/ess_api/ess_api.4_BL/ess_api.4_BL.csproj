@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ess_api.Core\ess_api.1_Core.csproj">
@@ -54,10 +55,16 @@
     <Compile Include="Services\Requests\UserRequest.cs" />
     <Compile Include="Services\Requests\CategoryRequest.cs" />
     <Compile Include="Services\Requests\ArticleRequest.cs" />
+    <Compile Include="Services\Responses\Response.cs" />
     <Compile Include="Services\Responses\UserResponse.cs" />
     <Compile Include="Services\Responses\CategoryResponse.cs" />
     <Compile Include="Services\Responses\ArticleResponse.cs" />
     <Compile Include="Services\UserService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -34,10 +34,10 @@ export class APIRepository<T> {
   public add(val: T): Observable<T> {
     return this._API.post(this.className, val);
   }
-  public edit(val: T): Observable<T> {
+  public update(val: T): Observable<T> {
     return this._API.put(this.className, val);
   }
-  public delete(id: number): Observable<number> {
+  public delete(id: string): Observable<number> {
     return this._API.delete(this.className + '/' + id);
   }
   public deleteObj(val: T): Observable<number> {

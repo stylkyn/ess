@@ -44,7 +44,7 @@ namespace ess_api._4_BL.Services
         {
             return new CategoryResponse
             {
-                Id = category.Id,
+                Id = category.Id.ToString(),
                 Name = category.Name,
                 ParentCategoryId = category.ParentCategoryId
             };

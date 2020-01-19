@@ -1,10 +1,10 @@
 import { AuthService } from './../../../../services/auth.service';
-import { ISocialUser } from 'src/app/model/ISocialUser';
+import { ISocialUser } from 'src/app/models/ISocialUser';
 import { UserService } from './../../../../services/API/user.service';
 import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { IUser } from 'src/app/model/IUser';
+import { IUser } from 'src/app/models/IUser';
 import { Observable } from 'rxjs';
 import { SocialLoginService } from 'src/app/services/social-login.service';
 

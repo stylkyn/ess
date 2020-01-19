@@ -1,14 +1,14 @@
 import { AuthService } from './../../../../services/auth.service';
-import { ISocialLogin } from 'src/app/model/ISocialLogin';
-import { IUser } from './../../../../model/IUser';
+import { ISocialLogin } from 'src/app/models/ISocialLogin';
+import { IUser } from '../../../../models/IUser';
 import { Observable, Subscription } from 'rxjs';
 import { SocialLoginService } from './../../../../services/social-login.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/API/user.service';
-import { ILogin } from 'src/app/model/ILogin';
-import { ISocialUser } from 'src/app/model/ISocialUser';
+import { ILogin } from 'src/app/models/ILogin';
+import { ISocialUser } from 'src/app/models/ISocialUser';
 
 @Component({
   selector: 'app-login-card',

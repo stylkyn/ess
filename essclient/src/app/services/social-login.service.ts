@@ -6,7 +6,7 @@ import {
   LinkedinLoginProvider
 } from 'angular-6-social-login';
 import { Router } from '@angular/router';
-import { ISocialUser } from '../model/ISocialUser';
+import { ISocialUser } from '../models/ISocialUser';
 
 @Injectable({
   providedIn: 'root'

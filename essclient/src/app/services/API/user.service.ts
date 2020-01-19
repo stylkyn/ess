@@ -1,10 +1,10 @@
-import { ILogin } from './../../model/ILogin';
+import { ILogin } from '../../models/ILogin';
 import { APIService } from './API.service';
 import { APIRepository } from './API-repository';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { IUser } from 'src/app/model/IUser';
-import { ISocialLogin } from 'src/app/model/ISocialLogin';
+import { IUser } from 'src/app/models/IUser';
+import { ISocialLogin } from 'src/app/models/ISocialLogin';
 
 @Injectable({
   providedIn: 'root'
