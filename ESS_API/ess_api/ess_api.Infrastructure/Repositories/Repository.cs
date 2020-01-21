@@ -127,9 +127,9 @@ namespace ess_api.DAL.Repository
 
         // UPDATE ASYNC
 
-        public async Task<ReplaceOneResult> ReplaceAsync(Guid id, T document)
+        public async Task ReplaceAsync(Guid id, T document)
         {
-            return await Collection().ReplaceOneAsync(x => x.Id == id, document);
+            await Collection().ReplaceOneAsync(x => x.Id == id, document);
         }
 
         public async Task<T> FindAndReplaceAsync(Guid id, T document)
@@ -140,14 +140,14 @@ namespace ess_api.DAL.Repository
                 new FindOneAndReplaceOptions<T, T> { ReturnDocument = ReturnDocument.After });
         }
 
-        public async Task<DeleteResult> DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            return await Collection().DeleteOneAsync(x => x.Id == id);
+            await Collection().DeleteOneAsync(x => x.Id == id);
         }
 
-        public async Task<DeleteResult> DeleteManyAsync(List<Guid> ids)
+        public async Task DeleteManyAsync(List<Guid> ids)
         {
-            return await Collection().DeleteManyAsync(x => ids.Contains(x.Id));
+            await Collection().DeleteManyAsync(x => ids.Contains(x.Id));
         }
 
     }

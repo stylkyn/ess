@@ -1,4 +1,5 @@
-﻿using ess_api._4_BL.Services.Responses;
+﻿using ess_api._4_BL.Services.Requests;
+using ess_api._4_BL.Services.Responses;
 using ess_api.Core.Model;
 using System;
 using System.Collections.Generic;
@@ -46,7 +47,7 @@ namespace ess_api._4_BL.Services
 
         private UserResponse MapUser(UserModel user)
         {
-            return (UserResponse)user;
+            return null;
         }
 
         private List<UserResponse> MapUsers(List<UserModel> users)

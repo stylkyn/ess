@@ -43,7 +43,7 @@ namespace ess_api._4_BL.Services
 
         private ArticleResponse MapArticle(ArticleModel article)
         {
-            return (ArticleResponse)article;
+            return null;
         }
 
         private List<ArticleResponse> MapArticles(List<ArticleModel> articles)

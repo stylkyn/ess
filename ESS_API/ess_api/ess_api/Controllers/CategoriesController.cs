@@ -4,9 +4,8 @@ using ess_api._4_BL.Services.Responses;
 using ess_api.LogEx;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Description;
-using System.Web.Routing;
 
 namespace ess_api.Controllers
 {
@@ -20,10 +19,19 @@ namespace ess_api.Controllers
             _categoryService = new CategoryService();
         }
 
-        // GET: api/categories
-        public IHttpActionResult Get()
+        // GET: api/categories/GetTree
+        [HttpGet]
+        [Route("GetTree")]
+        public async Task<IHttpActionResult> GetTree()
         {
-            List<CategoryResponse> categories = _categoryService.Get();
+            var response = await _categoryService.GetTree();
+            return new CreateResult<Response>(response);
+        }
+
+        // GET: api/categories
+        public async Task<IHttpActionResult> Get()
+        {
+            List<CategoryResponse> categories = await _categoryService.Get();
             if (categories == null)
             {
                 return NotFound();
@@ -33,9 +41,9 @@ namespace ess_api.Controllers
         }
 
         // GET: api/categories/5
-        public IHttpActionResult Get(string Id)
+        public async Task<IHttpActionResult> Get(string Id)
         {
-            CategoryResponse Category = _categoryService.Get(Id);
+            CategoryResponse Category = await _categoryService.Get(Id);
             if (Category == null)
             {
                 return NotFound();
@@ -45,11 +53,11 @@ namespace ess_api.Controllers
         }
 
         // PUT: api/categories/5
-        public IHttpActionResult Put(int Id, [FromBody]CategoryRequest Category)
+        public async Task<IHttpActionResult> Put(int Id, [FromBody]CategoryRequest Category)
         {
             try
             {
-                _categoryService.Update(Category);
+                await _categoryService.Update(Category);
                 return Ok(Id);
             }
             catch (Exception e)
@@ -60,11 +68,11 @@ namespace ess_api.Controllers
         }
 
         // POST: api/categories
-        public IHttpActionResult Post([FromBody]CategoryRequest Category)
+        public async Task<IHttpActionResult> Post([FromBody]CategoryRequest Category)
         {
             try
             {
-                _categoryService.Add(Category);
+                await _categoryService.Add(Category);
                 return Ok(Category.Id);
             }
             catch (Exception e)
@@ -74,11 +82,11 @@ namespace ess_api.Controllers
         }
 
         // DELETE: api/categories/5
-        public IHttpActionResult Delete(string Id)
+        public async Task<IHttpActionResult> Delete(string Id)
         {
             try
             {
-                _categoryService.Remove(Id);
+                await _categoryService.Remove(Id);
                 return Ok(Id);
             }
             catch (Exception e)
