@@ -5,6 +5,7 @@ using ess_api.Core.Model;
 using ess_api.LogEx;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -13,78 +14,46 @@ namespace ess_api.Controllers
     [RoutePrefix("api/articles")]
     public class ArticlesController : BaseApiController
     {
-        private ArticleService _as;
+        private ArticleService _articleService;
 
         public ArticlesController()
         {
-            _as = new ArticleService();
+            _articleService = new ArticleService();
         }
 
         // GET: api/Articles
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
-            List<ArticleResponse> articles = _as.Get();
-            if (articles == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(articles);
+            var response = await _articleService.Get();
+            return new CreateResult(response);
         }
 
         // GET: api/Articles/5
-        public IHttpActionResult Get(string Id)
+        public async Task<IHttpActionResult> Get(string Id)
         {
-            ArticleResponse article = _as.Get(Id);
-            if (article == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(article);
+            var response = await _articleService.Get(Id);
+            return new CreateResult(response);
         }
 
         // PUT: api/Articles/5
-        public IHttpActionResult Put(int Id, [FromBody]ArticleRequest article)
+        public async Task<IHttpActionResult> Put(int Id, [FromBody]ArticleRequest article)
         {
-            try
-            {
-                _as.Update(article);
-                return Ok(Id);
-            }
-            catch (Exception e)
-            {
-                throw new MyException(e);
-            }
-
+            var response = await _articleService.Update(article);
+            return new CreateResult(response);
         }
 
         // POST: api/Articles
-        public IHttpActionResult Post([FromBody]ArticleRequest article)
+        public async Task<IHttpActionResult> Post([FromBody]ArticleRequest article)
         {
-            try
-            {
-                _as.Add(article);
-                return Ok(article.Id);
-            }
-            catch (Exception e)
-            {
-                throw new MyException(e);
-            }
+            var response = await _articleService.Add(article);
+            return new CreateResult(response);
         }
 
         // DELETE: api/Articles/5
-        public IHttpActionResult Delete(string Id)
+        public async Task<IHttpActionResult> Delete(string Id)
         {
-            try
-            {
-                _as.Remove(Id);
-                return Ok(Id);
-            }
-            catch (Exception e)
-            {
-                throw new MyException(e);
-            }
+            var response = await _articleService.Remove(Id);
+            return new CreateResult(response);
         }
     }
 }

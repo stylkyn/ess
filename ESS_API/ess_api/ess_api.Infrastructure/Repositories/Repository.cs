@@ -107,7 +107,7 @@ namespace ess_api.DAL.Repository
             return await Collection().Find(condition).ToListAsync();
         }
 
-        public async Task<List<T>> FindManyAsymc()
+        public async Task<List<T>> FindManyAsync()
         {
             return await Collection().Find(_ => true).ToListAsync();
         }

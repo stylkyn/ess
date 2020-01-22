@@ -6,6 +6,12 @@ import { throwError, Observable } from 'rxjs';
 
 let loaderSrv: LoaderService;
 
+interface IResponse {
+  data: any | any[];
+  message: string;
+  error: Object;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -29,6 +35,7 @@ export class APIService {
     const url = this.apiRoot + method;
 
     return this._http.get<any>(url).pipe(
+        map((x: IResponse) => x.data),
         tap(this.end),
         catchError(this.errorHandler));
   }
@@ -39,9 +46,9 @@ export class APIService {
     const url = this.apiRoot + method;
 
     return this._http.post(url, data, this.getOptions()).pipe(
-      map((x) => {
+      map((x: IResponse) => {
         this.successHandlerLog(url, 'POST', data);
-        return x; }),
+        return x.data; }),
       tap(this.end),
       catchError(e => this.errorHandlerLog(e, url, 'POST', data)));
   }
@@ -52,6 +59,7 @@ export class APIService {
     const url = this.apiRoot + method;
 
     return this._http.put(url, data, this.getOptions()).pipe(
+      map((x: IResponse) => x.data),
       tap(this.end),
       catchError(e => this.errorHandlerLog(e, url, 'PUT', data)));
   }
@@ -62,6 +70,7 @@ export class APIService {
     const url = this.apiRoot + method;
 
     return this._http.delete(url, this.getOptions()).pipe(
+      map((x: IResponse) => x.data),
       tap(this.end),
       catchError(e => this.errorHandlerLog(e, url, 'DELETE', null)));
   }

@@ -4,6 +4,7 @@ using ess_api.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ess_api._4_BL.Services
 {
@@ -12,42 +13,49 @@ namespace ess_api._4_BL.Services
         /*
         * GET
         * **/
-        public UserResponse VerifySocialLogin(SocialLogin socialLogin)
+        public async Task<Response<UserResponse>> VerifySocialLogin(SocialLogin socialLogin)
         {
             return null;
         }
 
-        public UserResponse VerifyLogin(Login login)
+        public async Task<Response<UserResponse>> VerifyLogin(Login login)
         {
             return null;
         }
 
-        public List<UserResponse> Get()
+        public async Task<ResponseList<UserResponse>> Get()
         {
-            return MapUsers(_uow.Users.FindMany().ToList());
+            var users = await _uow.Users.FindManyAsync();
+            return new ResponseList<UserResponse>(ResponseStatus.Ok, MapUsers(users.ToList()));
         }
 
-        public UserResponse Get(string id)
+        public async Task<Response<UserResponse>> Get(string id)
         {
-            return MapUser(_uow.Users.Find(new Guid(id)));
+            var user = await _uow.Users.FindAsync(new Guid(id));
+            return new Response<UserResponse>(ResponseStatus.Ok, MapUser(user));
         }
 
         /*
          *  SET
          * **/
-        public void Add(UserRequest user)
+        public async Task<Response> Add(UserRequest user)
         {
-            _uow.Users.Insert(user);
+            await _uow.Users.InsertAsync(user);
+            return new Response(ResponseStatus.Ok);
         }
 
-        public void Update(UserRequest user)
+        public async Task<Response> Update(UserRequest user)
         {
-            _uow.Users.Replace(user.Id, user);
+            await _uow.Users.ReplaceAsync(user.Id, user);
+            return new Response(ResponseStatus.Ok);
         }
 
         private UserResponse MapUser(UserModel user)
         {
-            return null;
+            return new UserResponse {
+                Firstname = user.Firstname,
+                Lastname = user.Lastname
+            };
         }
 
         private List<UserResponse> MapUsers(List<UserModel> users)

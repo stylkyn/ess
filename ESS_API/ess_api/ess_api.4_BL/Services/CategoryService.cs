@@ -15,55 +15,63 @@ namespace ess_api._4_BL.Services
          * **/
         public async Task<ResponseList<CategoryResponse>> GetTree()
         {
-            var categories = await _uow.Categories.FindManyAsymc();
+            var categories = await _uow.Categories.FindManyAsync();
             return new ResponseList<CategoryResponse>(ResponseStatus.Ok, MapCategoryTree(categories.ToList()));
         }
 
-        public async Task<CategoryResponse> GetTree(string Id)
+        public async Task<Response<CategoryResponse>> GetTree(string Id)
         {
             var category = await _uow.Categories.FindAsync(new Guid(Id));
-            return MapCategoryTree(category);
+            return new Response<CategoryResponse>(ResponseStatus.Ok, MapCategoryTree(category));
         }
 
-        public async Task<List<CategoryResponse>> Get()
+        public async Task<ResponseList<CategoryResponse>> Get()
         {
             
-            var categories = await _uow.Categories.FindManyAsymc();
-            return MapCategories(categories.ToList());
+            var categories = await _uow.Categories.FindManyAsync();
+            return new ResponseList<CategoryResponse>(ResponseStatus.Ok, MapCategories(categories.ToList()));
         }
 
-        public async Task<CategoryResponse> Get(string Id)
+        public async Task<Response<CategoryResponse>> Get(string Id)
         {
             var category = await _uow.Categories.FindAsync(new Guid(Id));
-            return MapCategory(category);
+            if (category == null)
+                return new Response<CategoryResponse>(ResponseStatus.NotFound, MapCategory(category), $"Category with Id: {Id} was not founded");
+
+            return new Response<CategoryResponse>(ResponseStatus.Ok, MapCategory(category));
         }
 
         /*
          *  SET
          * **/
-        public async Task Add(CategoryRequest category)
+        public async Task<Response> Add(CategoryRequest category)
         {
             var newCategory = new CategoryModel
             {
                 Name = category.Name,
                 ParentCategoryId = category.ParentCategoryId
             };
+
             await _uow.Categories.InsertAsync(newCategory);
+            return new Response(ResponseStatus.Ok);
         }
 
-        public async Task Update(CategoryRequest category)
+        public async Task<Response> Update(CategoryRequest category)
         {
             var newCategory = new CategoryModel
             {
                 Name = category.Name,
                 ParentCategoryId = category.ParentCategoryId
             };
+
             await _uow.Categories.ReplaceAsync(new Guid(category.Id), newCategory);
+            return new Response(ResponseStatus.Ok);
         }
 
-        public async Task Remove(string id)
+        public async Task<Response> Remove(string id)
         {
             await _uow.Categories.DeleteAsync(new Guid(id));
+            return new Response(ResponseStatus.Ok);
         }
 
         private CategoryResponse MapCategory(CategoryModel category)

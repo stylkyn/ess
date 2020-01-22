@@ -5,6 +5,7 @@ using ess_api.Core.Model;
 using ess_api.LogEx;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -22,68 +23,41 @@ namespace ess_api.Controllers
 
         // LOGIN - VERIFY USER
         [Route("VerifyLogin")]
-        public IHttpActionResult VerifyLogin([FromBody]Login login)
+        public async Task<IHttpActionResult> VerifyLogin([FromBody]Login login)
         {
-
-            if (login == null)
-            {
-                return NotFound();
-            }
-            return Ok(_userService.VerifyLogin(login));
+            var response = await _userService.VerifyLogin(login);
+            return new CreateResult(response);
         }
         // LOGIN - VERIFY SOCIAL LOGIN
         [Route("VerifySocialLogin")]
-        public IHttpActionResult VerifySocialLogin([FromBody]SocialLogin socialLogin)
+        public async Task<IHttpActionResult> VerifySocialLogin([FromBody]SocialLogin socialLogin)
         {
-
-            if (socialLogin == null)
-            {
-                return NotFound();
-            }
-            return Ok(_userService.VerifySocialLogin(socialLogin));
+            var response = await _userService.VerifySocialLogin(socialLogin);
+            return new CreateResult(response);
         }
 
         // GET: api/users
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
-            List<UserResponse> users = _userService.Get();
-            if (users == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(users);
+            var response = await _userService.Get();
+            return new CreateResult(response);
         }
 
         // GET: api/users/5
-        public IHttpActionResult Get(string Id)
+        public async Task<IHttpActionResult> Get(string Id)
         {
-            UserResponse user = _userService.Get(Id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(user);
+            var response = await _userService.Get(Id);
+            return new CreateResult(response);
         }
 
         // PUT: api/users/5
-        public IHttpActionResult Put(int Id, [FromBody]UserRequest user)
+        public async Task<IHttpActionResult> Put(int Id, [FromBody]UserRequest user)
         {
-            try
-            {
-                _userService.Update(user);
-                return Ok(Id);
-            }
-            catch (Exception e)
-            {
-                throw new MyException(e);
-            }
-
+            var response = await _userService.Update(user);
+            return new CreateResult(response);
         }
-
         // POST: api/users
-        public IHttpActionResult Post([FromBody]UserRequest user)
+            public async Task<IHttpActionResult> Post([FromBody]UserRequest user)
         {
             try
             {

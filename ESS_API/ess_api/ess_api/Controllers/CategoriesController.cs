@@ -25,74 +25,43 @@ namespace ess_api.Controllers
         public async Task<IHttpActionResult> GetTree()
         {
             var response = await _categoryService.GetTree();
-            return new CreateResult<Response>(response);
+            return new CreateResult(response);
         }
 
         // GET: api/categories
         public async Task<IHttpActionResult> Get()
         {
-            List<CategoryResponse> categories = await _categoryService.Get();
-            if (categories == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(categories);
+            var response = await _categoryService.Get();
+            return new CreateResult(response);
         }
 
         // GET: api/categories/5
         public async Task<IHttpActionResult> Get(string Id)
         {
-            CategoryResponse Category = await _categoryService.Get(Id);
-            if (Category == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(Category);
+            var response = await _categoryService.Get(Id);
+            return new CreateResult(response);
         }
 
         // PUT: api/categories/5
         public async Task<IHttpActionResult> Put(int Id, [FromBody]CategoryRequest Category)
         {
-            try
-            {
-                await _categoryService.Update(Category);
-                return Ok(Id);
-            }
-            catch (Exception e)
-            {
-                throw new MyException(e);
-            }
-
+            var response = await _categoryService.Update(Category);
+            return new CreateResult(response);
         }
 
         // POST: api/categories
         public async Task<IHttpActionResult> Post([FromBody]CategoryRequest Category)
         {
-            try
-            {
-                await _categoryService.Add(Category);
-                return Ok(Category.Id);
-            }
-            catch (Exception e)
-            {
-                throw new MyException(e);
-            }
+            var response = await _categoryService.Add(Category);
+            return new CreateResult(response);
+
         }
 
         // DELETE: api/categories/5
         public async Task<IHttpActionResult> Delete(string Id)
         {
-            try
-            {
-                await _categoryService.Remove(Id);
-                return Ok(Id);
-            }
-            catch (Exception e)
-            {
-                throw new MyException(e);
-            }
+            var response = await _categoryService.Remove(Id);
+            return new CreateResult(response);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace ess_api.Controllers
         public BaseApiController() { }
     }
 
-    public class CreateResult<T> : IHttpActionResult where T : Response
+    public class CreateResult : IHttpActionResult
     {
         Response _response { get; set; }
         public CreateResult(Response response)
