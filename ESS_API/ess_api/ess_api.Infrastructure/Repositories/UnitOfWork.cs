@@ -6,14 +6,14 @@ namespace ess_api.DAL.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public IArticleRepository Articles { get; private set; }
+        public IProductRepository Products { get; private set; }
         public ICategoryRepository Categories { get; private set; }
         public IUserRepository Users { get; private set; }
 
 
         public UnitOfWork(DBContext db)
         {
-            Articles = new ArticleRepository(db);
+            Products = new ProductRepository(db);
             Categories = new CategoryRepository(db);
             Users = new UserRepository(db);
         }

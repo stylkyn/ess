@@ -118,7 +118,7 @@
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Login.cs" />
     <Compile Include="Model\CategoryModel.cs" />
-    <Compile Include="Model\ArticleModel.cs" />
+    <Compile Include="Model\ProductModel.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

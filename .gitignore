@@ -1,0 +1,9 @@
+packages
+bin
+obj
+sqlite3
+.vs
+*.ide
+*.sqlite
+*.ide
+*.sqlite

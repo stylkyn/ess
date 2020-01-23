@@ -1,0 +1,16 @@
+<ul class="_SideMenu collapsible collapsible-accordion">
+  <mdb-accordion [multiple]="false" aria-multiselectable="false">
+    <mdb-accordion-item class="_SideMenu-item" *ngFor="let category of categoryService.categoriesTree">
+      <mdb-accordion-item-head class="_SideMenu-item-header" mdbWavesEffect>{{category.name}}</mdb-accordion-item-head>
+      <mdb-accordion-item-body class="_SideMenu-item-body">
+        <ul>
+          <li *ngFor="let subcategory of category.subcategories">
+            <a routerLink="/example-route" routerLinkActive="active" href="#" mdbWavesEffect>
+              {{subcategory.name}}
+            </a>
+          </li>
+        </ul>
+      </mdb-accordion-item-body>
+    </mdb-accordion-item>
+  </mdb-accordion>
+</ul>

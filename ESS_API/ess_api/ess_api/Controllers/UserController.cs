@@ -57,17 +57,10 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
         // POST: api/users
-            public async Task<IHttpActionResult> Post([FromBody]UserRequest user)
+        public async Task<IHttpActionResult> Post([FromBody]UserRequest user)
         {
-            try
-            {
-                _userService.Add(user);
-                return Ok(user);
-            }
-            catch (Exception e)
-            {
-                throw new MyException(e);
-            }
+            var response = await _userService.Add(user);
+            return new CreateResult(response);
         }
     }
 }

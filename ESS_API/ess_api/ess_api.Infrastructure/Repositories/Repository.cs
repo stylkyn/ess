@@ -25,7 +25,7 @@ namespace ess_api.DAL.Repository
             _db = db;
         }
 
-        private IMongoCollection<T> Collection()
+        public IMongoCollection<T> Collection()
         {
             return MongoDB._db.GetCollection<T>(typeof(T).Name);
         }
@@ -102,7 +102,7 @@ namespace ess_api.DAL.Repository
             return await Collection().Find(x => x.Id == Id).FirstOrDefaultAsync();
         }
 
-        public async Task<List<T>> FindManyAsymc(Expression<Func<T, bool>> condition)
+        public async Task<List<T>> FindManyAsync(Expression<Func<T, bool>> condition)
         {
             return await Collection().Find(condition).ToListAsync();
         }

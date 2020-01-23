@@ -1,0 +1,35 @@
+._SideMenu {
+    padding: 0;
+    &-item {
+        &-header {
+            color: black !important;
+            .card-header {
+                color: black !important;
+                h5 {
+                    font-weight: 400;
+                    font-size: 18px;
+                }
+            }
+            .rotate-icon {
+                opacity: 0.5;
+            }
+        }
+        &-body {
+            ul {
+                padding-left: 20px;
+                li {
+                    list-style-type: none;
+                    margin-bottom: 5px;
+                    a{
+                        color: black;
+                        font-weight: 400;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.Header-navbar {
+    padding: 0;
+}

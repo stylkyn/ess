@@ -19,12 +19,7 @@ export class APIRepository<T> {
     this.className = _className;
     console.log('service');
   }
-    /**
-   * GET
-   */
-  public getAll(): Observable<T[]> {
-    return this._API.get(this.className);
-  }
+
   public getByID(id: number): Observable<T> {
     return this._API.get(this.className + '/Get/' + id);
   }

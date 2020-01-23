@@ -89,12 +89,12 @@ export class APIService {
 
   // handlery chyb
   private errorHandlerLog(error: HttpErrorResponse, url: string, method: string, data_in: any = null) {
-    this._loaderSrv.hide();
+    loaderSrv.hide();
     return throwError(error || 'API error');
   }
   private errorHandler(error: HttpErrorResponse) {
     console.error('API error', error);
-    this._loaderSrv.hide();
+    loaderSrv.hide();
     return throwError(error || 'API error');
   }
   // handler uspesneho dokonceni
@@ -107,7 +107,7 @@ export class APIService {
     //   api_url: url
     // };
     // this.logSubs.next(newLog);
-    this._loaderSrv.hide();
+    loaderSrv.hide();
   }
   // vraci nastavneou hlavicku
   private getOptions(): object {

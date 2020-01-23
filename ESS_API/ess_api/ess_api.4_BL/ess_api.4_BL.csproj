@@ -50,18 +50,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainService.cs" />
-    <Compile Include="Services\ArticleService.cs" />
-    <Compile Include="Services\CategoryService.cs" />
-    <Compile Include="Services\Requests\BaseRequest.cs" />
-    <Compile Include="Services\Requests\UserRequest.cs" />
-    <Compile Include="Services\Requests\CategoryRequest.cs" />
-    <Compile Include="Services\Requests\ArticleRequest.cs" />
-    <Compile Include="Services\Responses\ResponseData.cs" />
-    <Compile Include="Services\Responses\Response.cs" />
-    <Compile Include="Services\Responses\UserResponse.cs" />
-    <Compile Include="Services\Responses\CategoryResponse.cs" />
-    <Compile Include="Services\Responses\ArticleResponse.cs" />
-    <Compile Include="Services\UserService.cs" />
+    <Compile Include="Services\Product\ProductService.cs" />
+    <Compile Include="Services\Category\CategoryService.cs" />
+    <Compile Include="Request.cs" />
+    <Compile Include="Services\Product\Requests\ProductSearchRequest.cs" />
+    <Compile Include="Services\User\Requests\UserRequest.cs" />
+    <Compile Include="Services\Category\Requests\CategoryRequest.cs" />
+    <Compile Include="Services\Product\Requests\ProductRequest.cs" />
+    <Compile Include="ResponseData.cs" />
+    <Compile Include="Response.cs" />
+    <Compile Include="Services\User\Responses\UserResponse.cs" />
+    <Compile Include="Services\Category\Responses\CategoryResponse.cs" />
+    <Compile Include="Services\Product\Responses\ProductResponse.cs" />
+    <Compile Include="Services\User\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
