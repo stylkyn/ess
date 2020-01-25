@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductsService, IProductSearchRequest } from './../../../../services/API/products.service';
+import { IProduct } from 'src/app/models/IProduct';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-eshop-products',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EshopProductsComponent implements OnInit {
 
-  constructor() { }
+  constructor(public _productService: ProductsService, private _route: ActivatedRoute) {
+
+  }
+
+  loadProducts () {
+    const request: IProductSearchRequest = {
+      categoryName: this._route.snapshot.paramMap.get('categoryName')
+    };
+    this._productService.search(request);
+  }
 
   ngOnInit() {
+    this.loadProducts();
   }
 
 }

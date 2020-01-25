@@ -1,6 +1,6 @@
 <section class="text-left pb-1 mt-1">
   <div class="row">
-    <div class="col-lg-4 col-md-6 mb-4" *ngFor="">
+    <div class="col-lg-4 col-md-6 mb-4" *ngFor="let product of _productService.products">
       <mdb-card class="_Shop-card align-items-start" routerLink="detail">
         <div class="view overlay waves-light" mdbWavesEffect>
           <mdb-card-img src="https://www.globalworkspace.org/wp-content/uploads/Two-Women-Having-a-Marketing-meeting.jpg" alt=""></mdb-card-img>
@@ -10,13 +10,13 @@
         </div>
         <mdb-card-body class="_Shop-card-body">
           <a href="" class="_Shop-card-title">
-            Školení
+            {{product.name}}
           </a>
           <p class="_Shop-card-description">
-            Time managment školení pro vaše zaměstnance
+            {{product.previewDescription}}
           </p>
           <h4 class="_Shop-card-price">
-            450 Kč/h
+            {{product.price}}
           </h4>
         </mdb-card-body>
       </mdb-card>

@@ -8,3 +8,6 @@ sqlite3
 *.ide
 *.sqlite
 ESS_API/ess_api/.vs/ess_api/v16/.suo
+ESS_API/ess_api/.vs/ess_api/v16/.suo
+ESS_API/ess_api/.vs/ess_api/v16/Server/sqlite3/storage.ide
+ESS_API/ess_api/.vs/slnx.sqlite

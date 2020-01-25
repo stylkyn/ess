@@ -10,10 +10,11 @@ import { EshopDetailComponent } from './eshop-detail/eshop-detail.component';
 import { EshopProductsComponent } from './eshop-products/eshop-products.component';
 import { routing } from './eshop.routing';
 import { RouterModule } from '@angular/router';
+import { EshopMenuComponent } from './eshop-menu/eshop-menu.component';
 
 @NgModule({
   imports: [
-    CommonModule,
+  CommonModule,
     // plugins
     SidenavModule,
     CardsModule,
@@ -36,6 +37,7 @@ import { RouterModule } from '@angular/router';
     EshopComponent,
     EshopDetailComponent,
     EshopProductsComponent,
+    EshopMenuComponent,
   ],
   exports: [
     RouterModule

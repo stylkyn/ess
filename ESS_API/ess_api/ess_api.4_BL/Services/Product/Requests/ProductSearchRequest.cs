@@ -4,6 +4,7 @@ namespace ess_api._4_BL.Services.Requests
 {
     public class ProductSearchRequest : Request
     {
-        public string CategoryId { get; set; }
+        public string CategoryId { get; set; } = default;
+        public string CategoryName { get; set; } = default;
     }
 }

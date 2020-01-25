@@ -12,12 +12,10 @@ export class APIRepository<T> {
   // Internal SET
   protected setClassName(className: string) {
     this.className = className;
-    console.log(this.className + ' Nastaven api');
   }
 
   constructor(protected _API: APIService, _className: string) {
     this.className = _className;
-    console.log('service');
   }
 
   public getByID(id: number): Observable<T> {

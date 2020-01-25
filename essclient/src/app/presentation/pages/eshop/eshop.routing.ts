@@ -19,6 +19,17 @@ const APP_ROUTES: Routes = [
             }
         },
         children: [
+            // {
+            //     path: ':categoryName',
+            //     component: EshopProductsComponent,
+            //     canActivate: [MetaGuard],
+            //     data: {
+            //         meta: {
+            //             title: 'Eshop produkty',
+            //             keywords: 'Producsts'
+            //         }
+            //     }
+            // },
             {
                 path: '',
                 component: EshopProductsComponent,
@@ -31,7 +42,7 @@ const APP_ROUTES: Routes = [
                 }
             },
             {
-                path: 'detail',
+                path: ':categoryName/:productName',
                 component: EshopDetailComponent,
                 canActivate: [MetaGuard],
                 data: {

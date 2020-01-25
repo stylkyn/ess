@@ -1,5 +1,6 @@
 ﻿using ess_api._4_BL.Services.Requests;
 using ess_api._4_BL.Services.Responses;
+using ess_api.Core.Extension;
 using ess_api.Core.Model;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,14 @@ namespace ess_api._4_BL.Services
          * **/
         public async Task<ResponseList<ProductResponse>> Search(ProductSearchRequest request)
         {
-            var Products = await _uow.Products.Search(request.CategoryId);
+            string categoryId = request.CategoryId;
+            if (categoryId.IsEmpty())
+            {
+                var category = await _uow.Categories.FindManyAsync(x => x.Name == request.CategoryName);
+                categoryId = category.FirstOrDefault()?.Id.ToString();
+            }
+
+            var Products = await _uow.Products.Search(categoryId);
             return new ResponseList<ProductResponse>(ResponseStatus.Ok, MapProducts(Products.ToList()));
         }
 

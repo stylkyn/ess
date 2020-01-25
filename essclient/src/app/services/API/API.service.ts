@@ -40,6 +40,17 @@ export class APIService {
         catchError(this.errorHandler));
   }
 
+  // get s parametry
+  public getQuery(method: string, request: Object): Observable<any> {
+    this.start();
+    const url = `${this.apiRoot}${method}${this.objectToQueryParams(request)}`;
+
+    return this._http.get<any>(url).pipe(
+        map((x: IResponse) => x.data),
+        tap(this.end),
+        catchError(this.errorHandler));
+  }
+
   // post
   public post(method: string, data: any): Observable<any> {
     this.start();
@@ -78,6 +89,15 @@ export class APIService {
   /**
   * PRIVATE
   */
+
+ private objectToQueryParams(object: Object) {
+    const params = Object.keys(object).map(key => {
+      const value = object[key];
+      return `${key}=${value}`;
+    });
+    return `?${params.join('&')}`;
+  }
+
   // start call API
   private start() {
     loaderSrv.show();
