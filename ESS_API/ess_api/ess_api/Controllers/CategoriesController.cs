@@ -42,6 +42,15 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
 
+        // GET: api/categories/GetByUrlName
+        [HttpGet]
+        [Route("GetByUrl")]
+        public async Task<IHttpActionResult> GetByUrl([FromUri] string urlName)
+        {
+            var response = await _categoryService.GetByUrl(urlName);
+            return new CreateResult(response);
+        }
+
         // PUT: api/categories/5
         public async Task<IHttpActionResult> Put(int Id, [FromBody]CategoryRequest Category)
         {

@@ -117,6 +117,7 @@ namespace ess_api.DAL.Repository
 
         public async Task InsertAsync(T document)
         {
+
             await Collection().InsertOneAsync(document, null);
         }
 

@@ -1,7 +1,8 @@
 <section class="text-left pb-1 mt-1">
-  <div class="row">
+    <h1 class="_ShopMain-title h3 pt-4 mb-4">{{_categoryService.activeCategory.name}}</h1>
+    <div class="row">
     <div class="col-lg-4 col-md-6 mb-4" *ngFor="let product of _productService.products">
-      <mdb-card class="_Shop-card align-items-start" routerLink="detail">
+      <mdb-card class="_Shop-card align-items-start" [routerLink]="product.urlName">
         <div class="view overlay waves-light" mdbWavesEffect>
           <mdb-card-img src="https://www.globalworkspace.org/wp-content/uploads/Two-Women-Having-a-Marketing-meeting.jpg" alt=""></mdb-card-img>
           <a>

@@ -4,6 +4,7 @@ using ess_api.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace ess_api._4_BL.Services
@@ -19,9 +20,9 @@ namespace ess_api._4_BL.Services
             return new ResponseList<CategoryResponse>(ResponseStatus.Ok, MapCategoryTree(categories.ToList()));
         }
 
-        public async Task<Response<CategoryResponse>> GetTree(string Id)
+        public async Task<Response<CategoryResponse>> GetTree(string id)
         {
-            var category = await _uow.Categories.FindAsync(new Guid(Id));
+            var category = await _uow.Categories.FindAsync(new Guid(id));
             return new Response<CategoryResponse>(ResponseStatus.Ok, MapCategoryTree(category));
         }
 
@@ -32,11 +33,21 @@ namespace ess_api._4_BL.Services
             return new ResponseList<CategoryResponse>(ResponseStatus.Ok, MapCategories(categories.ToList()));
         }
 
-        public async Task<Response<CategoryResponse>> Get(string Id)
+        public async Task<Response<CategoryResponse>> GetByUrl(string urlName)
         {
-            var category = await _uow.Categories.FindAsync(new Guid(Id));
+            var categories = await _uow.Categories.FindManyAsync(x => x.UrlName == urlName);
+            if (categories == null)
+                return new Response<CategoryResponse>(ResponseStatus.NotFound, null, $"Category with urlName: {urlName} was not founded");
+
+            var response = categories.FirstOrDefault();
+            return new Response<CategoryResponse>(ResponseStatus.Ok, MapCategory(response));
+        }
+
+        public async Task<Response<CategoryResponse>> Get(string id)
+        {
+            var category = await _uow.Categories.FindAsync(new Guid(id));
             if (category == null)
-                return new Response<CategoryResponse>(ResponseStatus.NotFound, MapCategory(category), $"Category with Id: {Id} was not founded");
+                return new Response<CategoryResponse>(ResponseStatus.NotFound, MapCategory(category), $"Category with Id: {id} was not founded");
 
             return new Response<CategoryResponse>(ResponseStatus.Ok, MapCategory(category));
         }
@@ -44,27 +55,28 @@ namespace ess_api._4_BL.Services
         /*
          *  SET
          * **/
-        public async Task<Response> Add(CategoryRequest category)
+        public async Task<Response> Add(CategoryRequest request)
         {
-            var newCategory = new CategoryModel
+            var category = new CategoryModel
             {
-                Name = category.Name,
-                ParentCategoryId = category.ParentCategoryId
+                Name = request.Name,
+                UrlName = WebUtility.UrlEncode(request.UrlName),
+                ParentCategoryId = request.ParentCategoryId
             };
 
-            await _uow.Categories.InsertAsync(newCategory);
+        await _uow.Categories.InsertAsync(category);
             return new Response(ResponseStatus.Ok);
         }
 
-        public async Task<Response> Update(CategoryRequest category)
+        public async Task<Response> Update(CategoryRequest request)
         {
-            var newCategory = new CategoryModel
-            {
-                Name = category.Name,
-                ParentCategoryId = category.ParentCategoryId
-            };
+            var category = _uow.Categories.Find(new Guid(request.Id));
 
-            await _uow.Categories.ReplaceAsync(new Guid(category.Id), newCategory);
+            category.Name = request.Name;
+            category.UrlName = WebUtility.UrlEncode(request.Name);
+            category.ParentCategoryId = request.ParentCategoryId;
+
+            await _uow.Categories.ReplaceAsync(category.Id, category);
             return new Response(ResponseStatus.Ok);
         }
 
@@ -99,6 +111,7 @@ namespace ess_api._4_BL.Services
             {
                 Id = categoryId,
                 Name = category.Name,
+                UrlName = category.UrlName,
                 ParentCategoryId = category.ParentCategoryId,
                 Subcategories = categoriesFlat.Where(x => x.ParentCategoryId == categoryId)
                                               .Select(x => MapCategoryTree(x))

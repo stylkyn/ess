@@ -3,7 +3,6 @@ using ess_api.Core.Model;
 using ess_api.DAL;
 using ess_api.DAL.Repository;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ess_api.Repository

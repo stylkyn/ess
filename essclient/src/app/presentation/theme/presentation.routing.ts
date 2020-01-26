@@ -31,7 +31,7 @@ const APP_ROUTES: Routes = [
             }
         },
         {
-            path: 'eshop',
+            path: 'nase-produkty',
             loadChildren: () => EshopModule
         }
     ]}

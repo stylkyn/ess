@@ -3,6 +3,11 @@
     &-item {
         &-header {
             color: black !important;
+            &-hide-icon {
+                .mdb-accordion-indicator {
+                    display: none;
+                }
+            }
             .card-header {
                 color: black !important;
                 h5 {

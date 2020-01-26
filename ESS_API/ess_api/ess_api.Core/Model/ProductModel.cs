@@ -9,6 +9,7 @@ namespace ess_api.Core.Model
     public class ProductModel : BaseModel
     {
         public string Name { get; set; }
+        public string UrlName { get; set; }
         public string PreviewDescription { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }

@@ -9,27 +9,16 @@ import { EshopProductsComponent } from './eshop-products/eshop-products.componen
 const APP_ROUTES: Routes = [
     // Main tamplate
     {
-        path: '',
+        path: 'nase-produkty',
         component: EshopComponent,
         canActivate: [MetaGuard],
         data: {
             meta: {
-                title: 'Eshop',
-                keywords: 'Elitec software eshop'
+                title: 'Naše produkty',
+                keywords: 'Produkty Vyvoj'
             }
         },
         children: [
-            // {
-            //     path: ':categoryName',
-            //     component: EshopProductsComponent,
-            //     canActivate: [MetaGuard],
-            //     data: {
-            //         meta: {
-            //             title: 'Eshop produkty',
-            //             keywords: 'Producsts'
-            //         }
-            //     }
-            // },
             {
                 path: '',
                 component: EshopProductsComponent,
@@ -42,7 +31,18 @@ const APP_ROUTES: Routes = [
                 }
             },
             {
-                path: ':categoryName/:productName',
+                path: ':categoryUrlName',
+                component: EshopProductsComponent,
+                canActivate: [MetaGuard],
+                data: {
+                    meta: {
+                        title: 'Eshop produkty',
+                        keywords: 'Producsts'
+                    }
+                }
+            },
+            {
+                path: ':categoryUrlName/:productUrlName',
                 component: EshopDetailComponent,
                 canActivate: [MetaGuard],
                 data: {

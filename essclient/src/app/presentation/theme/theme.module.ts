@@ -11,10 +11,11 @@ import { HeaderComponent } from './header/header.component';
 import { HomepageComponent } from './../pages/homepage/homepage.component';
 import { ComponentsModule } from './../components/components.module';
 import { EshopModule } from './../pages/eshop/eshop.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
-CommonModule,
+    CommonModule,
     // plugins
     SidenavModule,
     WavesModule,
@@ -41,9 +42,7 @@ CommonModule,
     HomepageComponent
   ],
   exports: [
-    ThemeComponent,
-    FooterComponent,
-    HeaderComponent,
+    RouterModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [MDBSpinningPreloader]

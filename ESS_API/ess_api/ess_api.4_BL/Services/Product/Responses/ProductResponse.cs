@@ -8,6 +8,9 @@ namespace ess_api._4_BL.Services.Responses
         [JsonProperty("name")]
         public string Name { get; set; }
 
+        [JsonProperty("urlName")]
+        public string UrlName { get; set; }
+
         [JsonProperty("previewDescription")]
         public string PreviewDescription { get; set; }
 

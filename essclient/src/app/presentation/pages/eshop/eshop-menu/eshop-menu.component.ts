@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CategoryService } from '../../../../services/API/category.service';
-import { ICategory } from '../../../../models/ICategory';
+import { Component, OnInit, Input } from '@angular/core';
+import { ICategory } from 'src/app/models/ICategory';
 
 @Component({
   selector: 'app-eshop-menu',
@@ -9,10 +8,11 @@ import { ICategory } from '../../../../models/ICategory';
 })
 export class EshopMenuComponent implements OnInit {
 
-  constructor(public categoryService: CategoryService ) { }
+  @Input() categoriesTree: ICategory[] = [];
+
+  constructor() { }
 
   ngOnInit() {
-    this.categoryService.getTree();
   }
 
 }

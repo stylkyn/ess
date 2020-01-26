@@ -9,6 +9,7 @@ namespace ess_api.Core.Model
     public class CategoryModel : BaseModel
     {
         public string Name { get; set; }
+        public string UrlName { get; set; }
         public string ParentCategoryId { get; set; }
     }
 }

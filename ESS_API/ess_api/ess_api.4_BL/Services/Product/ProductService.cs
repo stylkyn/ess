@@ -5,6 +5,8 @@ using ess_api.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ess_api._4_BL.Services
@@ -20,7 +22,7 @@ namespace ess_api._4_BL.Services
             string categoryId = request.CategoryId;
             if (categoryId.IsEmpty())
             {
-                var category = await _uow.Categories.FindManyAsync(x => x.Name == request.CategoryName);
+                var category = await _uow.Categories.FindManyAsync(x => x.UrlName == request.CategoryUrlName);
                 categoryId = category.FirstOrDefault()?.Id.ToString();
             }
 
@@ -37,15 +39,33 @@ namespace ess_api._4_BL.Services
         /*
          *  SET
          * **/
-        public async Task<Response> Add(ProductRequest Product)
+        public async Task<Response> Add(ProductRequest request)
         {
-            await _uow.Products.InsertAsync(Product);
+            var product = new ProductModel
+            {
+                CategoryId = request.CategoryId,
+                Name = request.Name,
+                Description = request.Description,
+                PreviewDescription = request.PreviewDescription,
+                Price = request.Price,
+                UrlName = WebUtility.UrlEncode(request.UrlName)
+            };
+            await _uow.Products.InsertAsync(product);
             return new Response(ResponseStatus.Ok);
         }
 
-        public async Task<Response> Update(ProductRequest Product)
+        public async Task<Response> Update(ProductRequest request)
         {
-            await _uow.Products.ReplaceAsync(Product.Id, Product);
+            var product = _uow.Products.Find(new Guid(request.Id));
+
+            product.CategoryId = request.CategoryId;
+            product.Name = request.Name;
+            product.UrlName = WebUtility.UrlEncode(request.UrlName);
+            product.Description = request.Description;
+            product.PreviewDescription = request.PreviewDescription;
+            product.Price = request.Price;
+
+            await _uow.Products.ReplaceAsync(product.Id, product);
             return new Response(ResponseStatus.Ok);
         }
 
@@ -55,22 +75,23 @@ namespace ess_api._4_BL.Services
             return new Response(ResponseStatus.Ok);
         }
 
-        private ProductResponse MapProduct(ProductModel Product)
+        private ProductResponse MapProduct(ProductModel product)
         {
             return new ProductResponse
             {
-                Id = Product.Id.ToString(),
-                Name = Product.Name,
-                PreviewDescription = Product.PreviewDescription,
-                Description = Product.Description,
-                Price = Product.Price,
-                CategoryId = Product.CategoryId
+                Id = product.Id.ToString(),
+                Name = product.Name,
+                UrlName = product.UrlName,
+                PreviewDescription = product.PreviewDescription,
+                Description = product.Description,
+                Price = product.Price,
+                CategoryId = product.CategoryId
             };
         }
 
-        private List<ProductResponse> MapProducts(List<ProductModel> Products)
+        private List<ProductResponse> MapProducts(List<ProductModel> product)
         {
-            return Products.Select(x => MapProduct(x)).ToList();
+            return product.Select(x => MapProduct(x)).ToList();
         }
     }
 }
