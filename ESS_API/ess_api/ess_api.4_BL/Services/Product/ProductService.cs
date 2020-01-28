@@ -1,5 +1,6 @@
 ﻿using ess_api._4_BL.Services.Requests;
 using ess_api._4_BL.Services.Responses;
+using ess_api._4_BL.Shared;
 using ess_api.Core.Extension;
 using ess_api.Core.Model;
 using System;
@@ -46,8 +47,11 @@ namespace ess_api._4_BL.Services
                 CategoryId = request.CategoryId,
                 Name = request.Name,
                 Description = request.Description,
+                PreviewName = request.PreviewName,
+                PreviewImageUrl = request.PreviewImageUrl,
+                Gallery = request.Gallery,
                 PreviewDescription = request.PreviewDescription,
-                Price = request.Price,
+                Price = new Price(request.Price),
                 UrlName = WebUtility.UrlEncode(request.UrlName)
             };
             await _uow.Products.InsertAsync(product);
@@ -63,7 +67,10 @@ namespace ess_api._4_BL.Services
             product.UrlName = WebUtility.UrlEncode(request.UrlName);
             product.Description = request.Description;
             product.PreviewDescription = request.PreviewDescription;
-            product.Price = request.Price;
+            product.PreviewName = request.PreviewName;
+            product.PreviewImageUrl = request.PreviewImageUrl;
+            product.Gallery = request.Gallery;
+            product.Price = new Price(request.Price);
 
             await _uow.Products.ReplaceAsync(product.Id, product);
             return new Response(ResponseStatus.Ok);
@@ -75,17 +82,20 @@ namespace ess_api._4_BL.Services
             return new Response(ResponseStatus.Ok);
         }
 
-        private ProductResponse MapProduct(ProductModel product)
+        private ProductResponse MapProduct(ProductModel request)
         {
             return new ProductResponse
             {
-                Id = product.Id.ToString(),
-                Name = product.Name,
-                UrlName = product.UrlName,
-                PreviewDescription = product.PreviewDescription,
-                Description = product.Description,
-                Price = product.Price,
-                CategoryId = product.CategoryId
+                Id = request.Id.ToString(),
+                Name = request.Name,
+                UrlName = request.UrlName,
+                PreviewName = request.PreviewName,
+                PreviewDescription = request.PreviewDescription,
+                PreviewImageUrl = request.PreviewImageUrl,
+                Description = request.Description,
+                Price = SharedMapService.MapPrice(request.Price),
+                CategoryId = request.CategoryId,
+                Gallery = request.Gallery
             };
         }
 

@@ -32,6 +32,7 @@ const APP_ROUTES: Routes = [
         },
         {
             path: 'nase-produkty',
+            canActivate: [MetaGuard],
             loadChildren: () => EshopModule
         }
     ]}

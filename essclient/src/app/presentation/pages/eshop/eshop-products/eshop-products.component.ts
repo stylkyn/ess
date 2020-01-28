@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService, IProductSearchRequest } from './../../../../services/API/products.service';
-import { IProduct } from 'src/app/models/IProduct';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService, ICategoryRequest } from './../../../../services/API/category.service';
-import { initCategory, ICategory } from 'src/app/models/ICategory';
+import { MapPriceTypes } from 'src/app/models/IPrice';
 
 @Component({
   selector: 'app-eshop-products',
@@ -11,6 +10,7 @@ import { initCategory, ICategory } from 'src/app/models/ICategory';
   styleUrls: []
 })
 export class EshopProductsComponent implements OnInit {
+  public mapPriceTypes = MapPriceTypes;
 
   constructor(
     public _categoryService: CategoryService,

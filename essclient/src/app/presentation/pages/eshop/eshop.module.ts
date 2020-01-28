@@ -2,7 +2,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MDBSpinningPreloader, SidenavModule,
-  WavesModule, AccordionModule, CarouselModule, InputsModule, NavbarModule, CardsModule } from 'ng-uikit-pro-standard';
+  WavesModule, AccordionModule, CarouselModule, InputsModule, NavbarModule, CardsModule, BreadcrumbModule } from 'ng-uikit-pro-standard';
 import { ComponentsModule } from '../../components/components.module';
 import { EshopComponent } from './eshop.component';
 import { EshopDetailComponent } from './eshop-detail/eshop-detail.component';
@@ -29,6 +29,7 @@ import { EshopMenuComponent } from './eshop-menu/eshop-menu.component';
     CarouselModule,
     WavesModule,
     InputsModule,
+    BreadcrumbModule,
 
     ComponentsModule
   ],

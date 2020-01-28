@@ -4,7 +4,7 @@
     <div class="col-lg-4 col-md-6 mb-4" *ngFor="let product of _productService.products">
       <mdb-card class="_Shop-card align-items-start" [routerLink]="product.urlName">
         <div class="view overlay waves-light" mdbWavesEffect>
-          <mdb-card-img src="https://www.globalworkspace.org/wp-content/uploads/Two-Women-Having-a-Marketing-meeting.jpg" alt=""></mdb-card-img>
+          <mdb-card-img [src]="product.previewImageUrl" [alt]="product.name"></mdb-card-img>
           <a>
             <div class="mask rgba-white-slight"></div>
           </a>
@@ -17,7 +17,7 @@
             {{product.previewDescription}}
           </p>
           <h4 class="_Shop-card-price">
-            {{product.price}}
+            {{product.price.czkWithVat}} {{mapPriceTypes(product.price.priceType)}}
           </h4>
         </mdb-card-body>
       </mdb-card>
