@@ -5,7 +5,7 @@
     height: 100% !important;
 }
 #mainCarousel{
-    height: 65%;
+    height: calc(100vh - 100px);
     .carousel{
         height: 100%;
         .carousel-item{
@@ -44,5 +44,18 @@
         padding: 47px;
         border: 4px solid #ececec;
         border-radius: 17%;
+    }
+}
+
+.ShadowCard {
+    &-container {
+    }
+    &-item {
+        .card {
+            height: 300px;
+            > div {
+                height: 300px;
+            }
+        }
     }
 }

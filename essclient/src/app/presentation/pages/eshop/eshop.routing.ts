@@ -9,7 +9,7 @@ import { EshopProductsComponent } from './eshop-products/eshop-products.componen
 const APP_ROUTES: Routes = [
     // Main tamplate
     {
-        path: 'nase-produkty',
+        path: '',
         component: EshopComponent,
         canActivate: [MetaGuard],
         data: {

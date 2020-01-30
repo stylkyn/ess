@@ -2,6 +2,7 @@
 using ess_api.Core.Model;
 using ess_api.DAL;
 using ess_api.DAL.Repository;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,6 +17,11 @@ namespace ess_api.Repository
         {
             return await FindManyAsync(x => 
                 x.CategoryId == categoryId || categoryId == null);
+        }
+
+        public async Task<List<ProductModel>> Search(List<string> categories)
+        {
+            return await FindManyAsync(x => categories.Contains(x.CategoryId));
         }
     }
 }

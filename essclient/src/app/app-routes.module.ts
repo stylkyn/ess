@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 
 
 const APP_ROUTES: Routes = [
-    { path: '', loadChildren: './presentation/theme/theme.module#ThemeModule'},
+    { path: '', loadChildren: () => import('./presentation/theme/theme.module').then(mod => mod.ThemeModule)}
+    // { path: '', loadChildren: './presentation/theme/theme.module#ThemeModule'},
     // { path: 'administration', loadChildren: './internal/theme/theme.module#ThemeModule'}
 ];
 

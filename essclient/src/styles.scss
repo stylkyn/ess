@@ -3,6 +3,7 @@
 @import "./styles/mdbCustomize/headerMenu";
 @import "./styles/mdbCustomize/shopCard";
 @import "./styles/mdbCustomize/shopMain";
+@import "./styles/mdbCustomize/breadcrumb";
 
 @mixin placeholder {
 &::-webkit-input-placeholder {@content}

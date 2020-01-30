@@ -27,7 +27,13 @@ namespace ess_api._4_BL.Services
                 categoryId = category.FirstOrDefault()?.Id.ToString();
             }
 
-            var Products = await _uow.Products.Search(categoryId);
+            // get child categories
+            var categories = (await _uow.Categories.FindManyAsync(x => x.ParentCategoryId == categoryId))
+                .Select(x => x.Id.ToString())
+                .ToList();
+            categories.Add(categoryId);
+
+            var Products = await _uow.Products.Search(categories);
             return new ResponseList<ProductResponse>(ResponseStatus.Ok, MapProducts(Products.ToList()));
         }
 
