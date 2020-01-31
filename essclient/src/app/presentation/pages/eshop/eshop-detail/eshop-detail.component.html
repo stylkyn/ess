@@ -1,4 +1,4 @@
-<section class="magazine-section mt-3 mb-5">
+<section class="EshopDetail magazine-section mt-3 mb-5">
   <mdb-breadcrumb>
     <mdb-breadcrumb-item class="active">Kategorie</mdb-breadcrumb-item>
     <mdb-breadcrumb-item> Level 2</mdb-breadcrumb-item>
@@ -13,6 +13,17 @@
             <div class="mask rgba-white-slight waves-light" mdbWavesEffect></div>
           </a>
         </div>
+        <mdb-carousel [isControls]="true" class="carousel-multi-item multi-animation" [type]="'carousel-multi-item'"
+              [animation]="'slide'">
+          <mdb-carousel-item *ngFor="let item of _activeProduct.gallery; let i = index">
+            <div class="col-md-4" [ngClass]="{'d-none d-md-block': cardIndex !== 0}"
+                *ngFor="let img of _activeProduct.gallery; let cardIndex = index">
+              <mdb-card class="my-1">
+                <mdb-card-img [src]="img" alt="Card image cap"></mdb-card-img>
+              </mdb-card>
+            </div>
+          </mdb-carousel-item>
+        </mdb-carousel>
         <h3 class="font-weight-bold dark-grey-text mb-3">
           <a>{{_activeProduct.name}}</a>
         </h3>

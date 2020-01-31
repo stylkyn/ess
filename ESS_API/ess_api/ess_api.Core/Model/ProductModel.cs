@@ -15,9 +15,27 @@ namespace ess_api.Core.Model
         public string Name { get; set; }
         public string UrlName { get; set; }
         public string Description { get; set; }
-        public Price Price { get; set; }
         public string CategoryId { get; set; }
+
+        public ProductDeposit Deposit { get; set; }
+        public ProductBuy Buy { get; set; }
     }
 
+    public class ProductDeposit
+    {
+        public Price Price { get; set; } // price per day
+        public Price Deposit { get; set; }
+    }
+
+    public class ProductBuy
+    {
+        public Price Price { get; set; }
+    }
+
+    public enum ProductType
+    {
+        Deposit,
+        Buy
+    }
 
 }

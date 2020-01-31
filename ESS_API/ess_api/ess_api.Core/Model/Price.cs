@@ -46,6 +46,7 @@
     public enum PriceTypes
     {
         Czk,
-        CzkPerHour
+        CzkPerHour,
+        CzkPerDay,
     }
 }

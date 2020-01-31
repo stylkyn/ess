@@ -67,7 +67,6 @@ namespace ess_api._4_BL.Services
                 PreviewImageUrl = request.PreviewImageUrl,
                 Gallery = request.Gallery,
                 PreviewDescription = request.PreviewDescription,
-                Price = new Price(request.Price),
                 UrlName = WebUtility.UrlEncode(request.UrlName)
             };
             await _uow.Products.InsertAsync(product);
@@ -86,7 +85,6 @@ namespace ess_api._4_BL.Services
             product.PreviewName = request.PreviewName;
             product.PreviewImageUrl = request.PreviewImageUrl;
             product.Gallery = request.Gallery;
-            product.Price = new Price(request.Price);
 
             await _uow.Products.ReplaceAsync(product.Id, product);
             return new Response(ResponseStatus.Ok);
@@ -109,7 +107,6 @@ namespace ess_api._4_BL.Services
                 PreviewDescription = request.PreviewDescription,
                 PreviewImageUrl = request.PreviewImageUrl,
                 Description = request.Description,
-                Price = SharedMapService.MapPrice(request.Price),
                 CategoryId = request.CategoryId,
                 Gallery = request.Gallery
             };

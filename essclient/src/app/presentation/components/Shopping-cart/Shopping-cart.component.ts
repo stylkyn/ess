@@ -7,12 +7,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class ShoppingCartComponent implements OnInit {
 
-  @ViewChild('basicModal',  {static: false}) basicModal;
+  @ViewChild('basicModal', {static: false}) basicModal;
 
   constructor() { }
 
   ngOnInit() {
-    this.basicModal.show();
   }
 
 }

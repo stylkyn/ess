@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-eshop-detail',
   templateUrl: './eshop-detail.component.html',
-  styleUrls: []
+  styleUrls: ['./eshop-detail.component.css']
 })
 export class EshopDetailComponent implements OnInit {
 
