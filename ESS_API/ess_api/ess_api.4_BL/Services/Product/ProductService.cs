@@ -37,6 +37,16 @@ namespace ess_api._4_BL.Services
             return new ResponseList<ProductResponse>(ResponseStatus.Ok, MapProducts(Products.ToList()));
         }
 
+        public async Task<Response<ProductResponse>> GetByUrl(string urlName)
+        {
+            var products = await _uow.Products.FindManyAsync(x => x.UrlName == urlName);
+            if (products == null)
+                return new Response<ProductResponse>(ResponseStatus.NotFound, null, $"Product with urlName: {urlName} was not founded");
+
+            var response = products.FirstOrDefault();
+            return new Response<ProductResponse>(ResponseStatus.Ok, MapProduct(response));
+        }
+
         public async Task<Response<ProductResponse>> Get(string Id)
         {
             var Product = await _uow.Products.FindAsync(new Guid(Id));

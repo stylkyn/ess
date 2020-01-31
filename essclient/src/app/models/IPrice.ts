@@ -6,6 +6,14 @@ export interface IPrice {
     priceType: PriceTypes;
 }
 
+export const initPrice: IPrice = {
+    czkWithoutVat: null,
+    czkWithVat: null,
+    vatPercentage: null,
+    vatType: null,
+    priceType: null
+};
+
 type VatTypesMapped = 0 | 10 | 15 | 21;
 type PriceTypesMapped = 'Kč' | 'Kč/h';
 

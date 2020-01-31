@@ -42,7 +42,7 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
 
-        // GET: api/categories/GetByUrlName
+        // GET: api/categories/GetByUrl
         [HttpGet]
         [Route("GetByUrl")]
         public async Task<IHttpActionResult> GetByUrl([FromUri] string urlName)

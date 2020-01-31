@@ -14,11 +14,11 @@ namespace ess_api.Controllers
     [RoutePrefix("api/Products")]
     public class ProductsController : BaseApiController
     {
-        private ProductService _ProductService;
+        private ProductService _productService;
 
         public ProductsController()
         {
-            _ProductService = new ProductService();
+            _productService = new ProductService();
         }
 
         // GET: api/Products/Search
@@ -26,35 +26,45 @@ namespace ess_api.Controllers
         [Route("Search")]
         public async Task<IHttpActionResult> Search([FromUri] ProductSearchRequest request)
         {
-            var response = await _ProductService.Search(request);
+            var response = await _productService.Search(request);
             return new CreateResult(response);
         }
 
         // GET: api/Products/5
         public async Task<IHttpActionResult> Get(string Id)
         {
-            var response = await _ProductService.Get(Id);
+            var response = await _productService.Get(Id);
+            return new CreateResult(response);
+        }
+
+
+        // GET: api/categories/GetByUrlName
+        [HttpGet]
+        [Route("GetByUrl")]
+        public async Task<IHttpActionResult> GetByUrl([FromUri] string urlName)
+        {
+            var response = await _productService.GetByUrl(urlName);
             return new CreateResult(response);
         }
 
         // PUT: api/Products/5
         public async Task<IHttpActionResult> Put(int Id, [FromBody]ProductRequest Product)
         {
-            var response = await _ProductService.Update(Product);
+            var response = await _productService.Update(Product);
             return new CreateResult(response);
         }
 
         // POST: api/Products
         public async Task<IHttpActionResult> Post([FromBody]ProductRequest Product)
         {
-            var response = await _ProductService.Add(Product);
+            var response = await _productService.Add(Product);
             return new CreateResult(response);
         }
 
         // DELETE: api/Products/5
         public async Task<IHttpActionResult> Delete(string Id)
         {
-            var response = await _ProductService.Remove(Id);
+            var response = await _productService.Remove(Id);
             return new CreateResult(response);
         }
     }

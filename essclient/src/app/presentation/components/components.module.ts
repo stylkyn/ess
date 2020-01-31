@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SidenavModule, NavbarModule, WavesModule, AccordionModule, IconsModule, CardsModule, BadgeModule, ButtonsModule } from 'ng-uikit-pro-standard';
+import { SidenavModule, NavbarModule, WavesModule, AccordionModule, IconsModule, CardsModule, BadgeModule, ButtonsModule, ModalModule } from 'ng-uikit-pro-standard';
 import { RouterModule } from '@angular/router';
+import { ShoppingCartComponent } from './Shopping-cart/Shopping-cart.component';
 
 @NgModule({
   imports: [
-  CommonModule,
+    CommonModule,
     RouterModule,
     // plugins
     SidenavModule,
@@ -20,11 +21,14 @@ import { RouterModule } from '@angular/router';
     IconsModule,
     CardsModule,
     BadgeModule,
-    ButtonsModule
+    ButtonsModule,
+    ModalModule
   ],
   declarations: [
+    ShoppingCartComponent
   ],
   exports: [
+    ShoppingCartComponent
   ]
 })
 export class ComponentsModule { }
