@@ -38,7 +38,7 @@ namespace ess_api.Controllers
         }
 
 
-        // GET: api/categories/GetByUrlName
+        // GET: api/categories/GetByUrl
         [HttpGet]
         [Route("GetByUrl")]
         public async Task<IHttpActionResult> GetByUrl([FromUri] string urlName)
@@ -47,14 +47,16 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
 
-        // PUT: api/Products/5
-        public async Task<IHttpActionResult> Put(int Id, [FromBody]ProductRequest Product)
+        // PUT: api/Products
+        [HttpPut]
+        public async Task<IHttpActionResult> Put([FromBody]ProductRequest Product)
         {
             var response = await _productService.Update(Product);
             return new CreateResult(response);
         }
 
         // POST: api/Products
+        [HttpPost]
         public async Task<IHttpActionResult> Post([FromBody]ProductRequest Product)
         {
             var response = await _productService.Add(Product);

@@ -1,14 +1,16 @@
-﻿namespace ess_api.Core.Model
+﻿using MongoDB.Bson.Serialization.Attributes;
+
+namespace ess_api.Core.Model
 {
     public class Price
     {
-        public decimal CzkWithoutVat { get; }
-        public decimal CzkWithVat { get; }
-        public int VatPercentage { get; }
-        public VatTypes VatType { get; }
-        public PriceTypes PriceType { get; }
+        public decimal CzkWithoutVat { get; set; }
+        public decimal CzkWithVat { get; set; }
+        public int VatPercentage { get; set; }
+        public VatTypes VatType { get; set; }
+        public PriceTypes PriceType { get; set; }
 
-        public Price (decimal czkWithoutVat, VatTypes vaType = VatTypes.Czk21, PriceTypes priceType = PriceTypes.CzkPerHour)
+        public Price (decimal czkWithoutVat, VatTypes vaType = VatTypes.Czk21, PriceTypes priceType = PriceTypes.Czk)
         {
             int vatPecentage = GetVatPercentage(vaType);
             VatPercentage = vatPecentage;

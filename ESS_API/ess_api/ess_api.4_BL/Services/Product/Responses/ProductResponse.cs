@@ -28,10 +28,28 @@ namespace ess_api._4_BL.Services.Responses
         [JsonProperty("description")]
         public string Description { get; set; }
 
-        [JsonProperty("price")]
-        public PriceResponse Price { get; set; }
-
         [JsonProperty("categoryId")]
         public string CategoryId { get; set; }
+
+        [JsonProperty("deposit")]
+        public ProductDepositResponse Deposit { get; set; }
+
+        [JsonProperty("buy")]
+        public ProductBuyResponse Buy { get; set; }
+    }
+
+    public class ProductDepositResponse
+    {
+        [JsonProperty("price")]
+        public PriceResponse Price { get; set; } // price per Deposit 
+
+        [JsonProperty("depositValue")]
+        public PriceResponse DepositValue { get; set; } // deposit value
+    }
+
+    public class ProductBuyResponse
+    {
+        [JsonProperty("price")]
+        public PriceResponse Price { get; set; }
     }
 }

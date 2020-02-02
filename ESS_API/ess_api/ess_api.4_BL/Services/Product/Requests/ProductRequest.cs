@@ -12,7 +12,19 @@ namespace ess_api._4_BL.Services.Requests
         public string PreviewImageUrl { get; set; }
         public List<string> Gallery { get; set; }
         public string Description { get; set; }
-        public decimal Price { get; set; }
+        public DepositRequest Deposit { get; set; }
+        public BuyRequest Buy { get; set; }
         public string CategoryId { get; set; }
+    }
+
+    public class DepositRequest
+    {
+        public decimal PriceWithouVat { get; set; }
+        public decimal DepositValue { get; set; }
+    }
+
+    public class BuyRequest
+    {
+        public decimal PriceWithouVat { get; set; }
     }
 }

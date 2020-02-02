@@ -20,8 +20,16 @@ namespace ess_api._4_BL.Services
          * **/
         public async Task<ResponseList<ProductResponse>> Search(ProductSearchRequest request)
         {
+            var products = new List<ProductModel>();
+            // get all products 
+            if (request.CategoryUrlName.IsEmpty() && request.CategoryId.IsEmpty()) {
+                products = await _uow.Products.Search();
+                return new ResponseList<ProductResponse>(ResponseStatus.Ok, MapProducts(products.ToList()));
+            }
+
+            // get product by Id/UrlName
             string categoryId = request.CategoryId;
-            if (categoryId.IsEmpty())
+            if (request.CategoryId.IsEmpty())
             {
                 var category = await _uow.Categories.FindManyAsync(x => x.UrlName == request.CategoryUrlName);
                 categoryId = category.FirstOrDefault()?.Id.ToString();
@@ -33,14 +41,15 @@ namespace ess_api._4_BL.Services
                 .ToList();
             categories.Add(categoryId);
 
-            var Products = await _uow.Products.Search(categories);
-            return new ResponseList<ProductResponse>(ResponseStatus.Ok, MapProducts(Products.ToList()));
+
+            products = await _uow.Products.Search(categories);
+            return new ResponseList<ProductResponse>(ResponseStatus.Ok, MapProducts(products.ToList()));
         }
 
         public async Task<Response<ProductResponse>> GetByUrl(string urlName)
         {
             var products = await _uow.Products.FindManyAsync(x => x.UrlName == urlName);
-            if (products == null)
+            if (products.IsEmpty())
                 return new Response<ProductResponse>(ResponseStatus.NotFound, null, $"Product with urlName: {urlName} was not founded");
 
             var response = products.FirstOrDefault();
@@ -56,7 +65,7 @@ namespace ess_api._4_BL.Services
         /*
          *  SET
          * **/
-        public async Task<Response> Add(ProductRequest request)
+        public async Task<Response<ProductResponse>> Add(ProductRequest request)
         {
             var product = new ProductModel
             {
@@ -67,15 +76,27 @@ namespace ess_api._4_BL.Services
                 PreviewImageUrl = request.PreviewImageUrl,
                 Gallery = request.Gallery,
                 PreviewDescription = request.PreviewDescription,
-                UrlName = WebUtility.UrlEncode(request.UrlName)
+                UrlName = WebUtility.UrlEncode(request.UrlName),
+                Buy = request.Buy != null ? new ProductBuy
+                {
+                    Price = new Price(request.Buy.PriceWithouVat)
+                } : null,
+                Deposit = request.Deposit != null ? new ProductDeposit
+                {
+                    Price = new Price(request.Deposit.PriceWithouVat, VatTypes.Czk21, PriceTypes.CzkPerDay),
+                    DepositValue = new Price(request.Deposit.DepositValue, VatTypes.Czk0)
+                } : null
             };
             await _uow.Products.InsertAsync(product);
-            return new Response(ResponseStatus.Ok);
+            return new Response<ProductResponse>(ResponseStatus.Ok, MapProduct(product));
         }
 
-        public async Task<Response> Update(ProductRequest request)
+        public async Task<Response<ProductResponse>> Update(ProductRequest request)
         {
             var product = _uow.Products.Find(new Guid(request.Id));
+            if (product == null)
+                return new Response<ProductResponse>(ResponseStatus.NotFound, null, $"Product with id: {request.Id} was not founded");
+
 
             product.CategoryId = request.CategoryId;
             product.Name = request.Name;
@@ -85,9 +106,18 @@ namespace ess_api._4_BL.Services
             product.PreviewName = request.PreviewName;
             product.PreviewImageUrl = request.PreviewImageUrl;
             product.Gallery = request.Gallery;
+            product.Buy = request.Buy != null ? new ProductBuy
+            {
+                Price = new Price(request.Buy.PriceWithouVat)
+            } : null;
+            product.Deposit = request.Deposit != null ? new ProductDeposit
+            {
+                Price = new Price(request.Deposit.PriceWithouVat, VatTypes.Czk21, PriceTypes.CzkPerDay),
+                DepositValue = new Price(request.Deposit.DepositValue, VatTypes.Czk0)
+            } : null;
 
-            await _uow.Products.ReplaceAsync(product.Id, product);
-            return new Response(ResponseStatus.Ok);
+            var response = await _uow.Products.FindAndReplaceAsync(product.Id, product);
+            return new Response<ProductResponse>(ResponseStatus.Ok, MapProduct(response));
         }
 
         public async Task<Response> Remove(string id)
@@ -108,7 +138,16 @@ namespace ess_api._4_BL.Services
                 PreviewImageUrl = request.PreviewImageUrl,
                 Description = request.Description,
                 CategoryId = request.CategoryId,
-                Gallery = request.Gallery
+                Gallery = request.Gallery,
+                Buy = request.Buy != null ? new ProductBuyResponse
+                {
+                     Price = SharedMapService.MapPrice(request.Buy.Price)
+                } : null,
+                Deposit = request.Deposit != null ? new ProductDepositResponse
+                {
+                    DepositValue = SharedMapService.MapPrice(request.Deposit.DepositValue),
+                    Price = SharedMapService.MapPrice(request.Deposit.Price)
+                } : null,
             };
         }
 

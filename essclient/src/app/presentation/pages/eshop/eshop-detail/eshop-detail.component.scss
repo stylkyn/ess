@@ -1,0 +1,31 @@
+::ng-deep {
+    .EshopDetail {
+        mdb-carousel {
+            .carousel-indicators, .controls-top {
+                display: none !important;
+            }
+        }
+        &-pricing {
+            margin: 0;
+            padding: 5px 10px;
+            text-align: left;
+            box-shadow: none;
+            background: #fafafa;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+
+            &-value {
+                font-weight: 600;
+                font-size: 20px;
+            }
+            &-vat {
+                font-size: 11px;
+                font-weight: 400;
+                padding-left: 5px;
+                margin-left: 5px;
+                border-left: 1px solid grey;
+            }
+        }
+    }
+}

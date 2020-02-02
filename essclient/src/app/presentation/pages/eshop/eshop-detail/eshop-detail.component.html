@@ -1,43 +1,53 @@
 <section class="EshopDetail magazine-section mt-3 mb-5">
-  <mdb-breadcrumb>
-    <mdb-breadcrumb-item class="active">Kategorie</mdb-breadcrumb-item>
-    <mdb-breadcrumb-item> Level 2</mdb-breadcrumb-item>
-    <mdb-breadcrumb-item> Level 3</mdb-breadcrumb-item>
-  </mdb-breadcrumb>
-  <div class="row">
-    <div class="col-lg-6 col-md-12">
-      <div class="single-news mb-lg-0 mb-4">
-        <div class="view overlay rounded z-depth-1-half mb-4">
-          <img class="img-fluid" [src]="_activeProduct.previewImageUrl" alt="Sample image">
-          <a>
-            <div class="mask rgba-white-slight waves-light" mdbWavesEffect></div>
-          </a>
-        </div>
-        <mdb-carousel [isControls]="true" class="carousel-multi-item multi-animation" [type]="'carousel-multi-item'"
-              [animation]="'slide'">
-          <mdb-carousel-item *ngFor="let item of _activeProduct.gallery; let i = index">
-            <div class="col-md-4" [ngClass]="{'d-none d-md-block': cardIndex !== 0}"
-                *ngFor="let img of _activeProduct.gallery; let cardIndex = index">
-              <mdb-card class="my-1">
-                <mdb-card-img [src]="img" alt="Card image cap"></mdb-card-img>
-              </mdb-card>
+    <mdb-breadcrumb>
+        <mdb-breadcrumb-item class="active">Kategorie</mdb-breadcrumb-item>
+        <mdb-breadcrumb-item> Level 2</mdb-breadcrumb-item>
+        <mdb-breadcrumb-item> Level 3</mdb-breadcrumb-item>
+    </mdb-breadcrumb>
+    <div class="row">
+        <div class="col-lg-6 col-md-12">
+            <div class="single-news mb-lg-0 mb-4">
+                <div class="view overlay rounded z-depth-1-half mb-4">
+                    <img class="img-fluid" [src]="_activeProduct.previewImageUrl" alt="Sample image">
+                    <a>
+                        <div class="mask rgba-white-slight waves-light" mdbWavesEffect></div>
+                    </a>
+                </div>
+                <mdb-carousel [isControls]="true" class="carousel-multi-item multi-animation" [type]="'carousel-multi-item'" [animation]="'slide'">
+                    <mdb-carousel-item *ngFor="let item of _activeProduct.gallery; let i = index">
+                        <div class="col-md-4" [ngClass]="{'d-none d-md-block': cardIndex !== 0}" *ngFor="let img of _activeProduct.gallery; let cardIndex = index">
+                            <mdb-card class="mb-3">
+                                <div class="view overlay rounded z-depth-1-half">
+                                    <img class="img-fluid" [src]="img" alt="Sample image">
+                                    <a>
+                                        <div class="mask rgba-white-slight waves-light" mdbWavesEffect></div>
+                                    </a>
+                                </div>
+                            </mdb-card>
+                        </div>
+                    </mdb-carousel-item>
+                </mdb-carousel>
+                <h3 class="font-weight-bold dark-grey-text mb-3">
+                    <a>{{_activeProduct.name}}</a>
+                </h3>
+                <p class="dark-grey-text mb-lg-0 mb-md-5 mb-4">{{_activeProduct.description}}</p>
             </div>
-          </mdb-carousel-item>
-        </mdb-carousel>
-        <h3 class="font-weight-bold dark-grey-text mb-3">
-          <a>{{_activeProduct.name}}</a>
-        </h3>
-        <p class="dark-grey-text mb-lg-0 mb-md-5 mb-4">{{_activeProduct.description}}</p>
-      </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <div class="single-news mb-4">
+                <h2 class="font-weight-bold dark-grey-text mb-3">
+                    <a>{{_activeProduct.previewName}}</a>
+                </h2>
+                <p class="dark-grey-text mb-lg-0 mb-md-5 mb-4">{{_activeProduct.previewDescription}}</p>
+                <div class="jumbotron EshopDetail-pricing">
+                      <span class="EshopDetail-pricing-value">
+                          {{_activeProduct.buy?.price?.czkWithVat}} {{mapPriceTypes(_activeProduct.buy?.price?.priceType)}}
+                          <span *ngIf="_activeProductVAT == 0" class="EshopDetail-pricing-vat">bez DPH</span>
+                          <span *ngIf="_activeProductVAT > 0" class="EshopDetail-pricing-vat">s DPH {{_activeProductVAT}}%</span>
+                      </span>
+                  </div>
+                <button class="ml-auto mt-3" mdbBtn outline="true" type="button" color="primary" mdbWavesEffect>Přidat do košíku</button>
+            </div>
+        </div>
     </div>
-    <div class="col-lg-6 col-md-12">
-      <div class="single-news mb-4">
-        <h2 class="font-weight-bold dark-grey-text mb-3">
-          <a>{{_activeProduct.previewName}}</a>
-        </h2>
-        <p class="dark-grey-text mb-lg-0 mb-md-5 mb-4">{{_activeProduct.previewDescription}}</p>
-        <button class="ml-auto mt-3" mdbBtn outline="true" type="button" color="primary" mdbWavesEffect>Přidat do košíku</button>
-      </div>
-    </div>
-  </div>
 </section>

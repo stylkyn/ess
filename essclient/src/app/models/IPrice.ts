@@ -15,7 +15,7 @@ export const initPrice: IPrice = {
 };
 
 type VatTypesMapped = 0 | 10 | 15 | 21;
-type PriceTypesMapped = 'Kč' | 'Kč/h';
+type PriceTypesMapped = 'Kč' | 'Kč/h' | 'Kč/den';
 
 export enum VatTypes {
     Czk0,
@@ -26,7 +26,8 @@ export enum VatTypes {
 
 export enum PriceTypes {
     Czk,
-    CzkPerHour
+    CzkPerHour,
+    CzkPerDay
 }
 
 
@@ -47,6 +48,8 @@ export function MapPriceTypes (priceTypes: PriceTypes): PriceTypesMapped {
     switch (priceTypes) {
         case PriceTypes.Czk:
             return 'Kč';
+        case PriceTypes.CzkPerDay:
+            return 'Kč/den';
         case PriceTypes.CzkPerHour:
             return 'Kč/h';
     }

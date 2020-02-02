@@ -1,3 +1,4 @@
+import { IPrice } from './IPrice';
 
 export interface IProduct {
     id: string;
@@ -9,6 +10,17 @@ export interface IProduct {
     previewName: string;
     previewImageUrl: string;
     gallery: string[];
+    deposit: IProductDeposit;
+    buy: IProductBuy;
+}
+
+export interface IProductDeposit {
+    depositValue: IPrice;
+    price: IPrice;
+}
+
+export interface IProductBuy {
+    price: IPrice;
 }
 
 export const initProduct: IProduct = {
@@ -20,5 +32,7 @@ export const initProduct: IProduct = {
     categoryId: null,
     previewName: null,
     previewImageUrl: null,
-    gallery: []
+    gallery: [],
+    deposit: null,
+    buy: null
 };

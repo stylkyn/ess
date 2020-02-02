@@ -12,5 +12,10 @@ namespace ess_api.Core.Extension
         {
             return any == null;
         }
+
+        public static bool IsEmpty<T>(this List<T> any)
+        {
+            return any == null || any.Count() == 0;
+        }
     }
 }
