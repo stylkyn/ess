@@ -39,13 +39,14 @@
                     <a>{{_activeProduct.previewName}}</a>
                 </h2>
                 <p class="dark-grey-text mb-lg-0 mb-md-5 mb-4">{{_activeProduct.previewDescription}}</p>
+                <app-date-range></app-date-range>
                 <div class="jumbotron EshopDetail-pricing">
-                      <span class="EshopDetail-pricing-value">
-                          {{_activeProduct.buy?.price?.czkWithVat}} {{mapPriceTypes(_activeProduct.buy?.price?.priceType)}}
-                          <span *ngIf="_activeProductVAT == 0" class="EshopDetail-pricing-vat">bez DPH</span>
-                          <span *ngIf="_activeProductVAT > 0" class="EshopDetail-pricing-vat">s DPH {{_activeProductVAT}}%</span>
-                      </span>
-                  </div>
+                    <span class="EshopDetail-pricing-value">
+                        {{_activeProduct.buy?.price?.czkWithVat}} {{mapPriceTypes(_activeProduct.buy?.price?.priceType)}}
+                        <span *ngIf="_activeProductVAT == 0" class="EshopDetail-pricing-vat">bez DPH</span>
+                        <span *ngIf="_activeProductVAT > 0" class="EshopDetail-pricing-vat">s DPH {{_activeProductVAT}}%</span>
+                    </span>
+                </div>
                 <button class="ml-auto mt-3" mdbBtn outline="true" type="button" color="primary" mdbWavesEffect>Přidat do košíku</button>
             </div>
         </div>

@@ -31,3 +31,10 @@ npm install --save angular-calendar date-fns
 
 // GAPI - Google API - https://github.com/rubenCodeforges/ng-gapi
 npm install ng-gapi
+
+
+// date picker pro booking - https://github.com/fetrarij/ngx-daterangepicker-material
+npm install ngx-daterangepicker-material --save
+
+// moment.js pro booking a dalsi datetimes  https://medium.com/@elbaumpj/how-to-use-moment-js-in-angular-projects-5bec9157c56a
+npm install moment --save

@@ -2,7 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\ess_api",
-    "\\ess_api\\Controllers"
+    "\\ess_api.Core",
+    "\\ess_api.Core\\Model"
   ],
   "SelectedNode": "\\ess_api.sln",
   "PreviewInSolutionExplorer": false

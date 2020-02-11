@@ -13,7 +13,7 @@ export class EshopDetailComponent implements OnInit {
     public mapVatTypes = MapVatTypes;
 
     public get _activeProductVAT () {
-        return this.mapVatTypes(this._activeProduct.buy.price.vatType);
+        return this._activeProduct.buy && this.mapVatTypes(this._activeProduct.buy.price.vatType);
     }
 
     public get _activeProduct() {
