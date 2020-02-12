@@ -9,6 +9,7 @@ import { LocaleConfig } from 'ngx-daterangepicker-material';
 })
 export class DateRangeComponent implements OnInit {
     private momentCs = moment;
+    public minDate = moment(new Date());
 
     public config: LocaleConfig = {};
     public ranges: any = {
@@ -19,6 +20,12 @@ export class DateRangeComponent implements OnInit {
         'This Month': [moment().startOf('month'), moment().endOf('month')],
         'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
     };
+
+    invalidDates: moment.Moment[] = [moment().add(2, 'days'), moment().add(3, 'days'), moment().add(5, 'days')];
+
+    public isInvalidDate = (m: moment.Moment) =>  {
+        return this.invalidDates.some(d => d.isSame(m, 'day'));
+    }
 
     constructor() {
         this.momentCs.locale('cs');

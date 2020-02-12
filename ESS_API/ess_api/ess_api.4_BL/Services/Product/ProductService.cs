@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ess_api._4_BL.Services
@@ -56,10 +55,35 @@ namespace ess_api._4_BL.Services
             return new Response<ProductResponse>(ResponseStatus.Ok, MapProduct(response));
         }
 
-        public async Task<Response<ProductResponse>> Get(string Id)
+        public async Task<Response<ProductResponse>> Get(string Id, int productsCountToOrder = 1)
         {
-            var Product = await _uow.Products.FindAsync(new Guid(Id));
-            return new Response<ProductResponse>(ResponseStatus.Ok, MapProduct(Product));
+            var product = await _uow.Products.FindAsync(new Guid(Id));
+
+            if (product.Deposit != null)
+            {
+                DateTime today = DateTime.Today;
+                var productTotalCount = product.Deposit.SerialProduct.Count();
+                var reservationsFlat = product.Deposit.SerialProduct.SelectMany(sp =>
+                    sp.Reservations
+                        .Where(r => r.DateTo.Date >= today.Date)
+                        .Select(r => new
+                        {
+                            r.DateFrom,
+                            r.DateTo,
+                            sp.ProductNumber
+                        }));
+
+                DateTime maxDate = reservationsFlat.Max(x => x.DateTo);
+                DateTime minDate = reservationsFlat.Min(x => x.DateFrom);
+                if (minDate < today)
+                    minDate = today;
+
+                var daysInRange = minDate.GetDaysInRange(maxDate);
+                var invalidDays = daysInRange.Where(day => (productTotalCount - reservationsFlat.Where(r => r.DateFrom < day && day < r.DateTo).Count()) >= productsCountToOrder);
+                // mapping product object with invalidDays to Response objecct
+            }
+
+            return new Response<ProductResponse>(ResponseStatus.Ok, MapProduct(product));
         }
 
         /*
@@ -93,7 +117,7 @@ namespace ess_api._4_BL.Services
 
         public async Task<Response<ProductResponse>> Update(ProductRequest request)
         {
-            var product = _uow.Products.Find(new Guid(request.Id));
+            var product = await _uow.Products.FindAsync(new Guid(request.Id));
             if (product == null)
                 return new Response<ProductResponse>(ResponseStatus.NotFound, null, $"Product with id: {request.Id} was not founded");
 

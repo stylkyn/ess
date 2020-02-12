@@ -54,6 +54,7 @@
     <Compile Include="Services\Category\CategoryService.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="Services\Product\Requests\ProductSearchRequest.cs" />
+    <Compile Include="Services\Product\Responses\ProductDetailResponse.cs" />
     <Compile Include="Services\User\Requests\UserRequest.cs" />
     <Compile Include="Services\Category\Requests\CategoryRequest.cs" />
     <Compile Include="Services\Product\Requests\ProductRequest.cs" />

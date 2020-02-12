@@ -25,10 +25,24 @@ namespace ess_api.Core.Model
     {
         public Price Price { get; set; } // price per Deposit 
         public Price DepositValue { get; set; } // deposit value
+        public List<SerialProduct> SerialProduct { get; set; }
     }
 
     public class ProductBuy
     {
         public Price Price { get; set; }
+        public List<SerialProduct> SerialProduct { get; set; }
+    }
+
+    public class SerialProduct
+    {
+        public string ProductNumber { get; set; }
+        public List<ProductSerialReservation> Reservations { get; set; }
+    }
+
+    public class ProductSerialReservation
+    {
+        public DateTime DateFrom { get; set; }
+        public DateTime DateTo { get; set; }
     }
 }

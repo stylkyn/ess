@@ -70,7 +70,7 @@ namespace ess_api._4_BL.Services
 
         public async Task<Response> Update(CategoryRequest request)
         {
-            var category = _uow.Categories.Find(new Guid(request.Id));
+            var category = await _uow.Categories.FindAsync(new Guid(request.Id));
 
             category.Name = request.Name;
             category.UrlName = WebUtility.UrlEncode(request.Name);

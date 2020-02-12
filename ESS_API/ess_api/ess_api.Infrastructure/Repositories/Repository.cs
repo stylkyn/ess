@@ -31,69 +31,6 @@ namespace ess_api.DAL.Repository
         }
 
         /**
-         *  SYNC
-         */
-
-        public T Find(Guid Id)
-        {
-            return Collection().Find(x => x.Id == Id).FirstOrDefault();
-        }
-
-        // GET
-
-        public IEnumerable<T> FindMany(Expression<Func<T, bool>> condition)
-        {
-            return Collection().AsQueryable().Where(condition);
-        }
-
-
-        public IEnumerable<T> FindMany()
-        {
-            return Collection().AsQueryable();
-        }
-
-
-        // INSERT
-
-        public void Insert(T document)
-        {
-            Collection().InsertOne(document, null);
-        }
-
-        public void InsertMany(IEnumerable<T> documents)
-        {
-            Collection().InsertMany(documents, null);
-        }
-
-        // UPDATE
-
-        public long Replace(Guid id, T document)
-        {
-            return Collection().ReplaceOne(x => x.Id == id, document).ModifiedCount;
-        }
-
-        public T FindAndReplace(Guid id, T document)
-        {
-            return Collection().FindOneAndReplace<T>(
-                x => x.Id == id,
-                document, 
-                new FindOneAndReplaceOptions<T, T> { ReturnDocument = ReturnDocument.After });
-        }
-
-        // REMOVE
-
-        public long Delete(Guid id)
-        {
-            return Collection().DeleteOne(x => x.Id == id).DeletedCount;
-        }
-
-        public long DeleteMany(List<Guid> ids)
-        {
-            return Collection().DeleteMany(x => ids.Contains(x.Id)).DeletedCount;
-        }
-
-
-        /**
          *  ASYNC
          */
 

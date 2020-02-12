@@ -115,6 +115,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extension\DatesExtension.cs" />
     <Compile Include="Extension\ConditionalExtension.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Price.cs" />
