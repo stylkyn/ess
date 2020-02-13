@@ -45,45 +45,34 @@ namespace ess_api._4_BL.Services
             return new ResponseList<ProductResponse>(ResponseStatus.Ok, MapProducts(products.ToList()));
         }
 
-        public async Task<Response<ProductResponse>> GetByUrl(string urlName)
+        public async Task<Response<ProductDetailResponse>> GetByUrl(GetProductDetailByUrlRequest request)
         {
-            var products = await _uow.Products.FindManyAsync(x => x.UrlName == urlName);
+            var products = await _uow.Products.FindManyAsync(x => x.UrlName == request.UrlName);
             if (products.IsEmpty())
-                return new Response<ProductResponse>(ResponseStatus.NotFound, null, $"Product with urlName: {urlName} was not founded");
+                return new Response<ProductDetailResponse>(ResponseStatus.NotFound, null, $"Product with urlName: {request.UrlName} was not founded");
 
-            var response = products.FirstOrDefault();
-            return new Response<ProductResponse>(ResponseStatus.Ok, MapProduct(response));
+            var product = products.First();
+            if (product.Deposit != null)
+            {
+                var invalidDays = GetInvalidReservationDates(product);
+                return new Response<ProductDetailResponse>(ResponseStatus.Ok, MapProductDetail(product, invalidDays.ToList()));
+            }
+            return new Response<ProductDetailResponse>(ResponseStatus.Ok, MapProductDetail(product));
         }
 
-        public async Task<Response<ProductResponse>> Get(string Id, int productsCountToOrder = 1)
+        public async Task<Response<ProductDetailResponse>> Get(GetProductDetailRequest request)
         {
-            var product = await _uow.Products.FindAsync(new Guid(Id));
+            var product = await _uow.Products.FindAsync(new Guid(request.ProductId));
+            if (product == null)
+                return new Response<ProductDetailResponse>(ResponseStatus.NotFound, null, $"Product with id: {request.ProductId} was not founded");
+
 
             if (product.Deposit != null)
             {
-                DateTime today = DateTime.Today;
-                var productTotalCount = product.Deposit.SerialProduct.Count();
-                var reservationsFlat = product.Deposit.SerialProduct.SelectMany(sp =>
-                    sp.Reservations
-                        .Where(r => r.DateTo.Date >= today.Date)
-                        .Select(r => new
-                        {
-                            r.DateFrom,
-                            r.DateTo,
-                            sp.ProductNumber
-                        }));
-
-                DateTime maxDate = reservationsFlat.Max(x => x.DateTo);
-                DateTime minDate = reservationsFlat.Min(x => x.DateFrom);
-                if (minDate < today)
-                    minDate = today;
-
-                var daysInRange = minDate.GetDaysInRange(maxDate);
-                var invalidDays = daysInRange.Where(day => (productTotalCount - reservationsFlat.Where(r => r.DateFrom < day && day < r.DateTo).Count()) >= productsCountToOrder);
-                // mapping product object with invalidDays to Response objecct
+                var invalidDays = GetInvalidReservationDates(product, request.OrderProductsCount);
+                return new Response<ProductDetailResponse>(ResponseStatus.Ok, MapProductDetail(product, invalidDays.ToList()));
             }
-
-            return new Response<ProductResponse>(ResponseStatus.Ok, MapProduct(product));
+            return new Response<ProductDetailResponse>(ResponseStatus.Ok, MapProductDetail(product));
         }
 
         /*
@@ -148,6 +137,66 @@ namespace ess_api._4_BL.Services
         {
             await _uow.Products.DeleteAsync(new Guid(id));
             return new Response(ResponseStatus.Ok);
+        }
+
+        /*
+         *  PRIVATE
+         * **/
+
+        private List<DateTime> GetInvalidReservationDates(ProductModel product, int orderProductsCount = 1)
+        {
+            DateTime today = DateTime.Today;
+            var productTotalCount = product.Deposit.SerialProduct.Count();
+            var reservationsFlat = product.Deposit.SerialProduct.SelectMany(sp =>
+                sp.Reservations
+                    .Where(r => r.DateTo.Date >= today.Date)
+                    .Select(r => new
+                    {
+                        r.DateFrom,
+                        r.DateTo,
+                        sp.ProductNumber
+                    }));
+
+            if (reservationsFlat.Count() == 0)
+                return new List<DateTime>();
+
+            DateTime maxDate = reservationsFlat.Max(x => x.DateTo);
+            DateTime minDate = reservationsFlat.Min(x => x.DateFrom);
+            if (minDate < today)
+                minDate = today;
+
+            var daysInRange = minDate.GetDaysInRange(maxDate);
+            var invalidDays = daysInRange.Where(day => (productTotalCount - reservationsFlat.Where(r => r.DateFrom < day && day < r.DateTo).Count()) >= orderProductsCount);
+
+            return invalidDays.ToList();
+        }
+
+        // MAPPING
+        // -------
+        private ProductDetailResponse MapProductDetail (ProductModel request, List<DateTime> invaliDates = null)
+        {
+            return new ProductDetailResponse
+            {
+                Id = request.Id.ToString(),
+                Name = request.Name,
+                UrlName = request.UrlName,
+                PreviewName = request.PreviewName,
+                PreviewDescription = request.PreviewDescription,
+                PreviewImageUrl = request.PreviewImageUrl,
+                Description = request.Description,
+                CategoryId = request.CategoryId,
+                Gallery = request.Gallery,
+                Buy = request.Buy != null ? new ProductDetailBuyResponse
+                {
+                    Price = SharedMapService.MapPrice(request.Buy.Price),
+                } : null,
+                Deposit = request.Deposit != null ? new ProductDetailDepositResponse
+                {
+                    DepositValue = SharedMapService.MapPrice(request.Deposit.DepositValue),
+                    Price = SharedMapService.MapPrice(request.Deposit.Price),
+                    InvalidDays = invaliDates
+                } : null,
+            };
         }
 
         private ProductResponse MapProduct(ProductModel request)

@@ -2,13 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidenavModule, NavbarModule, WavesModule, AccordionModule, IconsModule, CardsModule, BadgeModule, ButtonsModule, ModalModule } from 'ng-uikit-pro-standard';
 import { RouterModule } from '@angular/router';
-import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { DateRangeComponent } from './date-range/date-range.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { ShoppingCardModalComponent } from './shopping-card-modal/shopping-card-modal.component';
+import { ShoppingCardModalContentComponent } from './shopping-card-modal/shopping-card-modal-content.component';
 
 @NgModule({
   imports: [
-  CommonModule,
+    CommonModule,
     RouterModule,
     // plugins
     SidenavModule,
@@ -24,16 +25,18 @@ import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
     CardsModule,
     BadgeModule,
     ButtonsModule,
-    ModalModule,
+    ModalModule.forRoot(),
     NgxDaterangepickerMd.forRoot()
   ],
   declarations: [
-    ShoppingCartComponent,
+    ShoppingCardModalComponent,
+    ShoppingCardModalContentComponent,
     DateRangeComponent,
   ],
+  entryComponents: [ ShoppingCardModalContentComponent ],
   exports: [
-    ShoppingCartComponent,
-    DateRangeComponent
+    DateRangeComponent,
+    ShoppingCardModalComponent,
   ]
 })
 export class ComponentsModule { }

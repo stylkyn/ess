@@ -2,6 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\ess_api",
+    "\\ess_api.4_BL",
+    "\\ess_api.4_BL\\Services",
+    "\\ess_api.4_BL\\Services\\Product",
+    "\\ess_api.4_BL\\Services\\Product\\Requests",
+    "\\ess_api.4_BL\\Services\\Product\\Responses",
     "\\ess_api.Core",
     "\\ess_api.Core\\Model"
   ],

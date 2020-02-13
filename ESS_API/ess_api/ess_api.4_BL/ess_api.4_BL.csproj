@@ -53,6 +53,8 @@
     <Compile Include="Services\Product\ProductService.cs" />
     <Compile Include="Services\Category\CategoryService.cs" />
     <Compile Include="Request.cs" />
+    <Compile Include="Services\Product\Requests\GetProductDetailByUrlRequest.cs" />
+    <Compile Include="Services\Product\Requests\GetProductDetailRequest.cs" />
     <Compile Include="Services\Product\Requests\ProductSearchRequest.cs" />
     <Compile Include="Services\Product\Responses\ProductDetailResponse.cs" />
     <Compile Include="Services\User\Requests\UserRequest.cs" />
@@ -72,6 +74,7 @@
       <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Shared\Requests\" />

@@ -5,7 +5,5 @@ namespace ess_api._4_BL.Services.Requests
 {
     public class Request
     {
-        [JsonProperty("id")]
-        public string Id { get; set; }
     }
 }

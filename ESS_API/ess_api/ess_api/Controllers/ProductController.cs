@@ -21,7 +21,6 @@ namespace ess_api.Controllers
             _productService = new ProductService();
         }
 
-        // GET: api/Products/Search
         [HttpGet]
         [Route("Search")]
         public async Task<IHttpActionResult> Search([FromUri] ProductSearchRequest request)
@@ -30,24 +29,19 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
 
-        // GET: api/Products/5
-        public async Task<IHttpActionResult> Get(string Id)
+        public async Task<IHttpActionResult> Get([FromUri] GetProductDetailRequest request)
         {
-            var response = await _productService.Get(Id);
+            var response = await _productService.Get(request);
             return new CreateResult(response);
         }
 
-
-        // GET: api/categories/GetByUrl
         [HttpGet]
         [Route("GetByUrl")]
-        public async Task<IHttpActionResult> GetByUrl([FromUri] string urlName)
+        public async Task<IHttpActionResult> GetByUrl([FromUri] GetProductDetailByUrlRequest request)
         {
-            var response = await _productService.GetByUrl(urlName);
+            var response = await _productService.GetByUrl(request);
             return new CreateResult(response);
         }
-
-        // PUT: api/Products
         [HttpPut]
         public async Task<IHttpActionResult> Put([FromBody]ProductRequest Product)
         {
@@ -55,7 +49,6 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
 
-        // POST: api/Products
         [HttpPost]
         public async Task<IHttpActionResult> Post([FromBody]ProductRequest Product)
         {
@@ -63,7 +56,7 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
 
-        // DELETE: api/Products/5
+        [HttpDelete]
         public async Task<IHttpActionResult> Delete(string Id)
         {
             var response = await _productService.Remove(Id);

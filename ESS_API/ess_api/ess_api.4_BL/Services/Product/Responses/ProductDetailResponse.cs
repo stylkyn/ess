@@ -1,11 +1,12 @@
 ﻿using ess_api._4_BL.Shared.Responses;
 using ess_api.Core.Model;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace ess_api._4_BL.Services.Responses
 {
-    public class ProductDEtailResponse : ResponseData
+    public class ProductDetailResponse : ResponseData
     {
         [JsonProperty("previewName")]
         public string PreviewName { get; set; }
@@ -32,9 +33,26 @@ namespace ess_api._4_BL.Services.Responses
         public string CategoryId { get; set; }
 
         [JsonProperty("deposit")]
-        public ProductDepositResponse Deposit { get; set; }
+        public ProductDetailDepositResponse Deposit { get; set; }
 
         [JsonProperty("buy")]
-        public ProductBuyResponse Buy { get; set; }
+        public ProductDetailBuyResponse Buy { get; set; }
+    }
+
+    public class ProductDetailDepositResponse
+    {
+        [JsonProperty("price")]
+        public PriceResponse Price { get; set; } // price per Deposit 
+
+        [JsonProperty("depositValue")]
+        public PriceResponse DepositValue { get; set; } // deposit value
+
+        public List<DateTime> InvalidDays { get; set; } // blocked days
+    }
+
+    public class ProductDetailBuyResponse
+    {
+        [JsonProperty("price")]
+        public PriceResponse Price { get; set; }
     }
 }

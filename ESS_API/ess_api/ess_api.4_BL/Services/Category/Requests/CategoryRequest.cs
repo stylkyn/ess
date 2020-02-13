@@ -5,6 +5,7 @@ namespace ess_api._4_BL.Services.Requests
 {
     public class CategoryRequest : Request
     {
+        public string Id { get; set; }
         public string Name { get; set; }
         public string UrlName { get; set; }
         public string ParentCategoryId { get; set; }

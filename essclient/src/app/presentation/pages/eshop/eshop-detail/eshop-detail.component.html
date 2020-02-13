@@ -40,6 +40,13 @@
                 </h2>
                 <p class="dark-grey-text mb-lg-0 mb-md-5 mb-4">{{_activeProduct.previewDescription}}</p>
                 <app-date-range></app-date-range>
+                <div class="row">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
+                      <mdb-select [(ngModel)]="productsCount" [options]="productsCountOptions" label="Počet kusů" placeholder="Vyberte počet kusů"></mdb-select>
+                    </div>
+                  </div>
                 <div class="jumbotron EshopDetail-pricing">
                     <span class="EshopDetail-pricing-value">
                         {{_activeProduct.buy?.price?.czkWithVat}} {{mapPriceTypes(_activeProduct.buy?.price?.priceType)}}

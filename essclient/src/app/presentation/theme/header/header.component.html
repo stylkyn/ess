@@ -23,16 +23,15 @@
                         <mdb-icon class="pr-1" fas icon="user"></mdb-icon>
                         Přihlásit
                     </a>
-                    <!-- <a class="nav-link" routerLink="/homepage">Homepage</a> -->
                 </li>   
                 <li class="nav-item waves-light" mdbWavesEffect>
-                    <a>
+                    <a (click)="shoppingCardModal.showModal()">
                         <mdb-icon class="pr-1" fas icon="shopping-basket"></mdb-icon>
                         Košík
                     </a>
-                    <!-- <a class="nav-link" routerLink="/homepage">Homepage</a> -->
                 </li>   
             </ul>
         </links>
     </div>
 </mdb-navbar>
+<app-shopping-card-modal #shoppingCardModal></app-shopping-card-modal>

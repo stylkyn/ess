@@ -9,6 +9,10 @@ export class HeaderComponent implements OnInit {
 
   constructor() { }
 
+  public onBasketClick () {
+    console.log('busketclick');
+  }
+
   ngOnInit() {
   }
 

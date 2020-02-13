@@ -11,6 +11,13 @@ import { MapPriceTypes, MapVatTypes } from 'src/app/models/IPrice';
 export class EshopDetailComponent implements OnInit {
     public mapPriceTypes = MapPriceTypes;
     public mapVatTypes = MapVatTypes;
+    public productsCountOptions = [
+        { value: 1, label: '1' },
+        { value: 2, label: '2' },
+        { value: 3, label: '3' },
+        ];
+
+    public productsCount = 1;
 
     public get _activeProductVAT () {
         return this._activeProduct.buy && this.mapVatTypes(this._activeProduct.buy.price.vatType);
@@ -33,7 +40,7 @@ export class EshopDetailComponent implements OnInit {
 
     loadActiveProduct(urlName: string) {
         const request: IProductByUrlRequest = {
-            UrlName: urlName
+            UrlName: urlName,
         };
         this._productService.fetchCategoryByUrl(request);
     }
