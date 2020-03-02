@@ -47,6 +47,10 @@
       <Project>{1bd67546-e293-4689-8816-0ca0f7a68780}</Project>
       <Name>ess_api.2_DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Libraries\ess_api.6_Libraries.csproj">
+      <Project>{32eecfae-52b5-4f34-a7a4-f1b34cb63c0c}</Project>
+      <Name>ess_api.6_Libraries</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainService.cs" />
@@ -57,6 +61,8 @@
     <Compile Include="Services\Product\Requests\GetProductDetailRequest.cs" />
     <Compile Include="Services\Product\Requests\ProductSearchRequest.cs" />
     <Compile Include="Services\Product\Responses\ProductDetailResponse.cs" />
+    <Compile Include="Services\User\Requests\AuthetificationRequest.cs" />
+    <Compile Include="Services\User\Requests\UserAddRequest.cs" />
     <Compile Include="Services\User\Requests\UserRequest.cs" />
     <Compile Include="Services\Category\Requests\CategoryRequest.cs" />
     <Compile Include="Services\Product\Requests\ProductRequest.cs" />

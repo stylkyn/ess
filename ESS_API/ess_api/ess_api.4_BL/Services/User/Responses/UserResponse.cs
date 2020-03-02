@@ -10,5 +10,8 @@ namespace ess_api._4_BL.Services.Responses
 
         [JsonProperty("lastname")]
         public string Lastname { get; set; }
+
+        [JsonProperty("email")]
+        public string Email { get; set; }
     }
 }

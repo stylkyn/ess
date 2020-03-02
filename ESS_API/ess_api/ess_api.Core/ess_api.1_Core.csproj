@@ -115,11 +115,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constant\ResponseMessages.cs" />
+    <Compile Include="Constant\CryptographyConstants.cs" />
+    <Compile Include="Constant\UserConstants.cs" />
     <Compile Include="Extension\DatesExtension.cs" />
     <Compile Include="Extension\ConditionalExtension.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Price.cs" />
-    <Compile Include="Model\Login.cs" />
     <Compile Include="Model\CategoryModel.cs" />
     <Compile Include="Model\ProductModel.cs" />
     <Compile Include="Model\UserModel.cs" />

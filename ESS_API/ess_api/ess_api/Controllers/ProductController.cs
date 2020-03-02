@@ -42,6 +42,7 @@ namespace ess_api.Controllers
             var response = await _productService.GetByUrl(request);
             return new CreateResult(response);
         }
+
         [HttpPut]
         public async Task<IHttpActionResult> Put([FromBody]ProductRequest Product)
         {

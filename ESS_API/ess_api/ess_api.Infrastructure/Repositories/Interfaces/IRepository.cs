@@ -12,8 +12,8 @@ namespace ess_api.Core.Interface
         Task<T> FindAsync(Guid Id);
         Task<List<T>> FindManyAsync(Expression<Func<T, bool>> condition);
         Task<List<T>> FindManyAsync();
-        Task InsertAsync(T document);
-        Task InsertManyAsync(IEnumerable<T> documents);
+        Task<T> InsertAsync(T document);
+        Task<IEnumerable<T>> InsertManyAsync(IEnumerable<T> documents);
         Task ReplaceAsync(Guid id, T document);
         Task<T> FindAndReplaceAsync(Guid id, T document);
         Task DeleteAsync(Guid id);

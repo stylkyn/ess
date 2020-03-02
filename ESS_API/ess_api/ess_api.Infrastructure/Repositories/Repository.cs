@@ -11,11 +11,6 @@ using System.Threading.Tasks;
 
 namespace ess_api.DAL.Repository
 {
-    public class RepositorySettings
-    {
-        public static string language_code { get; set; } = "cs";
-
-    }
     public class Repository<T> : IRepository<T> where T : BaseModel
     {
         protected readonly DBContext _db;
@@ -52,15 +47,17 @@ namespace ess_api.DAL.Repository
 
         // INSERT ASYNC
 
-        public async Task InsertAsync(T document)
+        public async Task<T> InsertAsync(T document)
         {
 
             await Collection().InsertOneAsync(document, null);
+            return document;
         }
 
-        public async Task InsertManyAsync(IEnumerable<T> documents)
+        public async Task<IEnumerable<T>> InsertManyAsync(IEnumerable<T> documents)
         {
             await Collection().InsertManyAsync(documents, null);
+            return documents;
         }
 
         // UPDATE ASYNC

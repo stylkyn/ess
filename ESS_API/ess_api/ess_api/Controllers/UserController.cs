@@ -23,43 +23,32 @@ namespace ess_api.Controllers
 
         // LOGIN - VERIFY USER
         [Route("VerifyLogin")]
-        public async Task<IHttpActionResult> VerifyLogin([FromBody]Login login)
+        public async Task<IHttpActionResult> Authetificate([FromUri]AuthentificationRequest login)
         {
-            var response = await _userService.VerifyLogin(login);
-            return new CreateResult(response);
-        }
-        // LOGIN - VERIFY SOCIAL LOGIN
-        [Route("VerifySocialLogin")]
-        public async Task<IHttpActionResult> VerifySocialLogin([FromBody]SocialLogin socialLogin)
-        {
-            var response = await _userService.VerifySocialLogin(socialLogin);
+            var response = await _userService.Authetification(login);
             return new CreateResult(response);
         }
 
-        // GET: api/users
         public async Task<IHttpActionResult> Get()
         {
             var response = await _userService.Get();
             return new CreateResult(response);
         }
 
-        // GET: api/users/5
         public async Task<IHttpActionResult> Get(string Id)
         {
             var response = await _userService.Get(Id);
             return new CreateResult(response);
         }
 
-        // PUT: api/users/5
-        public async Task<IHttpActionResult> Put(int Id, [FromBody]UserRequest user)
+        public async Task<IHttpActionResult> Put(int Id, [FromBody]UserRequest request)
         {
-            var response = await _userService.Update(user);
+            var response = await _userService.Update(request);
             return new CreateResult(response);
         }
-        // POST: api/users
-        public async Task<IHttpActionResult> Post([FromBody]UserRequest user)
+        public async Task<IHttpActionResult> Post([FromBody]UserRequest request)
         {
-            var response = await _userService.Add(user);
+            var response = await _userService.Add(request);
             return new CreateResult(response);
         }
     }

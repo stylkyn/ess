@@ -1,6 +1,8 @@
 ﻿using ess_api._4_BL.Services.Requests;
 using ess_api._4_BL.Services.Responses;
+using ess_api.Core.Constant;
 using ess_api.Core.Model;
+using Libraries.Cryptography;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +12,11 @@ namespace ess_api._4_BL.Services
 {
     public class UserService : MainService
     {
-        /*
-        * GET
-        * **/
-        public async Task<Response<UserResponse>> VerifySocialLogin(SocialLogin socialLogin)
-        {
-            return null;
-        }
+        public readonly CryptographyLibrary _cryptographyLibrary;
 
-        public async Task<Response<UserResponse>> VerifyLogin(Login login)
+        public UserService()
         {
-            return null;
+            _cryptographyLibrary = new CryptographyLibrary();
         }
 
         public async Task<ResponseList<UserResponse>> Get()
@@ -35,13 +31,27 @@ namespace ess_api._4_BL.Services
             return new Response<UserResponse>(ResponseStatus.Ok, MapUser(user));
         }
 
-        /*
-         *  SET
-         * **/
-        public async Task<Response> Add(UserRequest user)
+        public async Task<Response<UserResponse>> Authetification(AuthentificationRequest request)
         {
-            await _uow.Users.InsertAsync(user);
-            return new Response(ResponseStatus.Ok);
+            var user = await _uow.Users.GetUser(request.Email);
+            var passwordRequestHashed = _cryptographyLibrary.CalculateHash(request.Password);
+            if (passwordRequestHashed != user.Password)
+                return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessages.PasswordIsNotValid);
+            return new Response<UserResponse>(ResponseStatus.Ok, MapUser(user));
+        }
+
+        public async Task<Response<UserResponse>> Add(UserAddRequest request)
+        {
+            var userExist = await _uow.Users.GetUser(request.Email);
+            if (userExist != null)
+                return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessages.EmailAlreadyExist);
+
+            var user = new UserModel();
+            user.Email = request.Email;
+            user.Password = _cryptographyLibrary.CalculateHash(request.Password);
+
+            user = await _uow.Users.InsertAsync(user);
+            return new Response<UserResponse>(ResponseStatus.Ok, MapUser(user));
         }
 
         public async Task<Response> Update(UserRequest user)
@@ -54,7 +64,8 @@ namespace ess_api._4_BL.Services
         {
             return new UserResponse {
                 Firstname = user.Firstname,
-                Lastname = user.Lastname
+                Lastname = user.Lastname,
+                Email = user.Email
             };
         }
 
