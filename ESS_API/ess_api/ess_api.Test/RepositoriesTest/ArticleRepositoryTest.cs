@@ -8,15 +8,5 @@ namespace ess_api.Test.RepositoriesTest
     [TestClass]
     public class ArticleRepositoryTest
     {
-        //[TestInitialize]
-        //public void TestInitialize()
-        //{
-
-        //}
-        [TestMethod]
-        public void Get()
-        {
-        }
-
     }
 }
