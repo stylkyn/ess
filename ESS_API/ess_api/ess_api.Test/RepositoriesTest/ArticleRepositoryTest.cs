@@ -16,11 +16,6 @@ namespace ess_api.Test.RepositoriesTest
         [TestMethod]
         public void Get()
         {
-            using (IUnitOfWork _uw = new UnitOfWork(new EssContext()))
-            {
-                var res = _uw.Articles.GetAll();
-                Assert.IsNotNull(res);
-            }
         }
 
     }
