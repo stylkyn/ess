@@ -8,6 +8,7 @@ import { AgmCoreModule } from '@agm/core';
 import { AppComponent } from './app.component';
 import { MDBSpinningPreloader, MDBBootstrapModulesPro, ToastModule } from 'ng-uikit-pro-standard';
 import { HttpClientModule } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
 import {
   SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider, LinkedinLoginProvider
 } from 'angular-6-social-login';
@@ -22,11 +23,11 @@ const gapiClientConfig: NgGapiClientConfig = {
   client_id: '1072250394796-somktok6db47oefdrajvhs1blsthumtm.apps.googleusercontent.com',
   discoveryDocs: ['https://people.googleapis.com/$discovery/rest?version=v1'],
   scope: [
-    "https://www.googleapis.com/auth/drive",
-    "https://www.googleapis.com/auth/drive.readonly",
-    "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive",
-    "https://www.googleapis.com/auth/spreadsheets.readonly",
+    'https://www.googleapis.com/auth/drive',
+    'https://www.googleapis.com/auth/drive.readonly',
+    'https://www.googleapis.com/auth/spreadsheets',
+    'https://www.googleapis.com/auth/drive',
+    'https://www.googleapis.com/auth/spreadsheets.readonly',
     'https://www.google.com/m8/feeds/',
     'profile',
     'email',
@@ -85,7 +86,8 @@ export function getAuthServiceConfigs() {
     {
       provide: AuthServiceConfig,
       useFactory: getAuthServiceConfigs
-    }
+    },
+    CookieService
   ],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]

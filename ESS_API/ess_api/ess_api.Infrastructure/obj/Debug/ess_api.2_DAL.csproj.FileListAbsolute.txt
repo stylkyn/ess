@@ -34,18 +34,10 @@ C:\DEVWORK\svn\WIM\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_
 C:\DEVWORK\svn\WIM\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.2_DAL.csproj.CopyComplete
 C:\DEVWORK\svn\WIM\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.Infrastructure.dll
 C:\DEVWORK\svn\WIM\WIM\ESS\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.Infrastructure.pdb
+C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\mongocrypt.dll
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\ess_api.Infrastructure.dll.config
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\ess_api.Infrastructure.dll
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\ess_api.Infrastructure.pdb
-C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\ess_api.Core.dll
-C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\ess_api.Core.pdb
-C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\ess_api.Core.dll.config
-C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.2_DAL.csprojAssemblyReference.cache
-C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.2_DAL.csproj.CoreCompileInputs.cache
-C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.2_DAL.csproj.CopyComplete
-C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.Infrastructure.dll
-C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.Infrastructure.pdb
-C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\mongocrypt.dll
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\Microsoft.Win32.Primitives.dll
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\netstandard.dll
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\System.AppContext.dll
@@ -144,6 +136,7 @@ C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\System.Xm
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\System.Xml.XPath.XDocument.dll
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\Crc32C.NET.dll
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\DnsClient.dll
+C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\ess_api.Core.dll
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\MongoDB.Bson.dll
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\MongoDB.Driver.Core.dll
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\MongoDB.Driver.dll
@@ -151,6 +144,8 @@ C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\MongoDB.L
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\SharpCompress.dll
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\Snappy.NET.dll
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\System.Buffers.dll
+C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\ess_api.Core.pdb
+C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\ess_api.Core.dll.config
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\Crc32C.NET.xml
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\DnsClient.xml
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\MongoDB.Bson.xml
@@ -158,3 +153,8 @@ C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\MongoDB.D
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\MongoDB.Driver.Core.xml
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\Snappy.NET.xml
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\bin\Debug\System.Buffers.xml
+C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.2_DAL.csprojAssemblyReference.cache
+C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.2_DAL.csproj.CoreCompileInputs.cache
+C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.2_DAL.csproj.CopyComplete
+C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.Infrastructure.dll
+C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api.Infrastructure\obj\Debug\ess_api.Infrastructure.pdb

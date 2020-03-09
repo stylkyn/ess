@@ -50,7 +50,7 @@ namespace ess_api._4_BL.Services.Responses
         Ok,
         NotFound,
         BadRequest,
-        InternalError,
+        InternalError
     }
 
 }

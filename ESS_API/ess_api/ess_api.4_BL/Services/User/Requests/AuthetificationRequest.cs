@@ -10,6 +10,7 @@ namespace ess_api._4_BL.Services.Requests
         [EmailAddress]
         public string Email { get; set; }
 
+        [Required]
         [MinLength(UserConstants.MinUserPassword)]
         public string Password { get; set; }
     }

@@ -12,7 +12,7 @@ namespace ess_api.Controllers
     [RoutePrefix("api/Categories")]
     public class CategoriesController : BaseApiController
     {
-        private CategoryService _categoryService;
+        private readonly CategoryService _categoryService;
 
         public CategoriesController()
         {

@@ -38,3 +38,6 @@ npm install ngx-daterangepicker-material --save
 
 // moment.js pro booking a dalsi datetimes  https://medium.com/@elbaumpj/how-to-use-moment-js-in-angular-projects-5bec9157c56a
 npm install moment --save
+
+https://www.npmjs.com/package/ngx-cookie-service
+npm install ngx-cookie-service --save

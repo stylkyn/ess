@@ -1,6 +1,7 @@
 ﻿using ess_api._4_BL.Services;
 using ess_api._4_BL.Services.Requests;
 using ess_api._4_BL.Services.Responses;
+using ess_api.App_Start.Filters;
 using ess_api.Core.Model;
 using ess_api.LogEx;
 using System;
@@ -11,10 +12,10 @@ using System.Web.Http.Description;
 
 namespace ess_api.Controllers
 {
-    [RoutePrefix("api/User")]
+    [RoutePrefix("api/Users")]
     public class UserController : BaseApiController
     {
-        private UserService _userService;
+        private readonly UserService _userService;
 
         public UserController()
         {
@@ -22,13 +23,16 @@ namespace ess_api.Controllers
         }
 
         // LOGIN - VERIFY USER
-        [Route("VerifyLogin")]
-        public async Task<IHttpActionResult> Authetificate([FromUri]AuthentificationRequest login)
+        [Route("Authentification")]
+        [HttpPost]
+        public async Task<IHttpActionResult> Authentification([FromBody]AuthentificationRequest request)
         {
-            var response = await _userService.Authetification(login);
+            var response = await _userService.Authentification(request);
             return new CreateResult(response);
         }
 
+        [Route("GetAll")]
+        [JwtAuthentication]
         public async Task<IHttpActionResult> Get()
         {
             var response = await _userService.Get();
@@ -46,7 +50,10 @@ namespace ess_api.Controllers
             var response = await _userService.Update(request);
             return new CreateResult(response);
         }
-        public async Task<IHttpActionResult> Post([FromBody]UserRequest request)
+
+        [Route("Add")]
+        [HttpPost]
+        public async Task<IHttpActionResult> Add([FromBody]UserAddRequest request)
         {
             var response = await _userService.Add(request);
             return new CreateResult(response);

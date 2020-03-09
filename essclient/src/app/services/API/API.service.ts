@@ -3,6 +3,7 @@ import { catchError, map ,  tap } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError, Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 let loaderSrv: LoaderService;
 
@@ -22,14 +23,14 @@ export class APIService {
 
   constructor(
     private _http: HttpClient,
-    private _loaderSrv: LoaderService
+    private _loaderSrv: LoaderService,
+    private _cookieService: CookieService
   ) {
       loaderSrv = _loaderSrv;
   }
   /**
   * PUBLIC
   */
-  // jednoduchy get bez parametru
   public get(method: string): Observable<any> {
     this.start();
     const url = this.apiRoot + method;
@@ -40,7 +41,6 @@ export class APIService {
         catchError(this.errorHandler));
   }
 
-  // get s parametry
   public getQuery(method: string, request: Object): Observable<any> {
     this.start();
     const url = `${this.apiRoot}${method}${this.objectToQueryParams(request)}`;
@@ -51,7 +51,6 @@ export class APIService {
         catchError(this.errorHandler));
   }
 
-  // post
   public post(method: string, data: any): Observable<any> {
     this.start();
     const url = this.apiRoot + method;
@@ -64,7 +63,6 @@ export class APIService {
       catchError(e => this.errorHandlerLog(e, url, 'POST', data)));
   }
 
-  // put
   public put(method: string, data: any): Observable<any> {
     this.start();
     const url = this.apiRoot + method;
@@ -75,7 +73,6 @@ export class APIService {
       catchError(e => this.errorHandlerLog(e, url, 'PUT', data)));
   }
 
-  // delete
   public delete(method: string): Observable<any> {
     this.start();
     const url = this.apiRoot + method;
@@ -135,6 +132,7 @@ export class APIService {
     headers.append('Access-Control-Allow-Origin', '*');
     headers.append('Access-Control-Allow-Headers', 'Content-Type');
     headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', this._cookieService.get('jwt'));
     return { headers: headers };
   }
 }

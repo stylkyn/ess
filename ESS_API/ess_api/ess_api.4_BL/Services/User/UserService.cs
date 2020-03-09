@@ -2,6 +2,8 @@
 using ess_api._4_BL.Services.Responses;
 using ess_api.Core.Constant;
 using ess_api.Core.Model;
+using Libraries.Authetification;
+using Libraries.Authetification.Responses;
 using Libraries.Cryptography;
 using System;
 using System.Collections.Generic;
@@ -13,10 +15,12 @@ namespace ess_api._4_BL.Services
     public class UserService : MainService
     {
         public readonly CryptographyLibrary _cryptographyLibrary;
+        public readonly AuthentificationLibrary _authentificationLibrary;
 
         public UserService()
         {
             _cryptographyLibrary = new CryptographyLibrary();
+            _authentificationLibrary = new AuthentificationLibrary();
         }
 
         public async Task<ResponseList<UserResponse>> Get()
@@ -31,13 +35,18 @@ namespace ess_api._4_BL.Services
             return new Response<UserResponse>(ResponseStatus.Ok, MapUser(user));
         }
 
-        public async Task<Response<UserResponse>> Authetification(AuthentificationRequest request)
+        public async Task<Response<UserResponse>> Authentification(AuthentificationRequest request)
         {
             var user = await _uow.Users.GetUser(request.Email);
+            if (user == null)
+                return new Response<UserResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+
             var passwordRequestHashed = _cryptographyLibrary.CalculateHash(request.Password);
             if (passwordRequestHashed != user.Password)
                 return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessages.PasswordIsNotValid);
-            return new Response<UserResponse>(ResponseStatus.Ok, MapUser(user));
+
+            var token = _authentificationLibrary.GenerateJWT(user);
+            return new Response<UserResponse>(ResponseStatus.Ok, MapUser(user, token));
         }
 
         public async Task<Response<UserResponse>> Add(UserAddRequest request)
@@ -60,12 +69,13 @@ namespace ess_api._4_BL.Services
             return new Response(ResponseStatus.Ok);
         }
 
-        private UserResponse MapUser(UserModel user)
+        private UserResponse MapUser(UserModel user, AuthentificationTokenResponse token = null)
         {
             return new UserResponse {
                 Firstname = user.Firstname,
                 Lastname = user.Lastname,
-                Email = user.Email
+                Email = user.Email,
+                Token = token
             };
         }
 

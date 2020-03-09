@@ -108,8 +108,8 @@ export class RegisterCardComponent implements OnInit {
 }
  /** SET API **/
  // Register user on API and return subscription
-  private doRegister(): Observable<IUser> {
-    const newUser: IUser = {
+  private doRegister(): Observable<any> {
+    const newUser: any = {
       username: this.rf.username.value,
       firstName: this.rf.firstName.value,
       lastName: this.rf.lastName.value,

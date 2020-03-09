@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29102.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ess_api.5_Web", "ess_api\ess_api.5_Web.csproj", "{1AEE3134-F2FC-48B9-B658-7EF50ED54CA6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{32EECFAE-52B5-4F34-A7A4-F1B34CB63C0C} = {32EECFAE-52B5-4F34-A7A4-F1B34CB63C0C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ess_api.1_Core", "ess_api.Core\ess_api.1_Core.csproj", "{0A41663A-2C1B-44A4-9DD1-C3791CDE4C0B}"
 EndProject

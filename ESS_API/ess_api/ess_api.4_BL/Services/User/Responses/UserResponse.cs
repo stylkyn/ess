@@ -1,4 +1,5 @@
 ﻿using ess_api.Core.Model;
+using Libraries.Authetification.Responses;
 using Newtonsoft.Json;
 
 namespace ess_api._4_BL.Services.Responses
@@ -13,5 +14,8 @@ namespace ess_api._4_BL.Services.Responses
 
         [JsonProperty("email")]
         public string Email { get; set; }
+
+        [JsonProperty("token")]
+        public AuthentificationTokenResponse Token { get; set; }
     }
 }
