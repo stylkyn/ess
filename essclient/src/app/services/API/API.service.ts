@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { throwError, Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { tokenToObject, cookieJwtName } from 'src/app/models/IUser';
 
 let loaderSrv: LoaderService;
 
@@ -128,11 +129,12 @@ export class APIService {
   }
   // vraci nastavneou hlavicku
   private getOptions(): object {
-    const headers = new HttpHeaders({ 'Accept': 'application/json'});
-    headers.append('Access-Control-Allow-Origin', '*');
-    headers.append('Access-Control-Allow-Headers', 'Content-Type');
-    headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', this._cookieService.get('jwt'));
+    const token = tokenToObject(this._cookieService.get(cookieJwtName));
+    let headers = new HttpHeaders({ 'Accept': 'application/json'});
+    headers = headers.append('Access-Control-Allow-Origin', '*');
+    headers = headers.append('Access-Control-Allow-Headers', 'Content-Type');
+    headers = headers.append('Content-Type', 'application/json');
+    headers = headers.append('Authorization', `Bearer ${token.jwt}`);
     return { headers: headers };
   }
 }

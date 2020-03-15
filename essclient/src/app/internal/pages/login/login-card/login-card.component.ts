@@ -7,7 +7,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/API/user.service';
-import { ILogin } from 'src/app/models/ILogin';
 import { ISocialUser } from 'src/app/models/ISocialUser';
 
 @Component({
@@ -118,7 +117,7 @@ export class LoginCardComponent implements OnInit {
   /** SET API **/
   // login user by form
   private doLogin(): Observable<IUser> {
-    const login: ILogin = {
+    const login: any = {
       username: this._lg.username.value,
       password: this._lg.password.value
     };

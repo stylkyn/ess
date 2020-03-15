@@ -18,18 +18,32 @@
         </links>
         <links>
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item waves-light mr-3" mdbWavesEffect>
+                <!-- loged aut -->
+                <li *ngIf="!userSrv.getUser" class="nav-item waves-light mr-3" mdbWavesEffect>
                     <a>
                         <mdb-icon class="pr-1" fas icon="user-add"></mdb-icon>
                         Registrovat
                     </a>
                 </li>    
-                <li class="nav-item waves-light mr-3" mdbWavesEffect>
-                    <a>
+                <li *ngIf="!userSrv.getUser" class="nav-item waves-light mr-3" mdbWavesEffect>
+                    <a (click)="loginModal.showModal()">
                         <mdb-icon class="pr-1" fas icon="user"></mdb-icon>
                         Přihlásit
                     </a>
                 </li> 
+                <!-- logged in -->
+                <li *ngIf="userSrv.getUser" class="nav-item waves-light mr-3" dropdown>
+                    <a class="dropdown-toggle waves-light" dropdownToggle mdbWavesEffect>
+                        <mdb-icon class="pr-1" fas icon="user"></mdb-icon>
+                        {{userSrv.getUser?.email}}
+                    </a>
+                    <div class="dropdown-menu dropdown-primary">
+                        <a class="dropdown-item" href="#">Můj účet</a>
+                        <div class="divider dropdown-divider"></div>
+                        <a class="dropdown-item" (click)="logOut()">Odhlásit</a>
+                      </div>
+                </li> 
+
                 <li class="nav-item waves-light" mdbWavesEffect>
                     <a (click)="shoppingCardModal.showModal()">
                         <mdb-icon class="pr-1" fas icon="shopping-basket"></mdb-icon>
@@ -41,3 +55,4 @@
     </div>
 </mdb-navbar>
 <app-shopping-card-modal #shoppingCardModal></app-shopping-card-modal>
+<app-login-modal #loginModal></app-login-modal>

@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { MDBSpinningPreloader, MDBBootstrapModulesPro, ToastModule } from 'ng-uikit-pro-standard';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { NgBusyModule } from 'ng-busy';
 import {
   SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider, LinkedinLoginProvider
 } from 'angular-6-social-login';
@@ -67,6 +68,7 @@ export function getAuthServiceConfigs() {
     FormsModule,
     HttpModule,
     HttpClientModule,
+    NgBusyModule,
     ToastModule.forRoot(),
     MDBBootstrapModulesPro.forRoot(),
     AgmCoreModule.forRoot({ // pripojeni ke google mapam

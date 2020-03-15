@@ -8,7 +8,10 @@ using Libraries.Cryptography;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using System.Security.Principal;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ess_api._4_BL.Services
 {
@@ -33,6 +36,16 @@ namespace ess_api._4_BL.Services
         {
             var user = await _uow.Users.FindAsync(new Guid(id));
             return new Response<UserResponse>(ResponseStatus.Ok, MapUser(user));
+        }
+
+        public async Task<Response<UserResponse>> Authentification(Request request)
+        {
+            var user = await _uow.Users.FindAsync(new Guid(request.RequestIdentity.UserId));
+            if (user == null)
+                return new Response<UserResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+
+            var token = _authentificationLibrary.GenerateJWT(user);
+            return new Response<UserResponse>(ResponseStatus.Ok, MapUser(user, token));
         }
 
         public async Task<Response<UserResponse>> Authentification(AuthentificationRequest request)

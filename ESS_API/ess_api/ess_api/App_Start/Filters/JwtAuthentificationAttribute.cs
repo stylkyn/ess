@@ -42,7 +42,12 @@ namespace ess_api.App_Start.Filters
             if (authUser == null || authUser.UserEmail == null || authUser.UserId == null)
                 context.ErrorResult = new CreateResult(new Response(ResponseStatus.NotFound, ResponseMessages.NotFound));
             else
-                context.Principal = new ClaimsPrincipal(new ClaimsIdentity(authUser.UserId));
+                context.Principal = new ClaimsPrincipal(
+                    new ClaimsIdentity(
+                        new List<Claim> {
+                            new Claim(AuthentificationConstants.UserId, authUser.UserId),
+                            new Claim(AuthentificationConstants.UserEmail, authUser.UserEmail)
+                        }));
 
             return Task.FromResult(authUser);
         }

@@ -39,6 +39,16 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
 
+        [JwtAuthentication]
+        [Route("AuthentificationJwt")]
+        [HttpPost]
+        public async Task<IHttpActionResult> Get(Request request)
+        {
+            var response = await _userService.Authentification(request);
+            return new CreateResult(response);
+        }
+
+
         public async Task<IHttpActionResult> Get(string Id)
         {
             var response = await _userService.Get(Id);
