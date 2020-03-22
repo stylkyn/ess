@@ -12,6 +12,10 @@ export interface ILoginRequest {
     password: string;
 }
 
+export interface ICreateUserRequest {
+    email: string;
+    password: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -50,8 +54,15 @@ export class UserService extends APIRepository<IUser> {
             }));
     }
 
+    public create(request: ICreateUserRequest): Observable<IUser> {
+        return this._API.post(`${this.className}/Add`, request).pipe(
+            map((user: IUser) => {
+                this.user = user;
+                return user;
+            }));
+    }
 
-  public verifySocialLogin(socialLogin: ISocialLogin): Observable<IUser> {
-    return this._API.post(`${this.className}/VerifySocialLogin`, socialLogin);
-  }
+    public verifySocialLogin(socialLogin: ISocialLogin): Observable<IUser> {
+        return this._API.post(`${this.className}/VerifySocialLogin`, socialLogin);
+    }
 }

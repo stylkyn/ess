@@ -20,7 +20,7 @@
             <ul class="navbar-nav ml-auto">
                 <!-- loged aut -->
                 <li *ngIf="!userSrv.getUser" class="nav-item waves-light mr-3" mdbWavesEffect>
-                    <a>
+                    <a (click)="registerModal.showModal()">
                         <mdb-icon class="pr-1" fas icon="user-add"></mdb-icon>
                         Registrovat
                     </a>
@@ -56,3 +56,4 @@
 </mdb-navbar>
 <app-shopping-card-modal #shoppingCardModal></app-shopping-card-modal>
 <app-login-modal #loginModal></app-login-modal>
+<app-register-modal #registerModal></app-register-modal>
