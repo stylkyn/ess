@@ -33,6 +33,10 @@ const APP_ROUTES: Routes = [
         {
             path: 'nase-produkty',
             loadChildren: () => import('./../pages/eshop/eshop.module').then(mod => mod.EshopModule)
+        },
+        {
+            path: 'objednavka',
+            loadChildren: () => import('./../pages/order/order.module').then(mod => mod.OrderModule)
         }
     ]}
 ];

@@ -13,6 +13,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgBusyModule } from 'ng-busy';
 import { RegisterModalComponent } from './register-modal/register-modal.component';
 import { RegisterModalContentComponent } from './register-modal/register-modal-content.component';
+import { ShoppingButtonComponent } from './shopping-button/shopping-button.component';
+import { ShoppingCardProductsComponent } from './shopping-card-products/shopping-card-products.component';
 
 @NgModule({
     imports: [
@@ -44,7 +46,9 @@ import { RegisterModalContentComponent } from './register-modal/register-modal-c
         LoginModalComponent,
         LoginModalContentComponent,
         RegisterModalComponent,
-        RegisterModalContentComponent
+        RegisterModalContentComponent,
+        ShoppingButtonComponent,
+        ShoppingCardProductsComponent
     ],
     entryComponents: [
         ShoppingCardModalContentComponent,
@@ -55,7 +59,9 @@ import { RegisterModalContentComponent } from './register-modal/register-modal-c
         DateRangeComponent,
         ShoppingCardModalComponent,
         LoginModalComponent,
-        RegisterModalComponent
+        RegisterModalComponent,
+        ShoppingButtonComponent,
+        ShoppingCardProductsComponent
     ]
 })
 export class ComponentsModule { }

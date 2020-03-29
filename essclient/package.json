@@ -49,7 +49,7 @@
     "ng-html-util": "2.0.x",
     "ng-uikit-pro-standard": "git+https://oauth2:4Rse24AzowgQtdoYY27n@git.mdbootstrap.com/mdb/angular/ng-uikit-pro-standard.git",
     "ng2-meta": "^5.0.0",
-    "ngx-cookie-service": "^2.4.0",
+    "ngx-cookie-service": "^3.0.3",
     "ngx-daterangepicker-material": "^2.1.11",
     "node": "^13.5.0",
     "rxjs": "^6.5.4",

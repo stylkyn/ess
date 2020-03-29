@@ -1,4 +1,7 @@
-﻿using ess_api._4_BL.Services.Requests;
+﻿using ess_api._4_BL.Services.Order;
+using ess_api._4_BL.Services.Product.Requests;
+using ess_api._4_BL.Services.Product.Responses;
+using ess_api._4_BL.Services.Requests;
 using ess_api._4_BL.Services.Responses;
 using ess_api._4_BL.Shared;
 using ess_api.Core.Extension;
@@ -9,11 +12,10 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace ess_api._4_BL.Services
+namespace ess_api._4_BL.Services.Product
 {
     public class ProductService : MainService
     {
-
         /*
          * GET
          * **/
@@ -23,7 +25,7 @@ namespace ess_api._4_BL.Services
             // get all products 
             if (request.CategoryUrlName.IsEmpty() && request.CategoryId.IsEmpty()) {
                 products = await _uow.Products.Search();
-                return new ResponseList<ProductResponse>(ResponseStatus.Ok, MapProducts(products.ToList()));
+                return new ResponseList<ProductResponse>(ResponseStatus.Ok, _mapService.MapProducts(products.ToList()));
             }
 
             // get product by Id/UrlName
@@ -42,7 +44,7 @@ namespace ess_api._4_BL.Services
 
 
             products = await _uow.Products.Search(categories);
-            return new ResponseList<ProductResponse>(ResponseStatus.Ok, MapProducts(products.ToList()));
+            return new ResponseList<ProductResponse>(ResponseStatus.Ok, _mapService.MapProducts(products.ToList()));
         }
 
         public async Task<Response<ProductDetailResponse>> GetByUrl(GetProductDetailByUrlRequest request)
@@ -101,7 +103,7 @@ namespace ess_api._4_BL.Services
                 } : null
             };
             await _uow.Products.InsertAsync(product);
-            return new Response<ProductResponse>(ResponseStatus.Ok, MapProduct(product));
+            return new Response<ProductResponse>(ResponseStatus.Ok, _mapService.MapProduct(product));
         }
 
         public async Task<Response<ProductResponse>> Update(ProductRequest request)
@@ -130,7 +132,7 @@ namespace ess_api._4_BL.Services
             } : null;
 
             var response = await _uow.Products.FindAndReplaceAsync(product.Id, product);
-            return new Response<ProductResponse>(ResponseStatus.Ok, MapProduct(response));
+            return new Response<ProductResponse>(ResponseStatus.Ok, _mapService.MapProduct(response));
         }
 
         public async Task<Response> Remove(string id)
@@ -197,36 +199,6 @@ namespace ess_api._4_BL.Services
                     InvalidDays = invaliDates
                 } : null,
             };
-        }
-
-        private ProductResponse MapProduct(ProductModel request)
-        {
-            return new ProductResponse
-            {
-                Id = request.Id.ToString(),
-                Name = request.Name,
-                UrlName = request.UrlName,
-                PreviewName = request.PreviewName,
-                PreviewDescription = request.PreviewDescription,
-                PreviewImageUrl = request.PreviewImageUrl,
-                Description = request.Description,
-                CategoryId = request.CategoryId,
-                Gallery = request.Gallery,
-                Buy = request.Buy != null ? new ProductBuyResponse
-                {
-                     Price = SharedMapService.MapPrice(request.Buy.Price)
-                } : null,
-                Deposit = request.Deposit != null ? new ProductDepositResponse
-                {
-                    DepositValue = SharedMapService.MapPrice(request.Deposit.DepositValue),
-                    Price = SharedMapService.MapPrice(request.Deposit.Price)
-                } : null,
-            };
-        }
-
-        private List<ProductResponse> MapProducts(List<ProductModel> product)
-        {
-            return product.Select(x => MapProduct(x)).ToList();
         }
     }
 }

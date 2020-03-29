@@ -6,6 +6,9 @@ import { MDBModalRef } from 'ng-uikit-pro-standard';
     templateUrl: './shopping-card-modal-content.component.html',
     styleUrls: []
 })
-export class ShoppingCardModalContentComponent {
-    constructor(public modalRef: MDBModalRef) { }
+export class ShoppingCardModalContentComponent{
+    constructor(
+        public modalRef: MDBModalRef,
+    ) {
+    }
 }

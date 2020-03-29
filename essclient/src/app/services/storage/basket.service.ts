@@ -1,0 +1,60 @@
+import { Injectable } from '@angular/core';
+
+const basketLocalStorageName = 'basket';
+
+export interface IBasket {
+    products: IBasketProduct[];
+}
+
+export interface IBasketProduct {
+    productId: string;
+    productsCount: number;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class BasketService {
+    public productsInStorage: IBasketProduct[] = [];
+
+    constructor() {
+        this.loadProductsFromStorage();
+    }
+
+    public findSelectedProduct(productId: string): IBasketProduct {
+        return this.productsInStorage.find(x => x.productId === productId);
+    }
+
+    public removeProduct(productId: string) {
+        const productIndex = this.productsInStorage.findIndex(x => x.productId === productId);
+        if (productIndex >= 0) {
+            this.productsInStorage.splice(productIndex, 1);
+        }
+        this.setProductsToStorage();
+    }
+
+    public setProduct(product: IBasketProduct) {
+        const productIndex = this.productsInStorage.findIndex(x => x.productId === product.productId);
+        if (productIndex >= 0) {
+            this.productsInStorage[productIndex].productsCount = product.productsCount;
+        } else {
+            this.productsInStorage.push(product);
+        }
+        this.setProductsToStorage();
+    }
+
+
+    private setProductsToStorage() {
+        const basket: IBasket = {
+            products: this.productsInStorage
+        };
+        localStorage.setItem(basketLocalStorageName, JSON.stringify(basket));
+    }
+
+    private loadProductsFromStorage() {
+        const basket: IBasket = JSON.parse(localStorage.getItem(basketLocalStorageName));
+        if (basket) {
+            this.productsInStorage = basket.products;
+        }
+    }
+}

@@ -1,0 +1,50 @@
+<div class="table-responsive">
+    <table class="table product-table mb-0">
+        <tbody>
+            <tr *ngIf="calculatedOrder.products.length == 0">
+                <td>
+                    <h6 class="mt-3">
+                        <strong>V košíku nemáte žádné produkty</strong>
+                    </h6>
+                </td>
+            </tr>
+            <tr *ngFor="let product of calculatedOrder.products">
+                <th scope="row">
+                    <img src="{{product.product.previewImageUrl}}" alt="" class="img-fluid z-depth-0">
+                </th>
+                <td>
+                    <h5 class="mt-3">
+                        <strong>{{product.product.name}}</strong>
+                    </h5>
+                </td>
+                <td>
+                    {{product.product.buy.price.czkWithVat}} {{mapPriceTypes(product.product.buy.price.priceType)}} / ks
+                </td>
+                <td>
+                    <input type="number" [min]="1" (change)="onChangeProductCount(+$event.target.value, product)" [value]="product.count" aria-label="Search" class="form-control" style="width: 100px">
+                </td>
+                <td class="font-weight-bold">
+                    <strong>{{product.totalPrice.czkWithVat}} {{mapPriceTypes(product.totalPrice.priceType)}}</strong> s DPH
+                </td>
+                <td>
+                    <button (click)="removeProduct(product)" type="button" mdbBtn color="primary" size="sm" data-toggle="tooltip" data-placement="top" title="Odstranit z košíku"
+                        rounded="true" outline="true">
+                        x
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <h4 class="mt-2">
+                        <strong>Celkem</strong>
+                    </h4>
+                </td>
+                <td colspan="4" class="text-right">
+                    <h4 class="mt-2">
+                        <strong>{{calculatedOrder.total.totalPrice.czkWithVat}} {{mapPriceTypes(calculatedOrder.total.totalPrice.priceType)}}</strong> s DPH
+                    </h4>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -39,22 +39,35 @@
                     <a>{{_activeProduct.previewName}}</a>
                 </h2>
                 <p class="dark-grey-text mb-lg-0 mb-md-5 mb-4">{{_activeProduct.previewDescription}}</p>
-                <app-date-range></app-date-range>
+                <!-- <app-date-range></app-date-range> -->
                 <div class="row">
                     <div class="col-md-6">
                     </div>
                     <div class="col-md-6">
-                      <mdb-select [(ngModel)]="productsCount" [options]="productsCountOptions" label="Počet kusů" placeholder="Vyberte počet kusů"></mdb-select>
                     </div>
                   </div>
-                <div class="jumbotron EshopDetail-pricing">
+                <div class="EshopDetail-pricing">
                     <span class="EshopDetail-pricing-value">
                         {{_activeProduct.buy?.price?.czkWithVat}} {{mapPriceTypes(_activeProduct.buy?.price?.priceType)}}
                         <span *ngIf="_activeProductVAT == 0" class="EshopDetail-pricing-vat">bez DPH</span>
                         <span *ngIf="_activeProductVAT > 0" class="EshopDetail-pricing-vat">s DPH {{_activeProductVAT}}%</span>
                     </span>
                 </div>
-                <button class="ml-auto mt-3" mdbBtn outline="true" type="button" color="primary" mdbWavesEffect>Přidat do košíku</button>
+                <div class="mt-3 w-50">
+                    <button 
+                        *ngIf="productsCount == 0" 
+                        (click)="saveProductBasket(productsCount + 1, true)" 
+                        outline="true" 
+                        type="button" 
+                        color="primary" 
+                        mdbWavesEffect
+                        mdbBtn>Přidat do košíku</button>
+                    <app-shopping-button 
+                        #shoppingButton
+                        *ngIf="productsCount > 0" 
+                        (changed)="saveProductBasket($event)" 
+                        [productsCount]="productsCount"></app-shopping-button>
+                </div>
             </div>
         </div>
     </div>

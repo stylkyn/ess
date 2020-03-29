@@ -29,13 +29,13 @@ namespace ess_api._4_BL.Services
         public async Task<ResponseList<UserResponse>> Get()
         {
             var users = await _uow.Users.FindManyAsync();
-            return new ResponseList<UserResponse>(ResponseStatus.Ok, MapUsers(users.ToList()));
+            return new ResponseList<UserResponse>(ResponseStatus.Ok, _mapService.MapUsers(users.ToList()));
         }
 
         public async Task<Response<UserResponse>> Get(string id)
         {
             var user = await _uow.Users.FindAsync(new Guid(id));
-            return new Response<UserResponse>(ResponseStatus.Ok, MapUser(user));
+            return new Response<UserResponse>(ResponseStatus.Ok, _mapService.MapUser(user));
         }
 
         public async Task<Response<UserResponse>> Authentification(Request request)
@@ -45,7 +45,7 @@ namespace ess_api._4_BL.Services
                 return new Response<UserResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
 
             var token = _authentificationLibrary.GenerateJWT(user);
-            return new Response<UserResponse>(ResponseStatus.Ok, MapUser(user, token));
+            return new Response<UserResponse>(ResponseStatus.Ok, _mapService.MapUser(user, token));
         }
 
         public async Task<Response<UserResponse>> Authentification(AuthentificationRequest request)
@@ -59,7 +59,7 @@ namespace ess_api._4_BL.Services
                 return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessages.PasswordIsNotValid);
 
             var token = _authentificationLibrary.GenerateJWT(user);
-            return new Response<UserResponse>(ResponseStatus.Ok, MapUser(user, token));
+            return new Response<UserResponse>(ResponseStatus.Ok, _mapService.MapUser(user, token));
         }
 
         public async Task<Response<UserResponse>> Add(UserAddRequest request)
@@ -73,28 +73,13 @@ namespace ess_api._4_BL.Services
             user.Password = _cryptographyLibrary.CalculateHash(request.Password);
 
             user = await _uow.Users.InsertAsync(user);
-            return new Response<UserResponse>(ResponseStatus.Ok, MapUser(user));
+            return new Response<UserResponse>(ResponseStatus.Ok, _mapService.MapUser(user));
         }
 
         public async Task<Response> Update(UserRequest user)
         {
             await _uow.Users.ReplaceAsync(user.Id, user);
             return new Response(ResponseStatus.Ok);
-        }
-
-        private UserResponse MapUser(UserModel user, AuthentificationTokenResponse token = null)
-        {
-            return new UserResponse {
-                Firstname = user.Firstname,
-                Lastname = user.Lastname,
-                Email = user.Email,
-                Token = token
-            };
-        }
-
-        private List<UserResponse> MapUsers(List<UserModel> users)
-        {
-            return users.Select(x => MapUser(x)).ToList();
         }
     }
 }

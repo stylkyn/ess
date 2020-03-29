@@ -5,12 +5,12 @@ import { IProduct, initProduct } from 'src/app/models/IProduct';
 import { map } from 'rxjs/operators';
 
 export interface IProductSearchRequest {
-  categoryId?: string;
-  categoryUrlName?: string;
+    categoryId?: string;
+    categoryUrlName?: string;
 }
 
 export interface IProductByUrlRequest {
-  UrlName: string;
+    urlName: string;
 }
 
 @Injectable({
@@ -18,24 +18,24 @@ export interface IProductByUrlRequest {
 })
 
 export class ProductsService extends APIRepository<IProduct> {
-  products: IProduct[];
-  activeProduct: IProduct = initProduct;
+    products: IProduct[];
+    activeProduct: IProduct = initProduct;
 
-  constructor(public _API: APIService) {
-    super(_API, 'Products');
-  }
+    constructor(public _API: APIService) {
+        super(_API, 'Products');
+    }
 
-  public search(request: IProductSearchRequest): void {
-    this._API.getQuery(`${this.className}/Search`, request)
-      .subscribe(x => this.products = x);
-  }
+    public search(request: IProductSearchRequest): void {
+        this._API.getQuery(`${this.className}/Search`, request)
+        .subscribe(x => this.products = x);
+    }
 
-  public fetchCategoryByUrl(request: IProductByUrlRequest): Promise<any> {
-    return this._API.getQuery(`${this.className}/GetByUrl`, request).pipe(
-        map((category: IProduct) => {
-          this.activeProduct = category;
-          return category;
-        })
-    ).toPromise();
-  }
+    public fetchProductByUrl(request: IProductByUrlRequest): Promise<IProduct> {
+        return this._API.getQuery(`${this.className}/GetByUrl`, request).pipe(
+            map((product: IProduct) => {
+            this.activeProduct = product;
+            return product;
+            })
+        ).toPromise();
+    }
 }

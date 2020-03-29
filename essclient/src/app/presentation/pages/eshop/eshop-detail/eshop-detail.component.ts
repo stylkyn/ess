@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProductsService, IProductByUrlRequest } from 'src/app/services/API/products.service';
 import { ActivatedRoute } from '@angular/router';
 import { MapPriceTypes, MapVatTypes } from 'src/app/models/IPrice';
+import { MyToastService } from 'src/app/services/toast.service';
+import { BasketService, IBasketProduct } from '../../../../services/storage/basket.service';
 
 @Component({
     selector: 'app-eshop-detail',
@@ -17,7 +19,18 @@ export class EshopDetailComponent implements OnInit {
         { value: 3, label: '3' },
         ];
 
-    public productsCount = 1;
+    public get productsCount () {
+        if (!this._productService.activeProduct) {
+            return 0;
+        }
+
+        const selectedProduct = this._basketService.findSelectedProduct(this._productService.activeProduct.id);
+        if (!selectedProduct) {
+            return 0;
+        }
+
+        return selectedProduct.productsCount;
+    }
 
     public get _activeProductVAT () {
         return this._activeProduct.buy && this.mapVatTypes(this._activeProduct.buy.price.vatType);
@@ -27,7 +40,12 @@ export class EshopDetailComponent implements OnInit {
         return this._productService.activeProduct;
     }
 
-    constructor(public _productService: ProductsService, private _route: ActivatedRoute) {
+    constructor(
+        public _productService: ProductsService,
+        private _route: ActivatedRoute,
+        private _toastService: MyToastService,
+        private _basketService: BasketService
+        ) {
         this._route.url.subscribe(() => {
             const urlName = this._route.snapshot.paramMap.get('productUrlName');
 
@@ -40,9 +58,26 @@ export class EshopDetailComponent implements OnInit {
 
     loadActiveProduct(urlName: string) {
         const request: IProductByUrlRequest = {
-            UrlName: urlName,
+            urlName: urlName,
         };
-        this._productService.fetchCategoryByUrl(request);
+        this._productService.fetchProductByUrl(request);
     }
 
+    saveProductBasket(count: number, showAddedNotify = false) {
+        if (showAddedNotify) {
+            this._toastService.showSuccess('Přidáno do košíku');
+        }
+
+        if (count === 0) {
+            this._toastService.showSuccess('Odebráno z košíku');
+            this._basketService.removeProduct(this._productService.activeProduct.id);
+            return;
+        }
+
+        const selectedProduct: IBasketProduct = {
+            productId: this._productService.activeProduct.id,
+            productsCount: count
+        };
+        this._basketService.setProduct(selectedProduct);
+    }
 }

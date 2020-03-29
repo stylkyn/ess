@@ -3,8 +3,9 @@
 @import "./styles/mdbCustomize/headerMenu";
 @import "./styles/mdbCustomize/shopCard";
 @import "./styles/mdbCustomize/shopMain";
-@import "./styles/mdbCustomize/breadcrumb";
+@import "./styles/ngx-material/breadcrumb";
 @import "./styles/ngx-material/ngx-datepicker";
+@import "./styles/ngx-material/forms";
 
 @mixin placeholder {
 &::-webkit-input-placeholder {@content}

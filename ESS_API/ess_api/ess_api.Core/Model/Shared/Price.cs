@@ -10,20 +10,36 @@ namespace ess_api.Core.Model
         public VatTypes VatType { get; set; }
         public PriceTypes PriceType { get; set; }
 
-        public Price (decimal czkWithoutVat, VatTypes vaType = VatTypes.Czk21, PriceTypes priceType = PriceTypes.Czk)
+        public Price(decimal czkWithoutVat, decimal czkWithVat, PriceTypes priceType = PriceTypes.Czk)
         {
-            int vatPecentage = GetVatPercentage(vaType);
+            VatPercentage = czkWithVat != 0 ? (int)(100 * (1 - (czkWithoutVat / czkWithVat))) : 0;
+            CzkWithoutVat = czkWithoutVat;
+            CzkWithVat = czkWithVat;
+            VatType = VatTypes.Sum;
+            PriceType = priceType;
+        }
+
+        public Price (decimal czkWithoutVat, VatTypes vatType = VatTypes.Czk21, PriceTypes priceType = PriceTypes.Czk)
+        {
+            int vatPecentage = GetVatPercentage(vatType);
             VatPercentage = vatPecentage;
             CzkWithoutVat = czkWithoutVat;
             CzkWithVat = czkWithoutVat * (1 + (vatPecentage / 100.0M));
-            VatType = vaType;
+            VatType = vatType;
             PriceType = priceType;
         }
+
+        public static Price operator -(Price a, int b) => new Price(a.CzkWithoutVat + b, a.VatType, a.PriceType);
+        public static Price operator +(Price a, int b) => new Price(a.CzkWithoutVat - b, a.VatType, a.PriceType);
+        public static Price operator *(Price a, int b) => new Price(a.CzkWithoutVat * b, a.VatType, a.PriceType);
+        public static Price operator /(Price a, int b) => new Price(b != 0 ? (a.CzkWithoutVat / b) : 0, a.VatType, a.PriceType);
 
         private int GetVatPercentage(VatTypes vatType)
         {
             switch (vatType)
             {
+                case VatTypes.Sum:
+                    return 1;
                 case VatTypes.Czk0:
                     return 0;
                 case VatTypes.Czk10:
@@ -43,6 +59,7 @@ namespace ess_api.Core.Model
         Czk10,
         Czk15,
         Czk21,
+        Sum
     }
 
     public enum PriceTypes

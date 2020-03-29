@@ -54,6 +54,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainService.cs" />
+    <Compile Include="Services\Order\Model\CalculatedOrder.cs" />
+    <Compile Include="Services\Order\OrderService.cs" />
+    <Compile Include="Services\Order\Requests\CalculateOrderRequest.cs" />
+    <Compile Include="Services\Order\Responses\CalculatedOrderResponse.cs" />
+    <Compile Include="Services\Order\Responses\OrderResponse.cs" />
+    <Compile Include="Services\Product\ProductSharedService.cs" />
     <Compile Include="Services\Product\ProductService.cs" />
     <Compile Include="Services\Category\CategoryService.cs" />
     <Compile Include="Request.cs" />
@@ -83,8 +89,6 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Web" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Shared\Requests\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

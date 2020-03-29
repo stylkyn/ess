@@ -1,6 +1,7 @@
-﻿using ess_api.Core.Model;
+﻿using ess_api._4_BL.Services.Requests;
+using ess_api.Core.Model;
 
-namespace ess_api._4_BL.Services.Requests
+namespace ess_api._4_BL.Services.Product.Requests
 {
     public class ProductSearchRequest : Request
     {

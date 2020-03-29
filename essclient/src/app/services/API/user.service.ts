@@ -49,7 +49,11 @@ export class UserService extends APIRepository<IUser> {
         return this._API.post(`${this.className}/Authentification`, login).pipe(
             map((user: IUser) => {
                 this.user = user;
-                this._cookieService.set(cookieJwtName, JSON.stringify(user.token));
+                this._cookieService.set(
+                    cookieJwtName,
+                    JSON.stringify(user.token),
+                    new Date(user.token.expiresDate).getDate());
+                console.log(cookieJwtName, JSON.stringify(user.token));
                 return user;
             }));
     }

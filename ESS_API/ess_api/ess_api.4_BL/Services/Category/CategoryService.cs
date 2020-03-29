@@ -30,7 +30,7 @@ namespace ess_api._4_BL.Services
         {
             
             var categories = await _uow.Categories.FindManyAsync();
-            return new ResponseList<CategoryResponse>(ResponseStatus.Ok, MapCategories(categories.ToList()));
+            return new ResponseList<CategoryResponse>(ResponseStatus.Ok, _mapService.MapCategories(categories.ToList()));
         }
 
         public async Task<Response<CategoryResponse>> GetByUrl(string urlName)
@@ -40,16 +40,16 @@ namespace ess_api._4_BL.Services
                 return new Response<CategoryResponse>(ResponseStatus.NotFound, null, $"Category with urlName: {urlName} was not founded");
 
             var response = categories.FirstOrDefault();
-            return new Response<CategoryResponse>(ResponseStatus.Ok, MapCategory(response));
+            return new Response<CategoryResponse>(ResponseStatus.Ok, _mapService.MapCategory(response));
         }
 
         public async Task<Response<CategoryResponse>> Get(string id)
         {
             var category = await _uow.Categories.FindAsync(new Guid(id));
             if (category == null)
-                return new Response<CategoryResponse>(ResponseStatus.NotFound, MapCategory(category), $"Category with Id: {id} was not founded");
+                return new Response<CategoryResponse>(ResponseStatus.NotFound, _mapService.MapCategory(category), $"Category with Id: {id} was not founded");
 
-            return new Response<CategoryResponse>(ResponseStatus.Ok, MapCategory(category));
+            return new Response<CategoryResponse>(ResponseStatus.Ok, _mapService.MapCategory(category));
         }
 
         /*
@@ -86,27 +86,12 @@ namespace ess_api._4_BL.Services
             return new Response(ResponseStatus.Ok);
         }
 
-        private CategoryResponse MapCategory(CategoryModel category)
-        {
-            return new CategoryResponse
-            {
-                Id = category.Id.ToString(),
-                Name = category.Name,
-                ParentCategoryId = category.ParentCategoryId,
-            };
-        }
-
-        private List<CategoryResponse> MapCategories(List<CategoryModel> categories)
-        {
-            return categories.Select(x => MapCategory(x)).ToList();
-        }
-
         private CategoryResponse MapCategoryTree(CategoryModel category, List<CategoryModel> categoriesFlat = null)
         {
             if (categoriesFlat == null)
                 categoriesFlat = new List<CategoryModel>();
 
-            string categoryId  = category.Id.ToString();
+            string categoryId = category.Id.ToString();
             return new CategoryResponse
             {
                 Id = categoryId,
@@ -125,11 +110,10 @@ namespace ess_api._4_BL.Services
                 categoriesFlat = new List<CategoryModel>();
 
             return categoriesFlat.Where(x => x.ParentCategoryId == null)
-                                 .Select(x => 
+                                 .Select(x =>
                                     MapCategoryTree(x, categoriesFlat.Where(s => s.ParentCategoryId == x.Id.ToString())
                                                                      .ToList()))
                                  .ToList();
         }
-
     }
 }

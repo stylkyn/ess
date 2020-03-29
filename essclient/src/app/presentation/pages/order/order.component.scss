@@ -1,0 +1,43 @@
+@import '../../../../styles/config';
+
+.OrderTab {
+    display: flex;
+    &-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        opacity: 0.8;
+
+        button {
+            background: white;
+            border: 1px solid $grey-border;
+            box-shadow: none;
+            
+            ::ng-deep {
+                i {
+                    color: $black;
+                }
+            }
+            
+        }
+
+        &.is-active {
+            opacity: 1;
+            button {
+                background: $black;
+                ::ng-deep {
+                    i {
+                        color: white;
+                    }
+                }
+            }
+        }
+        
+    }
+    &-title {
+        white-space: nowrap;
+        color: $black;
+        font-weight: 500;
+    }
+}
