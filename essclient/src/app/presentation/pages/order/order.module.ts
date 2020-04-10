@@ -8,6 +8,8 @@ import { routing } from './order.routing';
 import { RouterModule } from '@angular/router';
 import { OrderProductsComponent } from './order-products/order-products.component';
 import { OrderComponent } from './order.component';
+import { OrderTransportComponent } from './order-transport/order-transport.component';
+import { OrderPaymentComponent } from './order-payment/order-payment.component';
 
 @NgModule({
   imports: [
@@ -35,6 +37,8 @@ import { OrderComponent } from './order.component';
   declarations: [
       OrderComponent,
       OrderProductsComponent,
+      OrderTransportComponent,
+      OrderPaymentComponent
   ],
   exports: [
     RouterModule

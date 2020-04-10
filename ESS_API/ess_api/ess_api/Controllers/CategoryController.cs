@@ -10,11 +10,11 @@ using System.Web.Http;
 namespace ess_api.Controllers
 {
     [RoutePrefix("api/Categories")]
-    public class CategoriesController : BaseApiController
+    public class CategoryController : BaseApiController
     {
         private readonly CategoryService _categoryService;
 
-        public CategoriesController()
+        public CategoryController()
         {
             _categoryService = new CategoryService();
         }

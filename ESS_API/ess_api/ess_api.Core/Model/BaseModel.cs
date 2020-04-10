@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,9 @@ namespace ess_api.Core.Model
     {
         [BsonId]
         public Guid Id { get; set; }
+
+        public DateTime CreatedDate { get; private set; } = DateTime.Now;
+
+        public DateTime LastModified { get; set; } = DateTime.Now;
     }
 }

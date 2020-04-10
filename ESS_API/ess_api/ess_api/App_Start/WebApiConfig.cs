@@ -23,6 +23,9 @@ namespace ess_api
             // Web API routes
             config.MapHttpAttributeRoutes();
 
+            // Global Filters
+            config.Filters.Add(new BaseAttribute());
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

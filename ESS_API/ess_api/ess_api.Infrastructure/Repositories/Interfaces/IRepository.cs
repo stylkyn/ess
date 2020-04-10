@@ -1,4 +1,5 @@
 ﻿using ess_api.Core.Model;
+using ess_api.DAL.Repository;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,9 @@ namespace ess_api.Core.Interface
     public interface IRepository<T> where T : BaseModel
     {
         Task<T> FindAsync(Guid Id);
+        Task<T> FindAsync(Expression<Func<T, bool>> condition, SortType sortType, Expression<Func<T, object>> sort);
         Task<List<T>> FindManyAsync(Expression<Func<T, bool>> condition);
+        Task<List<T>> FindManyAsync(Expression<Func<T, bool>> condition, SortType sortType, Expression<Func<T, object>> sort);
         Task<List<T>> FindManyAsync();
         Task<T> InsertAsync(T document);
         Task<IEnumerable<T>> InsertManyAsync(IEnumerable<T> documents);

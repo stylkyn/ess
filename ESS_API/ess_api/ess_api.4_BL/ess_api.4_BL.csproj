@@ -54,11 +54,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainService.cs" />
-    <Compile Include="Services\Order\Model\CalculatedOrder.cs" />
     <Compile Include="Services\Order\OrderService.cs" />
+    <Compile Include="Services\Order\Requests\UpdateOrderRequest.cs" />
     <Compile Include="Services\Order\Requests\CalculateOrderRequest.cs" />
     <Compile Include="Services\Order\Responses\CalculatedOrderResponse.cs" />
     <Compile Include="Services\Order\Responses\OrderResponse.cs" />
+    <Compile Include="Services\Payment\PaymentService.cs" />
+    <Compile Include="Services\Payment\Requests\PaymentSearchRequest.cs" />
+    <Compile Include="Services\Payment\Requests\PaymentAddRequest.cs" />
+    <Compile Include="Services\Payment\Requests\PaymentUpdateRequest.cs" />
+    <Compile Include="Services\Payment\Responses\PaymentResponse.cs" />
     <Compile Include="Services\Product\ProductSharedService.cs" />
     <Compile Include="Services\Product\ProductService.cs" />
     <Compile Include="Services\Category\CategoryService.cs" />
@@ -67,6 +72,11 @@
     <Compile Include="Services\Product\Requests\GetProductDetailRequest.cs" />
     <Compile Include="Services\Product\Requests\ProductSearchRequest.cs" />
     <Compile Include="Services\Product\Responses\ProductDetailResponse.cs" />
+    <Compile Include="Services\Transport\Requests\TransportUpdateRequest.cs" />
+    <Compile Include="Services\Transport\Requests\TransportAddRequest.cs" />
+    <Compile Include="Services\Transport\TransportService.cs" />
+    <Compile Include="Services\Transport\Requests\TransportSearchRequest.cs" />
+    <Compile Include="Services\Transport\Responses\TransportResponse.cs" />
     <Compile Include="Services\User\Requests\AuthetificationRequest.cs" />
     <Compile Include="Services\User\Requests\UserAddRequest.cs" />
     <Compile Include="Services\User\Requests\UserRequest.cs" />
@@ -77,6 +87,7 @@
     <Compile Include="Services\User\Responses\UserResponse.cs" />
     <Compile Include="Services\Category\Responses\CategoryResponse.cs" />
     <Compile Include="Services\Product\Responses\ProductResponse.cs" />
+    <Compile Include="Services\User\UserSharedService.cs" />
     <Compile Include="Services\User\UserService.cs" />
     <Compile Include="Shared\Responses\PriceResponse.cs" />
     <Compile Include="Shared\SharedMapService.cs" />

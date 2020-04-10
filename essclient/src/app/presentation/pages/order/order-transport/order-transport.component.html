@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-12">
+        <form [formGroup]="transportForm">
+            <mdb-card>
+                <mdb-card-header class="bg-white">Doprava</mdb-card-header>
+                <ul class="list-group list-group-flush">
+                    <li *ngFor="let transport of transports; let i = index" class="list-group-item">
+                        <div class="pl-0 form-check">
+                        <input type="radio" class="form-check-input" id="transportType-{{i}}" [value]="transport.type"
+                                formControlName="transportType" name="transportType">
+                        <label class="form-check-label OrderTransport-Item" for="transportType-{{i}}">
+                            <div class="OrderTransport-Item-imgBox">
+                                <img *ngIf="transport.type == TransportType.PersonalPickup" [src]="'assets/icons/personal-pickup.png'" />
+                                <img *ngIf="transport.type == TransportType.Zasilkovna" [src]="'assets/icons/zasilkovna.png'" />
+                            </div>
+                            <div class="w-100 px-2">
+                                {{transport.name}}
+                                <p>{{transport.description}}</p>
+                            </div>
+                            <div class="OrderTransport-Item-price">
+                                <span *ngIf="transport.totalPrice.czkWithVat == 0">
+                                    Zdarma
+                                </span>
+                                <span *ngIf="transport.totalPrice.czkWithVat > 0">
+                                    {{transport.totalPrice.czkWithVat}} {{mapPriceTypes(transport.totalPrice.priceType)}}
+                                </span>
+                            </div>
+                        </label>
+                        </div>
+                    </li>
+                </ul>
+              </mdb-card>
+        </form>
+        <div class="text-right mt-3 mb-3">
+            <button (click)="onNext($event)" type="button" mdbBtn color="primary" mdbWavesEffect>
+                Pokračovat k dopravě
+            </button>
+        </div>
+    </div>
+</div>

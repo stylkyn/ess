@@ -34,9 +34,27 @@ namespace ess_api.DAL.Repository
             return await Collection().Find(x => x.Id == Id).FirstOrDefaultAsync();
         }
 
+        public async Task<T> FindAsync(Expression<Func<T, bool>> condition, SortType sortType, Expression<Func<T, object>> sort)
+        {
+            if (SortType.ASC == sortType)
+            {
+                return await Collection().Find(condition).SortBy(sort).FirstOrDefaultAsync();
+            }
+            return await Collection().Find(condition).SortByDescending(sort).FirstOrDefaultAsync();
+        }
+
         public async Task<List<T>> FindManyAsync(Expression<Func<T, bool>> condition)
         {
             return await Collection().Find(condition).ToListAsync();
+        }
+
+        public async Task<List<T>> FindManyAsync(Expression<Func<T, bool>> condition, SortType sortType, Expression<Func<T, object>> sort)
+        {
+            if (SortType.ASC == sortType)
+            {
+                return await Collection().Find(condition).SortBy(sort).ToListAsync();
+            }
+            return await Collection().Find(condition).SortByDescending(sort).ToListAsync();
         }
 
         public async Task<List<T>> FindManyAsync()
@@ -64,11 +82,13 @@ namespace ess_api.DAL.Repository
 
         public async Task ReplaceAsync(Guid id, T document)
         {
+            document.LastModified = DateTime.Now;
             await Collection().ReplaceOneAsync(x => x.Id == id, document);
         }
 
         public async Task<T> FindAndReplaceAsync(Guid id, T document)
         {
+            document.LastModified = DateTime.Now;
             return await Collection().FindOneAndReplaceAsync<T>(
                 x => x.Id == id,
                 document,
@@ -85,5 +105,11 @@ namespace ess_api.DAL.Repository
             await Collection().DeleteManyAsync(x => ids.Contains(x.Id));
         }
 
+    }
+
+    public enum SortType
+    {
+        ASC,
+        DESC
     }
 }

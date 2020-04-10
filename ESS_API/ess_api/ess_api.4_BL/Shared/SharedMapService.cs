@@ -1,9 +1,11 @@
-﻿using ess_api._4_BL.Services.Order.Model;
-using ess_api._4_BL.Services.Order.Responses;
+﻿using ess_api._4_BL.Services.Order.Responses;
+using ess_api._4_BL.Services.Payment.Responses;
 using ess_api._4_BL.Services.Product.Responses;
 using ess_api._4_BL.Services.Responses;
+using ess_api._4_BL.Services.Transport.Responses;
 using ess_api._4_BL.Shared.Responses;
 using ess_api.Core.Model;
+using ess_api.Core.Model.Shared;
 using Libraries.Authetification.Responses;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +31,80 @@ namespace ess_api._4_BL.Shared
             };
         }
 
+        /**
+         * Payment
+         */
+        public PaymentResponse MapPayment(PaymentModel request)
+        {
+            if (request == null)
+                return null;
+
+            return new PaymentResponse
+            {
+                Id = request.Id.ToString(),
+                Name = request.Name,
+                Description = request.Description,
+                Type = request.Type,
+                IsActive = request.IsActive,
+                TotalPrice = MapPrice(request.TotalPrice),
+                CashOnDelivery = request.CashOnDelivery != null ?
+                    new CashOnDeliveryPaymentResponse { }
+                : null,
+                PaymentOrder = request.PaymentOrder != null ? 
+                    new PaymentOrderResponse { }
+                : null,
+            };
+        }
+
+        /**
+         * Transport
+         */
+        public TransportResponse MapTransport(TransportModel request)
+        {
+            if (request == null)
+                return null;
+
+            return new TransportResponse
+            {
+                Id = request.Id.ToString(),
+                Name = request.Name,
+                Description = request.Description,
+                Type = request.Type,
+                IsActive = request.IsActive,
+                TotalPrice = MapPrice(request.TotalPrice),
+                PersonalPickup = request.PersonalPickup != null ? 
+                    new PersonalPickupTransportResponse { }
+                : null,
+                CzechPost = request.CzechPost != null ? 
+                    new CzechPostTransportResponse {
+                        Places = request.CzechPost?.Places?.Select(x => new CzechPostTransportOptionResponse
+                        {
+                            Name = x.Name
+                        }).ToList()
+                    }
+                : null,
+                Zasilkovna = request.Zasilkovna != null ? 
+                    new ZasilkovnaTransportResponse { }
+                : null
+            };
+        }
+        /**
+         * Order
+         */
+
+        public OrderResponse MapOrder(OrderModel request)
+        {
+            return new OrderResponse
+            {
+                Id = request.Id.ToString(),
+                State = request.State,
+                OrderNumber = request.OrderNumber,
+                Customer = request.Customer,
+                Transport = request.Transport,
+                Payment = request.Payment,
+                CalculatedData = MapCalculatedOrder(request.CalculatedData)
+            };
+        }
         public CalculatedOrderResponse MapCalculatedOrder(CalculatedOrder request)
         {
             return new CalculatedOrderResponse
@@ -104,12 +180,49 @@ namespace ess_api._4_BL.Shared
 
         public UserResponse MapUser(UserModel user, AuthentificationTokenResponse token = null)
         {
+            if (user == null)
+                return null;
+
             return new UserResponse
             {
-                Firstname = user.Firstname,
-                Lastname = user.Lastname,
                 Email = user.Email,
-                Token = token
+                Token = token,
+                Personal = new UserPersonalResponse
+                {
+                    Firstname = user.Personal?.Firstname,
+                    Lastname = user.Personal?.Lastname,
+                    Address = new UserAddressResponse
+                    {
+                        City = user.Personal?.Address?.City,
+                        Country = user.Personal?.Address?.Country,
+                        Street = user.Personal?.Address?.Street,
+                        PostalCode = user.Personal?.Address?.PostalCode,
+                        HouseNumber = user.Personal?.Address?.HouseNumber,
+                    },
+                    Contact = new UserContactResponse
+                    {
+                        Email = user.Personal?.Contact?.Email,
+                        Phone = user.Personal?.Contact?.Phone,
+                    }
+                },
+                Company = new UserCompanyResponse {
+                    CompanyId = user.Company?.CompanyId,
+                    CompanyName = user.Company?.CompanyName,
+                    CompanyVat = user.Company?.CompanyVat,
+                    Address = new UserAddressResponse
+                    {
+                        City = user.Company?.Address?.City,
+                        Country = user.Company?.Address?.Country,
+                        Street = user.Company?.Address?.Street,
+                        PostalCode = user.Company?.Address?.PostalCode,
+                        HouseNumber = user.Company?.Address?.HouseNumber,
+                    },
+                    Contact = new UserContactResponse
+                    {
+                        Email = user.Company?.Contact?.Email,
+                        Phone = user.Company?.Contact?.Phone,
+                    }
+                }
             };
         }
 

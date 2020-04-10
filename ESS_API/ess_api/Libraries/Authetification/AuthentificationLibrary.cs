@@ -46,6 +46,9 @@ namespace Libraries.Authetification
 
         public AuthentificationUserResponse AuthentificateJwt(string token)
         {
+            if (token == null)
+                return null;
+
             //validate jwt
             SecurityToken validatedToken;
             var param = new TokenValidationParameters

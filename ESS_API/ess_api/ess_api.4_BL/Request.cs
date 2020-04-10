@@ -1,6 +1,4 @@
 ﻿using ess_api.Core.Constant;
-using ess_api.Core.Model;
-using Newtonsoft.Json;
 using System.Linq;
 using System.Security.Claims;
 using System.Web;
@@ -26,7 +24,9 @@ namespace ess_api._4_BL.Services.Requests
             {
                 UserId = claims.FirstOrDefault(x => x.Type == AuthentificationConstants.UserId)?.Value;
                 UserEmail = claims.FirstOrDefault(x => x.Type == AuthentificationConstants.UserEmail)?.Value;
-                IsAuthentificated = true;
+
+                if (UserId != null && UserEmail != null)
+                    IsAuthentificated = true;
             }
 
         } 

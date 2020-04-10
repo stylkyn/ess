@@ -7,7 +7,6 @@ namespace ess_api._4_BL.Services.Product.Requests
 {
     public class ProductRequest : Request
     {
-        [Required]
         public string Id { get; set; }
 
         [Required]

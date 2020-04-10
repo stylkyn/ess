@@ -9,6 +9,9 @@ namespace ess_api.DAL.Repositories
         public IProductRepository Products { get; private set; }
         public ICategoryRepository Categories { get; private set; }
         public IUserRepository Users { get; private set; }
+        public ITransportRepository Transports { get; private set; }
+        public IPaymentRepository Payments { get; private set; }
+        public IOrderRepository Orders { get; private set; }
 
 
         public UnitOfWork(DBContext db)
@@ -16,6 +19,9 @@ namespace ess_api.DAL.Repositories
             Products = new ProductRepository(db);
             Categories = new CategoryRepository(db);
             Users = new UserRepository(db);
+            Transports = new TransportRepository(db);
+            Payments = new PaymentRepository(db);
+            Orders = new OrderRepository(db);
         }
     }
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { orderTransportRoute, orderRoute } from '../order.routing';
 
 @Component({
   selector: 'app-order-products',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderProductsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _router: Router) { }
 
   ngOnInit() {
+  }
+
+  onNext() {
+    this._router.navigateByUrl(`${orderRoute}/${orderTransportRoute}`);
   }
 
 }

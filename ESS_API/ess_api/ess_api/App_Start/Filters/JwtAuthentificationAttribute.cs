@@ -17,10 +17,12 @@ namespace ess_api.App_Start.Filters
     public class JwtAuthenticationAttribute : Attribute, IAuthenticationFilter
     {
         public bool AllowMultiple => false;
+        public bool Optional;
         public readonly AuthentificationLibrary _authentificationLibrary;
 
-        public JwtAuthenticationAttribute() {
+        public JwtAuthenticationAttribute(bool optional = false) {
             _authentificationLibrary = new AuthentificationLibrary();
+            Optional = optional;
         }
 
 
@@ -28,27 +30,29 @@ namespace ess_api.App_Start.Filters
         {
             var request = context.Request;
             var authorization = request.Headers.Authorization;
-            // checking request header value having required scheme "Bearer" or not.
-            if (authorization == null || authorization.Scheme != "Bearer" || string.IsNullOrEmpty(authorization.Parameter))
+            // Getting Token value from header values.
+            var token = authorization?.Parameter;
+            var authUser =  _authentificationLibrary.AuthentificateJwt(token);
+
+                //// checking request header value having required scheme "Bearer" or not.
+                //if (authorization == null || authorization.Scheme != "Bearer" || string.IsNullOrEmpty(authorization.Parameter))
+                //{
+                //    context.ErrorResult = new CreateResult(new Response(ResponseStatus.NotFound, ResponseMessages.NotFound));
+                //    return Task.FromResult(0);
+                //}
+            if (!Optional && (authUser == null || authUser.UserEmail == null || authUser.UserId == null))
             {
                 context.ErrorResult = new CreateResult(new Response(ResponseStatus.NotFound, ResponseMessages.NotFound));
                 return Task.FromResult(0);
             }
 
-            // Getting Token value from header values.
-            var token = authorization.Parameter;
-            var authUser = _authentificationLibrary.AuthentificateJwt(token);
-
-            if (authUser == null || authUser.UserEmail == null || authUser.UserId == null)
-                context.ErrorResult = new CreateResult(new Response(ResponseStatus.NotFound, ResponseMessages.NotFound));
-            else
+            if (authUser != null)
                 context.Principal = new ClaimsPrincipal(
                     new ClaimsIdentity(
                         new List<Claim> {
-                            new Claim(AuthentificationConstants.UserId, authUser.UserId),
-                            new Claim(AuthentificationConstants.UserEmail, authUser.UserEmail)
+                            new Claim(AuthentificationConstants.UserId, authUser?.UserId),
+                            new Claim(AuthentificationConstants.UserEmail, authUser?.UserEmail)
                         }));
-
             return Task.FromResult(authUser);
         }
 

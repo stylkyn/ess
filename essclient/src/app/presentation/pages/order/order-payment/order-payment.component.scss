@@ -1,0 +1,30 @@
+.OrderPayment {
+    &-Item {
+        display: flex !important;
+        flex-direction: row !important;
+        min-height: 40px;
+
+        // input circle
+        &::before, &::after {
+            margin-top: 11px !important;
+        }
+
+        &-imgBox {
+            display: flex;
+            align-items: center;
+            img {
+                width: 32px;
+            }
+        }
+        p {
+            font-size: 12px;
+            margin-top: -6px;
+        }
+        &-price {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+    }
+}

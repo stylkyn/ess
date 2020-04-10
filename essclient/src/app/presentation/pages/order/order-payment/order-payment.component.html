@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-12">
+        <form [formGroup]="paymentForm">
+            <mdb-card>
+                <mdb-card-header class="bg-white">Platba</mdb-card-header>
+                <ul class="list-group list-group-flush">
+                    <li *ngFor="let payment of payments; let i = index" class="list-group-item">
+                        <div class="pl-0 form-check">
+                        <input type="radio" class="form-check-input" id="paymentType-{{i}}" [value]="payment.type"
+                                formControlName="paymentType" name="paymentType">
+                        <label class="form-check-label OrderPayment-Item" for="paymentType-{{i}}">
+                            <div class="OrderPayment-Item-imgBox">
+                                <img *ngIf="payment.type == PaymentType.CashOnDelivery" [src]="'assets/icons/wallet.png'" />
+                                <img *ngIf="payment.type == PaymentType.PaymentOrder" [src]="'assets/icons/bank.png'" />
+                            </div>
+                            <div class="w-100 pl-2">
+                                {{payment.name}}
+                                <p>{{payment.description}}</p>
+                            </div>
+                            <div class="OrderPayment-Item-price">
+                                <span *ngIf="payment.totalPrice.czkWithVat == 0">
+                                    Zdarma
+                                </span>
+                                <span *ngIf="payment.totalPrice.czkWithVat > 0">
+                                    {{payment.totalPrice.czkWithVat}} {{mapPriceTypes(payment.totalPrice.priceType)}}
+                                </span>
+                            </div>
+                        </label>
+                        </div>
+                    </li>
+                </ul>
+              </mdb-card>
+        </form>
+        <div class="text-right mt-3 mb-3">
+            <button (click)="onNext($event)" type="button" mdbBtn color="primary" mdbWavesEffect>
+                Pokračovat k dopravě
+            </button>
+        </div>
+    </div>
+</div>

@@ -7,5 +7,8 @@ namespace ess_api.Core.Interfaces
         IProductRepository Products { get; }
         ICategoryRepository Categories { get; }
         IUserRepository Users { get; }
+        ITransportRepository Transports { get; }
+        IPaymentRepository Payments { get; }
+        IOrderRepository Orders { get; }
     }
 }

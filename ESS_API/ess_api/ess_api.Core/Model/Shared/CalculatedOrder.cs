@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ess_api._4_BL.Services.Order.Model
+namespace ess_api.Core.Model.Shared
 {
     public class CalculatedOrder
     {
         public List<CalculatedOrderProduct> Products { get; set; } = new List<CalculatedOrderProduct>();
         public CalculatedOrderTotal Total { get; set; }
+
+        public bool HasAllData() => Products.Count() > 0 && Total != null;
 
         public Price CalculateProductsTotal()
         {

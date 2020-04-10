@@ -34,6 +34,16 @@ namespace ess_api.Controllers
             };
             return Task.FromResult(response);
         }
+
+        public HttpResponseMessage ToHttpResponseMessage()
+        {
+            return new HttpResponseMessage()
+            {
+                Content = new ObjectContent<Response>(_response, new JsonMediaTypeFormatter()),
+                StatusCode = ToStatusCode(_response.Status)
+            };
+        }
+
         private HttpStatusCode ToStatusCode(ResponseStatus responseStatus)
         {
             switch (responseStatus)

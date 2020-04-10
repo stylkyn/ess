@@ -114,6 +114,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Shared\CalculatedOrder.cs" />
+    <Compile Include="Constant\MongoDBContants.cs" />
     <Compile Include="Constant\ResponseMessages.cs" />
     <Compile Include="Constant\CryptographyConstants.cs" />
     <Compile Include="Constant\AuthentificationConstants.cs" />
@@ -124,6 +126,9 @@
     <Compile Include="Model\Shared\Price.cs" />
     <Compile Include="Model\CategoryModel.cs" />
     <Compile Include="Model\ProductModel.cs" />
+    <Compile Include="Model\PaymentModel.cs" />
+    <Compile Include="Model\TransportModel.cs" />
+    <Compile Include="Model\OrderModel.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

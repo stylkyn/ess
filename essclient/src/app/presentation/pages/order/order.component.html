@@ -1,6 +1,6 @@
-<div class="container pt-5">
+<div class="container py-5">
     <div class="OrderTab d-flex">
-        <a [routerLink]="" routerLinkActive="is-active" class="OrderTab-item">
+        <a [routerLink]="orderBasketRoute" routerLinkActive="is-active" class="OrderTab-item">
             <button floating="true" mdbBtn>
                 <mdb-icon fas icon="shopping-basket"></mdb-icon>
             </button>
@@ -12,7 +12,7 @@
             <mdb-icon class="opacity-40" fas size="1x" icon="chevron-right"></mdb-icon>
         </div>
 
-        <a class="OrderTab-item">
+        <a [routerLink]="orderTransportRoute" routerLinkActive="is-active" class="OrderTab-item">
             <button floating="true" mdbBtn>
                 <mdb-icon fas icon="shuttle-van"></mdb-icon>
             </button>
@@ -24,7 +24,7 @@
             <mdb-icon class="opacity-40" fas size="1x" icon="chevron-right"></mdb-icon>
         </div>
 
-        <a class="OrderTab-item">
+        <a [routerLink]="orderPaymentRoute" routerLinkActive="is-active" class="OrderTab-item">
             <button floating="true" mdbBtn>
                 <mdb-icon fas icon="credit-card"></mdb-icon>
             </button>
@@ -55,6 +55,5 @@
         </a>
     </div>
     <hr />
-
     <router-outlet></router-outlet>
 </div>
