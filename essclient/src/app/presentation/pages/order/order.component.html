@@ -1,6 +1,6 @@
 <div class="container py-5">
     <div class="OrderTab d-flex">
-        <a [routerLink]="orderBasketRoute" routerLinkActive="is-active" class="OrderTab-item">
+        <a [routerLink]="orderBasketRoute" routerLinkActive="is-active" class="OrderTab-item {{isProductsValid ? 'active' : ''}}">
             <button floating="true" mdbBtn>
                 <mdb-icon fas icon="shopping-basket"></mdb-icon>
             </button>
@@ -8,11 +8,11 @@
                Košík
             </h6>
         </a>
-        <div class="OrderTab-item">
+        <div  class="OrderTab-item {{isProductsValid ? 'active' : ''}}">
             <mdb-icon class="opacity-40" fas size="1x" icon="chevron-right"></mdb-icon>
         </div>
 
-        <a [routerLink]="orderTransportRoute" routerLinkActive="is-active" class="OrderTab-item">
+        <a [routerLink]="orderTransportRoute" routerLinkActive="is-active" class="OrderTab-item {{isTransportValid ? 'active' : 'disabled'}}">
             <button floating="true" mdbBtn>
                 <mdb-icon fas icon="shuttle-van"></mdb-icon>
             </button>
@@ -20,11 +20,11 @@
                Doprava
             </h6>
         </a>
-        <div class="OrderTab-item">
+        <div class="OrderTab-item {{isTransportValid ? 'active' : ''}}">
             <mdb-icon class="opacity-40" fas size="1x" icon="chevron-right"></mdb-icon>
         </div>
 
-        <a [routerLink]="orderPaymentRoute" routerLinkActive="is-active" class="OrderTab-item">
+        <a [routerLink]="orderPaymentRoute" routerLinkActive="is-active" class="OrderTab-item {{isPaymentValid ? 'active' : 'disabled'}}">
             <button floating="true" mdbBtn>
                 <mdb-icon fas icon="credit-card"></mdb-icon>
             </button>
@@ -32,11 +32,11 @@
                Platba
             </h6>
         </a>
-        <div class="OrderTab-item">
+        <div class="OrderTab-item {{isPaymentValid ? 'active' : ''}}">
             <mdb-icon class="opacity-40" fas size="1x" icon="chevron-right"></mdb-icon>
         </div>
 
-        <a [routerLink]="orderCustomerRoute" routerLinkActive="is-active" class="OrderTab-item">
+        <a [routerLink]="orderCustomerRoute" routerLinkActive="is-active" class="OrderTab-item {{isPaymentValid ? 'active' : 'disabled'}}">
             <button floating="true" mdbBtn>
                 <mdb-icon fas icon="address-card"></mdb-icon>
             </button>
@@ -44,11 +44,11 @@
                Osobní údaje
             </h6>
         </a>
-        <div class="OrderTab-item">
+        <div class="OrderTab-item {{false ? 'active' : ''}}">
             <mdb-icon class="opacity-40" fas size="1x" icon="chevron-right"></mdb-icon>
         </div>
 
-        <a [routerLink]="orderSummaryRoute" routerLinkActive="is-active"  class="OrderTab-item">
+        <a [routerLink]="orderSummaryRoute" routerLinkActive="is-active" [class.disabled]="true" class="OrderTab-item">
             <button floating="true" mdbBtn>
                 <mdb-icon size="1x" fas icon="check"></mdb-icon>
             </button>

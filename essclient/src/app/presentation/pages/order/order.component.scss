@@ -22,13 +22,22 @@
             
         }
 
-        &.is-active {
+        &.is-active, &.active {
             opacity: 1;
             button {
                 background: $black;
                 ::ng-deep {
                     i {
                         color: white;
+                    }
+                }
+            }
+            ::ng-deep {
+                mdb-icon {
+                    opacity: 1;
+                    i {
+                        opacity: 1;
+                        color: $black;
                     }
                 }
             }

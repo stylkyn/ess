@@ -5,6 +5,8 @@ import { IUserCompany } from './../../models/IUser';
 export interface ICustomerStorage {
     personal: IUserPersonal;
     company: IUserCompany;
+    invoiceToCompany: boolean;
+    transportToSameAddress: boolean;
 }
 
 const customerLocalStorageName = 'customer';

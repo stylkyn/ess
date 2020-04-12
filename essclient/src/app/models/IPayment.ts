@@ -1,6 +1,7 @@
 import { IPrice } from './IPrice';
 
 export interface IPayment {
+    id: string;
     type: PaymentType;
     isActive: boolean;
     name: string;

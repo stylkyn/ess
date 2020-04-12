@@ -15,10 +15,11 @@ import { RegisterModalComponent } from './register-modal/register-modal.componen
 import { RegisterModalContentComponent } from './register-modal/register-modal-content.component';
 import { ShoppingButtonComponent } from './shopping-button/shopping-button.component';
 import { ShoppingCardProductsComponent } from './shopping-card-products/shopping-card-products.component';
+import { OrderSummaryCardComponent } from './order-summary-card/order-summary-card.component';
 
 @NgModule({
     imports: [
-    CommonModule,
+CommonModule,
         RouterModule,
         // plugins
         SidenavModule,
@@ -49,6 +50,7 @@ import { ShoppingCardProductsComponent } from './shopping-card-products/shopping
         RegisterModalContentComponent,
         ShoppingButtonComponent,
         ShoppingCardProductsComponent,
+        OrderSummaryCardComponent,
     ],
     entryComponents: [
         ShoppingCardModalContentComponent,
@@ -62,6 +64,7 @@ import { ShoppingCardProductsComponent } from './shopping-card-products/shopping
         RegisterModalComponent,
         ShoppingButtonComponent,
         ShoppingCardProductsComponent,
+        OrderSummaryCardComponent,
     ]
 })
 export class ComponentsModule { }

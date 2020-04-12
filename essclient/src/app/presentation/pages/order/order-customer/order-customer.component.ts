@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { orderRoute, orderSummaryRoute } from '../order.routing';
 import { CustomerStorageService, ICustomerStorage } from 'src/app/services/storage/customer.service';
+import { clearValidators } from 'src/app/utils/formUtils';
 
 @Component({
   selector: 'app-order-customer',
@@ -42,6 +43,9 @@ export class OrderCustomerComponent implements OnInit {
     get companyPhone () { return this.customerForm.get('company.contact.phone'); }
     get companyEmail () { return this.customerForm.get('company.contact.email'); }
 
+    get termsAndConditions () { return this.customerForm.get('termsAndConditions'); }
+    get gpdrTerms () { return this.customerForm.get('gpdrTerms'); }
+
     constructor(
         private _formBuilder: FormBuilder,
         private _router: Router,
@@ -50,59 +54,84 @@ export class OrderCustomerComponent implements OnInit {
         this.customerForm = this._formBuilder.group({
             personal: this._formBuilder.group({
                 firstname: [_customerStorage.customerInStorage?.personal?.firstname, Validators.required],
-                lastname: [null, Validators.required],
+                lastname: [_customerStorage.customerInStorage?.personal?.lastname, Validators.required],
                 address: this._formBuilder.group({
-                    country: ['Česká Republika', Validators.required],
-                    postalCode: [null, Validators.required],
-                    city: [null, Validators.required],
-                    street: [null, Validators.required],
-                    houseNumber: [null, Validators.required],
+                    country: [_customerStorage.customerInStorage?.personal?.address?.country ?? 'Česká Republika', Validators.required],
+                    postalCode: [_customerStorage.customerInStorage?.personal?.address?.postalCode, Validators.required],
+                    city: [_customerStorage.customerInStorage?.personal?.address?.city, Validators.required],
+                    street: [_customerStorage.customerInStorage?.personal?.address?.street, Validators.required],
+                    houseNumber: [_customerStorage.customerInStorage?.personal?.address?.houseNumber, Validators.required],
                 }),
                 contact: this._formBuilder.group({
-                    phone: [null, Validators.required],
-                    email: [null, Validators.required],
+                    phone: [_customerStorage.customerInStorage?.personal?.contact?.phone, Validators.required],
+                    email: [_customerStorage.customerInStorage?.personal?.contact?.email, Validators.required],
                 })
             }),
-            invoiceToCompany: [false],
+            invoiceToCompany: [_customerStorage.customerInStorage?.invoiceToCompany ?? false],
             company: this._formBuilder.group({
-                companyName: [null],
-                companyId: [null],
-                companyVat: [null],
-                transportToSameAddress: [false],
+                companyName: [_customerStorage.customerInStorage?.company?.companyName],
+                companyId: [_customerStorage.customerInStorage?.company?.companyId],
+                companyVat: [_customerStorage.customerInStorage?.company?.companyVat],
+                transportToSameAddress: [_customerStorage.customerInStorage?.transportToSameAddress ?? false],
                 address: this._formBuilder.group({
-                    country: ['Česká Republika'],
-                    postalCode: [null],
-                    city: [null],
-                    street: [null],
-                    houseNumber: [null],
+                    country: [_customerStorage.customerInStorage?.company?.address?.country ?? 'Česká Republika'],
+                    postalCode: [_customerStorage.customerInStorage?.company?.address?.postalCode],
+                    city: [_customerStorage.customerInStorage?.company?.address?.city],
+                    street: [_customerStorage.customerInStorage?.company?.address?.street],
+                    houseNumber: [_customerStorage.customerInStorage?.company?.address?.houseNumber],
                 })
-            })
+            }),
+            termsAndConditions: [false, Validators.requiredTrue],
+            gpdrTerms: [false, Validators.requiredTrue]
         });
     }
 
     ngOnInit() {
-        this.customerForm.valueChanges.subscribe(x => {
-            if (x.invoiceToCompany) {
-                this.companyName.setValidators(Validators.required);
-                this.companyId.setValidators(Validators.required);
-                this.companyVat.setValidators(Validators.required);
+        this.customerForm.valueChanges.subscribe(x => 
+            this.saveCustomerData());
+        this.invoiceToCompany.valueChanges.subscribe(invoiceToCompany => 
+            this.setCompanyValidator(invoiceToCompany));
+        this.transportToSameAddress.valueChanges.subscribe(transportToSameAddress => 
+            this.setCompanyAddressValidator(transportToSameAddress));
 
-                if (x.company.transportToSameAddress) {
-                    this.companyCountry.setValidators(Validators.required);
-                    this.companyPostalCode.setValidators(Validators.required);
-                    this.companyCity.setValidators(Validators.required);
-                    this.companyStreet.setValidators(Validators.required);
-                    this.companyHouseNumber.setValidators(Validators.required);
-                } else {
-                    this.customerForm.get('company.address').clearValidators();
-                }
-            } else {
-                this.customerForm.controls.company.clearValidators();
-            }
-        });
+        this.setCompanyValidator(this._customerStorage.customerInStorage?.invoiceToCompany);
     }
 
     public onNext () {
+        this.saveCustomerData();
+        this._router.navigateByUrl(`${orderRoute}/${orderSummaryRoute}`);
+    }
+
+    private setCompanyValidator(validate: boolean) {
+        if (validate) {
+            this.companyName.setValidators(Validators.required);
+            this.companyId.setValidators(Validators.required);
+            this.companyVat.setValidators(Validators.required);
+        } else {
+            clearValidators(this.companyName);
+            clearValidators(this.companyId);
+            clearValidators(this.companyVat);
+        }
+        this.setCompanyAddressValidator(validate);
+    }
+
+    private setCompanyAddressValidator(validate: boolean) {
+        if (validate) {
+            this.companyCountry.setValidators(Validators.required);
+            this.companyPostalCode.setValidators(Validators.required);
+            this.companyCity.setValidators(Validators.required);
+            this.companyStreet.setValidators(Validators.required);
+            this.companyHouseNumber.setValidators(Validators.required);
+        } else {
+            clearValidators(this.companyCountry);
+            clearValidators(this.companyPostalCode);
+            clearValidators(this.companyCity);
+            clearValidators(this.companyStreet);
+            clearValidators(this.companyHouseNumber);
+        }
+    }
+
+    private saveCustomerData() {
         const formValues = this.customerForm.value;
         const customer: ICustomerStorage = {
             personal: {
@@ -116,8 +145,8 @@ export class OrderCustomerComponent implements OnInit {
                     houseNumber: formValues.personal.address.houseNumber,
                 },
                 contact: {
-                    phone: formValues.personal.address.phone,
-                    email: formValues.personal.address.email,
+                    phone: formValues.personal.contact.phone,
+                    email: formValues.personal.contact.email,
                 }
             },
             company: {
@@ -131,9 +160,10 @@ export class OrderCustomerComponent implements OnInit {
                     street: formValues.company.address.street,
                     houseNumber: formValues.company.address.houseNumber,
                 },
-            }
+            },
+            invoiceToCompany: formValues.invoiceToCompany,
+            transportToSameAddress: formValues.company.transportToSameAddress,
         };
         this._customerStorage.set(customer);
-        this._router.navigateByUrl(`${orderRoute}/${orderSummaryRoute}`);
     }
 }

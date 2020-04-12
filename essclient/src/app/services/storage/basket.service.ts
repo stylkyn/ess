@@ -14,7 +14,7 @@ export interface IBasketProductStorage {
 @Injectable({
   providedIn: 'root'
 })
-export class BasketService {
+export class BasketStorageService {
     public productsInStorage: IBasketProductStorage[] = [];
 
     constructor() {

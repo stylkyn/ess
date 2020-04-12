@@ -34,6 +34,11 @@ namespace ess_api.Core.Model
         public static Price operator *(Price a, int b) => new Price(a.CzkWithoutVat * b, a.VatType, a.PriceType);
         public static Price operator /(Price a, int b) => new Price(b != 0 ? (a.CzkWithoutVat / b) : 0, a.VatType, a.PriceType);
 
+        public static Price operator -(Price a, decimal b) => new Price(a.CzkWithoutVat + b, a.VatType, a.PriceType);
+        public static Price operator +(Price a, decimal b) => new Price(a.CzkWithoutVat - b, a.VatType, a.PriceType);
+        public static Price operator *(Price a, decimal b) => new Price(a.CzkWithoutVat * b, a.VatType, a.PriceType);
+        public static Price operator /(Price a, decimal b) => new Price(b != 0 ? (a.CzkWithoutVat / b) : 0, a.VatType, a.PriceType);
+
         private int GetVatPercentage(VatTypes vatType)
         {
             switch (vatType)

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { orderTransportRoute, orderRoute } from '../order.routing';
-import { BasketService } from 'src/app/services/storage/basket.service';
+import { BasketStorageService } from 'src/app/services/storage/basket.service';
 
 @Component({
   selector: 'app-order-products',
@@ -10,7 +10,7 @@ import { BasketService } from 'src/app/services/storage/basket.service';
 })
 export class OrderProductsComponent implements OnInit {
 
-  constructor(private _router: Router, public _basketService: BasketService) { }
+  constructor(private _router: Router, public _basketService: BasketStorageService) { }
 
   ngOnInit() {
   }

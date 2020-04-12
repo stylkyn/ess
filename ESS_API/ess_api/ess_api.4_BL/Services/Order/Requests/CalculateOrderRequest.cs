@@ -8,6 +8,9 @@ namespace ess_api._4_BL.Services.Order.Requests
     {
         [Required]
         public List<CalculatedOrderProductRequest> Products { get; set; }
+
+        public string TransportId { get; set; }
+        public string PaymentId { get; set; }
     }
 
     public class CalculatedOrderProductRequest

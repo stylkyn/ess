@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ITransportQueryRequest, TransportService } from 'src/app/services/API/transport.service';
 import { ITransport, TransportType } from 'src/app/models/ITransport';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -6,6 +6,10 @@ import { MapPriceTypes } from 'src/app/models/IPrice';
 import { orderRoute, orderPaymentRoute } from '../order.routing';
 import { Router } from '@angular/router';
 import { TransportStorageService } from 'src/app/services/storage/transport.service';
+import { ICalculateOrderRequest, OrderService } from 'src/app/services/API/order.service';
+import { BasketStorageService } from 'src/app/services/storage/basket.service';
+import { PaymentStorageService } from './../../../../services/storage/payment.service';
+import { OrderBussinessService } from './../order.service';
 
 @Component({
   selector: 'app-order-transport',
@@ -15,7 +19,7 @@ import { TransportStorageService } from 'src/app/services/storage/transport.serv
 export class OrderTransportComponent implements OnInit {
     TransportType = TransportType;
     mapPriceTypes = MapPriceTypes;
-
+    
     public transportForm: FormGroup;
 
     public get transports (): ITransport[] {
@@ -30,6 +34,7 @@ export class OrderTransportComponent implements OnInit {
     constructor(
         private _transportService: TransportService,
         private _transportStorage: TransportStorageService,
+        private _orderBussiness: OrderBussinessService,
         private _formBuilder: FormBuilder,
         private _router: Router
         ) {
@@ -44,6 +49,7 @@ export class OrderTransportComponent implements OnInit {
 
     public onChangeTransport(transport: ITransport) {
         this._transportStorage.set(transport);
+        this._orderBussiness.calculateOrder();
     }
 
     public onNext () {
@@ -56,6 +62,4 @@ export class OrderTransportComponent implements OnInit {
         };
         this._transportService.fetchTransport(request);
     }
-
-
 }

@@ -14,8 +14,18 @@
 &:-ms-input-placeholder      {@content}  
 }
 
+.sticky-top-header {
+    top: 5rem !important;
+    position: sticky !important;
+}
+
 h2 {
     font-size: 2.2rem;
+}
+
+a.disabled {
+    pointer-events: none;
+    cursor: default;
 }
 
  

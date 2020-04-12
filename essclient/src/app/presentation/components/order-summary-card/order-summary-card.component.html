@@ -1,0 +1,73 @@
+<mdb-card class="OrderSummaryCard">
+    <mdb-card-header class="bg-white">Souhrn</mdb-card-header>
+    <mdb-card-body class="py-0 px-2">
+        <div class="table-responsive">
+            <table class="table product-table mb-0 OrderSummaryCard-table">
+                <tbody>
+                    <tr *ngFor="let product of calculatedOrder.products">
+                        <th scope="row">
+                            <img src="{{product.product.previewImageUrl}}" alt="{{product.product.name}}" class="img-fluid z-depth-0">
+                        </th>
+                        <td class="w-100">
+                            <h5 class="OrderSummaryCard-name">
+                                <strong>{{product.count}}x {{product.product.name}}</strong>
+                            </h5>
+                        </td>
+                        <td class="font-weight-bold OrderSummaryCard-price">
+                            <strong>{{product.totalPrice.czkWithVat}} {{mapPriceTypes(product.totalPrice.priceType)}}</strong>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="calculatedOrder.transport">
+                        <th scope="row">
+                            <img *ngIf="calculatedOrder.transport.type == TransportType.PersonalPickup" [src]="'assets/icons/personal-pickup.png'" />
+                            <img *ngIf="calculatedOrder.transport.type == TransportType.Zasilkovna" [src]="'assets/icons/zasilkovna.png'" />
+                        </th>
+                        <td class="w-100">
+                            <h5 class="OrderSummaryCard-name">
+                                <strong>{{calculatedOrder.transport.name}}</strong>
+                            </h5>
+                        </td>
+                        <td class="font-weight-bold OrderSummaryCard-price">
+                            <strong>
+                                <span *ngIf="calculatedOrder.transport.totalPrice?.czkWithVat > 0">{{calculatedOrder.transport.totalPrice?.czkWithVat}} {{mapPriceTypes(calculatedOrder.transport.totalPrice?.priceType)}}</span>
+                                <span *ngIf="calculatedOrder.transport.totalPrice?.czkWithVat == 0">Zdarma</span>
+                            </strong>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="calculatedOrder.payment">
+                        <th scope="row">
+                            <img *ngIf="calculatedOrder.payment.type == PaymentType.CashOnDelivery" [src]="'assets/icons/wallet.png'" />
+                            <img *ngIf="calculatedOrder.payment.type == PaymentType.PaymentOrder" [src]="'assets/icons/bank.png'" />
+                        </th>
+                        <td class="w-100">
+                            <h5 class="OrderSummaryCard-name">
+                                <strong>{{calculatedOrder.payment.name}}</strong>
+                            </h5>
+                        </td>
+                        <td class="font-weight-bold OrderSummaryCard-price">
+                            <strong>
+                                <span *ngIf="calculatedOrder.payment.totalPrice?.czkWithVat > 0">{{calculatedOrder.payment.totalPrice?.czkWithVat}} {{mapPriceTypes(calculatedOrder.payment.totalPrice?.priceType)}}</span>
+                                <span *ngIf="calculatedOrder.payment.totalPrice?.czkWithVat == 0">Zdarma</span>
+                            </strong>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <h4 class="mt-2 OrderSummaryCard-total-name">
+                                <strong>Celkem s DPH</strong>
+                            </h4>
+                        </td>
+                        <td colspan="4" >
+                            <h4>
+                                <strong class="OrderSummaryCard-total-price">{{calculatedOrder.total.totalPrice.czkWithVat}} {{mapPriceTypes(calculatedOrder.total.totalPrice.priceType)}}</strong>
+                            </h4>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </mdb-card-body>
+</mdb-card>

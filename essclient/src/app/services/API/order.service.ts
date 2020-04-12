@@ -7,6 +7,8 @@ import { ICalculatedOrder, calculateOrderInit } from './../../models/IOrder';
 
 export interface ICalculateOrderRequest {
     products: ICalculatedOrderProductRequest[];
+    transportId: string;
+    paymentId: string;
 }
 
 export interface ICalculatedOrderProductRequest {

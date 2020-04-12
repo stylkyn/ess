@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-9">
+    <div class="col-8">
         <form [formGroup]="customerForm">
             <mdb-card>
                 <mdb-card-header class="bg-white">Osobní údaje</mdb-card-header>
@@ -151,10 +151,19 @@
                 </mdb-card-body>
             </mdb-card>
             <div class="text-right mt-3 mb-3">
+                <div class="mt-4 mb-1 mr-2">
+                    <mdb-checkbox formControlName="termsAndConditions">Souhlasím s obchodními podmínkami</mdb-checkbox>
+                    <mdb-checkbox formControlName="gpdrTerms">Souhlasím s GDPR</mdb-checkbox>
+                </div>
                 <button [disabled]="customerForm.invalid" (click)="onNext()" type="button" mdbBtn color="primary" mdbWavesEffect>
-                    Pokračovat k souhrnu
+                    Potvrdit objednávku
                 </button>
             </div>
-        </form>
+        </form>c
+    </div>
+    <div class="col-4">
+        <div class="sticky-top-header">
+            <app-order-summary-card></app-order-summary-card>
+        </div>
     </div>
 </div>

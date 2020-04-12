@@ -3,7 +3,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MDBSpinningPreloader, WavesModule, AccordionModule, CarouselModule, 
     InputsModule, NavbarModule, CardsModule, ButtonsModule, 
-    SelectModule, TabsModule, IconsModule, InputUtilitiesModule, CheckboxModule } from 'ng-uikit-pro-standard';
+    SelectModule, TabsModule, IconsModule, InputUtilitiesModule, CheckboxModule, StickyContentModule } from 'ng-uikit-pro-standard';
 import { ComponentsModule } from '../../components/components.module';
 import { routing } from './order.routing';
 import { RouterModule } from '@angular/router';
@@ -13,10 +13,11 @@ import { OrderTransportComponent } from './order-transport/order-transport.compo
 import { OrderPaymentComponent } from './order-payment/order-payment.component';
 import { OrderCustomerComponent } from './order-customer/order-customer.component';
 import { OrderSummaryComponent } from './order-summary/order-summary.component';
+import { OrderBussinessService } from './order.service';
 
 @NgModule({
   imports: [
-  CommonModule,
+    CommonModule,
     // plugins
     CardsModule,
     WavesModule,
@@ -36,6 +37,7 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component';
     SelectModule,
     TabsModule,
     IconsModule,
+    StickyContentModule,
 
     ComponentsModule
   ],
@@ -51,6 +53,9 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component';
     RouterModule
   ],
   schemas: [NO_ERRORS_SCHEMA],
-  providers: [MDBSpinningPreloader]
+  providers: [
+      MDBSpinningPreloader,
+      OrderBussinessService
+    ]
 })
 export class OrderModule { }

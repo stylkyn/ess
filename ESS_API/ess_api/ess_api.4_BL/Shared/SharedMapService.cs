@@ -109,6 +109,20 @@ namespace ess_api._4_BL.Shared
         {
             return new CalculatedOrderResponse
             {
+                Transport = request.Transport != null ? new  CalculatedOrderTransportResponse
+                {
+                    TransportId = request.Transport.TransportId,
+                    Name = request.Transport.Name,
+                    Type = request.Transport.Type,
+                    TotalPrice = MapPrice(request.Transport.TotalPrice),
+                } : null,
+                Payment = request.Payment != null ? new CalculatedOrderPaymentResponse
+                {
+                    PaymentId = request.Payment.PaymentId,
+                    Name = request.Payment.Name,
+                    Type = request.Payment.Type,
+                    TotalPrice = MapPrice(request.Payment.TotalPrice),
+                } : null,
                 Products = request.Products.Select(p => new CalculatedOrderProductResponse
                 {
                     Count = p.Count,

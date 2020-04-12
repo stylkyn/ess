@@ -1,6 +1,7 @@
 import { IPrice } from './IPrice';
 
 export interface ITransport {
+    id: string;
     type: TransportType;
     isActive: boolean;
     name: string;

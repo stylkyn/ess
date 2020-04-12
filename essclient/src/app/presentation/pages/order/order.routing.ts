@@ -16,7 +16,11 @@ export const orderCustomerRoute = 'osobni-udaje';
 export const orderSummaryRoute = 'souhrn';
 
 const APP_ROUTES: Routes = [
-    // Main tamplate
+    {
+        path: '',
+        redirectTo: orderBasketRoute,
+        pathMatch: 'prefix',
+    },
     {
         path: '',
         component: OrderComponent,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PaymentType, IPayment } from 'src/app/models/IPayment';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PaymentService, IPaymentQueryRequest } from 'src/app/services/API/payment.service';
@@ -6,6 +6,10 @@ import { orderRoute } from '../order.routing';
 import { orderCustomerRoute } from './../order.routing';
 import { Router } from '@angular/router';
 import { PaymentStorageService } from './../../../../services/storage/payment.service';
+import { ICalculateOrderRequest, OrderService } from 'src/app/services/API/order.service';
+import { BasketStorageService } from 'src/app/services/storage/basket.service';
+import { TransportStorageService } from 'src/app/services/storage/transport.service';
+import { OrderBussinessService } from './../order.service';
 
 @Component({
   selector: 'app-order-payment',
@@ -28,6 +32,7 @@ export class OrderPaymentComponent implements OnInit {
     constructor(
         private _paymentService: PaymentService,
         private _paymentStorage: PaymentStorageService,
+        private _orderBussiness: OrderBussinessService,
         private _formBuilder: FormBuilder,
         private _router: Router
         ) {
@@ -42,6 +47,7 @@ export class OrderPaymentComponent implements OnInit {
 
     public onChangeTransport(payment: IPayment) {
         this._paymentStorage.set(payment);
+        this._orderBussiness.calculateOrder();
     }
 
     public onNext () {
@@ -54,5 +60,4 @@ export class OrderPaymentComponent implements OnInit {
         };
         this._paymentService.fetchPayment(request);
     }
-
 }

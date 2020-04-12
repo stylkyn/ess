@@ -43,7 +43,7 @@ namespace ess_api._4_BL.Services.Order
 
             if (request.CalculateOrder != null)
             {
-                var calculatedData = await CalculateOrder(request.CalculateOrder.Products);
+                var calculatedData = await CalculateOrder(request.CalculateOrder.Products, request.Transport?.TransportId, request.Payment?.PaymentId);
                 order.CalculatedData = calculatedData;
 
                 order.State = OrderState.CalculateReady;
@@ -122,16 +122,17 @@ namespace ess_api._4_BL.Services.Order
 
         public async Task<Response<CalculatedOrderResponse>> CalculateOrder(CalculateOrderRequest request)
         {
-            var calculatedData = await CalculateOrder(request.Products);
+            var calculatedData = await CalculateOrder(request.Products, request.TransportId, request.PaymentId);
 
             var response = _mapService.MapCalculatedOrder(calculatedData);
             return new Response<CalculatedOrderResponse>(ResponseStatus.Ok, response);
         }
 
-        private async Task<CalculatedOrder> CalculateOrder(List<CalculatedOrderProductRequest> products)
+        private async Task<CalculatedOrder> CalculateOrder(List<CalculatedOrderProductRequest> products, string transportId, string paymentId)
         {
             var calculatedData = new CalculatedOrder();
 
+            // add products
             var productsIds = products.Select(p => p.ProductId).ToList();
             var selectedProducts = await _productSharedService.GetSelected(productsIds);
             calculatedData.Products = selectedProducts.Select(p => {
@@ -144,9 +145,34 @@ namespace ess_api._4_BL.Services.Order
                 return res;
             }).ToList();
 
+            // add transport 
+            if (transportId != null)
+            {
+                var transport = await _uow.Transports.FindAsync(new Guid(transportId));
+                calculatedData.Transport = transport != null ? new CalculatedOrderTransport
+                {
+                    TransportId = transport.Id.ToString(),
+                    Type = transport.Type,
+                    Name = transport.Name,
+                    TotalPrice = transport.TotalPrice
+                } : null;
+            }
+            // add payment 
+            if (paymentId != null)
+            {
+                var payment = await _uow.Payments.FindAsync(new Guid(paymentId));
+                calculatedData.Payment = payment != null ? new CalculatedOrderPayment
+                {
+                    PaymentId = payment.Id.ToString(),
+                    Type = payment.Type,
+                    Name = payment.Name,
+                    TotalPrice = payment.TotalPrice
+                } : null;
+            }
+
             calculatedData.Total = new CalculatedOrderTotal
             {
-                TotalPrice = calculatedData.CalculateProductsTotal()
+                TotalPrice = calculatedData.CalculateTotal()
             };
             return calculatedData;
         }

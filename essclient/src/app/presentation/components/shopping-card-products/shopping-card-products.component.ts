@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MDBModalRef } from 'ng-uikit-pro-standard';
-import { BasketService, IBasketProductStorage } from 'src/app/services/storage/basket.service';
+import { BasketStorageService, IBasketProductStorage } from 'src/app/services/storage/basket.service';
 import { OrderService, ICalculateOrderRequest } from './../../../services/API/order.service';
 import { MapPriceTypes } from 'src/app/models/IPrice';
 import { ICalculatedOrderProductOrder } from 'src/app/models/IOrder';
+import { TransportStorageService } from 'src/app/services/storage/transport.service';
+import { PaymentStorageService } from './../../../services/storage/payment.service';
 
 @Component({
   selector: 'app-shopping-card-products',
@@ -18,7 +20,9 @@ export class ShoppingCardProductsComponent implements OnInit {
         return this._orderService.calculatedOrder;
     }
     constructor(
-        public _basketService: BasketService,
+        public _basketStorage: BasketStorageService,
+        public _transportStorage: TransportStorageService,
+        public _paymentStorage: PaymentStorageService,
         public _orderService: OrderService
     ) {
     }
@@ -28,7 +32,7 @@ export class ShoppingCardProductsComponent implements OnInit {
     }
 
     removeProduct(product: ICalculatedOrderProductOrder) {
-        this._basketService.removeProduct(product.product.id);
+        this._basketStorage.removeProduct(product.product.id);
         this.calculateOrder();
     }
 
@@ -41,17 +45,21 @@ export class ShoppingCardProductsComponent implements OnInit {
             productId: product.product.id,
             productsCount: count
         };
-        this._basketService.setProduct(request);
+        this._basketStorage.setProduct(request);
         this.calculateOrder();
     }
 
     calculateOrder () {
-        const productsInBasket = this._basketService.productsInStorage;
+        const productsInBasket = this._basketStorage.productsInStorage;
+        const transportId = this._transportStorage.transportInStorage?.id;
+        const paymentId = this._paymentStorage.paymentInStorage?.id;
         const request: ICalculateOrderRequest = {
             products: productsInBasket.map(x => ({
                 productId: x.productId,
                 count: x.productsCount
-            }))
+            })),
+            transportId: transportId,
+            paymentId: paymentId
         };
         this._orderService.fetchCalculatedOrder(request);
     }
