@@ -42,10 +42,6 @@ export class OrderCustomerComponent implements OnInit {
     get companyPhone () { return this.customerForm.get('company.contact.phone'); }
     get companyEmail () { return this.customerForm.get('company.contact.email'); }
 
-    get customerStorage () {
-        return this._customerStorage.customerInStorage != null
-    }
-
     constructor(
         private _formBuilder: FormBuilder,
         private _router: Router,
@@ -53,7 +49,7 @@ export class OrderCustomerComponent implements OnInit {
         ) {
         this.customerForm = this._formBuilder.group({
             personal: this._formBuilder.group({
-                firstname: [_customerStorage.customerInStorage?.personal.firstname, Validators.required],
+                firstname: [_customerStorage.customerInStorage?.personal?.firstname, Validators.required],
                 lastname: [null, Validators.required],
                 address: this._formBuilder.group({
                     country: ['Česká Republika', Validators.required],

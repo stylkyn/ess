@@ -3,7 +3,7 @@
         <div class="input-group-prepend">
             <button (click)="deductOne()" type="button" mdbBtn color="primary" size="md" outline="true" mdbWavesEffect>-</button>
         </div>
-        <input [(ngModel)]="productsCount" (change)="+changeCount($event.target.value)" type="number" [min]="1" class="form-control" mdbInput>
+        <input [(ngModel)]="productsCount" (change)="changeCount($event.target.value)" type="number" [min]="1" class="form-control" mdbInput>
         <div class="input-group-append">
             <button (click)="addOne()" type="button" mdbBtn color="primary" size="md" outline="true" mdbWavesEffect>+</button>
         </div>

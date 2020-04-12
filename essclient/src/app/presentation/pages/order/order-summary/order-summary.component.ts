@@ -21,4 +21,8 @@ export class OrderSummaryComponent implements OnInit {
             console.log(x);
         });
     }
+
+    public onNext() {
+
+    }
 }

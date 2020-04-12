@@ -8,8 +8,8 @@ import { LoginCardComponent } from '../pages/login/login-card/login-card.compone
 const APP_ROUTES: Routes = [
     // { path: '', pathMatch: 'full', redirectTo: 'login'},
     { path: '', component: ThemeComponent, children: [
-        { path: 'dash', loadChildren: './../pages/dashboard/dashboard.module#DashboardModule' },
-        { path: 'task', loadChildren: './../pages/task/task.module#TaskModule' },
+        { path: 'dash', loadChildren: () => import('./../pages/dashboard/dashboard.module').then(m => m.DashboardModule) },
+        { path: 'task', loadChildren: () => import('./../pages/task/task.module').then(m => m.TaskModule) },
         // { path: 'login', component: LoginComponent }
         // { path: 'homepage', component: HomepageComponent}
     ]},

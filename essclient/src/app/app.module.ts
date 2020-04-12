@@ -11,9 +11,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { NgBusyModule } from 'ng-busy';
 import {
-  SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider, LinkedinLoginProvider
-} from 'angular-6-social-login';
-import {
   GoogleApiModule,
   NgGapiClientConfig,
   NG_GAPI_CONFIG,
@@ -37,27 +34,6 @@ const gapiClientConfig: NgGapiClientConfig = {
   cookie_policy: 'single_host_origin',
 };
 
-// Configs
-export function getAuthServiceConfigs() {
-  const config = new AuthServiceConfig(
-    [
-      {
-        id: FacebookLoginProvider.PROVIDER_ID,
-        provider: new FacebookLoginProvider('345889055883129')
-      },
-      {
-        id: GoogleLoginProvider.PROVIDER_ID,
-      provider: new GoogleLoginProvider('1072250394796-somktok6db47oefdrajvhs1blsthumtm.apps.googleusercontent.com')
-      // 8cc20GZp7cTCskOcPsff5G2E
-      },
-      // {
-      //   id: LinkedinLoginProvider.PROVIDER_ID,
-      //   provider: new LinkedinLoginProvider('77gzlf10s0xabl')
-      // },
-    ]);
-  return config;
-}
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,7 +51,6 @@ export function getAuthServiceConfigs() {
       // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en#key
       apiKey: 'Your_api_key'
     }),
-    SocialLoginModule, // module pro prihlaseni FB,GOOGLE,LinkEdin
     GoogleApiModule.forRoot({ // google API
       provide: NG_GAPI_CONFIG,
       useValue: gapiClientConfig
@@ -85,10 +60,6 @@ export function getAuthServiceConfigs() {
   ],
   providers: [
     MDBSpinningPreloader,
-    {
-      provide: AuthServiceConfig,
-      useFactory: getAuthServiceConfigs
-    },
     CookieService
   ],
   bootstrap: [AppComponent],
