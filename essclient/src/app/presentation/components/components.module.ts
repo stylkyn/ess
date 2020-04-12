@@ -18,7 +18,7 @@ import { ShoppingCardProductsComponent } from './shopping-card-products/shopping
 
 @NgModule({
     imports: [
-        CommonModule,
+    CommonModule,
         RouterModule,
         // plugins
         SidenavModule,
@@ -48,7 +48,7 @@ import { ShoppingCardProductsComponent } from './shopping-card-products/shopping
         RegisterModalComponent,
         RegisterModalContentComponent,
         ShoppingButtonComponent,
-        ShoppingCardProductsComponent
+        ShoppingCardProductsComponent,
     ],
     entryComponents: [
         ShoppingCardModalContentComponent,
@@ -61,7 +61,7 @@ import { ShoppingCardProductsComponent } from './shopping-card-products/shopping
         LoginModalComponent,
         RegisterModalComponent,
         ShoppingButtonComponent,
-        ShoppingCardProductsComponent
+        ShoppingCardProductsComponent,
     ]
 })
 export class ComponentsModule { }

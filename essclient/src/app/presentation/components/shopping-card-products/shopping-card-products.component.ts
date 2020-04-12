@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MDBModalRef } from 'ng-uikit-pro-standard';
-import { BasketService, IBasketProduct } from 'src/app/services/storage/basket.service';
+import { BasketService, IBasketProductStorage } from 'src/app/services/storage/basket.service';
 import { OrderService, ICalculateOrderRequest } from './../../../services/API/order.service';
 import { MapPriceTypes } from 'src/app/models/IPrice';
 import { ICalculatedOrderProductOrder } from 'src/app/models/IOrder';
@@ -37,7 +37,7 @@ export class ShoppingCardProductsComponent implements OnInit {
             return;
         }
 
-        const request: IBasketProduct = {
+        const request: IBasketProductStorage = {
             productId: product.product.id,
             productsCount: count
         };

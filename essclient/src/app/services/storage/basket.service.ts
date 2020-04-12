@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 const basketLocalStorageName = 'basket';
 
 export interface IBasket {
-    products: IBasketProduct[];
+    products: IBasketProductStorage[];
 }
 
-export interface IBasketProduct {
+export interface IBasketProductStorage {
     productId: string;
     productsCount: number;
 }
@@ -15,13 +15,13 @@ export interface IBasketProduct {
   providedIn: 'root'
 })
 export class BasketService {
-    public productsInStorage: IBasketProduct[] = [];
+    public productsInStorage: IBasketProductStorage[] = [];
 
     constructor() {
         this.loadProductsFromStorage();
     }
 
-    public findSelectedProduct(productId: string): IBasketProduct {
+    public findSelectedProduct(productId: string): IBasketProductStorage {
         return this.productsInStorage.find(x => x.productId === productId);
     }
 
@@ -33,7 +33,7 @@ export class BasketService {
         this.setProductsToStorage();
     }
 
-    public setProduct(product: IBasketProduct) {
+    public setProduct(product: IBasketProductStorage) {
         const productIndex = this.productsInStorage.findIndex(x => x.productId === product.productId);
         if (productIndex >= 0) {
             this.productsInStorage[productIndex].productsCount = product.productsCount;

@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MapPriceTypes } from 'src/app/models/IPrice';
 import { orderRoute, orderPaymentRoute } from '../order.routing';
 import { Router } from '@angular/router';
+import { TransportStorageService } from 'src/app/services/storage/transport.service';
 
 @Component({
   selector: 'app-order-transport',
@@ -21,13 +22,19 @@ export class OrderTransportComponent implements OnInit {
         return this._transportService.transports;
     }
 
+    private get transportStorageType () {
+        return this._transportStorage.transportInStorage != null ?
+            this._transportStorage.transportInStorage.type : null;
+    }
+
     constructor(
         private _transportService: TransportService,
+        private _transportStorage: TransportStorageService,
         private _formBuilder: FormBuilder,
         private _router: Router
         ) {
             this.transportForm = this._formBuilder.group({
-                transportType: [null, [Validators.required]],
+                transportType: [this.transportStorageType, [Validators.required]],
             });
         }
 
@@ -35,10 +42,13 @@ export class OrderTransportComponent implements OnInit {
         this.loadTransports();
     }
 
+    public onChangeTransport(transport: ITransport) {
+        this._transportStorage.set(transport);
+    }
+
     public onNext () {
         this._router.navigateByUrl(`${orderRoute}/${orderPaymentRoute}`);
     }
-
 
     private loadTransports() {
         const request: ITransportQueryRequest = {

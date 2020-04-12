@@ -37,8 +37,6 @@ namespace ess_api._4_BL.Services.Requests
         [Required]
         public UserAddress Address { get; set; }
 
-        [Required]
-        public UserContact Contact { get; set; }
     }
 
     public class UserAddressRequest

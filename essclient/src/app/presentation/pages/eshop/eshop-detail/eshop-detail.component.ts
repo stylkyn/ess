@@ -3,7 +3,7 @@ import { ProductsService, IProductByUrlRequest } from 'src/app/services/API/prod
 import { ActivatedRoute } from '@angular/router';
 import { MapPriceTypes, MapVatTypes } from 'src/app/models/IPrice';
 import { MyToastService } from 'src/app/services/toast.service';
-import { BasketService, IBasketProduct } from '../../../../services/storage/basket.service';
+import { BasketService, IBasketProductStorage } from '../../../../services/storage/basket.service';
 
 @Component({
     selector: 'app-eshop-detail',
@@ -74,7 +74,7 @@ export class EshopDetailComponent implements OnInit {
             return;
         }
 
-        const selectedProduct: IBasketProduct = {
+        const selectedProduct: IBasketProductStorage = {
             productId: this._productService.activeProduct.id,
             productsCount: count
         };

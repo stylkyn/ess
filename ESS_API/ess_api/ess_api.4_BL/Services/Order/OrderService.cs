@@ -98,7 +98,6 @@ namespace ess_api._4_BL.Services.Order
                     Company = new UserCompany
                     {
                         Address = request.Customer.Company.Address,
-                        Contact = request.Customer.Company.Contact,
                         CompanyId = request.Customer.Company.CompanyId,
                         CompanyName = request.Customer.Company.CompanyName,
                         CompanyVat = request.Customer.Company.CompanyVat

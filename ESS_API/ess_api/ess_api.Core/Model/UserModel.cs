@@ -33,7 +33,6 @@ namespace ess_api.Core.Model
         public string CompanyId { get; set; }
 
         public UserAddress Address { get; set; }
-        public UserContact Contact { get; set; }
     }
 
     public class UserAddress

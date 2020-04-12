@@ -5,11 +5,15 @@ import { OrderComponent } from './order.component';
 import { OrderProductsComponent } from './order-products/order-products.component';
 import { OrderTransportComponent } from './order-transport/order-transport.component';
 import { OrderPaymentComponent } from './order-payment/order-payment.component';
+import { OrderCustomerComponent } from './order-customer/order-customer.component';
+import { OrderSummaryComponent } from './order-summary/order-summary.component';
 
 export const orderRoute = 'objednavka';
 export const orderBasketRoute = 'kosik';
 export const orderTransportRoute = 'doprava';
 export const orderPaymentRoute = 'platba';
+export const orderCustomerRoute = 'osobni-udaje';
+export const orderSummaryRoute = 'souhrn';
 
 const APP_ROUTES: Routes = [
     // Main tamplate
@@ -54,6 +58,28 @@ const APP_ROUTES: Routes = [
                     meta: {
                         title: 'Platba | Elitec',
                         keywords: 'Objednávka Platba'
+                    }
+                }
+            },
+            {
+                path: orderCustomerRoute,
+                component: OrderCustomerComponent,
+                canActivate: [MetaGuard],
+                data: {
+                    meta: {
+                        title: 'Osobní údaje | Elitec',
+                        keywords: 'Objednávka Osobní údaje'
+                    }
+                }
+            },
+            {
+                path: orderSummaryRoute,
+                component: OrderSummaryComponent,
+                canActivate: [MetaGuard],
+                data: {
+                    meta: {
+                        title: 'Souhrn objednávky | Elitec',
+                        keywords: 'Souhrn Objednávka'
                     }
                 }
             }

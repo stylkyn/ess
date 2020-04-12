@@ -216,11 +216,6 @@ namespace ess_api._4_BL.Shared
                         Street = user.Company?.Address?.Street,
                         PostalCode = user.Company?.Address?.PostalCode,
                         HouseNumber = user.Company?.Address?.HouseNumber,
-                    },
-                    Contact = new UserContactResponse
-                    {
-                        Email = user.Company?.Contact?.Email,
-                        Phone = user.Company?.Contact?.Phone,
                     }
                 }
             };

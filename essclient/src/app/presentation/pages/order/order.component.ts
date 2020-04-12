@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { orderTransportRoute, orderBasketRoute, orderPaymentRoute } from './order.routing';
+import { orderTransportRoute, orderBasketRoute, orderPaymentRoute, orderCustomerRoute, orderSummaryRoute } from './order.routing';
 
 @Component({
     selector: 'app-order',
@@ -7,9 +7,11 @@ import { orderTransportRoute, orderBasketRoute, orderPaymentRoute } from './orde
   styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit {
-    public orderTransportRoute = orderTransportRoute;
-    public orderBasketRoute = orderBasketRoute;
-    public orderPaymentRoute = orderPaymentRoute;
+    orderTransportRoute = orderTransportRoute;
+    orderBasketRoute = orderBasketRoute;
+    orderPaymentRoute = orderPaymentRoute;
+    orderCustomerRoute = orderCustomerRoute;
+    orderSummaryRoute = orderSummaryRoute;
 
     constructor() { }
 

@@ -1,0 +1,7 @@
+<div class="text-right mt-3 mb-3">
+    <mdb-checkbox formControlName="termsAndConditions">Souhlasím s obchodními podmínkami</mdb-checkbox>
+    <mdb-checkbox formControlName="gpdrTerms">Souhlasím s GDPR</mdb-checkbox>
+    <button [disabled]="customerForm.invalid" (click)="onNext($event)" type="button" mdbBtn color="primary" mdbWavesEffect>
+        Pokračovat k souhrnu
+    </button>
+</div>

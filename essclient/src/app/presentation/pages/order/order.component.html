@@ -36,7 +36,7 @@
             <mdb-icon class="opacity-40" fas size="1x" icon="chevron-right"></mdb-icon>
         </div>
 
-        <a class="OrderTab-item">
+        <a [routerLink]="orderCustomerRoute" routerLinkActive="is-active" class="OrderTab-item">
             <button floating="true" mdbBtn>
                 <mdb-icon fas icon="address-card"></mdb-icon>
             </button>
@@ -48,7 +48,7 @@
             <mdb-icon class="opacity-40" fas size="1x" icon="chevron-right"></mdb-icon>
         </div>
 
-        <a class="OrderTab-item">
+        <a [routerLink]="orderSummaryRoute" routerLinkActive="is-active"  class="OrderTab-item">
             <button floating="true" mdbBtn>
                 <mdb-icon size="1x" fas icon="check"></mdb-icon>
             </button>

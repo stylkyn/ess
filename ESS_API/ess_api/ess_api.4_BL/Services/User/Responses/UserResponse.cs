@@ -50,9 +50,6 @@ namespace ess_api._4_BL.Services.Responses
 
         [JsonProperty("address")]
         public UserAddressResponse Address { get; set; }
-
-        [JsonProperty("contact")]
-        public UserContactResponse Contact { get; set; }
     }
 
     public class UserAddressResponse
