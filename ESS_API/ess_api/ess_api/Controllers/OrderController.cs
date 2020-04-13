@@ -25,11 +25,22 @@ namespace ess_api.Controllers
         }
 
         [HttpPost]
+        [RequiredRequest]
         [JwtAuthentication(Optional = true)]
         [Route("SetOrder")]
         public async Task<IHttpActionResult> SetOrder([FromBody] SetOrderRequest request)
         {
             var response = await _orderService.SetOrder(request);
+            return new CreateResult(response);
+        }
+
+        [HttpGet]
+        [JwtAuthentication]
+        [RequiredRequest]
+        [Route("GetOrder")]
+        public async Task<IHttpActionResult> GetOrder([FromUri] GetOrderRequest request)
+        {
+            var response = await _orderService.GetOrder(request);
             return new CreateResult(response);
         }
     }

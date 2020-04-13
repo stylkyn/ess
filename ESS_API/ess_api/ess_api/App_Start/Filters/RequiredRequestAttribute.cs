@@ -8,23 +8,19 @@ using System.Web.Http.Filters;
 
 namespace ess_api.App_Start.Filters
 {
-    public class BaseAttribute : ActionFilterAttribute
+    public class RequiredRequestAttribute : ActionFilterAttribute
     {
-        public BaseAttribute() {
+        public RequiredRequestAttribute() {
         }
 
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
-            if (actionContext.ModelState.IsValid == false)
+            if (actionContext.ModelState.Keys.Count == 0)
             {
                 var result = new CreateResult(
                     new Response(
-                        ResponseStatus.BadRequest,
-                        ResponseMessages.BadRequest,
-                        actionContext.ModelState
-                            .SelectMany(x => 
-                                x.Value.Errors.Select(e => new Exception(e.ErrorMessage, e.Exception)))
-                            .ToList()));
+                        ResponseStatus.NotFound,
+                        ResponseMessages.RequestCannotBeNullMissingProperties));
                 actionContext.Response = result.ToHttpResponseMessage();
             }
         }

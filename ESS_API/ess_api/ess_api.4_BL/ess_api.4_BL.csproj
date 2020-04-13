@@ -55,7 +55,8 @@
   <ItemGroup>
     <Compile Include="MainService.cs" />
     <Compile Include="Services\Order\OrderService.cs" />
-    <Compile Include="Services\Order\Requests\UpdateOrderRequest.cs" />
+    <Compile Include="Services\Order\Requests\GetOrderRequest.cs" />
+    <Compile Include="Services\Order\Requests\SetOrderRequest.cs" />
     <Compile Include="Services\Order\Requests\CalculateOrderRequest.cs" />
     <Compile Include="Services\Order\Responses\CalculatedOrderResponse.cs" />
     <Compile Include="Services\Order\Responses\OrderResponse.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Services\Product\Responses\ProductResponse.cs" />
     <Compile Include="Services\User\UserSharedService.cs" />
     <Compile Include="Services\User\UserService.cs" />
+    <Compile Include="Shared\Filters\GuidAttribute.cs" />
     <Compile Include="Shared\Responses\PriceResponse.cs" />
     <Compile Include="Shared\SharedMapService.cs" />
   </ItemGroup>
@@ -98,6 +100,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup />

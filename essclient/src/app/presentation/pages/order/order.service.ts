@@ -16,7 +16,6 @@ export class OrderBussinessService {
         private _transportStorage: TransportStorageService,
         private _orderService: OrderService,
     ) { 
-        this.calculateOrder();
     }
 
 
@@ -33,5 +32,8 @@ export class OrderBussinessService {
             paymentId: paymentId
         };
         this._orderService.fetchCalculatedOrder(request);
+    }
+
+    public setOrder () {
     }
 }

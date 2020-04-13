@@ -1,4 +1,5 @@
 ﻿using ess_api.App_Start.Filters;
+using Newtonsoft.Json.Serialization;
 using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -35,6 +36,9 @@ namespace ess_api
                     lang = "cs"
                 }
             );
+
+            // json lowercase
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
     }
 }

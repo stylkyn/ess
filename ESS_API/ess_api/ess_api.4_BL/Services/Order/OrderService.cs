@@ -22,6 +22,19 @@ namespace ess_api._4_BL.Services.Order
             _userSharedService = new UserSharedService();
         }
 
+        public async Task<Response<OrderResponse>> GetOrder(GetOrderRequest request)
+        {
+            var order = await _uow.Orders.FindAsync(new Guid(request.OrderId));
+            if (order == null)
+                return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.CannotFindOrder);
+
+            if (!AuthentificateUserOrder(order, request.RequestIdentity?.UserId))
+                return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.CannotFindOrder);
+
+            var response = _mapService.MapOrder(order);
+            return new Response<OrderResponse>(ResponseStatus.Ok, response);
+        }
+
         public async Task<Response<OrderResponse>> SetOrder(SetOrderRequest request)
         {
             OrderModel order = new OrderModel();
@@ -175,6 +188,11 @@ namespace ess_api._4_BL.Services.Order
                 TotalPrice = calculatedData.CalculateTotal()
             };
             return calculatedData;
+        }
+
+        public bool AuthentificateUserOrder(OrderModel order, string userId)
+        {
+            return order.Customer?.UserId == userId;
         }
     }
 }
