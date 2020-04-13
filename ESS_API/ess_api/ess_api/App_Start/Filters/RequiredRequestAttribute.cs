@@ -2,20 +2,29 @@
 using ess_api.Controllers;
 using ess_api.Core.Constant;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
 namespace ess_api.App_Start.Filters
 {
+    [AttributeUsage(AttributeTargets.Method, Inherited = true)]
     public class RequiredRequestAttribute : ActionFilterAttribute
     {
-        public RequiredRequestAttribute() {
+        private readonly Func<Dictionary<string, object>, bool> _validate;
+
+        public RequiredRequestAttribute() : this(arguments => arguments.ContainsValue(null))
+        { }
+
+        public RequiredRequestAttribute(Func<Dictionary<string, object>, bool> checkCondition)
+        {
+            _validate = checkCondition;
         }
 
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
-            if (actionContext.ModelState.Keys.Count == 0)
+            if (_validate(actionContext.ActionArguments))
             {
                 var result = new CreateResult(
                     new Response(
@@ -23,6 +32,7 @@ namespace ess_api.App_Start.Filters
                         ResponseMessages.RequestCannotBeNullMissingProperties));
                 actionContext.Response = result.ToHttpResponseMessage();
             }
+
         }
     }
 }

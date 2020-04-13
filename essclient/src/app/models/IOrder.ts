@@ -1,45 +1,107 @@
-import { IProduct } from './IProduct';
-import { IPrice, initPrice } from './IPrice';
-import { PaymentType } from './IPayment';
-import { TransportType } from './ITransport';
+import { IUserPersonal, IUserCompany } from "./IUser";
+import { IPayment, PaymentState } from "./IPayment";
+import { ICalculatedOrder } from "./ICalculateOrder";
+import { ITransport } from "./ITransport";
+import { IOrder } from './IOrder';
+import { PaymentType } from 'src/app/models/IPayment';
+import { TransportType } from 'src/app/models/ITransport';
 
-export interface ICalculatedOrder {
-    products: ICalculatedOrderProductOrder[];
-    transport: ICalculatedOrderTransport;
-    payment: ICalculatedOrderPayment;
-    total: ICalculatedOrderTotalOrder;
+export interface IOrder {
+    id: string;
+    state: OrderState;
+    orderNumber: number;
+    customer: IOrderCustomer;
+    transport: IOrderTransport;
+    payment: IOrderPayment;
+    calculatedData: ICalculatedOrder;
 }
 
-export interface ICalculatedOrderPayment {
-    paymentId: string;
-    type: PaymentType;
-    name: string;
-    totalPrice: IPrice;
-}
-
-export interface ICalculatedOrderTransport {
+export interface IOrderTransport {
     transportId: string;
-    type: TransportType;
-    name: string;
-    totalPrice: IPrice;
+    personalPickup: IOrderPersonalPickupTransport;
+    czechPost: IOrderCzechPostTransport;
+    zasilkovna: IOrderZasilkovnaTransport;
+    sourceData: ITransport;
+}
+export interface IOrderPersonalPickupTransport {
+}
+export interface IOrderCzechPostTransport {
+}
+export interface IOrderZasilkovnaTransport {
 }
 
-export interface ICalculatedOrderTotalOrder {
-    totalPrice: IPrice;
+export interface IOrderPayment {
+    paymentId: string;
+    state: PaymentState;
+    paymentOrder: IOrderPaymentOrder;
+    orderCashOnDelivery: IOrderCashOnDeliveryRespoonse;
+    sourceData: IPayment;
+}
+export interface IOrderPaymentOrder {
+}
+export interface IOrderCashOnDeliveryRespoonse {
 }
 
-export interface ICalculatedOrderProductOrder {
-    product: IProduct;
-    count: number;
-    totalPrice: IPrice;
+export interface IOrderCustomer {
+    userId: string;
+    personal: IUserPersonal;
+    company: IUserCompany;
 }
 
-export const calculateOrderInit: ICalculatedOrder = {
-    products: [],
-    payment: null,
-    transport: null,
-    total: {
-        totalPrice: initPrice
+export enum OrderState {
+    Created,
+
+    CalculateReady,
+    TransportReady,
+    PaymentReady,
+    CustomerReady,
+
+    Confirmed,
+    Paid,
+    ReadyToPickup,
+
+    ReadyToShip,
+    Sent,
+    Delivered,
+}
+
+
+export interface IOrderStateOption {
+    type: OrderState;
+    label: string;
+}
+
+export const orderSummaryStates = (order: IOrder): IOrderStateOption[] => {
+    if (order == null) return [];
+
+    const transportType: TransportType = order.transport?.sourceData?.type;
+    const paymentType: PaymentType = order.payment?.sourceData?.type;
+    const states: IOrderStateOption[] = [{ type:  OrderState.Confirmed, label: 'Přijatá'}];
+
+    console.log(transportType);
+    console.log(paymentType);
+
+    // payments states
+    switch(paymentType) {
+        case PaymentType.PaymentOrder:
+            states.push({ type:  OrderState.Paid, label: 'Zaplacená'});
+            break;
+        case PaymentType.CashOnDelivery:
+            break;
     }
-};
 
+    // transport states
+    switch(transportType) {
+        case TransportType.PersonalPickup:
+            states.push({ type:  OrderState.ReadyToPickup, label: 'Připravena k vyzvednutí'});
+            break;
+        case TransportType.CzechPost:
+        case TransportType.Zasilkovna:
+            states.push(
+                { type:  OrderState.ReadyToShip, label: 'Připravena k odeslání'},
+                { type:  OrderState.Sent, label: 'Odeslána'},
+                { type:  OrderState.Delivered, label: 'Doručena'});
+
+    }
+    return states;
+};

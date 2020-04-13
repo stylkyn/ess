@@ -30,6 +30,7 @@ export class UserService extends APIRepository<IUser> {
 
     constructor(public _API: APIService, private _cookieService: CookieService) {
         super(_API, 'Users');
+        this.authentificationJwt().subscribe();
     }
 
     public logout() {

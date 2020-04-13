@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { orderTransportRoute, orderBasketRoute, orderPaymentRoute, orderCustomerRoute, orderSummaryRoute, orderRoute } from './order.routing';
+import { orderTransportRoute, orderBasketRoute, orderPaymentRoute, orderCustomerRoute, orderRoute } from './order.routing';
 import { BasketStorageService } from 'src/app/services/storage/basket.service';
 import { TransportStorageService } from 'src/app/services/storage/transport.service';
 import { PaymentStorageService } from './../../../services/storage/payment.service';
 import { CustomerStorageService } from 'src/app/services/storage/customer.service';
 import { Router } from '@angular/router';
 import { OrderBussinessService } from './order.service';
+import { orderSummaryRoute } from '../order-summary/order-summary.routing';
 
 @Component({
     selector: 'app-order',

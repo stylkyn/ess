@@ -3,7 +3,7 @@ import { MDBModalRef } from 'ng-uikit-pro-standard';
 import { BasketStorageService, IBasketProductStorage } from 'src/app/services/storage/basket.service';
 import { OrderService, ICalculateOrderRequest } from './../../../services/API/order.service';
 import { MapPriceTypes } from 'src/app/models/IPrice';
-import { ICalculatedOrderProductOrder } from 'src/app/models/IOrder';
+import { ICalculatedOrderProductOrder } from 'src/app/models/ICalculateOrder';
 import { TransportStorageService } from 'src/app/services/storage/transport.service';
 import { PaymentStorageService } from './../../../services/storage/payment.service';
 

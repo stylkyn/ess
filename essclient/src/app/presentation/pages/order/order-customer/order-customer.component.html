@@ -155,7 +155,7 @@
                     <mdb-checkbox formControlName="termsAndConditions">Souhlasím s obchodními podmínkami</mdb-checkbox>
                     <mdb-checkbox formControlName="gpdrTerms">Souhlasím s GDPR</mdb-checkbox>
                 </div>
-                <button [disabled]="customerForm.invalid" (click)="onNext()" type="button" mdbBtn color="primary" mdbWavesEffect>
+                <button [disabled]="customerForm.invalid" (click)="onConfirm()" type="button" mdbBtn color="primary" mdbWavesEffect>
                     Potvrdit objednávku
                 </button>
             </div>

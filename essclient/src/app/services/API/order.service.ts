@@ -3,8 +3,13 @@ import { APIRepository } from './API-repository';
 import { Injectable } from '@angular/core';
 import { IProduct, initProduct } from 'src/app/models/IProduct';
 import { map } from 'rxjs/operators';
-import { ICalculatedOrder, calculateOrderInit } from './../../models/IOrder';
+import { ICalculatedOrder, calculateOrderInit } from '../../models/ICalculateOrder';
 import { IUserPersonal, IUserCompany } from 'src/app/models/IUser';
+import { IOrder } from 'src/app/models/IOrder';
+
+export interface IGetOrderRequets {
+    orderId: string;
+}
 
 export interface ICalculateOrderRequest {
     products: ICalculatedOrderProductRequest[];
@@ -42,6 +47,7 @@ export interface IOrderPaymentRequest {
 })
 
 export class OrderService extends APIRepository<IProduct> {
+    public activeOrder: IOrder;
     public calculatedOrder: ICalculatedOrder = calculateOrderInit;
 
     constructor(public _API: APIService) {
@@ -57,11 +63,20 @@ export class OrderService extends APIRepository<IProduct> {
         ).toPromise();
     }
 
-    public setOrder(request: ISetOrderRequest): Promise<ICalculatedOrder> {
+    public fetchOrder(request: IGetOrderRequets): Promise<IOrder> {
+        return this._API.getQuery(`${this.className}/GetOrder`, request).pipe(
+            map((order: IOrder) => {
+                this.activeOrder = order;
+                return order;
+            })
+        ).toPromise();
+    }
+
+    public setOrder(request: ISetOrderRequest): Promise<IOrder> {
         return this._API.post(`${this.className}/SetOrder`, request).pipe(
-            map((calculatedOrder: ICalculatedOrder) => {
-                this.calculatedOrder = calculatedOrder;
-                return calculatedOrder;
+            map((order: IOrder) => {
+                this.activeOrder = order;
+                return order;
             })
         ).toPromise();
     }

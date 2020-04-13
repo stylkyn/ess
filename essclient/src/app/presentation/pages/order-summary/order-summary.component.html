@@ -1,0 +1,25 @@
+<div class="container py-5">
+    <div class="OrderSummaryTab d-flex">
+        <ng-container *ngFor="let state of orderSummaryStates(order); let last = last;">
+            <a class="OrderSummaryTab-item ">
+                <button floating="true" mdbBtn>
+                    <mdb-icon *ngIf="state.type == OrderState.Confirmed" fas icon="clipboard-list"></mdb-icon>
+                    <mdb-icon *ngIf="state.type == OrderState.Paid" fas icon="credit-card"></mdb-icon>
+                    
+                    <mdb-icon *ngIf="state.type == OrderState.ReadyToPickup" fas icon="archive"></mdb-icon>
+                    
+                    <mdb-icon *ngIf="state.type == OrderState.ReadyToShip" fas icon="truck-loading"></mdb-icon>
+                    <mdb-icon *ngIf="state.type == OrderState.Sent" fas icon="truck"></mdb-icon>
+                    <mdb-icon *ngIf="state.type == OrderState.Delivered" fas icon="check"></mdb-icon>
+                </button>
+                <h6 class="OrderSummaryTab-title modal-title">
+                   {{state.label}}
+                </h6>
+            </a>
+            <div *ngIf="!last" class="OrderSummaryTab-item">
+                <mdb-icon class="opacity-40" fas size="1x" icon="chevron-right"></mdb-icon>
+            </div>
+        </ng-container>
+    </div>
+    <hr />
+</div>

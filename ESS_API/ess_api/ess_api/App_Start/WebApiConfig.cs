@@ -36,9 +36,6 @@ namespace ess_api
                     lang = "cs"
                 }
             );
-
-            // json lowercase
-            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
         }
     }
 }

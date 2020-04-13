@@ -36,7 +36,7 @@ export class APIService {
     this.start();
     const url = this.apiRoot + method;
 
-    return this._http.get<any>(url).pipe(
+    return this._http.get<any>(url, this.getOptions()).pipe(
         map((x: IResponse) => x.data),
         tap(this.end),
         catchError(this.errorHandler));
@@ -46,7 +46,7 @@ export class APIService {
     this.start();
     const url = `${this.apiRoot}${method}${this.objectToQueryParams(request)}`;
 
-    return this._http.get<any>(url).pipe(
+    return this._http.get<any>(url, this.getOptions()).pipe(
         map((x: IResponse) => x.data),
         tap(this.end),
         catchError(this.errorHandler));

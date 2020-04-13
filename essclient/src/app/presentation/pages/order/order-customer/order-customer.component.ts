@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { orderRoute, orderSummaryRoute } from '../order.routing';
+import { orderRoute } from '../order.routing';
 import { CustomerStorageService, ICustomerStorage } from 'src/app/services/storage/customer.service';
 import { clearValidators } from 'src/app/utils/formUtils';
+import { OrderBussinessService } from './../order.service';
+import { IOrder } from './../../../../models/IOrder';
+import { orderSummaryRoute } from '../../order-summary/order-summary.routing';
 
 @Component({
   selector: 'app-order-customer',
@@ -49,7 +52,8 @@ export class OrderCustomerComponent implements OnInit {
     constructor(
         private _formBuilder: FormBuilder,
         private _router: Router,
-        private _customerStorage: CustomerStorageService
+        private _customerStorage: CustomerStorageService,
+        private _orderBussiness: OrderBussinessService
         ) {
         this.customerForm = this._formBuilder.group({
             personal: this._formBuilder.group({
@@ -97,9 +101,14 @@ export class OrderCustomerComponent implements OnInit {
         this.setCompanyValidator(this._customerStorage.customerInStorage?.invoiceToCompany);
     }
 
-    public onNext () {
-        this.saveCustomerData();
-        this._router.navigateByUrl(`${orderRoute}/${orderSummaryRoute}`);
+    /**
+     * Confirm order (save to api) (then) redirect to order detail
+     */
+    public async onConfirm () {
+        this.saveCustomerData(); // save to localstorage
+        const order: IOrder = await this._orderBussiness.setOrder();
+
+        this._router.navigate([`${orderSummaryRoute}`, order.id]);
     }
 
     private setCompanyValidator(validate: boolean) {

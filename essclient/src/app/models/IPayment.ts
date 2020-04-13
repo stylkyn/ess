@@ -23,3 +23,8 @@ export enum PaymentType {
     CashOnDelivery,
     PaymentOrder
 }
+
+export enum PaymentState {
+    NotPaid,
+    Paid
+}

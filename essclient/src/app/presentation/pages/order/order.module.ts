@@ -1,7 +1,7 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MDBSpinningPreloader, WavesModule, AccordionModule, CarouselModule, 
+import { MDBSpinningPreloader, WavesModule, AccordionModule, 
     InputsModule, NavbarModule, CardsModule, ButtonsModule, 
     SelectModule, TabsModule, IconsModule, InputUtilitiesModule, CheckboxModule, StickyContentModule } from 'ng-uikit-pro-standard';
 import { ComponentsModule } from '../../components/components.module';
@@ -12,7 +12,6 @@ import { OrderComponent } from './order.component';
 import { OrderTransportComponent } from './order-transport/order-transport.component';
 import { OrderPaymentComponent } from './order-payment/order-payment.component';
 import { OrderCustomerComponent } from './order-customer/order-customer.component';
-import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { OrderBussinessService } from './order.service';
 
 @NgModule({
@@ -46,8 +45,7 @@ import { OrderBussinessService } from './order.service';
       OrderProductsComponent,
       OrderTransportComponent,
       OrderPaymentComponent,
-      OrderCustomerComponent,
-      OrderSummaryComponent
+      OrderCustomerComponent
   ],
   exports: [
     RouterModule

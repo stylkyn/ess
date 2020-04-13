@@ -99,9 +99,26 @@ namespace ess_api._4_BL.Shared
                 Id = request.Id.ToString(),
                 State = request.State,
                 OrderNumber = request.OrderNumber,
-                Customer = request.Customer,
-                Transport = request.Transport,
-                Payment = request.Payment,
+                Customer = request.Customer != null ? new OrderCustomerResponse {
+                    UserId = request.Customer.UserId,
+                    Personal = MapUserPersonal(request.Customer?.Personal),
+                    Company = MapUserCompany(request.Customer?.Company)
+                } : null,
+                Transport = request.Transport != null ? new OrderTransportResponse {
+                    TransportId = request.Transport.TransportId,
+                    CzechPost = request.Transport.CzechPost != null ? new OrderCzechPostTransportResponse { } : null,
+                    PersonalPickup = request.Transport.PersonalPickup != null ? new OrderPersonalPickupTransportResponse { } : null,
+                    Zasilkovna = request.Transport.Zasilkovna != null ? new OrderZasilkovnaTransportResponse { } : null,
+                    SourceData = MapTransport(request.Transport.SourceData)
+                } : null,
+                Payment = request.Payment != null ? new OrderPaymentResponse
+                {
+                    PaymentId = request.Payment.PaymentId,
+                    State = request.Payment.State,
+                    OrderCashOnDelivery = request.Payment.OrderCashOnDelivery != null ? new OrderCashOnDeliveryRespoonse { } : null,
+                    PaymentOrder = request.Payment.PaymentOrder != null ? new OrderPaymentOrderResponse { } : null,
+                    SourceData = MapPayment(request.Payment.SourceData)
+                } : null,
                 CalculatedData = MapCalculatedOrder(request.CalculatedData)
             };
         }
@@ -201,43 +218,59 @@ namespace ess_api._4_BL.Shared
             {
                 Email = user.Email,
                 Token = token,
-                Personal = new UserPersonalResponse
-                {
-                    Firstname = user.Personal?.Firstname,
-                    Lastname = user.Personal?.Lastname,
-                    Address = new UserAddressResponse
-                    {
-                        City = user.Personal?.Address?.City,
-                        Country = user.Personal?.Address?.Country,
-                        Street = user.Personal?.Address?.Street,
-                        PostalCode = user.Personal?.Address?.PostalCode,
-                        HouseNumber = user.Personal?.Address?.HouseNumber,
-                    },
-                    Contact = new UserContactResponse
-                    {
-                        Email = user.Personal?.Contact?.Email,
-                        Phone = user.Personal?.Contact?.Phone,
-                    }
-                },
-                Company = new UserCompanyResponse {
-                    CompanyId = user.Company?.CompanyId,
-                    CompanyName = user.Company?.CompanyName,
-                    CompanyVat = user.Company?.CompanyVat,
-                    Address = new UserAddressResponse
-                    {
-                        City = user.Company?.Address?.City,
-                        Country = user.Company?.Address?.Country,
-                        Street = user.Company?.Address?.Street,
-                        PostalCode = user.Company?.Address?.PostalCode,
-                        HouseNumber = user.Company?.Address?.HouseNumber,
-                    }
-                }
+                Personal = MapUserPersonal(user?.Personal),
+                Company = MapUserCompany(user?.Company)
             };
         }
 
         public List<UserResponse> MapUsers(List<UserModel> users)
         {
             return users.Select(x => MapUser(x)).ToList();
+        }
+
+        private UserPersonalResponse MapUserPersonal(UserPersonal personal)
+        {
+            if (personal == null)
+                return null;
+
+            return new UserPersonalResponse
+            {
+                Firstname = personal?.Firstname,
+                Lastname = personal?.Lastname,
+                Address = new UserAddressResponse
+                {
+                    City = personal?.Address?.City,
+                    Country = personal?.Address?.Country,
+                    Street = personal?.Address?.Street,
+                    PostalCode = personal?.Address?.PostalCode,
+                    HouseNumber = personal?.Address?.HouseNumber,
+                },
+                Contact = new UserContactResponse
+                {
+                    Email = personal?.Contact?.Email,
+                    Phone = personal?.Contact?.Phone,
+                }
+            };
+        }
+        private UserCompanyResponse MapUserCompany(UserCompany company)
+        {
+            if (company == null)
+                return null;
+
+            return new UserCompanyResponse
+            {
+                CompanyId = company?.CompanyId,
+                CompanyName = company?.CompanyName,
+                CompanyVat = company?.CompanyVat,
+                Address = new UserAddressResponse
+                {
+                    City = company?.Address?.City,
+                    Country = company?.Address?.Country,
+                    Street = company?.Address?.Street,
+                    PostalCode = company?.Address?.PostalCode,
+                    HouseNumber = company?.Address?.HouseNumber,
+                }
+            };
         }
     }
 }

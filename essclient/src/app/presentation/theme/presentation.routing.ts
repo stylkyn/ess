@@ -4,6 +4,8 @@ import { ThemeComponent } from './theme.component';
 import { MetaGuard, MetaModule, MetaConfig } from 'ng2-meta';
 import { HomepageComponent } from '../pages/homepage/homepage.component';
 import { EshopModule } from './../pages/eshop/eshop.module';
+import { orderRoute } from '../pages/order/order.routing';
+import { orderSummaryRoute } from '../pages/order-summary/order-summary.routing';
 
 
 // defaultni data pro meta tagy
@@ -35,8 +37,12 @@ const APP_ROUTES: Routes = [
             loadChildren: () => import('./../pages/eshop/eshop.module').then(mod => mod.EshopModule)
         },
         {
-            path: 'objednavka',
+            path: orderRoute,
             loadChildren: () => import('./../pages/order/order.module').then(mod => mod.OrderModule)
+        },
+        {
+            path: orderSummaryRoute,
+            loadChildren: () => import('./../pages/order-summary/order-summary.module').then(mod => mod.OrderSummaryModule)
         }
     ]}
 ];
