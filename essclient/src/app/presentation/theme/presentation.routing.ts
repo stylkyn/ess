@@ -1,12 +1,11 @@
 import { RouterModule, Routes } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 import { ThemeComponent } from './theme.component';
-import { MetaGuard, MetaModule, MetaConfig } from 'ng2-meta';
+import { MetaGuard, MetaConfig } from 'ng2-meta';
 import { HomepageComponent } from '../pages/homepage/homepage.component';
-import { EshopModule } from './../pages/eshop/eshop.module';
-import { orderRoute } from '../pages/order/order.routing';
 import { orderSummaryRoute } from '../pages/order-summary/order-summary.routing';
 
+export const orderRoute = 'objednavka';
 
 // defaultni data pro meta tagy
 const metaConfig: MetaConfig = {
@@ -37,7 +36,7 @@ const APP_ROUTES: Routes = [
             loadChildren: () => import('./../pages/eshop/eshop.module').then(mod => mod.EshopModule)
         },
         {
-            path: orderRoute,
+            path: 'objednavka',
             loadChildren: () => import('./../pages/order/order.module').then(mod => mod.OrderModule)
         },
         {

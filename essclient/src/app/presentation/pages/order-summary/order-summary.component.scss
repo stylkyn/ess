@@ -1,52 +1,90 @@
 @import '../../../../styles/config';
 
-.OrderSummaryTab {
-    display: flex;
-    &-item {
+.OrderSummary {
+    &-Tab {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        opacity: 0.8;
-
-        button {
-            background: white;
-            border: 1px solid $grey-border;
-            box-shadow: none;
-            
-            ::ng-deep {
-                i {
-                    color: $black;
-                }
-            }
-            
-        }
-
-        &.is-active, &.active {
-            opacity: 1;
+        &-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            opacity: 0.8;
+    
             button {
-                background: $black;
+                background: white;
+                border: 1px solid $grey-border;
+                box-shadow: none;
+                
                 ::ng-deep {
                     i {
-                        color: white;
-                    }
-                }
-            }
-            ::ng-deep {
-                mdb-icon {
-                    opacity: 1;
-                    i {
-                        opacity: 1;
                         color: $black;
                     }
                 }
+                
+            }
+    
+            &.is-active, &.active {
+                opacity: 1;
+                button {
+                    background: $black;
+                    ::ng-deep {
+                        i {
+                            color: white;
+                        }
+                    }
+                }
+                ::ng-deep {
+                    mdb-icon {
+                        opacity: 1;
+                        i {
+                            opacity: 1;
+                            color: $black;
+                        }
+                    }
+                }
+            }
+            
+        }
+        &-title {
+            white-space: nowrap;
+            color: $black;
+            font-weight: 500;
+        }
+    }
+
+    &-Table {
+        &-products {
+        }
+        &-transport {
+            img {
+                max-width: 40px !important;
+            }
+            h5 {
+                margin-bottom: 0;
             }
         }
-        
+        &-payment {
+            img {
+                max-width: 40px !important;
+            }
+            h5 {
+                margin-bottom: 0;
+            }
+        }
+
+        tbody {
+            tr:first-child {
+                td, th {
+                    border-top: 0 !important;
+                }
+            }
+        }
     }
-    &-title {
-        white-space: nowrap;
-        color: $black;
-        font-weight: 500;
+    &-Card {
+        &-address {
+            p {
+                margin-bottom: 0;
+            }
+        }
     }
 }

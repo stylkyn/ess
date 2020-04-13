@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { orderRoute } from '../order.routing';
 import { CustomerStorageService, ICustomerStorage } from 'src/app/services/storage/customer.service';
 import { clearValidators } from 'src/app/utils/formUtils';
 import { OrderBussinessService } from './../order.service';

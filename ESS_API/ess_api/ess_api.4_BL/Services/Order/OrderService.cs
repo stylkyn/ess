@@ -108,13 +108,13 @@ namespace ess_api._4_BL.Services.Order
                         Firstname = request.Customer.Personal.Firstname,
                         Lastname = request.Customer.Personal.Lastname,
                     },
-                    Company = new UserCompany
+                    Company = request.Customer.Company != null ? new UserCompany
                     {
-                        Address = request.Customer.Company.Address,
+                        Address = request.Customer.Company.Address != null ? request.Customer.Company.Address : request.Customer.Personal.Address,
                         CompanyId = request.Customer.Company.CompanyId,
                         CompanyName = request.Customer.Company.CompanyName,
                         CompanyVat = request.Customer.Company.CompanyVat
-                    }
+                    } : null,
                 };
 
                 order.State = OrderState.CustomerReady;

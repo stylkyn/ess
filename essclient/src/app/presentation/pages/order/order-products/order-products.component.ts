@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { orderTransportRoute, orderRoute } from '../order.routing';
+import { orderTransportRoute } from '../order.routing';
 import { BasketStorageService } from 'src/app/services/storage/basket.service';
+import { orderRoute } from 'src/app/presentation/theme/presentation.routing';
 
 @Component({
   selector: 'app-order-products',

@@ -18,7 +18,6 @@ namespace ess_api._4_BL.Services.Order.Requests
     {
         [Required]
         public UserPersonalRequest Personal { get; set; }
-        [Required]
         public UserCompanyRequest Company { get; set; }
     }
 

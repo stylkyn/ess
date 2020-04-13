@@ -34,7 +34,6 @@ namespace ess_api._4_BL.Services.Requests
         [Required]
         public string CompanyId { get; set; }
 
-        [Required]
         public UserAddress Address { get; set; }
 
     }

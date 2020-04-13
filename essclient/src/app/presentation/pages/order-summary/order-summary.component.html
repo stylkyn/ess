@@ -1,7 +1,7 @@
 <div class="container py-5">
-    <div class="OrderSummaryTab d-flex">
+    <div class="OrderSummary-Tab d-flex">
         <ng-container *ngFor="let state of orderSummaryStates(order); let last = last;">
-            <a class="OrderSummaryTab-item ">
+            <a class="OrderSummary-Tab-item disabled {{state.type <= order.state ? 'active' : ''}}">
                 <button floating="true" mdbBtn>
                     <mdb-icon *ngIf="state.type == OrderState.Confirmed" fas icon="clipboard-list"></mdb-icon>
                     <mdb-icon *ngIf="state.type == OrderState.Paid" fas icon="credit-card"></mdb-icon>
@@ -12,14 +12,162 @@
                     <mdb-icon *ngIf="state.type == OrderState.Sent" fas icon="truck"></mdb-icon>
                     <mdb-icon *ngIf="state.type == OrderState.Delivered" fas icon="check"></mdb-icon>
                 </button>
-                <h6 class="OrderSummaryTab-title modal-title">
+                <h6 class="OrderSummary-Tab-title modal-title">
                    {{state.label}}
                 </h6>
             </a>
-            <div *ngIf="!last" class="OrderSummaryTab-item">
+            <div *ngIf="!last" class="OrderSummary-Tab-item {{state.type <= order.state ? 'active' : ''}}">
                 <mdb-icon class="opacity-40" fas size="1x" icon="chevron-right"></mdb-icon>
             </div>
         </ng-container>
     </div>
     <hr />
+    <mdb-card>
+        <mdb-card-header class="bg-white">Shrnutí objednávky</mdb-card-header>
+        <div class="table-responsive">
+            <table class="OrderSummary-Table OrderSummary-Table-products table product-table mb-0">
+                <tbody>
+                    <tr *ngIf="order.calculatedData.products.length == 0">
+                        <td>
+                            <h6 class="mt-3">
+                                <strong>V košíku nemáte žádné produkty</strong>
+                            </h6>
+                        </td>
+                    </tr>
+                    <tr *ngFor="let product of order.calculatedData.products">
+                        <th scope="row">
+                            <img src="{{product.product.previewImageUrl}}" alt="" class="img-fluid z-depth-0">
+                        </th>
+                        <td>
+                            <h5 class="mt-3">
+                                <strong>{{product.product.name}}</strong>
+                            </h5>
+                        </td>
+                        <td>
+                            {{product.product.buy.price.czkWithVat}} {{mapPriceTypes(product.product.buy.price.priceType)}} / ks
+                        </td>
+                        <td>
+                            {{product.count}} ks
+                        </td>
+                        <td class="font-weight-bold">
+                            <strong>{{product.totalPrice.czkWithVat}} {{mapPriceTypes(product.totalPrice.priceType)}}</strong> s DPH
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </mdb-card>
+    <div class="row">
+        <div class="col-6">
+            <mdb-card class="mt-4">
+                <mdb-card-header class="bg-white">Doprava</mdb-card-header>
+                <div class="table-responsive">
+                    <table class="OrderSummary-Table OrderSummary-Table-transport table product-table mb-0">
+                        <tbody>
+                            <tr *ngIf="order.calculatedData.transport">
+                                <th scope="row">
+                                    <img *ngIf="order.calculatedData.transport.type == TransportType.PersonalPickup" [src]="'assets/icons/personal-pickup.png'" />
+                                    <img *ngIf="order.calculatedData.transport.type == TransportType.Zasilkovna" [src]="'assets/icons/zasilkovna.png'" />
+                                </th>
+                                <td class="w-100">
+                                    <h5 class="OrderSummary-Card-name">
+                                        <strong>{{order.calculatedData.transport.name}}</strong>
+                                    </h5>
+                                </td>
+                                <td class="font-weight-bold OrderSummary-Card-price">
+                                    <strong>
+                                        <span *ngIf="order.calculatedData.transport.totalPrice?.czkWithVat > 0">{{order.calculatedData.transport.totalPrice?.czkWithVat}} {{mapPriceTypes(order.calculatedData.transport.totalPrice?.priceType)}}</span>
+                                        <span *ngIf="order.calculatedData.transport.totalPrice?.czkWithVat == 0">Zdarma</span>
+                                    </strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </mdb-card>
+        </div>
+        <div class="col-6">
+            <mdb-card class="mt-4">
+                <mdb-card-header class="bg-white">Platba</mdb-card-header>
+                <div class="table-responsive">
+                    <table class="OrderSummary-Table OrderSummary-Table-payment table product-table mb-0">
+                        <tbody>
+                            <tr *ngIf="order.calculatedData.payment">
+                                <th scope="row">
+                                    <img *ngIf="order.calculatedData.payment.type == PaymentType.CashOnDelivery" [src]="'assets/icons/wallet.png'" />
+                                    <img *ngIf="order.calculatedData.payment.type == PaymentType.PaymentOrder" [src]="'assets/icons/bank.png'" />
+                                </th>
+                                <td class="w-100">
+                                    <h5 class="OrderSummary-Card-name">
+                                        <strong>{{order.calculatedData.payment.name}}</strong>
+                                    </h5>
+                                </td>
+                                <td class="font-weight-bold OrderSummary-Card-price">
+                                    <strong>
+                                        <span *ngIf="order.calculatedData.payment.totalPrice?.czkWithVat > 0">{{order.calculatedData.payment.totalPrice?.czkWithVat}} {{mapPriceTypes(order.calculatedData.payment.totalPrice?.priceType)}}</span>
+                                        <span *ngIf="order.calculatedData.payment.totalPrice?.czkWithVat == 0">Zdarma</span>
+                                    </strong>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </mdb-card>
+        </div>
+    </div>
+    <mdb-card class="mt-4">
+        <div class="table-responsive">
+            <table class="table product-table mb-0">
+                <tbody>
+                    <tr>
+                        <td colspan="2">
+                            <h4 class="mt-2">
+                                <strong>Celkem s DPH</strong>
+                            </h4>
+                        </td>
+                        <td colspan="4" class="text-right">
+                            <h4 class="mt-2">
+                                <strong>{{order.calculatedData.total.totalPrice.czkWithVat}} {{mapPriceTypes(order.calculatedData.total.totalPrice.priceType)}}</strong>
+                            </h4>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </mdb-card>
+    <hr />
+    <div class="row mt-4">
+        <div class="col-6">
+            <mdb-card class="OrderSummary-Card-address">
+                <mdb-card-header class="bg-white">Doručovací údaje</mdb-card-header>
+                <mdb-card-body>
+                    <div *ngIf="order.customer.company == null">
+                        <p>{{order.customer.personal?.address?.street}} {{order.customer.personal?.address?.houseNumber}}</p>
+                        <p>{{order.customer.personal?.address?.postalCode}} {{order.customer.personal?.address?.city}}</p>
+                        <p>{{order.customer.personal?.address?.country}}</p>
+                        <hr />
+                        <p>{{order.customer.personal?.firstname}} {{order.customer.personal?.lastname}}</p>
+                    </div>
+                    <div *ngIf="order.customer.company != null">
+                        <p>{{order.customer.company?.address?.street}} {{order.customer.company?.address?.houseNumber}}</p>
+                        <p>{{order.customer.company?.address?.postalCode}} {{order.customer.company?.address?.city}}</p>
+                        <p>{{order.customer.company?.address?.country}}</p>
+                        <hr />
+                        <p>{{order.customer.company?.companyName}}</p>
+                        <p>{{order.customer.company?.companyId}}</p>
+                        <p>{{order.customer.company?.companyVat}}</p>
+                    </div>
+                </mdb-card-body>
+            </mdb-card>
+        </div>
+        <div class="col-6">
+            <mdb-card class="OrderSummary-Card-address">
+                <mdb-card-header class="bg-white">Kontaktní údaje</mdb-card-header>
+                <mdb-card-body>
+                    <p>{{order.customer?.personal?.contact?.email}}</p>
+                    <p>{{order.customer.personal?.contact?.phone}}</p>
+                </mdb-card-body>
+            </mdb-card>
+        </div>
+    </div>
 </div>

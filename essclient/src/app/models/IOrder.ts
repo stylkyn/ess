@@ -2,7 +2,6 @@ import { IUserPersonal, IUserCompany } from "./IUser";
 import { IPayment, PaymentState } from "./IPayment";
 import { ICalculatedOrder } from "./ICalculateOrder";
 import { ITransport } from "./ITransport";
-import { IOrder } from './IOrder';
 import { PaymentType } from 'src/app/models/IPayment';
 import { TransportType } from 'src/app/models/ITransport';
 
@@ -77,9 +76,6 @@ export const orderSummaryStates = (order: IOrder): IOrderStateOption[] => {
     const transportType: TransportType = order.transport?.sourceData?.type;
     const paymentType: PaymentType = order.payment?.sourceData?.type;
     const states: IOrderStateOption[] = [{ type:  OrderState.Confirmed, label: 'Přijatá'}];
-
-    console.log(transportType);
-    console.log(paymentType);
 
     // payments states
     switch(paymentType) {

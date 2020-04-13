@@ -52,7 +52,6 @@ import { OrderBussinessService } from './order.service';
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [
-      MDBSpinningPreloader,
       OrderBussinessService
     ]
 })

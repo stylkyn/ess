@@ -4,6 +4,9 @@ import { OrderService } from 'src/app/services/API/order.service';
 import { IOrder } from './../../../models/IOrder';
 import { ActivatedRoute } from '@angular/router';
 import { IGetOrderRequets } from './../../../services/API/order.service';
+import { MapPriceTypes } from 'src/app/models/IPrice';
+import { PaymentType } from 'src/app/models/IPayment';
+import { TransportType } from 'src/app/models/ITransport';
 
 @Component({
   selector: 'app-order-summary',
@@ -13,6 +16,9 @@ import { IGetOrderRequets } from './../../../services/API/order.service';
 export class OrderSummaryComponent implements OnInit {
     orderSummaryStates: (state: IOrder) => IOrderStateOption[] = orderSummaryStates;
     OrderState = OrderState;
+    TransportType = TransportType;
+    PaymentType = PaymentType;
+    mapPriceTypes = MapPriceTypes;
 
     public get order(): IOrder {
         return this._orderService.activeOrder;
@@ -27,10 +33,12 @@ export class OrderSummaryComponent implements OnInit {
         this.loadOrder();
     }
 
-    private loadOrder() {
+    private async loadOrder() {
         const request: IGetOrderRequets = {
             orderId: this.route.snapshot.paramMap.get('orderId')
         };
-        this._orderService.fetchOrder(request);
+        await this._orderService.fetchOrder(request);
+        console.log(orderSummaryStates(this.order));
+        console.log(this.order);
     }
 }

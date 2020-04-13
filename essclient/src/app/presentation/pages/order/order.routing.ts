@@ -6,9 +6,7 @@ import { OrderProductsComponent } from './order-products/order-products.componen
 import { OrderTransportComponent } from './order-transport/order-transport.component';
 import { OrderPaymentComponent } from './order-payment/order-payment.component';
 import { OrderCustomerComponent } from './order-customer/order-customer.component';
-import { OrderSummaryComponent } from '../order-summary/order-summary.component';
 
-export const orderRoute = 'objednavka';
 export const orderBasketRoute = 'kosik';
 export const orderTransportRoute = 'doprava';
 export const orderPaymentRoute = 'platba';

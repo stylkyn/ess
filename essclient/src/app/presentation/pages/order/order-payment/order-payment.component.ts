@@ -2,7 +2,6 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PaymentType, IPayment } from 'src/app/models/IPayment';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PaymentService, IPaymentQueryRequest } from 'src/app/services/API/payment.service';
-import { orderRoute } from '../order.routing';
 import { orderCustomerRoute } from './../order.routing';
 import { Router } from '@angular/router';
 import { PaymentStorageService } from './../../../../services/storage/payment.service';
@@ -10,6 +9,7 @@ import { ICalculateOrderRequest, OrderService } from 'src/app/services/API/order
 import { BasketStorageService } from 'src/app/services/storage/basket.service';
 import { TransportStorageService } from 'src/app/services/storage/transport.service';
 import { OrderBussinessService } from './../order.service';
+import { orderRoute } from 'src/app/presentation/theme/presentation.routing';
 
 @Component({
   selector: 'app-order-payment',

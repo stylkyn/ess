@@ -39,7 +39,7 @@ namespace ess_api._4_BL.Services.Responses
 
     public class UserCompanyResponse
     {
-        [JsonProperty("ompanyName")]
+        [JsonProperty("companyName")]
         public string CompanyName { get; set; }
         // DIC
         [JsonProperty("companyVat")]

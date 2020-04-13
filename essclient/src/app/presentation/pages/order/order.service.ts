@@ -43,15 +43,15 @@ export class OrderBussinessService {
         const transportId = this._transportStorage.transportInStorage?.id;
         const paymentId = this._paymentStorage.paymentInStorage?.id;
         const request: ISetOrderRequest = {
-            customer: customer.invoiceToCompany ? {
+            customer: {
                 personal: customer?.personal,
-                company: {
+                company: customer.invoiceToCompany ? {
                     companyId: customer?.company.companyId,
                     companyName: customer?.company.companyName,
                     companyVat: customer?.company.companyVat,
                     address: customer.transportToSameAddress ? customer?.company?.address : null
-                }
-            } : null,
+                } : null,
+            },
             calculateOrder: {
                 products: productsInBasket.map(x => ({
                     productId: x.productId,

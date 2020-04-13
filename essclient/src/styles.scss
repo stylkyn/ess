@@ -6,6 +6,7 @@
 @import "./styles/ngx-material/breadcrumb";
 @import "./styles/ngx-material/ngx-datepicker";
 @import "./styles/ngx-material/forms";
+@import "./styles/ngx-material/card";
 
 @mixin placeholder {
 &::-webkit-input-placeholder {@content}
