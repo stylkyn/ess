@@ -46,7 +46,6 @@
     "ng-busy": "^8.0.0",
     "ng-gapi": "0.0.73",
     "ng-html-util": "2.0.x",
-    "ng-uikit-pro-standard": "git+https://oauth2:4Rse24AzowgQtdoYY27n@git.mdbootstrap.com/mdb/angular/ng-uikit-pro-standard.git",
     "ng2-meta": "^5.0.0",
     "ngx-cookie-service": "^3.0.3",
     "ngx-daterangepicker-material": "^2.1.11",
@@ -81,6 +80,7 @@
     "ts-node": "~8.5.4",
     "tslint": "~5.20.1",
     "typescript": "^3.5.3",
-    "webpack-cli": "^3.1.0"
+    "webpack-cli": "^3.1.0",
+    "ng-uikit-pro-standard": "file:ng-uikit-pro-standard-9.1.0.tgz"
   }
 }
