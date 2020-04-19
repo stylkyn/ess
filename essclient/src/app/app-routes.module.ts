@@ -10,7 +10,7 @@ const APP_ROUTES: Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(APP_ROUTES, {useHash: false}),
+        RouterModule.forRoot(APP_ROUTES, { useHash: false, initialNavigation: 'enabled' }),
     ],
     exports: [ RouterModule ],
 })

@@ -20,7 +20,7 @@ interface IResponse {
 export class APIService {
 
 //   protected root = 'http://localhost:50432';
-  protected root = 'https://elitecsoftware-api.azurewebsites.net/';
+  protected root = 'https://elitecsoftware-api.azurewebsites.net';
   private apiRoot = `${this.root}/api/`;
 
   constructor(
