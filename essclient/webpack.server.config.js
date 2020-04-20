@@ -10,7 +10,7 @@ module.exports = {
     server: './server.ts'
   },
   externals: {
-    './dist/server/main': 'require("./server/main")'
+    './server/main': 'require("./server/main")'
   },
   target: 'node',
   resolve: { extensions: ['.ts', '.js'] },
@@ -19,7 +19,7 @@ module.exports = {
   },
   output: {
     // Puts the output at the root of the dist folder
-    path: path.join(__dirname, 'dist'),
+    path: path.join(__dirname),
     filename: '[name].js'
   },
   module: {
