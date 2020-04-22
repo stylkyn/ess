@@ -14,6 +14,8 @@ namespace ess_api.Core.Model
 
         public UserPersonal Personal { get; set; }
         public UserCompany Company { get; set; }
+
+        public bool HasAdminAccess { get; set; } = false;
     }
     public class UserPersonal
     {

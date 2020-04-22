@@ -45,6 +45,27 @@ namespace ess_api._4_BL.Services
             return new Response<UserResponse>(ResponseStatus.Ok, _mapService.MapUser(user, token));
         }
 
+        public async Task<Response<UserResponse>> AuthentificationAdmin(AuthentificationRequest request)
+        {
+            var user = await _uow.Users.GetUser(request.Email);
+            if (user == null)
+                return new Response<UserResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+
+            if (!user.HasAdminAccess)
+                return new Response<UserResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+
+            if (user.Password == null)
+                return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessages.PasswordIsNotValid);
+
+            var passwordRequestHashed = _cryptographyLibrary.CalculateHash(request.Password);
+            if (passwordRequestHashed != user.Password)
+                return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessages.PasswordIsNotValid);
+
+
+            var token = _authentificationLibrary.GenerateJWT(user);
+            return new Response<UserResponse>(ResponseStatus.Ok, _mapService.MapUser(user, token));
+        }
+
         public async Task<Response<UserResponse>> Authentification(AuthentificationRequest request)
         {
             var user = await _uow.Users.GetUser(request.Email);

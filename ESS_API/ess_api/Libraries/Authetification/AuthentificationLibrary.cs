@@ -31,7 +31,8 @@ namespace Libraries.Authetification
                 Expires = expiresDate,
                 Subject = new ClaimsIdentity(new[] {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Email, user.Email)
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(AuthentificationConstants.HasAdminAccess, user.HasAdminAccess.ToString())
                 }),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(_secret), SecurityAlgorithms.HmacSha512Signature)
             });

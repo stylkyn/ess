@@ -1,81 +1,46 @@
 <div class="row">
     <div class="mx-auto my-3 z-depth-1 rounded">
-      <section class="form-dark">
-        <!--Form without header-->
-        <div class="card card-image login-card">
-          <div class="text-white rgba-stylish-strong py-5 px-5 z-depth-4">
-            <!--Header-->
-            <div class="text-right mb-5">
-              <h3 class="white-text font-weight-bold">
-                <strong>ES</strong><strong class="blue-text font-weight-bold is-logo">is</strong> 
-              </h3>
-              <h6>
-                <a class="white-text opacity-7">
-                  {{ 'ELITEC_SOFTWARE_INTERNAL_SYSTEM' | translate}}
-                </a>
-              </h6>
+        <section class="form-dark">
+            <div class="card card-image login-card">
+                <div class="text-white rgba-stylish-strong py-5 px-5 z-depth-4">
+                    <div class="text-right mb-5">
+                        <h3 class="white-text font-weight-bold">
+                            <strong>ES</strong><strong class="blue-text font-weight-bold is-logo">is</strong>
+                        </h3>
+                        <h6>
+                            <a class="white-text opacity-7">
+                                Elitec software internal system
+                            </a>
+                        </h6>
+                    </div>
+                    <div class="mt-ě mb-2 opacity-9 text-center white-text">
+                        <hr>
+                        <h3>Přihlášení</h3>
+                        <hr>
+                    </div>
+                    <form [formGroup]="loginForm">
+                        <div class="md-form">
+                            <input type="text" id="email" class="form-control white-text" formControlName="email" [mdbValidate]="!badLoginMessage" mdbInput>
+                            <label for="email" class="text-white opacity-8">Email</label>
+                        </div>
+
+                        <div class="md-form pb-2">
+                            <input type="password" id="password" class="form-control white-text" formControlName="password" [mdbValidate]="!badLoginMessage" mdbInput>
+                            <label for="password" class="text-white opacity-8">Password</label>
+                            <p *ngIf="badLoginMessage" class="h6 red-text font-weight-bold mt-3">
+                                Bad user access
+                            </p>
+                        </div>
+                    </form>
+                    <div class="row d-flex align-items-center">
+                        <div class="text-center col-md-12">
+                            <button [disabled]="this.loginForm.invalid || badLoginMessage" (click)="login()" type="button" mdbBtn gradient="blue" block="true" rounded="true" class="z-depth-1a waves-light" mdbWavesEffect>
+                                Přihlásit
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="mt-ě mb-2 opacity-9 text-center white-text">
-              <hr>
-              <h3>{{ 'LOGIN.LOGIN' | translate}} </h3>
-              <hr>
-            </div>
-      
-            <!--Body-->
-            <form [formGroup]="loginForm">
-              <div class="md-form">
-                <input type="text" id="username" class="form-control white-text" formControlName="username" [mdbValidate]="!badLoginMessage" data-success=" " mdbInput>
-                <label for="username" class="text-white opacity-8">{{ 'LOGIN.EMAIL' | translate}}</label>
-              </div>
-      
-              <div class="md-form pb-2">
-                <input type="password" id="password" class="form-control white-text" formControlName="password" [mdbValidate]="!badLoginMessage" data-success=" " mdbInput>
-                <label for="password" class="text-white opacity-8">{{ 'LOGIN.PASSWORD' | translate}}</label>
-                <!-- <div class="form-check mt-4">  [ngClass]="{'counter-danger': badLoginMessage}"
-                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck17">
-                  <label class="form-check-label white-text" for="defaultCheck17">{{ 'LOGIN.SAVE_PASSWORD' | translate}}
-                  </label>
-                </div> -->
-                <h6 *ngIf="badLoginMessage" class="red-text font-weight-bold mt-3">
-                  {{ 'LOGIN.BAD_USER_ACCESS' | translate}}
-                </h6>
-              </div>
-            </form>
-            <!--Grid row-->
-            <div class="row d-flex align-items-center">
-              <!--Grid column-->
-              <div class="text-center col-md-12">
-                <button [disabled]="this.loginForm.invalid || badLoginMessage" (click)="tryLogin()" type="button" mdbBtn gradient="blue" block="true" rounded="true" class="z-depth-1a waves-light" mdbWavesEffect>{{ 'LOGIN.SIGN_IN' | translate}}</button>
-              </div>
-              <!--Grid column-->
-            </div>
-            <div class="row my-3 d-flex justify-content-center">
-              <!--Facebook-->
-              <button (click)="trySocialLogin('facebook')" type="button" mdbBtn color="white" rounded="true" class="mr-md-3 z-depth-1a waves-light" mdbWavesEffect>
-                  <span class="blue-text pr-2">{{ 'LOGIN.SIGN_IN_WITH' | translate}}</span><mdb-icon icon="facebook" class="blue-text text-center"></mdb-icon>
-              </button>
-              <!--Google +-->
-              <button (click)="trySocialLogin('google')"  type="button" mdbBtn color="white" rounded="true" class="z-depth-1a waves-light" mdbWavesEffect>
-                  <span class="blue-text pr-2">{{ 'LOGIN.SIGN_IN_WITH' | translate}}</span><mdb-icon icon="google-plus" class="blue-text"></mdb-icon>
-              </button>
-              <!--Linkedin-->
-              <!-- <button (click)="_socialLogin.socialSignIn('linkedin')"  type="button" mdbBtn color="white" rounded="true" class="mr-md-3 z-depth-1a waves-light" mdbWavesEffect>
-                  <mdb-icon icon="linkedin" class="blue-text"></mdb-icon>
-              </button> -->
-            </div>
-            <!--Grid row-->
-      
-            <!--Grid column-->
-            <div class="col-md-12">
-              <p class="font-small white-text d-flex justify-content-end">{{ 'LOGIN.HAVE_AN_ACCOUNT' | translate}}?
-                <a (click)="goRegister()" class="blue-text ml-1 font-weight-bold"> {{ 'LOGIN.REGISTER' | translate}}</a>
-              </p>
-            </div>
-            <!--Grid column-->
-      
-          </div>
-        </div>
-        <!--/Form without header-->
-      </section>
+        </section>
     </div>
-  </div>
+</div>

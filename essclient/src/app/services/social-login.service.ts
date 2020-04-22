@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ISocialUser } from '../models/ISocialUser';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +22,7 @@ export class SocialLoginService {
     return this._google;
   }
 
-  constructor(private socialAuthService: AuthService, private _router: Router ) {}
+  constructor(private _router: Router ) {}
 
   public async socialSignIn(socialPlatform: string): Promise<any> {
       return null;

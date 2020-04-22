@@ -219,7 +219,8 @@ namespace ess_api._4_BL.Shared
                 Email = user.Email,
                 Token = token,
                 Personal = MapUserPersonal(user?.Personal),
-                Company = MapUserCompany(user?.Company)
+                Company = MapUserCompany(user?.Company),
+                HasAdminAccess = user.HasAdminAccess
             };
         }
 

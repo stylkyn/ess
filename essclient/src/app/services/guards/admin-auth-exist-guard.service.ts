@@ -1,0 +1,21 @@
+import { Injectable } from '@angular/core';
+import { CanActivate, Router, CanLoad, UrlTree } from '@angular/router';
+import { UserService } from 'src/app/services/API/user.service';
+import { adminDashFullRoute } from '../../internal/theme/admin-routes';
+
+@Injectable()
+export class AdminAuthExistGuardService implements CanActivate {
+
+    constructor (private _userService: UserService, private _router: Router) { }
+
+    canActivate(): Promise<UrlTree | boolean> {
+        return new Promise((resolve) => {
+            this._userService.getIsLoadedPromise.then(user => {
+                console.log(user);
+                if (user?.hasAdminAccess)
+                    resolve(this._router.parseUrl(adminDashFullRoute));
+                resolve(true);
+            }).catch(x => resolve(false));
+        });
+    }
+}

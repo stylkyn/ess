@@ -1,6 +1,5 @@
 import { SocialLoginService } from './social-login.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
 import { GoogleAuthService, GoogleApiService } from 'ng-gapi';
 // import GoogleUser = gapi.auth2.GoogleUser;
@@ -62,7 +61,7 @@ export class GapiService {
             });
         }).then(
             (res) => {
-                //console.log("Res: " + JSON.stringify(res)); to debug
+                // console.log("Res: " + JSON.stringify(res)); to debug
                 console.log(res.result);
                 // this.userContacts.emit(this.transformToMailListModel(res.result));
             },

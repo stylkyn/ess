@@ -18,6 +18,9 @@ namespace ess_api._4_BL.Services.Responses
 
         [JsonProperty("token")]
         public AuthentificationTokenResponse Token { get; set; }
+
+        [JsonProperty("hasAdminAccess")]
+        public bool HasAdminAccess { get; set; }
     }
 
     public class UserPersonalResponse

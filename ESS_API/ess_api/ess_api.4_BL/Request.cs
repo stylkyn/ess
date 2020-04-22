@@ -14,6 +14,7 @@ namespace ess_api._4_BL.Services.Requests
     {
         public string UserId { get; set; }
         public string UserEmail { get; set; }
+        public string HasAdminAccess { get; set; }
         public bool IsAuthentificated { get; set; } = false;
 
         public RequestIdentity()
@@ -24,6 +25,7 @@ namespace ess_api._4_BL.Services.Requests
             {
                 UserId = claims.FirstOrDefault(x => x.Type == AuthentificationConstants.UserId)?.Value;
                 UserEmail = claims.FirstOrDefault(x => x.Type == AuthentificationConstants.UserEmail)?.Value;
+                HasAdminAccess = claims.FirstOrDefault(x => x.Type == AuthentificationConstants.HasAdminAccess)?.Value;
 
                 if (UserId != null && UserEmail != null)
                     IsAuthentificated = true;

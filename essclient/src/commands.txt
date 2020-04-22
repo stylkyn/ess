@@ -16,10 +16,6 @@ oprava chyby webpacku problem je v tom ze se nainstaluje 2x  je potreba jej mit 
 6] npm i
 // pro overeni jestli existuje webpack - npm ls webpack
 
-// TRANSLATE - https://github.com/ngx-translate/core
-npm install @ngx-translate/core --save
-npm install @ngx-translate/http-loader --save
-
 // SOCIAL LOGIN - https://github.com/high54/angular-6-social-login
 npm install --save angular-6-social-login
 
@@ -44,3 +40,7 @@ npm install ngx-cookie-service --save
 
 https://www.npmjs.com/package/ng-busy
  npm install --save ng-busy@8.0.0  
+
+ // install adnt desing - ng zoro
+ https://ng.ant.design/docs/introduce/en
+ npm install ng-zorro-antd

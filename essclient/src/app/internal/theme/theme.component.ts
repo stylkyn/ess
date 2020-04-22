@@ -1,24 +1,30 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { UserService } from './../../services/API/user.service';
+import { adminLoginFullRoute } from './admin-routes';
+import { IUser } from 'src/app/models/IUser';
 
 @Component({
-  selector: 'app-theme',
-  templateUrl: './theme.component.html',
-  styleUrls: ['./theme.component.scss']
+    selector: 'app-theme',
+    templateUrl: './theme.component.html',
+    styleUrls: ['./theme.component.scss']
 })
 export class ThemeComponent implements OnInit {
 
-  constructor(
-    private _router: Router,
+    public get getUser(): IUser {
+        return this._userService.getUser;
+    }
+
+    constructor (
+        private _router: Router,
+        private _userService: UserService
     ) {
     }
 
-  ngOnInit() {
-    console.log('internal');
-  }
+    ngOnInit() {
+    }
 
-  public goTo(url: string) {
-    console.log(url);
-      this._router.navigateByUrl('administration/' + url);
-  }
+    public goTo(url: string) {
+        this._router.navigateByUrl('administration/' + url);
+    }
 }

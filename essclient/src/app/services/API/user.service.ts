@@ -18,19 +18,24 @@ export interface ICreateUserRequest {
 }
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class UserService extends APIRepository<IUser> {
 
     private user: IUser;
+    private isLoadedPromise: Promise<IUser>;
 
-    public get getUser() {
+    public get getIsLoadedPromise(): Promise<IUser> {
+        return this.isLoadedPromise;
+    }
+
+    public get getUser(): IUser {
         return this.user;
     }
 
-    constructor(public _API: APIService, private _cookieService: CookieService) {
+    constructor (public _API: APIService, private _cookieService: CookieService) {
         super(_API, 'Users');
-        this.authentificationJwt().subscribe();
+        this.isLoadedPromise = this.authentificationJwt().toPromise();
     }
 
     public logout() {
@@ -42,10 +47,25 @@ export class UserService extends APIRepository<IUser> {
         return this._API.post(`${this.className}/AuthentificationJwt`, {}).pipe(
             map((user: IUser) => {
                 this.user = user;
+                console.log(this.user);
                 return user;
             }));
     }
 
+    public verifyLoginAdmin(login: ILoginRequest): Observable<IUser> {
+        return this._API.post(`${this.className}/AuthentificationAdmin`, login).pipe(
+            map((user: IUser) => {
+                this.user = user;
+                console.log(this.user);
+                this._cookieService.set(
+                    cookieJwtName,
+                    JSON.stringify(user.token),
+                    new Date(user.token.expiresDate).getDate());
+                return user;
+            }));
+    }
+
+    
     public verifyLogin(login: ILoginRequest): Observable<IUser> {
         return this._API.post(`${this.className}/Authentification`, login).pipe(
             map((user: IUser) => {
@@ -54,7 +74,6 @@ export class UserService extends APIRepository<IUser> {
                     cookieJwtName,
                     JSON.stringify(user.token),
                     new Date(user.token.expiresDate).getDate());
-                console.log(cookieJwtName, JSON.stringify(user.token));
                 return user;
             }));
     }

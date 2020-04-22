@@ -4,6 +4,7 @@ export interface IUser {
     email: string;
     personal: IUserPersonal;
     company: IUserCompany;
+    hasAdminAccess: boolean;
     token: IIAuthentificationToken;
 }
 
@@ -46,12 +47,14 @@ const tokenInitial: IIAuthentificationToken = {
 export const cookieJwtName = 'jwt';
 
 export const tokenToObject = (tokenStr: string): IIAuthentificationToken => {
-    if (!tokenStr || tokenStr === 'undefined') {
+    if (!tokenStr || tokenStr === 'undefined')
+    {
         return tokenInitial;
     }
 
     const token: IIAuthentificationToken = JSON.parse(tokenStr);
-    if (!token) {
+    if (!token)
+    {
         return tokenInitial;
     }
     token.expiresDate = new Date(token.expiresDate);

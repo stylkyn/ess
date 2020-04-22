@@ -142,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\Filters\BaseFilterAtribute.cs" />
+    <Compile Include="App_Start\Filters\JwtAuthentificationAdminAttribute.cs" />
     <Compile Include="App_Start\Filters\JwtAuthentificationAttribute.cs" />
     <Compile Include="App_Start\Filters\RequiredRequestAttribute.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />

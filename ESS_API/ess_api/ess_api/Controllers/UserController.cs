@@ -31,6 +31,15 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
 
+        // LOGIN - VERIFY ADMIN
+        [Route("AuthentificationAdmin")]
+        [HttpPost]
+        public async Task<IHttpActionResult> AuthentificationAdmin([FromBody]AuthentificationRequest request)
+        {
+            var response = await _userService.AuthentificationAdmin(request);
+            return new CreateResult(response);
+        }
+
         [Route("GetAll")]
         [JwtAuthentication]
         public async Task<IHttpActionResult> Get()
