@@ -8,14 +8,16 @@ export class AdminAuthExistGuardService implements CanActivate {
 
     constructor (private _userService: UserService, private _router: Router) { }
 
-    canActivate(): Promise<UrlTree | boolean> {
+    canActivate(): Promise<UrlTree | boolean> | UrlTree {
+        if (this._userService.user)
+            return this._router.parseUrl(adminDashFullRoute);
+            
         return new Promise((resolve) => {
             this._userService.getIsLoadedPromise.then(user => {
-                console.log(user);
                 if (user?.hasAdminAccess)
                     resolve(this._router.parseUrl(adminDashFullRoute));
                 resolve(true);
-            }).catch(x => resolve(false));
+            }).catch(x => resolve(true));
         });
     }
 }

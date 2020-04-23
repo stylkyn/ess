@@ -8,23 +8,25 @@ export class AdminAuthGuardService implements CanActivate, CanActivateChild {
 
     constructor (private _userService: UserService, private _router: Router) { }
 
-    canActivateChild(): Promise<boolean | UrlTree> {
+    canActivateChild(): Promise<boolean | UrlTree> | boolean {
         return this.verifyAccess();
     }
 
 
-    canActivate(): Promise<UrlTree | boolean> {
+    canActivate(): Promise<UrlTree | boolean> | boolean  {
         return this.verifyAccess();
     }
 
-    private verifyAccess(): Promise<boolean | UrlTree> {
+    private verifyAccess(): Promise<boolean | UrlTree> | boolean {
+        if (this._userService.user?.hasAdminAccess)
+            return true;
+
         return new Promise((resolve) => {
             this._userService.getIsLoadedPromise.then(user => {
-                console.log(user);
                 if (!user?.hasAdminAccess)
                     resolve(this._router.parseUrl(adminLoginFullRoute));
                 resolve(true);
-            }).catch(x => resolve(false));
+            }).catch(x => resolve(this._router.parseUrl(adminLoginFullRoute)));
         });
     }
 }

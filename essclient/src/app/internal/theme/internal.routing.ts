@@ -18,7 +18,7 @@ const APP_ROUTES: Routes = [
     },
     {
         path: adminLoginRoute,
-        // canActivate: [AdminAuthExistGuardService],
+        canActivate: [AdminAuthExistGuardService],
         loadChildren: () => import('./../pages/login/login.module').then(m => m.LoginModule)
     },
 

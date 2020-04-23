@@ -22,15 +22,23 @@ export interface ICreateUserRequest {
 })
 export class UserService extends APIRepository<IUser> {
 
-    private user: IUser;
+    private _user: IUser;
     private isLoadedPromise: Promise<IUser>;
 
     public get getIsLoadedPromise(): Promise<IUser> {
         return this.isLoadedPromise;
     }
 
-    public get getUser(): IUser {
-        return this.user;
+    public get user(): IUser {
+        return this._user;
+    }
+
+    public setUser(value) {
+        this._user = value;
+
+        if (!value) {
+            this.isLoadedPromise = Promise.resolve(null);
+        }
     }
 
     constructor (public _API: APIService, private _cookieService: CookieService) {
@@ -40,14 +48,13 @@ export class UserService extends APIRepository<IUser> {
 
     public logout() {
         this._cookieService.delete(cookieJwtName);
-        this.user = null;
+        this.setUser(null);
     }
 
     public authentificationJwt(): Observable<IUser> {
         return this._API.post(`${this.className}/AuthentificationJwt`, {}).pipe(
             map((user: IUser) => {
-                this.user = user;
-                console.log(this.user);
+                this.setUser(user);
                 return user;
             }));
     }
@@ -55,8 +62,7 @@ export class UserService extends APIRepository<IUser> {
     public verifyLoginAdmin(login: ILoginRequest): Observable<IUser> {
         return this._API.post(`${this.className}/AuthentificationAdmin`, login).pipe(
             map((user: IUser) => {
-                this.user = user;
-                console.log(this.user);
+                this.setUser(user);
                 this._cookieService.set(
                     cookieJwtName,
                     JSON.stringify(user.token),
@@ -69,7 +75,7 @@ export class UserService extends APIRepository<IUser> {
     public verifyLogin(login: ILoginRequest): Observable<IUser> {
         return this._API.post(`${this.className}/Authentification`, login).pipe(
             map((user: IUser) => {
-                this.user = user;
+                this.setUser(user);
                 this._cookieService.set(
                     cookieJwtName,
                     JSON.stringify(user.token),
@@ -81,7 +87,7 @@ export class UserService extends APIRepository<IUser> {
     public create(request: ICreateUserRequest): Observable<IUser> {
         return this._API.post(`${this.className}/Add`, request).pipe(
             map((user: IUser) => {
-                this.user = user;
+                this.setUser(user);
                 return user;
             }));
     }

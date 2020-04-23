@@ -19,23 +19,23 @@
         <links>
             <ul class="navbar-nav ml-auto">
                 <!-- loged aut -->
-                <li *ngIf="!userSrv.getUser" class="nav-item waves-light mr-3" mdbWavesEffect>
+                <li *ngIf="!userSrv.user" class="nav-item waves-light mr-3" mdbWavesEffect>
                     <a (click)="registerModal.showModal()">
                         <mdb-icon class="pr-1" fas icon="user-add"></mdb-icon>
                         Registrovat
                     </a>
                 </li>    
-                <li *ngIf="!userSrv.getUser" class="nav-item waves-light mr-3" mdbWavesEffect>
+                <li *ngIf="!userSrv.user" class="nav-item waves-light mr-3" mdbWavesEffect>
                     <a (click)="loginModal.showModal()">
                         <mdb-icon class="pr-1" fas icon="user"></mdb-icon>
                         Přihlásit
                     </a>
                 </li> 
                 <!-- logged in -->
-                <li *ngIf="userSrv.getUser" class="nav-item waves-light mr-3" dropdown>
+                <li *ngIf="userSrv.user" class="nav-item waves-light mr-3" dropdown>
                     <a class="dropdown-toggle waves-light" dropdownToggle mdbWavesEffect>
                         <mdb-icon class="pr-1" fas icon="user"></mdb-icon>
-                        {{userSrv.getUser?.email}}
+                        {{userSrv.user?.email}}
                     </a>
                     <div class="dropdown-menu dropdown-primary">
                         <a class="dropdown-item" href="#">Můj účet</a>

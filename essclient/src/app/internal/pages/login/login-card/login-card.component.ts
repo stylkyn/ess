@@ -1,12 +1,10 @@
-import { ISocialLogin } from 'src/app/models/ISocialLogin';
 import { IUser } from '../../../../models/IUser';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { SocialLoginService } from './../../../../services/social-login.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService, ILoginRequest } from 'src/app/services/API/user.service';
-import { ISocialUser } from 'src/app/models/ISocialUser';
 import { adminDashFullRoute } from './../../../theme/admin-routes';
 
 @Component({
