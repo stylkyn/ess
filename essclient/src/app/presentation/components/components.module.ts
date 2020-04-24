@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SidenavModule, NavbarModule, WavesModule, AccordionModule, InputsModule, SelectModule,
-    IconsModule, CardsModule, BadgeModule, ButtonsModule, ModalModule, CheckboxModule, InputUtilitiesModule, DropdownModule } from 'ng-uikit-pro-standard';
+import {
+    SidenavModule, NavbarModule, WavesModule, AccordionModule, InputsModule, SelectModule,
+    IconsModule, CardsModule, BadgeModule, ButtonsModule, ModalModule, CheckboxModule, InputUtilitiesModule, DropdownModule
+} from 'ng-uikit-pro-standard';
 import { RouterModule } from '@angular/router';
 import { DateRangeComponent } from './date-range/date-range.component';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
@@ -19,7 +21,7 @@ import { OrderSummaryCardComponent } from './order-summary-card/order-summary-ca
 
 @NgModule({
     imports: [
-CommonModule,
+        CommonModule,
         RouterModule,
         // plugins
         SidenavModule,
