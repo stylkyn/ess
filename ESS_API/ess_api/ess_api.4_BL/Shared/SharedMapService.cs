@@ -209,12 +209,12 @@ namespace ess_api._4_BL.Shared
          * User
          */
 
-        public UserResponse MapUser(UserModel user, AuthentificationTokenResponse token = null)
+        public UserResponse MapUser(UserModel user, AuthentificationTokenResponse token = null, bool withIds = false)
         {
             if (user == null)
                 return null;
 
-            return new UserResponse
+            var result = new UserResponse
             {
                 Email = user.Email,
                 Token = token,
@@ -222,11 +222,15 @@ namespace ess_api._4_BL.Shared
                 Company = MapUserCompany(user?.Company),
                 HasAdminAccess = user.HasAdminAccess
             };
+            if (withIds)
+                result.Id = user.Id.ToString();
+
+            return result;
         }
 
-        public List<UserResponse> MapUsers(List<UserModel> users)
+        public List<UserResponse> MapUsers(List<UserModel> users, bool withIds = false)
         {
-            return users.Select(x => MapUser(x)).ToList();
+            return users.Select(x => MapUser(x, null, withIds)).ToList();
         }
 
         private UserPersonalResponse MapUserPersonal(UserPersonal personal)

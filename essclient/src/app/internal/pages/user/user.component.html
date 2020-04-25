@@ -1,2 +1,47 @@
-<app-table></app-table>
-asdfdfsaf
+<h1 nz-typography>Uživatelé</h1>
+
+<ng-template #totalTemplate>
+    Výsledků celkem: {{total}}
+</ng-template>
+<nz-table
+    nzShowSizeChanger
+    [nzData]="dataList"
+    [nzFrontPagination]="false"
+    [nzLoading]="loading"
+    [nzTotal]="total"
+    [nzShowTotal]="totalTemplate"
+    [nzPageSize]="pageSize"
+    [nzPageIndex]="pageNumber"
+    (nzQueryParams)="onQueryParamsChange($event)"
+>
+    <thead>
+        <tr>
+            <th class="p-0" colspan="5">
+                <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+                    <input type="text" nz-input placeholder="Vyhledat" [(ngModel)]="fullText" />
+                </nz-input-group>
+                <ng-template #suffixIconButton>
+                    <button (click)="fullTextChange()" nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+                </ng-template>
+            </th>
+        </tr>
+        <tr>
+            <th nzColumnKey="email" [nzSortFn]="true">Email</th>
+            <th nzColumnKey="firstname" [nzSortFn]="true">Jméno</th>
+            <th nzColumnKey="lastname" [nzSortFn]="true">Přijmení</th>
+            <th nzColumnKey="companyName" [nzSortFn]="true">Název firmy</th>
+            <th class="text-right" nzColumnKey="companyName"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of dataList">
+            <td>{{ item.email }}</td>
+            <td>{{ item.firstname }}</td>
+            <td>{{ item.lastname }}</td>
+            <td>{{ item.company?.companyName }}</td>
+            <td class="d-flex justify-content-end">
+                <button nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="edit"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>

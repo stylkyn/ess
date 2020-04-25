@@ -65,11 +65,19 @@ namespace Libraries.Authetification
             {
                 var claims = _handler.ValidateToken(token, param, out validatedToken);
 
-                return new AuthentificationUserResponse
+                var result = new AuthentificationUserResponse
                 {
                     UserEmail = claims.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value,
                     UserId = claims.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value,
+                    HasAdminAccess = false
                 };
+                string hasAdminAccessStr = claims.Claims.FirstOrDefault(x => x.Type == AuthentificationConstants.HasAdminAccess)?.Value;
+                bool hasAdminAccess = false;
+
+                bool.TryParse(hasAdminAccessStr, out hasAdminAccess);
+                result.HasAdminAccess = hasAdminAccess;
+
+                return result;
             } catch (Exception e)
             {
                 return null;

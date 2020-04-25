@@ -43,18 +43,42 @@ namespace ess_api.DAL.Repository
             return await Collection().Find(condition).SortByDescending(sort).FirstOrDefaultAsync();
         }
 
-        public async Task<List<T>> FindManyAsync(Expression<Func<T, bool>> condition)
+        public async Task<List<T>> FindManyAsync(Expression<Func<T, bool>> condition, SortType? sortType = null, Expression<Func<T, object>> sort = null)
         {
-            return await Collection().Find(condition).ToListAsync();
+            var query = Collection().Find(condition);
+
+            if (sortType != null && sort != null)
+            {
+                if (SortType.ASC == sortType)
+                    query = query.SortBy(sort);
+                else if (SortType.DESC == sortType)
+                    query = query.SortByDescending(sort);
+            }
+            return await query.ToListAsync();
         }
 
-        public async Task<List<T>> FindManyAsync(Expression<Func<T, bool>> condition, SortType sortType, Expression<Func<T, object>> sort)
+        public async Task<(List<T>, int)> FindManyIncludeTotalAsync(Expression<Func<T, bool>> condition, SortType? sortType = null, Expression<Func<T, object>> sort = null, int? skip = null, int? take = null)
         {
-            if (SortType.ASC == sortType)
+            var query = Collection().Find(condition);
+
+            if (sortType != null && sort != null)
             {
-                return await Collection().Find(condition).SortBy(sort).ToListAsync();
+                if (SortType.ASC == sortType)
+                    query = query.SortBy(sort);
+                else if (SortType.DESC == sortType)
+                    query = query.SortByDescending(sort);
             }
-            return await Collection().Find(condition).SortByDescending(sort).ToListAsync();
+            var totalTask = query.CountDocumentsAsync();
+            
+            if (skip != null)
+                query = query.Skip(skip);
+            if (take != null)
+                query = query.Limit(take);
+
+            var queryTask = query.ToListAsync();
+            await Task.WhenAll(queryTask, totalTask);
+
+            return (queryTask.Result, (int)totalTask.Result);
         }
 
         public async Task<List<T>> FindManyAsync()

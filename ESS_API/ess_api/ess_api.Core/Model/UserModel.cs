@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ess_api.Core.Model
+﻿namespace ess_api.Core.Model
 {
     public class UserModel : BaseModel
     {
         public string Email { get; set; }
         public string Password { get; set; }
 
-        public UserPersonal Personal { get; set; }
-        public UserCompany Company { get; set; }
+        public UserPersonal Personal { get; set; } = new UserPersonal();
+        public UserCompany Company { get; set; } = new UserCompany();
 
         public bool HasAdminAccess { get; set; } = false;
     }

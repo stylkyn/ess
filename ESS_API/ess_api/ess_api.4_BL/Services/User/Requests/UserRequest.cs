@@ -3,9 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ess_api._4_BL.Services.Requests
 {
-    public class UserRequest : UserModel
-    {
-    }
     public class UserPersonalRequest
     {
         [Required]
@@ -36,32 +33,5 @@ namespace ess_api._4_BL.Services.Requests
 
         public UserAddress Address { get; set; }
 
-    }
-
-    public class UserAddressRequest
-    {
-        [Required]
-        public string Country { get; set; }
-
-        [Required]
-        public string PostalCode { get; set; }
-
-        [Required]
-        public string City { get; set; }
-
-        [Required]
-        public string Street { get; set; }
-
-        [Required]
-        public string HouseNumber { get; set; }
-    }
-
-    public class UserContactRequest
-    {
-        [Required]
-        public string Phone { get; set; }
-
-        [Required]
-        public string Email { get; set; }
     }
 }

@@ -12,9 +12,9 @@ namespace ess_api.Core.Interface
     {
         Task<T> FindAsync(Guid Id);
         Task<T> FindAsync(Expression<Func<T, bool>> condition, SortType sortType, Expression<Func<T, object>> sort);
-        Task<List<T>> FindManyAsync(Expression<Func<T, bool>> condition);
-        Task<List<T>> FindManyAsync(Expression<Func<T, bool>> condition, SortType sortType, Expression<Func<T, object>> sort);
         Task<List<T>> FindManyAsync();
+        Task<List<T>> FindManyAsync(Expression<Func<T, bool>> condition, SortType? sortType = null, Expression<Func<T, object>> sort = null);
+        Task<(List<T>, int)> FindManyIncludeTotalAsync(Expression<Func<T, bool>> condition, SortType? sortType = null, Expression<Func<T, object>> sort = null, int? skip = null, int? take = null);
         Task<T> InsertAsync(T document);
         Task<IEnumerable<T>> InsertManyAsync(IEnumerable<T> documents);
         Task ReplaceAsync(Guid id, T document);

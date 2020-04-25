@@ -22,6 +22,22 @@ namespace ess_api.Controllers
             _userService = new UserService();
         }
 
+        public async Task<IHttpActionResult> Get(string Id)
+        {
+            var response = await _userService.Get(Id);
+            return new CreateResult(response);
+        }
+
+        [RequiredRequest]
+        [JwtAuthenticationAdmin]
+        [Route("Search")]
+        [HttpGet]
+        public async Task<IHttpActionResult> Search([FromUri] UserSearchRequest request)
+        {
+            var response = await _userService.Search(request);
+            return new CreateResult(response);
+        }
+
         // LOGIN - VERIFY USER
         [Route("Authentification")]
         [HttpPost]
@@ -40,14 +56,6 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
 
-        [Route("GetAll")]
-        [JwtAuthentication]
-        public async Task<IHttpActionResult> Get()
-        {
-            var response = await _userService.Get();
-            return new CreateResult(response);
-        }
-
         [JwtAuthentication]
         [Route("AuthentificationJwt")]
         [HttpPost]
@@ -57,24 +65,30 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
 
-
-        public async Task<IHttpActionResult> Get(string Id)
-        {
-            var response = await _userService.Get(Id);
-            return new CreateResult(response);
-        }
-
-        public async Task<IHttpActionResult> Put(int Id, [FromBody]UserRequest request)
-        {
-            var response = await _userService.Update(request);
-            return new CreateResult(response);
-        }
-
         [Route("Add")]
         [HttpPost]
         public async Task<IHttpActionResult> Add([FromBody]UserAddRequest request)
         {
             var response = await _userService.Add(request);
+            return new CreateResult(response);
+        }
+
+
+        [Route("Update")]
+        [JwtAuthentication]
+        [HttpPut]
+        public async Task<IHttpActionResult> Update([FromBody]UserUpdateRequest request)
+        {
+            var response = await _userService.Update(request);
+            return new CreateResult(response);
+        }
+
+        [Route("Delete")]
+        [JwtAuthenticationAdmin]
+        [HttpDelete]
+        public async Task<IHttpActionResult> Delete([FromUri]UserRemoveRequest request)
+        {
+            var response = await _userService.Remove(request);
             return new CreateResult(response);
         }
     }

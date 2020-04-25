@@ -326,3 +326,5 @@ C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api\bin\Microsoft.IdentityModel.Loggin
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api\bin\Microsoft.IdentityModel.Tokens.xml
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api\bin\System.IdentityModel.Tokens.Jwt.xml
 C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api\bin\Libraries.dll.config
+C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api\bin\System.ValueTuple.dll
+C:\DEVWORK\github\ess\ESS_API\ess_api\ess_api\bin\System.ValueTuple.xml

@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './../../services/API/user.service';
-import { adminLoginFullRoute, adminDashFullRoute, adminUserFullRoute } from './admin-routes';
+import { adminLoginFullRoute, adminUserRoute, adminDashRoute } from './admin-routes';
 import { IUser } from 'src/app/models/IUser';
 
 @Component({
@@ -10,8 +10,8 @@ import { IUser } from 'src/app/models/IUser';
     styleUrls: ['./theme.component.scss']
 })
 export class ThemeComponent implements OnInit {
-    adminDashFullRoute = adminDashFullRoute;
-    adminUserFullRoute = adminUserFullRoute;
+    adminUserRoute = adminUserRoute;
+    adminDashRoute = adminDashRoute;
 
     public get getUser(): IUser {
         return this._userService.user;
@@ -24,10 +24,6 @@ export class ThemeComponent implements OnInit {
     }
 
     ngOnInit() {
-    }
-
-    public goTo(fullUrl: string) {
-        this._router.navigateByUrl(fullUrl);
     }
 
     public logOut() {

@@ -16,6 +16,14 @@ import {
   NG_GAPI_CONFIG,
 } from 'ng-gapi';
 
+
+/** config angular i18n **/
+import { registerLocaleData } from '@angular/common';
+import en from '@angular/common/locales/en';
+registerLocaleData(en);
+/** config ng-zorro-antd i18n **/
+import { NZ_I18N, cs_CZ } from 'ng-zorro-antd/i18n';
+
 // settings for google API, scopes(permisions) for google contacts
 const gapiClientConfig: NgGapiClientConfig = {
   client_id: '1072250394796-somktok6db47oefdrajvhs1blsthumtm.apps.googleusercontent.com',
@@ -60,7 +68,8 @@ const gapiClientConfig: NgGapiClientConfig = {
   ],
   providers: [
     MDBSpinningPreloader,
-    CookieService
+    CookieService,
+    { provide: NZ_I18N, useValue: cs_CZ }
   ],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]

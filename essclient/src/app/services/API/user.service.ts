@@ -1,11 +1,29 @@
-import { APIService } from './API.service';
+import { APIService, IResponse } from './API.service';
 import { APIRepository } from './API-repository';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { IUser, cookieJwtName } from 'src/app/models/IUser';
-import { ISocialLogin } from 'src/app/models/ISocialLogin';
 import { map } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
+import { SortType } from 'src/app/models/shared/Sort';
+
+export enum UserSortField {
+    Firstname,
+    Lastname,
+    Email
+}
+
+export const userSortFieldMap = new Map<UserSortField, string>([
+   [UserSortField.Firstname, 'firstname'], 
+   [UserSortField.Lastname, 'lastname'], 
+   [UserSortField.Email, 'email'], 
+]);
+
+export const userSortFieldMapReverse = new Map<string , UserSortField>([
+    ['firstname', UserSortField.Firstname], 
+    ['lastname', UserSortField.Lastname], 
+    ['email', UserSortField.Email], 
+ ]);
 
 export interface ILoginRequest {
     email: string;
@@ -15,6 +33,14 @@ export interface ILoginRequest {
 export interface ICreateUserRequest {
     email: string;
     password: string;
+}
+
+export interface ISearchUserRequest {
+    fullText: string;
+    pageSize: number;
+    pageNumber: number;
+    sortField: UserSortField;
+    sortType: SortType;
 }
 
 @Injectable({
@@ -92,7 +118,7 @@ export class UserService extends APIRepository<IUser> {
             }));
     }
 
-    public verifySocialLogin(socialLogin: ISocialLogin): Observable<IUser> {
-        return this._API.post(`${this.className}/VerifySocialLogin`, socialLogin);
+    public search(request: ISearchUserRequest): Observable<IResponse<IUser[]>> {
+        return this._API.getQueryTotal<IUser[]>(`${this.className}/Search`, request);
     }
 }

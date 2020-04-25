@@ -1,0 +1,43 @@
+@import '../../../styles/_config';
+
+::ng-deep {
+    .is-active {
+        background: $blue !important;
+        .card {
+            background: $blue !important;
+        }
+    }
+    .ant-btn-icon-only, .ant-pagination-item-link {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .side-nav {
+        background: $black !important;
+        .md-accordion .card {
+            padding: 3px 0;
+        }
+        a .fa {
+            width: 16px;
+        }
+
+        .collapsible .card.active> mdb-accordion-item-head {
+            background: transparent !important;
+        }
+    }
+
+    .ant-pagination-total-text {
+        border-right: 1px solid #e1e1e1;
+        padding-right: 10px;
+        margin-right: 10px;
+    }
+}
+
+.table-operations {
+    margin-bottom: 16px;
+}
+
+.table-operations>button {
+    margin-right: 8px;
+}

@@ -7,13 +7,27 @@ namespace ess_api._4_BL.Services.Responses
 {
     public class ResponseList<T> : Response where T : ResponseData
     {
-        public ResponseList(ResponseStatus status, List<T> data, string message = null) : base(status, message)
+        [JsonProperty("data")]
+        public List<T> Data { get; set; }
+
+        [JsonProperty("total")]
+        public int Total { get; set; }
+
+        public ResponseList(ResponseStatus status, List<T> data) : base(status)
         {
             Data = data;
         }
 
-        [JsonProperty("data")]
-        public List<T> Data { get; set; }
+        public ResponseList(ResponseStatus status, List<T> data, string message) : base(status, message)
+        {
+            Data = data;
+        }
+
+        public ResponseList(ResponseStatus status, List<T> data,  int total) : base(status)
+        {
+            Data = data;
+            Total = total;
+        }
     }
     public class Response<T> : Response where T : ResponseData
     {

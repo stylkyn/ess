@@ -26,7 +26,7 @@ export class ProductsService extends APIRepository<IProduct> {
     }
 
     public search(request: IProductSearchRequest): void {
-        this._API.getQuery(`${this.className}/Search`, request)
+        this._API.getQuery<IProduct[]>(`${this.className}/Search`, request)
         .subscribe(x => this.products = x);
     }
 

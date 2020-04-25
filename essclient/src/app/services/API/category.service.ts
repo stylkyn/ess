@@ -34,8 +34,8 @@ export class CategoryService extends APIRepository<ICategory> {
   }
 
 
-  public fetchActiveCategory(request: ICategoryRequest): Promise<any>{
-    return this._API.getQuery(`${this.className}/GetByUrl`, request).pipe(
+  public fetchActiveCategory(request: ICategoryRequest): Promise<ICategory>{
+    return this._API.getQuery<ICategory>(`${this.className}/GetByUrl`, request).pipe(
         map((category: ICategory) => {
           this.activeCategory = category;
           return category;

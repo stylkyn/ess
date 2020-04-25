@@ -15,38 +15,26 @@
             <li>
                 <ul class="collapsible collapsible-accordion">
                     <mdb-accordion [multiple]="false" aria-multiselectable="false">
-                        <mdb-accordion-item class="no-collase" (click)="goTo(adminDashFullRoute)">
+                        <mdb-accordion-item class="no-collase" routerLinkActive="is-active" [routerLink]="adminDashRoute">
                             <mdb-accordion-item-head mdbWavesEffect><i class="fa fa-dashboard"></i> Přehled</mdb-accordion-item-head>
-                            <mdb-accordion-item-body></mdb-accordion-item-body>
                         </mdb-accordion-item>
                         <mdb-accordion-item class="no-collase">
                             <mdb-accordion-item-head mdbWavesEffect><i class="fa fa-tasks"></i> Objednavky</mdb-accordion-item-head>
-                            <mdb-accordion-item-body></mdb-accordion-item-body>
                         </mdb-accordion-item>
-                        <!-- Collapsible link -->
                         <mdb-accordion-item class="no-collase">
                             <mdb-accordion-item-head mdbWavesEffect><i class="fa fa-file-text"></i> Banka</mdb-accordion-item-head>
-                            <mdb-accordion-item-body>
-                            </mdb-accordion-item-body>
                         </mdb-accordion-item>
                         <mdb-accordion-item class="no-collase">
                             <mdb-accordion-item-head mdbWavesEffect><i class="fa fa-users"></i> Kategorie</mdb-accordion-item-head>
-                            <mdb-accordion-item-body>
-                            </mdb-accordion-item-body>
                         </mdb-accordion-item>
                         <mdb-accordion-item class="no-collase">
                             <mdb-accordion-item-head mdbWavesEffect><i class="fa fa-users"></i> Produkty</mdb-accordion-item-head>
-                            <mdb-accordion-item-body>
-                            </mdb-accordion-item-body>
                         </mdb-accordion-item>
-                        <mdb-accordion-item class="no-collase" (click)="goTo(adminUserFullRoute)">
+                        <mdb-accordion-item class="no-collase" routerLinkActive="is-active" [routerLink]="adminUserRoute">
                             <mdb-accordion-item-head mdbWavesEffect><i class="fa fa-users"></i> Uživatelé</mdb-accordion-item-head>
-                            <mdb-accordion-item-body>
-                            </mdb-accordion-item-body>
                         </mdb-accordion-item>
                         <mdb-accordion-item class="no-collase">
                             <mdb-accordion-item-head mdbWavesEffect><i class="fa fa-gear"></i> Nastaveni</mdb-accordion-item-head>
-                            <mdb-accordion-item-body></mdb-accordion-item-body>
                         </mdb-accordion-item>
                     </mdb-accordion>
                 </ul>
