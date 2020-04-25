@@ -1,6 +1,7 @@
 ﻿using ess_api._4_BL.Services;
 using ess_api._4_BL.Services.Requests;
 using ess_api._4_BL.Services.Responses;
+using ess_api.App_Start.Filters;
 using ess_api.LogEx;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,16 @@ namespace ess_api.Controllers
         public CategoryController()
         {
             _categoryService = new CategoryService();
+        }
+
+        [RequiredRequest]
+        [JwtAuthenticationAdmin]
+        [Route("Search")]
+        [HttpGet]
+        public async Task<IHttpActionResult> Search([FromUri] CategorySearchRequest request)
+        {
+            var response = await _categoryService.Search(request);
+            return new CreateResult(response);
         }
 
         // GET: api/categories/GetTree
@@ -52,6 +63,7 @@ namespace ess_api.Controllers
         }
 
         // PUT: api/categories/5
+        [JwtAuthenticationAdmin]
         public async Task<IHttpActionResult> Put(int Id, [FromBody]CategoryRequest Category)
         {
             var response = await _categoryService.Update(Category);
@@ -59,6 +71,7 @@ namespace ess_api.Controllers
         }
 
         // POST: api/categories
+        [JwtAuthenticationAdmin]
         public async Task<IHttpActionResult> Post([FromBody]CategoryRequest Category)
         {
             var response = await _categoryService.Add(Category);
@@ -66,11 +79,14 @@ namespace ess_api.Controllers
 
         }
 
-        // DELETE: api/categories/5
-        public async Task<IHttpActionResult> Delete(string Id)
+        [Route("Delete")]
+        [JwtAuthenticationAdmin]
+        [HttpDelete]
+        public async Task<IHttpActionResult> Delete([FromUri]CategoryRemoveRequest request)
         {
-            var response = await _categoryService.Remove(Id);
+            var response = await _categoryService.Remove(request);
             return new CreateResult(response);
         }
+
     }
 }

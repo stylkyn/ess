@@ -197,6 +197,7 @@ namespace ess_api._4_BL.Shared
                 Id = category.Id.ToString(),
                 Name = category.Name,
                 ParentCategoryId = category.ParentCategoryId,
+                UrlName = category.UrlName
             };
         }
 

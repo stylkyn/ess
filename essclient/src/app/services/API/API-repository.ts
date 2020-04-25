@@ -30,12 +30,5 @@ export class APIRepository<T> {
   public update(val: T): Observable<T> {
     return this._API.put(this.className, val);
   }
-  public delete(id: string): Observable<number> {
-    return this._API.delete(this.className + '/' + id);
-  }
-  public deleteObj(val: T): Observable<number> {
-    const anyVal: any = val;
-    return this._API.delete(this.className + '/' + anyVal.Id);
-  }
 
 }

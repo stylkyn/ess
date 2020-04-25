@@ -1,4 +1,4 @@
-<h1 nz-typography>Uživatelé</h1>
+<h1 nz-typography>Kategorie</h1>
 
 <ng-template #totalTemplate>
     Výsledků celkem: {{total}}
@@ -16,7 +16,7 @@
 >
     <thead>
         <tr>
-            <th class="p-0" colspan="4">
+            <th class="p-0" colspan="3">
                 <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
                     <input type="text" nz-input placeholder="Vyhledat" [(ngModel)]="fullText" />
                 </nz-input-group>
@@ -26,22 +26,19 @@
             </th>
         </tr>
         <tr>
-            <th nzColumnKey="email" [nzSortFn]="true">Email</th>
-            <th nzColumnKey="firstname" [nzSortFn]="true">Jméno</th>
-            <th nzColumnKey="lastname" [nzSortFn]="true">Přijmení</th>
-            <th nzColumnKey="companyName" [nzSortFn]="true">Název firmy</th>
-            <!-- <th class="text-right" nzColumnKey="companyName"></th> -->
+            <th nzColumnKey="email">Název</th>
+            <th nzColumnKey="firstname">Url slug</th>
+            <th class="text-right" nzColumnKey="companyName"></th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let item of dataList">
-            <td>{{ item.email }}</td>
-            <td>{{ item.firstname }}</td>
-            <td>{{ item.lastname }}</td>
-            <td>{{ item.company?.companyName }}</td>
-            <!-- <td class="d-flex justify-content-end">
+        <tr *ngFor="let item of dataList; let i = index">
+            <td>{{ item.name }}</td>
+            <td>{{ item.urlName }}</td>
+            <td class="d-flex justify-content-end">
                 <button nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="edit"></i></button>
-            </td> -->
-        </tr>
+                <button (click)="showDeleteConfirm(item)" nz-button nzType="danger" nzShape="circle"><i nz-icon nzType="delete" nzTheme="outline"></i></button>
+            </td>
+        </tr> 
     </tbody>
 </nz-table>

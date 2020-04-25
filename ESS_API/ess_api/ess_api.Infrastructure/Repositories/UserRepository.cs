@@ -31,7 +31,6 @@ namespace ess_api.Infrastructure.Repositories
 
             string fullTextCleared = fullText?.Trim()?.ToLower() ?? "";
             var result = await FindManyIncludeTotalAsync(x =>
-                //true,
                 fullTextCleared == ""
                 || x.Email.ToLower().Contains(fullTextCleared)
                 || (x.Personal != null && x.Personal.Firstname != null && x.Personal.Firstname.ToLower().Contains(fullTextCleared))
