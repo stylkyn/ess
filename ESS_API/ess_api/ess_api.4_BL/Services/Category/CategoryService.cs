@@ -75,20 +75,20 @@ namespace ess_api._4_BL.Services
                 ParentCategoryId = request.ParentCategoryId
             };
 
-        await _uow.Categories.InsertAsync(category);
-            return new Response(ResponseStatus.Ok);
+            await _uow.Categories.InsertAsync(category);
+            return new Response<CategoryResponse>(ResponseStatus.Ok, _mapService.MapCategory(category));
         }
 
-        public async Task<Response> Update(CategoryRequest request)
+        public async Task<Response<CategoryResponse>> Update(CategoryRequest request)
         {
             var category = await _uow.Categories.FindAsync(new Guid(request.Id));
 
             category.Name = request.Name;
-            category.UrlName = WebUtility.UrlEncode(request.Name);
+            category.UrlName = WebUtility.UrlEncode(request.UrlName);
             category.ParentCategoryId = request.ParentCategoryId;
 
             await _uow.Categories.ReplaceAsync(category.Id, category);
-            return new Response(ResponseStatus.Ok);
+            return new Response<CategoryResponse>(ResponseStatus.Ok, _mapService.MapCategory(category));
         }
 
         public async Task<Response> Remove(CategoryRemoveRequest request)

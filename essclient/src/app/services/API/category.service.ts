@@ -6,12 +6,24 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
+interface ICategorySetRequest {
+    id?: string;
+    name: string;
+    urlName: string;
+    parentCategoryId?: string;
+}
+
+export interface ICategoryCreateRequet extends ICategorySetRequest{
+}
+
+export interface ICategoryUpdateRequet extends ICategorySetRequest{
+}
+
 export interface ISearchCategoryRequest {
     fullText: string;
     pageSize: number;
     pageNumber: number;
 }
-
 
 export interface ICategoryRequest {
     UrlName: string;
@@ -52,6 +64,14 @@ export class CategoryService extends APIRepository<ICategory> {
 
     public search(request: ISearchCategoryRequest): Observable<IResponse<ICategory[]>> {
         return this._API.getQueryTotal<ICategory[]>(`${this.className}/Search`, request);
+    }
+
+    public add(request: ICategoryCreateRequet): Observable<ICategory> {
+        return this._API.post(`${this.className}/Add`, request);
+    }
+
+    public update(request: ICategoryUpdateRequet): Observable<ICategory> {
+        return this._API.put(`${this.className}/Update`, request);
     }
 
     public delete(id: string): Observable<any> {

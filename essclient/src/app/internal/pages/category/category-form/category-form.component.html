@@ -1,0 +1,29 @@
+<button (click)="open()" nz-button nzType="primary" nzShape="round">Přidat <i nz-icon nzType="plus"></i></button>
+<nz-drawer 
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom': '53px' }" 
+    [nzMaskClosable]="true" 
+    [nzWidth]="620" 
+    [nzVisible]="visible" 
+    nzTitle="Přidání kategorie" 
+    (nzOnClose)="close()">
+    <nz-spin [nzSpinning]="isLoading" nzTip="Probíhá ukládání...">
+        <form [formGroup]="categoryForm" nzLayout="vertical" nz-form>
+            <nz-form-item>
+                <nz-form-label>Název</nz-form-label>
+                <nz-form-control>
+                    <input formControlName="name" nz-input placeholder="Zadejte název"  />
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label>Url slug</nz-form-label>
+                <nz-form-control>
+                    <nz-input-group nzAddOnBefore="/nase-produkty/" nzAddOnAfter="/{produkt}.cz">
+                        <input formControlName="slug" type="text" nz-input placeholder="Zadejte url slug" />
+                    </nz-input-group>
+                </nz-form-control>
+            </nz-form-item>
+            <hr class="mt-4"/>
+            <button (click)="confirm()" nz-button nzType="primary" nzShape="round" class="pull-right">Uložit <i nz-icon nzType="check"></i></button>
+        </form>
+    </nz-spin>
+</nz-drawer>

@@ -32,6 +32,23 @@
         padding-right: 10px;
         margin-right: 10px;
     }
+    .ant-btn.ant-btn-round {
+        display: flex;
+        align-items: center;
+    }
+    .double-nav {
+        z-index: 10;
+    }
+
+    // ant forms
+    .ant-form-vertical {
+        .ant-form-item {
+            margin-bottom: 10px;
+            .ant-form-item-label {
+                padding-bottom: 0;
+            }
+        }
+    }
 }
 
 .table-operations {
