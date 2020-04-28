@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainService.cs" />
+    <Compile Include="Services\Category\Requests\CategoryRemoveRequest.cs" />
+    <Compile Include="Services\Category\Requests\CategorySearchRequest.cs" />
     <Compile Include="Services\Order\OrderService.cs" />
     <Compile Include="Services\Order\Requests\GetOrderRequest.cs" />
     <Compile Include="Services\Order\Requests\SetOrderRequest.cs" />
@@ -80,11 +82,14 @@
     <Compile Include="Services\Transport\Responses\TransportResponse.cs" />
     <Compile Include="Services\User\Requests\AuthetificationRequest.cs" />
     <Compile Include="Services\User\Requests\UserAddRequest.cs" />
+    <Compile Include="Services\User\Requests\UserRemoveRequest.cs" />
     <Compile Include="Services\User\Requests\UserRequest.cs" />
     <Compile Include="Services\Category\Requests\CategoryRequest.cs" />
     <Compile Include="Services\Product\Requests\ProductRequest.cs" />
     <Compile Include="ResponseData.cs" />
     <Compile Include="Response.cs" />
+    <Compile Include="Services\User\Requests\UserSearchRequest.cs" />
+    <Compile Include="Services\User\Requests\UserUpdateRequest.cs" />
     <Compile Include="Services\User\Responses\UserResponse.cs" />
     <Compile Include="Services\Category\Responses\CategoryResponse.cs" />
     <Compile Include="Services\Product\Responses\ProductResponse.cs" />
@@ -104,8 +109,13 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
