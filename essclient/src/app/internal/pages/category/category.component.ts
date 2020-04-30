@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { CategoryService, ISearchCategoryRequest } from '../../../services/API/category.service';
 import { ICategory } from '../../../models/Icategory';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { CategoryFormComponent } from './category-form/category-form.component';
 
 @Component({
     selector: 'app-category',
@@ -10,6 +11,8 @@ import { NzModalService } from 'ng-zorro-antd/modal';
     styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
+    @ViewChild('categoryForm') categoryForm: CategoryFormComponent;
+
     total = 1;
     dataList: ICategory[] = [];
     loading = true;
@@ -54,13 +57,18 @@ export class CategoryComponent implements OnInit {
         this.loadData();
     }
 
+    // update logic
+    showUpdateDrawer(category: ICategory) {
+        this.categoryForm.open(category);
+    }
+
+    // remove logic
     removeCategory(category: ICategory) {
         this._categoryService.delete(category.id).subscribe(x => {
             this.loadData();
         });
     }
 
-    // remove functionality
     showDeleteConfirm(category: ICategory): void {
         this._modalNz.confirm({
             nzTitle: `Opravdu chcete smazat tuto kategorii?`,

@@ -38,6 +38,8 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
 
+        [HttpGet]
+        [Route("GetAll")]
         public async Task<IHttpActionResult> Get()
         {
             var response = await _categoryService.Get();

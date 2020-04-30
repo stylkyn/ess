@@ -11,7 +11,7 @@ import { AdminAuthExistGuardService } from './../../services/guards/admin-auth-e
 
 @NgModule({
     imports: [
-    // plugins
+        // plugins
         SidenavModule,
         NavbarModule,
         DropdownModule,

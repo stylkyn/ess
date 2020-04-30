@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsService, IProductSearchRequest } from '../../../../services/API/product.service';
+import { ProductService, IProductSearchRequest } from '../../../../services/API/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService, ICategoryRequest } from './../../../../services/API/category.service';
 import { MapPriceTypes } from 'src/app/models/IPrice';
@@ -14,7 +14,7 @@ export class EshopProductsComponent implements OnInit {
 
   constructor(
     public _categoryService: CategoryService,
-    public _productService: ProductsService,
+    public _productService: ProductService,
     private _route: ActivatedRoute) {
       this._route.url.subscribe(() => {
         const urlName = this._route.snapshot.paramMap.get('categoryUrlName');

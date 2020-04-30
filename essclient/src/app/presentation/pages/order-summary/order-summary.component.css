@@ -1,0 +1,82 @@
+.OrderSummary-Tab {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.OrderSummary-Tab-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  opacity: 0.8;
+}
+
+.OrderSummary-Tab-item button {
+  background: white;
+  border: 1px solid #eaeaea;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.OrderSummary-Tab-item button ::ng-deep i {
+  color: #263238;
+}
+
+.OrderSummary-Tab-item.is-active, .OrderSummary-Tab-item.active {
+  opacity: 1;
+}
+
+.OrderSummary-Tab-item.is-active button, .OrderSummary-Tab-item.active button {
+  background: #263238;
+}
+
+.OrderSummary-Tab-item.is-active button ::ng-deep i, .OrderSummary-Tab-item.active button ::ng-deep i {
+  color: white;
+}
+
+.OrderSummary-Tab-item.is-active ::ng-deep mdb-icon, .OrderSummary-Tab-item.active ::ng-deep mdb-icon {
+  opacity: 1;
+}
+
+.OrderSummary-Tab-item.is-active ::ng-deep mdb-icon i, .OrderSummary-Tab-item.active ::ng-deep mdb-icon i {
+  opacity: 1;
+  color: #263238;
+}
+
+.OrderSummary-Tab-title {
+  white-space: nowrap;
+  color: #263238;
+  font-weight: 500;
+}
+
+.OrderSummary-Table-transport img {
+  max-width: 40px !important;
+}
+
+.OrderSummary-Table-transport h5 {
+  margin-bottom: 0;
+}
+
+.OrderSummary-Table-payment img {
+  max-width: 40px !important;
+}
+
+.OrderSummary-Table-payment h5 {
+  margin-bottom: 0;
+}
+
+.OrderSummary-Table tbody tr:first-child td, .OrderSummary-Table tbody tr:first-child th {
+  border-top: 0 !important;
+}
+
+.OrderSummary-Card-address p {
+  margin-bottom: 0;
+}
+/*# sourceMappingURL=order-summary.component.css.map */

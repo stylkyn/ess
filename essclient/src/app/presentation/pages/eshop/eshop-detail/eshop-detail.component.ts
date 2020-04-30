@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductsService, IProductByUrlRequest } from 'src/app/services/API/product.service';
+import { ProductService, IProductByUrlRequest } from 'src/app/services/API/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { MapPriceTypes, MapVatTypes } from 'src/app/models/IPrice';
 import { MyToastService } from 'src/app/services/toast.service';
@@ -41,7 +41,7 @@ export class EshopDetailComponent implements OnInit {
     }
 
     constructor(
-        public _productService: ProductsService,
+        public _productService: ProductService,
         private _route: ActivatedRoute,
         private _toastService: MyToastService,
         private _basketService: BasketStorageService

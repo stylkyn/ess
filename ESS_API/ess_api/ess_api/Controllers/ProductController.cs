@@ -3,6 +3,7 @@ using ess_api._4_BL.Services.Product;
 using ess_api._4_BL.Services.Product.Requests;
 using ess_api._4_BL.Services.Requests;
 using ess_api._4_BL.Services.Responses;
+using ess_api.App_Start.Filters;
 using ess_api.Core.Model;
 using ess_api.LogEx;
 using System;
@@ -21,6 +22,15 @@ namespace ess_api.Controllers
         public ProductsController()
         {
             _productService = new ProductService();
+        }
+
+        [HttpGet]
+        [JwtAuthenticationAdmin]
+        [Route("SearchExtend")]
+        public async Task<IHttpActionResult> SearchExtend([FromUri] ProductSearchExtendRequest request)
+        {
+            var response = await _productService.SearchExtend(request);
+            return new CreateResult(response);
         }
 
         [HttpGet]
@@ -45,6 +55,8 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
 
+        [JwtAuthenticationAdmin]
+        [Route("Update")]
         [HttpPut]
         public async Task<IHttpActionResult> Put([FromBody]ProductRequest Product)
         {
@@ -52,17 +64,23 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
 
+        [Route("Add")]
         [HttpPost]
+        [JwtAuthenticationAdmin]
         public async Task<IHttpActionResult> Post([FromBody]ProductRequest Product)
         {
             var response = await _productService.Add(Product);
             return new CreateResult(response);
         }
 
+
+        [RequiredRequest]
+        [Route("Delete")]
+        [JwtAuthenticationAdmin]
         [HttpDelete]
-        public async Task<IHttpActionResult> Delete(string Id)
+        public async Task<IHttpActionResult> Delete([FromUri]ProductRemoveRequest request)
         {
-            var response = await _productService.Remove(Id);
+            var response = await _productService.Remove(request);
             return new CreateResult(response);
         }
     }

@@ -1,8 +1,10 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MDBSpinningPreloader, SidenavModule, WavesModule, AccordionModule, CarouselModule, 
-    InputsModule, NavbarModule, CardsModule, BreadcrumbModule, ButtonsModule, SelectModule } from 'ng-uikit-pro-standard';
+import {
+    MDBSpinningPreloader, SidenavModule, WavesModule, AccordionModule, CarouselModule,
+    InputsModule, NavbarModule, CardsModule, BreadcrumbModule, ButtonsModule, SelectModule
+} from 'ng-uikit-pro-standard';
 import { ComponentsModule } from '../../components/components.module';
 import { EshopComponent } from './eshop.component';
 import { EshopDetailComponent } from './eshop-detail/eshop-detail.component';
@@ -12,39 +14,39 @@ import { RouterModule } from '@angular/router';
 import { EshopMenuComponent } from './eshop-menu/eshop-menu.component';
 
 @NgModule({
-  imports: [
-  CommonModule,
-    // plugins
-    SidenavModule,
-    CardsModule,
-    WavesModule,
-    AccordionModule,
-    NavbarModule,
-    // my modules
-    // routing
-    routing,
-    FormsModule,
-    ReactiveFormsModule,
-    // plugins
-    CarouselModule,
-    WavesModule,
-    InputsModule,
-    BreadcrumbModule,
-    ButtonsModule,
-    SelectModule,
+    imports: [
+        CommonModule,
+        // plugins
+        SidenavModule,
+        CardsModule,
+        WavesModule,
+        AccordionModule,
+        NavbarModule,
+        // my modules
+        // routing
+        routing,
+        FormsModule,
+        ReactiveFormsModule,
+        // plugins
+        CarouselModule,
+        WavesModule,
+        InputsModule,
+        BreadcrumbModule,
+        ButtonsModule,
+        SelectModule,
 
-    ComponentsModule
-  ],
-  declarations: [
-    EshopComponent,
-    EshopDetailComponent,
-    EshopProductsComponent,
-    EshopMenuComponent,
-  ],
-  exports: [
-    RouterModule
-  ],
-  schemas: [NO_ERRORS_SCHEMA],
-  providers: [MDBSpinningPreloader]
+        ComponentsModule
+    ],
+    declarations: [
+        EshopComponent,
+        EshopDetailComponent,
+        EshopProductsComponent,
+        EshopMenuComponent,
+    ],
+    exports: [
+        RouterModule
+    ],
+    schemas: [NO_ERRORS_SCHEMA],
+    providers: [MDBSpinningPreloader]
 })
 export class EshopModule { }

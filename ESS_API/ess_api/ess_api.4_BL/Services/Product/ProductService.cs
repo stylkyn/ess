@@ -4,6 +4,7 @@ using ess_api._4_BL.Services.Product.Responses;
 using ess_api._4_BL.Services.Requests;
 using ess_api._4_BL.Services.Responses;
 using ess_api._4_BL.Shared;
+using ess_api.Core.Constant;
 using ess_api.Core.Extension;
 using ess_api.Core.Model;
 using System;
@@ -19,6 +20,16 @@ namespace ess_api._4_BL.Services.Product
         /*
          * GET
          * **/
+        public async Task<ResponseList<ProductResponse>> SearchExtend(ProductSearchExtendRequest request)
+        {
+            int skip = request.PageNumber * request.PageSize;
+            (var products, int total) = await _uow.Products.SearchExtend(request.CategoryId, request.FullText, skip, request.PageSize);
+            if (products == null)
+                return new ResponseList<ProductResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+
+            return new ResponseList<ProductResponse>(ResponseStatus.Ok, _mapService.MapProducts(products), total);
+        }
+
         public async Task<ResponseList<ProductResponse>> Search(ProductSearchRequest request)
         {
             var products = new List<ProductModel>();
@@ -135,9 +146,9 @@ namespace ess_api._4_BL.Services.Product
             return new Response<ProductResponse>(ResponseStatus.Ok, _mapService.MapProduct(response));
         }
 
-        public async Task<Response> Remove(string id)
+        public async Task<Response> Remove(ProductRemoveRequest request)
         {
-            await _uow.Products.DeleteAsync(new Guid(id));
+            await _uow.Products.DeleteAsync(new Guid(request.Id));
             return new Response(ResponseStatus.Ok);
         }
 

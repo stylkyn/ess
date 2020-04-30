@@ -1,23 +1,34 @@
-import { APIService } from './API.service';
+import { APIService, IResponse } from './API.service';
 import { APIRepository } from './API-repository';
 import { Injectable } from '@angular/core';
 import { IProduct, initProduct } from 'src/app/models/IProduct';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 export interface IProductSearchRequest {
     categoryId?: string;
     categoryUrlName?: string;
+
+    fullText: string;
+    pageSize: number;
+    pageNumber: number;
 }
 
 export interface IProductByUrlRequest {
     urlName: string;
 }
 
+export interface IProductCreateRequest {
+}
+
+export interface IProductUpdateRequest {
+}
+
 @Injectable({
   providedIn: 'root'
 })
 
-export class ProductsService extends APIRepository<IProduct> {
+export class ProductService extends APIRepository<IProduct> {
     products: IProduct[];
     activeProduct: IProduct = initProduct;
 
@@ -25,9 +36,8 @@ export class ProductsService extends APIRepository<IProduct> {
         super(_API, 'Products');
     }
 
-    public search(request: IProductSearchRequest): void {
-        this._API.getQuery<IProduct[]>(`${this.className}/Search`, request)
-        .subscribe(x => this.products = x);
+    public search(request: IProductSearchRequest): Observable<IResponse<IProduct[]>> {
+        return this._API.getQueryTotal<IProduct[]>(`${this.className}/Search`, request);
     }
 
     public fetchProductByUrl(request: IProductByUrlRequest): Promise<IProduct> {
@@ -37,5 +47,17 @@ export class ProductsService extends APIRepository<IProduct> {
             return product;
             })
         ).toPromise();
+    }
+
+    public add(request: IProductCreateRequest): Observable<IProduct> {
+        return this._API.post(`${this.className}/Add`, request);
+    }
+
+    public update(request: IProductUpdateRequest): Observable<IProduct> {
+        return this._API.put(`${this.className}/Update`, request);
+    }
+
+    public delete(id: string): Observable<any> {
+        return this._API.delete<any>(`${this.className}/Delete?Id=${id}`);
     }
 }

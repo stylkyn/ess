@@ -1,10 +1,10 @@
 import { APIService, IResponse } from './API.service';
 import { APIRepository } from './API-repository';
 import { Injectable } from '@angular/core';
-import { ICategory, initCategory } from 'src/app/models/ICategory';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { ICategory, initCategory } from 'src/app/models/ICategory';
 
 interface ICategorySetRequest {
     id?: string;
@@ -13,10 +13,10 @@ interface ICategorySetRequest {
     parentCategoryId?: string;
 }
 
-export interface ICategoryCreateRequet extends ICategorySetRequest{
+export interface ICategoryCreateRequest extends ICategorySetRequest{
 }
 
-export interface ICategoryUpdateRequet extends ICategorySetRequest{
+export interface ICategoryUpdateRequest extends ICategorySetRequest{
 }
 
 export interface ISearchCategoryRequest {
@@ -66,11 +66,15 @@ export class CategoryService extends APIRepository<ICategory> {
         return this._API.getQueryTotal<ICategory[]>(`${this.className}/Search`, request);
     }
 
-    public add(request: ICategoryCreateRequet): Observable<ICategory> {
+    public getAll(): Observable<ICategory[]> {
+        return this._API.get<ICategory[]>(`${this.className}/GetAll`);
+    }
+
+    public add(request: ICategoryCreateRequest): Observable<ICategory> {
         return this._API.post(`${this.className}/Add`, request);
     }
 
-    public update(request: ICategoryUpdateRequet): Observable<ICategory> {
+    public update(request: ICategoryUpdateRequest): Observable<ICategory> {
         return this._API.put(`${this.className}/Update`, request);
     }
 

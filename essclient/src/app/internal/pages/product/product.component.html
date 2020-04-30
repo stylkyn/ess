@@ -1,0 +1,65 @@
+
+<div class="d-flex align-items-center justify-content-between">
+    <div class="d-flex">
+        <h1 nz-typography>Produkty</h1>
+    </div>
+    <div class="d-flex">
+        <app-product-form #productForm (changeData)="loadData()"></app-product-form>
+    </div>
+</div>
+
+<nz-table
+    nzShowSizeChanger
+    [nzData]="dataList"
+    [nzFrontPagination]="false"
+    [nzLoading]="loading"
+    [nzTotal]="total"
+    [nzShowTotal]="totalTemplate"
+    [nzPageSize]="pageSize"
+    [nzPageIndex]="pageNumber"
+    (nzQueryParams)="onQueryParamsChange($event)"
+>
+    <thead>
+        <tr>
+            <th class="p-0" colspan="3">
+                <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+                    <input type="text" nz-input placeholder="Vyhledat" [(ngModel)]="fullText" />
+                </nz-input-group>
+                <ng-template #suffixIconButton>
+                    <button (click)="fullTextChange()" nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+                </ng-template>
+            </th>
+            <th class="p-0 pl-2" colspan="1">
+                <nz-select class="w-100" nzShowSearch nzAllowClear nzPlaceHolder="Vyberte kategorii" 
+                    (ngModelChange)="categoryChanged($event)" [(ngModel)]="activeCategoryIdFilter">
+                    <nz-option *ngFor="let item of categories" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+                </nz-select>
+            </th>
+            <th colspan="1"></th>
+        </tr>
+        <tr>
+            <th nzColumnKey="email">Foto</th>
+            <th nzColumnKey="email">Název</th>
+            <th nzColumnKey="firstname">Url slug</th>
+            <th nzColumnKey="firstname">Kategorie</th>
+            <th class="text-right"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of dataList; let i = index">
+            <td>
+                <img [src]="item.previewImageUrl" height="60px" />
+            </td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.urlName }}</td>
+            <td>{{ getCategoryName(item.categoryId) }}</td>
+            <td class="d-flex justify-content-end">
+                <button (click)="showUpdateDrawer(item)" nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="edit"></i></button>
+                <button (click)="showDeleteConfirm(item)" nz-button nzType="danger" nzShape="circle"><i nz-icon nzType="delete" nzTheme="outline"></i></button>
+            </td>
+        </tr> 
+    </tbody>
+</nz-table>
+<ng-template #totalTemplate>
+    Výsledků celkem: {{total}}
+</ng-template>

@@ -4,7 +4,7 @@
     [nzMaskClosable]="true" 
     [nzWidth]="620" 
     [nzVisible]="visible" 
-    nzTitle="Přidání kategorie" 
+    [nzTitle]="type == 'update' ? 'Úprava kategorie' : 'Přidání kategorie'" 
     (nzOnClose)="close()">
     <nz-spin [nzSpinning]="isLoading" nzTip="Probíhá ukládání...">
         <form [formGroup]="categoryForm" nzLayout="vertical" nz-form>

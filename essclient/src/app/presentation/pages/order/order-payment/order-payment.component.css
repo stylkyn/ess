@@ -1,0 +1,44 @@
+.OrderPayment-Item {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-orient: horizontal !important;
+  -webkit-box-direction: normal !important;
+      -ms-flex-direction: row !important;
+          flex-direction: row !important;
+  min-height: 40px;
+}
+
+.OrderPayment-Item::before, .OrderPayment-Item::after {
+  margin-top: 11px !important;
+}
+
+.OrderPayment-Item-imgBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.OrderPayment-Item-imgBox img {
+  width: 32px;
+}
+
+.OrderPayment-Item p {
+  font-size: 12px;
+  margin-top: -6px;
+}
+
+.OrderPayment-Item-price {
+  font-weight: 600;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  white-space: nowrap;
+}
+/*# sourceMappingURL=order-payment.component.css.map */

@@ -4,7 +4,7 @@
         <h1 nz-typography>Kategorie</h1>
     </div>
     <div class="d-flex">
-        <app-category-form (changeData)="loadData()"></app-category-form>
+        <app-category-form #categoryForm (changeData)="loadData()"></app-category-form>
     </div>
 </div>
 
@@ -41,7 +41,7 @@
             <td>{{ item.name }}</td>
             <td>{{ item.urlName }}</td>
             <td class="d-flex justify-content-end">
-                <button nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="edit"></i></button>
+                <button (click)="showUpdateDrawer(item)" nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="edit"></i></button>
                 <button (click)="showDeleteConfirm(item)" nz-button nzType="danger" nzShape="circle"><i nz-icon nzType="delete" nzTheme="outline"></i></button>
             </td>
         </tr> 

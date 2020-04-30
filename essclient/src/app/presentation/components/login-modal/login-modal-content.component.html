@@ -19,11 +19,11 @@
             <label for="materialLoginFormPassword">Heslo</label>
             <mdb-error *ngIf="passwordForm.invalid && (passwordForm.dirty || passwordForm.touched)">Heslo je povinné</mdb-error>
         </div>
-        <div class="d-flex justify-content-end">
+        <!-- <div class="d-flex justify-content-end">
           <div>
             <a href="">Zapomenuté heslo?</a>
           </div>
-        </div>
+        </div> -->
 
         <div *ngIf="isBadAccess" class="alert alert-danger mt-2" role="alert">
             Špatné jméno nebo heslo
