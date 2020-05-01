@@ -23,7 +23,7 @@ namespace ess_api._4_BL.Services.Product
         public async Task<ResponseList<ProductResponse>> SearchExtend(ProductSearchExtendRequest request)
         {
             int skip = request.PageNumber * request.PageSize;
-            (var products, int total) = await _uow.Products.SearchExtend(request.CategoryId, request.FullText, skip, request.PageSize);
+            (var products, int total) = await _uow.Products.SearchExtend(request.CategoryId, request.FullText, request.ProductType, skip, request.PageSize);
             if (products == null)
                 return new ResponseList<ProductResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
 
@@ -99,20 +99,36 @@ namespace ess_api._4_BL.Services.Product
                 Name = request.Name,
                 Description = request.Description,
                 PreviewName = request.PreviewName,
-                PreviewImageUrl = request.PreviewImageUrl,
+                Image = request.Image,
                 Gallery = request.Gallery,
                 PreviewDescription = request.PreviewDescription,
                 UrlName = WebUtility.UrlEncode(request.UrlName),
-                Buy = request.Buy != null ? new ProductBuy
-                {
-                    Price = new Price(request.Buy.PriceWithouVat)
-                } : null,
-                Deposit = request.Deposit != null ? new ProductDeposit
-                {
-                    Price = new Price(request.Deposit.PriceWithouVat, VatTypes.Czk21, PriceTypes.CzkPerDay),
-                    DepositValue = new Price(request.Deposit.DepositValue, VatTypes.Czk0)
-                } : null
             };
+
+            switch (request.Type)
+            {
+                case ProductType.Buy:
+                    product.Buy = request.Buy != null ? new ProductBuy
+                    {
+                        Price = new Price(request.Buy.PriceWithoutVat)
+                    } : null;
+                    break;
+                case ProductType.Servis:
+                    product.Servis = request.Servis != null ? new ProductServis
+                    {
+                        Price = new Price(request.Servis.PriceWithoutVat, VatTypes.Czk21, PriceTypes.Czk),
+                        ServisDate = request.Servis.ServisDate
+                    } : null;
+                    break;
+                case ProductType.Deposit:
+                    product.Deposit = request.Deposit != null ? new ProductDeposit
+                    {
+                        Price = new Price(request.Deposit.PriceWithoutVat, VatTypes.Czk21, PriceTypes.CzkPerDay),
+                        DepositValue = new Price(request.Deposit.DepositValue, VatTypes.Czk0)
+                    } : null;
+                    break;
+            }
+
             await _uow.Products.InsertAsync(product);
             return new Response<ProductResponse>(ResponseStatus.Ok, _mapService.MapProduct(product));
         }
@@ -123,25 +139,38 @@ namespace ess_api._4_BL.Services.Product
             if (product == null)
                 return new Response<ProductResponse>(ResponseStatus.NotFound, null, $"Product with id: {request.Id} was not founded");
 
-
             product.CategoryId = request.CategoryId;
             product.Name = request.Name;
             product.UrlName = WebUtility.UrlEncode(request.UrlName);
             product.Description = request.Description;
             product.PreviewDescription = request.PreviewDescription;
             product.PreviewName = request.PreviewName;
-            product.PreviewImageUrl = request.PreviewImageUrl;
+            product.Image = request.Image;
             product.Gallery = request.Gallery;
-            product.Buy = request.Buy != null ? new ProductBuy
-            {
-                Price = new Price(request.Buy.PriceWithouVat)
-            } : null;
-            product.Deposit = request.Deposit != null ? new ProductDeposit
-            {
-                Price = new Price(request.Deposit.PriceWithouVat, VatTypes.Czk21, PriceTypes.CzkPerDay),
-                DepositValue = new Price(request.Deposit.DepositValue, VatTypes.Czk0)
-            } : null;
 
+            switch (request.Type)
+            {
+                case ProductType.Buy:
+                    product.Buy = request.Buy != null ? new ProductBuy
+                    {
+                        Price = new Price(request.Buy.PriceWithoutVat)
+                    } : null;
+                    break;
+                case ProductType.Servis:
+                    product.Servis = request.Servis != null ? new ProductServis
+                    {
+                        Price = new Price(request.Servis.PriceWithoutVat, VatTypes.Czk21, PriceTypes.Czk),
+                        ServisDate = request.Servis.ServisDate
+                    } : null;
+                    break;
+                case ProductType.Deposit:
+                    product.Deposit = request.Deposit != null ? new ProductDeposit
+                    {
+                        Price = new Price(request.Deposit.PriceWithoutVat, VatTypes.Czk21, PriceTypes.CzkPerDay),
+                        DepositValue = new Price(request.Deposit.DepositValue, VatTypes.Czk0)
+                    } : null;
+                    break;
+            }
             var response = await _uow.Products.FindAndReplaceAsync(product.Id, product);
             return new Response<ProductResponse>(ResponseStatus.Ok, _mapService.MapProduct(response));
         }
@@ -195,7 +224,7 @@ namespace ess_api._4_BL.Services.Product
                 UrlName = request.UrlName,
                 PreviewName = request.PreviewName,
                 PreviewDescription = request.PreviewDescription,
-                PreviewImageUrl = request.PreviewImageUrl,
+                Image = request.Image,
                 Description = request.Description,
                 CategoryId = request.CategoryId,
                 Gallery = request.Gallery,

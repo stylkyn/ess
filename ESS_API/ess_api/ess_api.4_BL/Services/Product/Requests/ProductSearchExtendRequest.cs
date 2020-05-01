@@ -9,6 +9,7 @@ namespace ess_api._4_BL.Services.Product.Requests
     {
         [Guid]
         public string CategoryId { get; set; }
+        public ProductType? ProductType { get; set; }
         public string FullText { get; set; }
 
         [Required]

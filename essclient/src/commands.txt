@@ -44,3 +44,7 @@ https://www.npmjs.com/package/ng-busy
  // install adnt desing - ng zoro
  https://ng.ant.design/docs/introduce/en
  npm install ng-zorro-antd
+
+ // cloudinary
+ https://cloudinary.com/console/c-162fb5d99b0e7e814500a911f0ae5e/welcome
+ npm install cloudinary-core @cloudinary/angular-5.x --save

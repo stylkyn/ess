@@ -37,7 +37,7 @@ export class ProductService extends APIRepository<IProduct> {
     }
 
     public search(request: IProductSearchRequest): Observable<IResponse<IProduct[]>> {
-        return this._API.getQueryTotal<IProduct[]>(`${this.className}/Search`, request);
+        return this._API.getQueryTotal<IProduct[]>(`${this.className}/SearchExtend`, request);
     }
 
     public fetchProductByUrl(request: IProductByUrlRequest): Promise<IProduct> {

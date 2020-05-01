@@ -29,14 +29,15 @@ namespace ess_api.Repository
             return await FindManyAsync(x => categories.Contains(x.CategoryId) || categories.Count == 0);
         }
 
-        public async Task<(List<ProductModel>, int)> SearchExtend(string categoryId, string fullText, int skip, int take)
+        public async Task<(List<ProductModel>, int)> SearchExtend(string categoryId, string fullText, ProductType? type, int skip, int take)
         {
             string fullTextCleared = fullText?.Trim()?.ToLower() ?? "";
             var result = await FindManyIncludeTotalAsync(x =>
-                fullTextCleared == ""
+                (fullTextCleared == ""
                 || x.Name.ToLower().Contains(fullTextCleared)
-                || x.UrlName.ToLower().Contains(fullTextCleared)
-                || x.CategoryId == categoryId,
+                || x.UrlName.ToLower().Contains(fullTextCleared))
+                && (categoryId == null || x.CategoryId == categoryId)
+                && (type == null || x.Type == type),
                 null, null, skip, take
             );
 

@@ -16,6 +16,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 
 @NgModule({
     imports: [
@@ -33,7 +34,8 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
         NzDrawerModule,
         NzFormModule,
         NzSpinModule,
-        NzSelectModule
+        NzSelectModule,
+        NzGridModule,
     ],
     declarations: [ProductComponent, ProductFormComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

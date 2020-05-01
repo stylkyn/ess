@@ -36,7 +36,7 @@ export class CategoryFormComponent {
         });
     }
 
-    open(category: ICategory): void {
+    open(category: ICategory = null): void {
         this.activeCategory = category;
         this.visible = true;
         if (category) {

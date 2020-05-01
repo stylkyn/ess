@@ -98,6 +98,7 @@
     <Compile Include="Services\User\UserSharedService.cs" />
     <Compile Include="Services\User\UserService.cs" />
     <Compile Include="Shared\Filters\GuidAttribute.cs" />
+    <Compile Include="Shared\Responses\ImageResponse.cs" />
     <Compile Include="Shared\Responses\PriceResponse.cs" />
     <Compile Include="Shared\SharedMapService.cs" />
   </ItemGroup>

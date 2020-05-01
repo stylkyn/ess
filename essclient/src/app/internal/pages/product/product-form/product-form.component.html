@@ -8,20 +8,42 @@
     (nzOnClose)="close()">
     <nz-spin [nzSpinning]="isLoading" nzTip="Probíhá ukládání...">
         <form [formGroup]="productForm" nzLayout="vertical" nz-form>
+            <div nz-row>
+                <nz-form-item nz-col>
+                    <nz-form-label>Název</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="name" nz-input placeholder="Zadejte název"  />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item nz-col>
+                    <nz-form-label>Preview Název</nz-form-label>
+                    <nz-form-control>
+                        <input formControlName="previewName" nz-input placeholder="Zadejte název"  />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
             <nz-form-item>
-                <nz-form-label>Název</nz-form-label>
-                <nz-form-control>
-                    <input formControlName="name" nz-input placeholder="Zadejte název"  />
-                </nz-form-control>
+                <nz-form-label>Kategorie</nz-form-label>
+                <nz-select class="w-100" formControlName="categoryId" nzShowSearch nzAllowClear nzPlaceHolder="Vyberte kategorii">
+                    <nz-option *ngFor="let item of categories" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+                </nz-select>
             </nz-form-item>
             <nz-form-item>
                 <nz-form-label>Url slug</nz-form-label>
                 <nz-form-control>
-                    <nz-input-group nzAddOnBefore="/nase-produkty/" nzAddOnAfter="/{produkt}.cz">
+                    <nz-input-group nzAddOnBefore="/nase-produkty/{{categoryName}}/" nzAddOnAfter=".cz">
                         <input formControlName="slug" type="text" nz-input placeholder="Zadejte url slug" />
                     </nz-input-group>
                 </nz-form-control>
             </nz-form-item>
+
+            <hr class="mt-4"/>
+            <app-file-upload (imageChanged)="mainImageChanged($event)" ></app-file-upload>
+            <hr class="mt-4"/>
+
+            <!-- <input name="file" type="file"
+                class="file-upload" data-cloudinary-field="image_id"
+                data-form-data="{ 'transformation': {'crop':'limit','tags':'samples','width':3000,'height':2000}}"/> -->
             <hr class="mt-4"/>
             <button (click)="confirm()" nz-button nzType="primary" nzShape="round" class="pull-right">Uložit <i nz-icon nzType="check"></i></button>
         </form>

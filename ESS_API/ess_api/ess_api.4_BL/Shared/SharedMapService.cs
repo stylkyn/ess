@@ -31,6 +31,19 @@ namespace ess_api._4_BL.Shared
             };
         }
 
+        public static ImageResponse MapImage(Image request)
+        {
+            if (request == null) return null;
+
+            return new ImageResponse
+            {
+                OriginalFileName = request.OriginalFileName,
+                PublicId = request.PublicId,
+                SecureUrl = request.SecureUrl,
+                Url = request.Url
+            };
+        }
+
         /**
          * Payment
          */
@@ -165,18 +178,18 @@ namespace ess_api._4_BL.Shared
                 UrlName = request.UrlName,
                 PreviewName = request.PreviewName,
                 PreviewDescription = request.PreviewDescription,
-                PreviewImageUrl = request.PreviewImageUrl,
+                Image = MapImage(request.Image),
                 Description = request.Description,
                 CategoryId = request.CategoryId,
-                Gallery = request.Gallery,
+                Gallery = request.Gallery.Select(x => MapImage(x)).ToList(),
                 Buy = request.Buy != null ? new ProductBuyResponse
                 {
-                    Price = SharedMapService.MapPrice(request.Buy.Price)
+                    Price = MapPrice(request.Buy.Price)
                 } : null,
                 Deposit = request.Deposit != null ? new ProductDepositResponse
                 {
-                    DepositValue = SharedMapService.MapPrice(request.Deposit.DepositValue),
-                    Price = SharedMapService.MapPrice(request.Deposit.Price)
+                    DepositValue = MapPrice(request.Deposit.DepositValue),
+                    Price = MapPrice(request.Deposit.Price)
                 } : null,
             };
         }

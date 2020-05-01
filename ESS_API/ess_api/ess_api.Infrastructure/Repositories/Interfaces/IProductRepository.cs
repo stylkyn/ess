@@ -10,6 +10,6 @@ namespace ess_api.Core.Interfaces
         Task<List<ProductModel>> Search();
         Task<List<ProductModel>> Search(string categoryId);
         Task<List<ProductModel>> Search(List<string> categories);
-        Task<(List<ProductModel>, int)> SearchExtend(string categoryId, string fullText, int skip, int take);
+        Task<(List<ProductModel>, int)> SearchExtend(string categoryId, string fullText, ProductType? type, int skip, int take);
     }
 }

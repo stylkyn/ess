@@ -8,17 +8,26 @@ namespace ess_api.Core.Model
 {
     public class ProductModel : BaseModel
     {
+
         public string PreviewName { get; set; }
         public string PreviewDescription { get; set; }
-        public string PreviewImageUrl { get; set; }
-        public List<string> Gallery { get; set; } = new List<string>();
+        public Image Image { get; set; }
+        public List<Image> Gallery { get; set; } = new List<Image>();
         public string Name { get; set; }
         public string UrlName { get; set; }
         public string Description { get; set; }
         public string CategoryId { get; set; }
 
+        public ProductType Type { get; set; }
         public ProductDeposit Deposit { get; set; } = null;
         public ProductBuy Buy { get; set; } = null;
+        public ProductServis Servis { get; set; } = null;
+    }
+
+    public class ProductServis
+    {
+        public Price Price { get; set; }
+        public DateTime ServisDate { get; set; }
     }
 
     public class ProductDeposit
@@ -49,5 +58,12 @@ namespace ess_api.Core.Model
     {
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
+    }
+
+    public enum ProductType
+    {
+        Buy,
+        Servis,
+        Deposit
     }
 }
