@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ProductService, IProductSearchRequest } from '../../../services/API/product.service';
-import { IProduct } from '../../../models/Iproduct';
+import { IProduct, getProductTypeName, ProductType } from '../../../models/Iproduct';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { CategoryService } from './../../../services/API/category.service';
 import { ICategory } from 'src/app/models/ICategory';
+import { MapPriceTypes } from 'src/app/models/IPrice';
+import { getProductRoute } from 'src/app/presentation/theme/presentation-routes';
 
 @Component({
     selector: 'app-product',
@@ -13,12 +15,16 @@ import { ICategory } from 'src/app/models/ICategory';
     styleUrls: ['./product.component.scss']
 })
 export class ProductComponent implements OnInit {
+    MapPriceTypes = MapPriceTypes;
+    getProductTypeName = getProductTypeName;
+    ProductType = ProductType;
     @ViewChild('productForm') productForm: ProductFormComponent;
 
     total = 1;
     dataList: IProduct[] = [];
     categories: ICategory[];
     activeCategoryIdFilter: string;
+    activeProductType: ProductType;
     loading = true;
     pageSize = 10;
     pageNumber = 1;
@@ -40,7 +46,7 @@ export class ProductComponent implements OnInit {
     // categoreis logic
     loadCategories() {
         this._categoryService.getAll()
-            .subscribe(categories => this.categories = categories);
+            .then(categories => this.categories = categories);
     }
 
     getCategoryName(categoryId: string): string {
@@ -52,17 +58,24 @@ export class ProductComponent implements OnInit {
         this.loadData(this.fullText, categoryId);
     }
 
+    // product type logic
+    productTypeChanged(productType: ProductType) {
+        this.activeProductType = productType;
+        this.loadData(this.fullText, this.activeCategoryIdFilter, productType);
+    }
+
     // table logic
     fullTextChange(value: string) {
         this.loadData(value);
     }
 
-    loadData(fullText: string = this.fullText, activeCategoryId: string = this.activeCategoryIdFilter): void {
+    loadData(fullText: string = this.fullText, activeCategoryId: string = this.activeCategoryIdFilter, productType = this.activeProductType): void {
         this.loading = true;
 
         const request: IProductSearchRequest = {
             fullText: fullText,
             categoryId: activeCategoryId,
+            productType: productType,
             pageSize: this.pageSize,
             pageNumber: this.pageNumber - 1,
         };
@@ -72,6 +85,7 @@ export class ProductComponent implements OnInit {
             this.dataList = response.data;
         });
     }
+    
 
     onQueryParamsChange(params: NzTableQueryParams): void {
         const { pageSize, pageIndex } = params;
@@ -102,5 +116,11 @@ export class ProductComponent implements OnInit {
             nzOnOk: () => this.removeProduct(product),
             nzCancelText: 'Zrušit'
         });
+    }
+
+    // show detail produkt
+    showDetail(product: IProduct) {
+        const category = this.categories.find(c => c.id == product.categoryId);
+        window.open(getProductRoute(product, category));
     }
 }

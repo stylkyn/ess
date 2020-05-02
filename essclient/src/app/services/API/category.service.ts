@@ -36,6 +36,7 @@ export class CategoryService extends APIRepository<ICategory> {
 
     public activeCategory: ICategory = initCategory;
     public categoriesTree: ICategory[] = [];
+    public categories: ICategory[] = [];
 
     constructor (public _API: APIService, private _route: ActivatedRoute) {
         super(_API, 'categories');
@@ -66,8 +67,16 @@ export class CategoryService extends APIRepository<ICategory> {
         return this._API.getQueryTotal<ICategory[]>(`${this.className}/Search`, request);
     }
 
-    public getAll(): Observable<ICategory[]> {
-        return this._API.get<ICategory[]>(`${this.className}/GetAll`);
+    public getAll(): Promise<ICategory[]> {
+        if (this.categories.length === 0)
+        {
+            return this._API.get<ICategory[]>(`${this.className}/GetAll`).pipe(
+                map((categories: ICategory[]) => {
+                    this.categories = categories;
+                    return categories;
+                })).toPromise();
+        }
+        return new Promise((resolve) => resolve(this.categoriesTree));
     }
 
     public add(request: ICategoryCreateRequest): Observable<ICategory> {

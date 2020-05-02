@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { Observer, Observable } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { UploadFile, UploadXHRArgs } from 'ng-zorro-antd/upload';
@@ -11,8 +11,9 @@ import { IImage } from './../../../models/IImage';
     templateUrl: './file-upload.component.html',
     styleUrls: ['./file-upload.component.scss']
 })
-export class FileUploadComponent {
-    @Output() imageChanged: EventEmitter<IImage> = new EventEmitter();
+export class FileUploadComponent implements OnInit, OnChanges {
+    @Input() initial: IImage;
+    @Output() changed: EventEmitter<IImage> = new EventEmitter();
     activeImage: IImage;
     loading = false;
 
@@ -21,6 +22,19 @@ export class FileUploadComponent {
         private _cloudinary: Cloudinary,
         private _http: HttpClient
     ) { }
+
+    ngOnInit() {
+        this.activeImage = this.initial;
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.initial.currentValue)
+            this.activeImage = changes.initial.currentValue;
+    }
+
+    public reset() {
+        this.activeImage = null;
+    }
 
     verify = (file: File) => {
         return new Observable((observer: Observer<boolean>) => {
@@ -76,7 +90,7 @@ export class FileUploadComponent {
                     signature: event.body.signature,
                     createdAt: new Date(event.body.created_at)
                 };
-                this.imageChanged.next(this.activeImage)
+                this.changed.next(this.activeImage);
                 this.loading = false;
                 item.onSuccess(event.body, item.file, event);
             }

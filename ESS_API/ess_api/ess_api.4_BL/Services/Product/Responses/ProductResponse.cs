@@ -1,5 +1,6 @@
 ﻿using ess_api._4_BL.Services.Responses;
 using ess_api._4_BL.Shared.Responses;
+using ess_api.Core.Model;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -7,6 +8,9 @@ namespace ess_api._4_BL.Services.Product.Responses
 {
     public class ProductResponse : ResponseData
     {
+        [JsonProperty("type")]
+        public ProductType Type { get; set; }
+
         [JsonProperty("previewName")]
         public string PreviewName { get; set; }
 
@@ -36,6 +40,9 @@ namespace ess_api._4_BL.Services.Product.Responses
 
         [JsonProperty("buy")]
         public ProductBuyResponse Buy { get; set; }
+
+        [JsonProperty("totalPrice")]
+        public PriceResponse TotalPrice { get; set; }
     }
 
     public class ProductDepositResponse

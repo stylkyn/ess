@@ -7,6 +7,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { DeleteOutline, PlusOutline, PictureTwoTone } from '@ant-design/icons-angular/icons';
 import { CloudinaryModule } from '@cloudinary/angular-5.x';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { MultipleFileUploadComponent } from './multiple-file-upload/multiple-file-upload.component';
 
 @NgModule({
     imports: [
@@ -15,13 +16,15 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
         NzMessageModule,
         NzIconModule.forChild([DeleteOutline, PlusOutline, PictureTwoTone]),
         NzModalModule,
-        CloudinaryModule,
+        CloudinaryModule
     ],
     declarations: [
         FileUploadComponent,
+        MultipleFileUploadComponent
     ],
     exports: [
         FileUploadComponent,
+        MultipleFileUploadComponent
     ]
 })
 export class ComponentsModule { }

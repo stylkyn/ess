@@ -15,6 +15,7 @@ import { CategoryFormComponent } from './category-form/category-form.component';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 @NgModule({
     imports: [
@@ -31,7 +32,8 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
         NzModalModule,
         NzDrawerModule,
         NzFormModule,
-        NzSpinModule
+        NzSpinModule,
+        NzToolTipModule
     ],
     declarations: [CategoryComponent, CategoryFormComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

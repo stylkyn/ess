@@ -103,6 +103,7 @@ namespace ess_api._4_BL.Services.Product
                 Gallery = request.Gallery,
                 PreviewDescription = request.PreviewDescription,
                 UrlName = WebUtility.UrlEncode(request.UrlName),
+                Type = request.Type
             };
 
             switch (request.Type)
@@ -117,7 +118,6 @@ namespace ess_api._4_BL.Services.Product
                     product.Servis = request.Servis != null ? new ProductServis
                     {
                         Price = new Price(request.Servis.PriceWithoutVat, VatTypes.Czk21, PriceTypes.Czk),
-                        ServisDate = request.Servis.ServisDate
                     } : null;
                     break;
                 case ProductType.Deposit:
@@ -147,6 +147,7 @@ namespace ess_api._4_BL.Services.Product
             product.PreviewName = request.PreviewName;
             product.Image = request.Image;
             product.Gallery = request.Gallery;
+            product.Type = request.Type;
 
             switch (request.Type)
             {
@@ -160,7 +161,6 @@ namespace ess_api._4_BL.Services.Product
                     product.Servis = request.Servis != null ? new ProductServis
                     {
                         Price = new Price(request.Servis.PriceWithoutVat, VatTypes.Czk21, PriceTypes.Czk),
-                        ServisDate = request.Servis.ServisDate
                     } : null;
                     break;
                 case ProductType.Deposit:

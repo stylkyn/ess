@@ -35,13 +35,23 @@
                     <nz-option *ngFor="let item of categories" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
                 </nz-select>
             </th>
-            <th colspan="1"></th>
+            <th class="p-0 pl-2" colspan="1">
+                <nz-select class="w-100" nzShowSearch nzAllowClear nzPlaceHolder="Vyberte typ" 
+                    (ngModelChange)="productTypeChanged($event)" [(ngModel)]="activeProductType">
+                    <nz-option nzLabel="Produkt" [nzValue]="ProductType.Buy"></nz-option>
+                    <nz-option nzLabel="Služba" [nzValue]="ProductType.Servis"></nz-option>
+                </nz-select>
+            </th>
+            <th colspan="2"></th>
         </tr>
         <tr>
             <th nzColumnKey="email">Foto</th>
             <th nzColumnKey="email">Název</th>
             <th nzColumnKey="firstname">Url slug</th>
             <th nzColumnKey="firstname">Kategorie</th>
+            <th nzColumnKey="firstname">Typ</th>
+            <th nzColumnKey="firstname">Cena bez DPH</th>
+            <th nzColumnKey="firstname">Cena s DPH</th>
             <th class="text-right"></th>
         </tr>
     </thead>
@@ -53,9 +63,24 @@
             <td>{{ item.name }}</td>
             <td>{{ item.urlName }}</td>
             <td>{{ getCategoryName(item.categoryId) }}</td>
-            <td class="d-flex justify-content-end">
-                <button (click)="showUpdateDrawer(item)" nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="edit"></i></button>
-                <button (click)="showDeleteConfirm(item)" nz-button nzType="danger" nzShape="circle"><i nz-icon nzType="delete" nzTheme="outline"></i></button>
+            <td>{{ getProductTypeName(item.type) }}</td>
+            <td>{{ item.totalPrice?.czkWithoutVat}} {{MapPriceTypes(item?.totalPrice?.priceType) }}</td>
+            <td>{{ item.totalPrice?.czkWithVat}} {{MapPriceTypes(item?.totalPrice?.priceType) }}</td>
+            <td>
+                <div class="d-flex justify-content-end">
+                    <button (click)="showDetail(item)" nz-button nzsi nzType="primary" nzShape="circle"
+                        nz-tooltip nzTooltipTitle="Zobrazit produkt">
+                        <i nz-icon nzType="eye" nzTheme="outline"></i>
+                    </button>
+                    <button (click)="showUpdateDrawer(item)" nz-button nzType="primary" nzShape="circle"
+                        nz-tooltip nzTooltipTitle="Upravit produkt">
+                        <i nz-icon nzType="edit"></i>
+                    </button>
+                    <button (click)="showDeleteConfirm(item)" nz-button nzType="danger" nzShape="circle"
+                        nz-tooltip nzTooltipTitle="Odstranit produkt">
+                        <i nz-icon nzType="delete" nzTheme="outline"></i>
+                    </button>
+                </div>
             </td>
         </tr> 
     </tbody>

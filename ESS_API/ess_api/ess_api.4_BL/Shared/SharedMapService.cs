@@ -174,6 +174,7 @@ namespace ess_api._4_BL.Shared
             return new ProductResponse
             {
                 Id = request.Id.ToString(),
+                Type = request.Type,
                 Name = request.Name,
                 UrlName = request.UrlName,
                 PreviewName = request.PreviewName,
@@ -191,6 +192,7 @@ namespace ess_api._4_BL.Shared
                     DepositValue = MapPrice(request.Deposit.DepositValue),
                     Price = MapPrice(request.Deposit.Price)
                 } : null,
+                TotalPrice = MapPrice(request.GetTotalPrice())
             };
         }
 

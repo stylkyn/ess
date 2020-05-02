@@ -4,32 +4,84 @@
     [nzMaskClosable]="true" 
     [nzWidth]="620" 
     [nzVisible]="visible" 
-    [nzTitle]="type == 'update' ? 'Úprava produktu' : 'Přidání produktu'" 
+    [nzTitle]="formType == 'update' ? 'Úprava produktu' : 'Přidání produktu'" 
     (nzOnClose)="close()">
     <nz-spin [nzSpinning]="isLoading" nzTip="Probíhá ukládání...">
+        
         <form [formGroup]="productForm" nzLayout="vertical" nz-form>
-            <div nz-row>
-                <nz-form-item nz-col>
-                    <nz-form-label>Název</nz-form-label>
-                    <nz-form-control>
-                        <input formControlName="name" nz-input placeholder="Zadejte název"  />
-                    </nz-form-control>
-                </nz-form-item>
-                <nz-form-item nz-col>
-                    <nz-form-label>Preview Název</nz-form-label>
-                    <nz-form-control>
-                        <input formControlName="previewName" nz-input placeholder="Zadejte název"  />
-                    </nz-form-control>
-                </nz-form-item>
+            <nz-radio-group formControlName="type" nzButtonStyle="solid">
+                <label nz-radio-button [nzValue]="ProductType.Buy">Produkt</label>
+                <label nz-radio-button [nzValue]="ProductType.Servis">Služba</label>
+            </nz-radio-group>
+            <nz-divider nzOrientation="left" nzText="Základní údaje"></nz-divider>
+            <div nz-row [nzGutter]="16">
+                <div class="gutter-row" nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label>Název *</nz-form-label>
+                        <nz-form-control>
+                            <input formControlName="name" nz-input placeholder="Zadejte název"  />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="gutter-row" nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label>Náhled - Název *</nz-form-label>
+                        <nz-form-control>
+                            <input formControlName="previewName" nz-input placeholder="Zadejte název"  />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div nz-row [nzGutter]="16">
+                <div class="gutter-row" nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label>Detailní popis *</nz-form-label>
+                        <textarea
+                            formControlName="description"
+                            nz-input
+                            placeholder="Detailní popis {{type.value == ProductType.Servis ? 'služby' : 'produktu'}}"
+                            [nzAutosize]="{ minRows: 3, maxRows: 10 }">
+                        </textarea>
+                    </nz-form-item>
+                </div>
+                <div class="gutter-row" nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label>Náhled - krátký popis *</nz-form-label>
+                        <textarea
+                            formControlName="previewDescription"
+                            nz-input
+                            placeholder="Krátky popis {{type.value == ProductType.Servis ? 'služby' : 'produktu'}}"
+                            [nzAutosize]="{ minRows: 3, maxRows: 10 }">
+                        </textarea>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div nz-row [nzGutter]="16">
+                <div class="gutter-row" nz-col [nzSpan]="16">
+                    <nz-form-item>
+                        <nz-form-label>Kategorie *</nz-form-label>
+                        <nz-select class="w-100" formControlName="categoryId" nzShowSearch nzAllowClear nzPlaceHolder="Vyberte kategorii">
+                            <nz-option *ngFor="let item of categories" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
+                        </nz-select>
+                    </nz-form-item>
+                </div>
+                <div class="gutter-row" nz-col [nzSpan]="8">
+                    <nz-form-item>
+                        <nz-form-label>Cena bez DPH *</nz-form-label>
+                        <nz-input-number
+                            formControlName="price"
+                            class="w-100"
+                            nzPlaceHolder="0 Kč"
+                            [nzMin]="1"
+                            [nzStep]="100"
+                            [nzFormatter]="formatterCurrency"
+                            [nzParser]="parserCurrency"
+                            ></nz-input-number>
+                    </nz-form-item>
+                </div>
             </div>
             <nz-form-item>
-                <nz-form-label>Kategorie</nz-form-label>
-                <nz-select class="w-100" formControlName="categoryId" nzShowSearch nzAllowClear nzPlaceHolder="Vyberte kategorii">
-                    <nz-option *ngFor="let item of categories" [nzLabel]="item.name" [nzValue]="item.id"></nz-option>
-                </nz-select>
-            </nz-form-item>
-            <nz-form-item>
-                <nz-form-label>Url slug</nz-form-label>
+                <nz-form-label>Url slug *</nz-form-label>
                 <nz-form-control>
                     <nz-input-group nzAddOnBefore="/nase-produkty/{{categoryName}}/" nzAddOnAfter=".cz">
                         <input formControlName="slug" type="text" nz-input placeholder="Zadejte url slug" />
@@ -37,15 +89,14 @@
                 </nz-form-control>
             </nz-form-item>
 
-            <hr class="mt-4"/>
-            <app-file-upload (imageChanged)="mainImageChanged($event)" ></app-file-upload>
-            <hr class="mt-4"/>
+            <nz-divider nzOrientation="left" nzText="Hlavní obrázek *"></nz-divider>
+            <app-file-upload #mainImageUploader [initial]="this.activeProduct?.image" (changed)="mainImageChanged($event)" ></app-file-upload>
 
-            <!-- <input name="file" type="file"
-                class="file-upload" data-cloudinary-field="image_id"
-                data-form-data="{ 'transformation': {'crop':'limit','tags':'samples','width':3000,'height':2000}}"/> -->
+            <nz-divider nzOrientation="left" nzText="Galerie *"></nz-divider>
+            <app-multiple-file-upload #galleryUploader [initial]="this.activeProduct?.gallery" (changed)="galleryChanged($event)"></app-multiple-file-upload>
+
             <hr class="mt-4"/>
-            <button (click)="confirm()" nz-button nzType="primary" nzShape="round" class="pull-right">Uložit <i nz-icon nzType="check"></i></button>
+            <button [disabled]="productForm.invalid || !mainImage || !(gallery?.length > 0)" (click)="confirm()" nz-button nzType="primary" nzShape="round" class="pull-right">Uložit <i nz-icon nzType="check"></i></button>
         </form>
     </nz-spin>
 </nz-drawer>

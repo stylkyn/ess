@@ -35,6 +35,18 @@ export interface IProductBuy {
     price: IPrice;
 }
 
+export const getProductTypeName = (type: ProductType) => {
+    switch (type) {
+        case ProductType.Buy:
+            return 'Produkt';
+        case ProductType.Deposit:
+            return 'Pronájem';
+        case ProductType.Servis:
+            return 'Služba';
+        }
+    return '';
+};
+
 export enum ProductType {
     Buy,
     Servis,

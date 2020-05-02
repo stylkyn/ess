@@ -1,0 +1,22 @@
+<div class="clearfix">
+    <nz-upload
+      nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+      nzListType="picture-card"
+      [(nzFileList)]="imagesForUploader"
+      [nzShowButton]="imagesForUploader.length < 8"
+      [nzPreview]="handlePreview"
+      [nzCustomRequest]="upload" 
+      (nzChange)="change($event)"
+      [nzHeaders]="setUploadHeader"
+      [nzRemove]="remove"
+      [nzShowUploadList]="{showPreviewIcon: false, showRemoveIcon: true, showDownloadIcon: true}"
+    >
+      <i nz-icon nzType="plus"></i>
+      <div class="ant-upload-text">Upload</div>
+    </nz-upload>
+    <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" (nzOnCancel)="previewVisible = false">
+      <ng-template #modalContent>
+        <img [src]="previewImage" [ngStyle]="{ width: '100%' }" />
+      </ng-template>
+    </nz-modal>
+  </div>

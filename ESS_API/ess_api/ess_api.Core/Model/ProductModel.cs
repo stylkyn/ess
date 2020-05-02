@@ -22,6 +22,20 @@ namespace ess_api.Core.Model
         public ProductDeposit Deposit { get; set; } = null;
         public ProductBuy Buy { get; set; } = null;
         public ProductServis Servis { get; set; } = null;
+
+        public Price GetTotalPrice()
+        {
+            switch (Type)
+            {
+                case ProductType.Buy:
+                    return Buy.Price;
+                case ProductType.Deposit:
+                    return Deposit.Price;
+                case ProductType.Servis:
+                    return Servis.Price;
+            }
+            return null;
+        }
     }
 
     public class ProductServis

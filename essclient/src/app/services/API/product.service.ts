@@ -1,13 +1,15 @@
 import { APIService, IResponse } from './API.service';
 import { APIRepository } from './API-repository';
 import { Injectable } from '@angular/core';
-import { IProduct, initProduct } from 'src/app/models/IProduct';
+import { IProduct, initProduct, ProductType } from 'src/app/models/IProduct';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { IImage } from 'src/app/models/IImage';
 
 export interface IProductSearchRequest {
     categoryId?: string;
     categoryUrlName?: string;
+    productType?: ProductType;
 
     fullText: string;
     pageSize: number;
@@ -18,21 +20,48 @@ export interface IProductByUrlRequest {
     urlName: string;
 }
 
-export interface IProductCreateRequest {
+export interface IProductCreateRequest extends IProductSetRequest{
 }
 
-export interface IProductUpdateRequest {
+export interface IProductUpdateRequest extends IProductSetRequest {
+    id: string;
 }
+
+export interface IProductSetRequest {
+    name: string;
+    urlName: string;
+    previewName: string;
+    image: IImage;
+    gallery: IImage[];
+    categoryId: string;
+    description: string;
+    previewDescription: string;
+    type: ProductType;
+    buy: BuyRequest;
+    servis: ServisRequest;
+    deposit: DepositRequest;
+}
+export interface ServisRequest {
+    priceWithoutVat: number;
+}
+export interface DepositRequest {
+    priceWithoutVat: number;
+    depositValue: number;
+}
+export interface BuyRequest {
+    priceWithoutVat: number;
+}
+
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 
 export class ProductService extends APIRepository<IProduct> {
     products: IProduct[];
     activeProduct: IProduct = initProduct;
 
-    constructor(public _API: APIService) {
+    constructor (public _API: APIService) {
         super(_API, 'Products');
     }
 
@@ -43,8 +72,8 @@ export class ProductService extends APIRepository<IProduct> {
     public fetchProductByUrl(request: IProductByUrlRequest): Promise<IProduct> {
         return this._API.getQuery(`${this.className}/GetByUrl`, request).pipe(
             map((product: IProduct) => {
-            this.activeProduct = product;
-            return product;
+                this.activeProduct = product;
+                return product;
             })
         ).toPromise();
     }

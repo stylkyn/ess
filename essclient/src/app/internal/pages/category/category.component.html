@@ -41,8 +41,14 @@
             <td>{{ item.name }}</td>
             <td>{{ item.urlName }}</td>
             <td class="d-flex justify-content-end">
-                <button (click)="showUpdateDrawer(item)" nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="edit"></i></button>
-                <button (click)="showDeleteConfirm(item)" nz-button nzType="danger" nzShape="circle"><i nz-icon nzType="delete" nzTheme="outline"></i></button>
+                <button (click)="showUpdateDrawer(item)" nz-button nzType="primary" nzShape="circle"
+                    nz-tooltip nzTooltipTitle="Upravit kategorii">
+                    <i nz-icon nzType="edit"></i>
+                </button>
+                <button (click)="showDeleteConfirm(item)" nz-button nzType="danger" nzShape="circle"
+                    nz-tooltip nzTooltipTitle="Odstranit kategorii">
+                    <i nz-icon nzType="delete" nzTheme="outline"></i>
+                </button>
             </td>
         </tr> 
     </tbody>
