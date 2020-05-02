@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { IImage } from 'src/app/models/IImage';
 
-export interface IProductSearchRequest {
+export interface IProductSearchExtendRequest {
     categoryId?: string;
     categoryUrlName?: string;
     productType?: ProductType;
@@ -14,6 +14,11 @@ export interface IProductSearchRequest {
     fullText: string;
     pageSize: number;
     pageNumber: number;
+}
+
+export interface IProductSearchRequest {
+    categoryId?: string;
+    categoryUrlName?: string;
 }
 
 export interface IProductByUrlRequest {
@@ -58,7 +63,6 @@ export interface BuyRequest {
 })
 
 export class ProductService extends APIRepository<IProduct> {
-    products: IProduct[];
     activeProduct: IProduct = initProduct;
 
     constructor (public _API: APIService) {
@@ -66,6 +70,10 @@ export class ProductService extends APIRepository<IProduct> {
     }
 
     public search(request: IProductSearchRequest): Observable<IResponse<IProduct[]>> {
+        return this._API.getQueryTotal<IProduct[]>(`${this.className}/Search`, request);
+    }
+
+    public searchExtend(request: IProductSearchExtendRequest): Observable<IResponse<IProduct[]>> {
         return this._API.getQueryTotal<IProduct[]>(`${this.className}/SearchExtend`, request);
     }
 

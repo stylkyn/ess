@@ -3,6 +3,7 @@ import { ProductService, IProductSearchRequest } from '../../../../services/API/
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService, ICategoryRequest } from './../../../../services/API/category.service';
 import { MapPriceTypes } from 'src/app/models/IPrice';
+import { IProduct } from 'src/app/models/IProduct';
 
 @Component({
     selector: 'app-eshop-products',
@@ -11,6 +12,7 @@ import { MapPriceTypes } from 'src/app/models/IPrice';
 })
 export class EshopProductsComponent implements OnInit {
     public mapPriceTypes = MapPriceTypes;
+    public products: IProduct[] = [];
 
     constructor (
         public _categoryService: CategoryService,
@@ -40,11 +42,10 @@ export class EshopProductsComponent implements OnInit {
     loadProducts(categoryUrlName: string) {
         const request: IProductSearchRequest = {
             categoryUrlName: categoryUrlName,
-            fullText: null,
-            pageSize: 200,
-            pageNumber: 0
         };
-        this._productService.search(request);
+        this._productService.search(request).subscribe(products => { 
+            this.products = products.data;
+        });
     }
 
 }

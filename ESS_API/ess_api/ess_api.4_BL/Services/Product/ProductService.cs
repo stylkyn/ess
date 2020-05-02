@@ -224,10 +224,10 @@ namespace ess_api._4_BL.Services.Product
                 UrlName = request.UrlName,
                 PreviewName = request.PreviewName,
                 PreviewDescription = request.PreviewDescription,
-                Image = request.Image,
+                Image = SharedMapService.MapImage(request.Image),
                 Description = request.Description,
                 CategoryId = request.CategoryId,
-                Gallery = request.Gallery,
+                Gallery = request.Gallery.Select(i => SharedMapService.MapImage(i)).ToList(),
                 Buy = request.Buy != null ? new ProductDetailBuyResponse
                 {
                     Price = SharedMapService.MapPrice(request.Buy.Price),

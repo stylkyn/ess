@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MapPriceTypes, MapVatTypes } from 'src/app/models/IPrice';
 import { MyToastService } from 'src/app/services/toast.service';
 import { BasketStorageService, IBasketProductStorage } from '../../../../services/storage/basket.service';
+import { CategoryService } from './../../../../services/API/category.service';
+import { ICategory } from './../../../../models/ICategory';
 
 @Component({
     selector: 'app-eshop-detail',
@@ -32,6 +34,10 @@ export class EshopDetailComponent implements OnInit {
         return selectedProduct.productsCount;
     }
 
+    public get category(): ICategory {
+        return this._categoryService.categories.find(c => c.id == this._activeProduct.categoryId);
+    }
+
     public get _activeProductVAT () {
         return this._activeProduct.buy && this.mapVatTypes(this._activeProduct.buy.price.vatType);
     }
@@ -44,7 +50,8 @@ export class EshopDetailComponent implements OnInit {
         public _productService: ProductService,
         private _route: ActivatedRoute,
         private _toastService: MyToastService,
-        private _basketService: BasketStorageService
+        private _basketService: BasketStorageService,
+        private _categoryService: CategoryService
         ) {
         this._route.url.subscribe(() => {
             const urlName = this._route.snapshot.paramMap.get('productUrlName');
@@ -54,6 +61,7 @@ export class EshopDetailComponent implements OnInit {
     }
 
     ngOnInit() {
+        this._categoryService.getAll();
     }
 
     loadActiveProduct(urlName: string) {

@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "",
-    "sources": [
-        "register-modal-content.component.scss"
-    ],
-    "names": [],
-    "file": "register-modal-content.component.css"
-}

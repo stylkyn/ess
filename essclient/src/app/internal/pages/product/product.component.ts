@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
-import { ProductService, IProductSearchRequest } from '../../../services/API/product.service';
+import { ProductService, IProductSearchRequest, IProductSearchExtendRequest } from '../../../services/API/product.service';
 import { IProduct, getProductTypeName, ProductType } from '../../../models/Iproduct';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ProductFormComponent } from './product-form/product-form.component';
@@ -72,14 +72,14 @@ export class ProductComponent implements OnInit {
     loadData(fullText: string = this.fullText, activeCategoryId: string = this.activeCategoryIdFilter, productType = this.activeProductType): void {
         this.loading = true;
 
-        const request: IProductSearchRequest = {
+        const request: IProductSearchExtendRequest = {
             fullText: fullText,
             categoryId: activeCategoryId,
             productType: productType,
             pageSize: this.pageSize,
             pageNumber: this.pageNumber - 1,
         };
-        this._productService.search(request).subscribe(response => {
+        this._productService.searchExtend(request).subscribe(response => {
             this.loading = false;
             this.total = response.total;
             this.dataList = response.data;

@@ -68,7 +68,7 @@ export class CategoryService extends APIRepository<ICategory> {
     }
 
     public getAll(): Promise<ICategory[]> {
-        if (this.categories.length === 0)
+        if (!this.categories || this.categories.length === 0)
         {
             return this._API.get<ICategory[]>(`${this.className}/GetAll`).pipe(
                 map((categories: ICategory[]) => {
@@ -76,7 +76,7 @@ export class CategoryService extends APIRepository<ICategory> {
                     return categories;
                 })).toPromise();
         }
-        return new Promise((resolve) => resolve(this.categoriesTree));
+        return new Promise((resolve) => resolve(this.categories));
     }
 
     public add(request: ICategoryCreateRequest): Observable<ICategory> {

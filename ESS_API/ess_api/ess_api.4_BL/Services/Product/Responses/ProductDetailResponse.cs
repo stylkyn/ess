@@ -16,10 +16,10 @@ namespace ess_api._4_BL.Services.Product.Responses
         public string PreviewDescription { get; set; }
 
         [JsonProperty("image")]
-        public Image Image { get; set; }
+        public ImageResponse Image { get; set; }
 
         [JsonProperty("gallery")]
-        public List<Image> Gallery { get; set; }
+        public List<ImageResponse> Gallery { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
