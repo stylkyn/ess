@@ -2,6 +2,7 @@
 using ess_api._4_BL.Services.Payment.Responses;
 using ess_api._4_BL.Services.Product.Responses;
 using ess_api._4_BL.Services.Responses;
+using ess_api._4_BL.Services.Stats.Responses;
 using ess_api._4_BL.Services.Transport.Responses;
 using ess_api._4_BL.Shared.Responses;
 using ess_api.Core.Model;
@@ -41,6 +42,28 @@ namespace ess_api._4_BL.Shared
                 PublicId = request.PublicId,
                 SecureUrl = request.SecureUrl,
                 Url = request.Url
+            };
+        }
+
+        /**
+         * Stats
+         */
+         public StatsResponse MapStats(StatsModel request)
+        {
+            if (request == null)
+                return null;
+
+            return new StatsResponse
+            {
+                Profits = request.Profits.Select(x => new StatsProfitResponse
+                {
+                    MonthName = x.MonthName,
+                    MonthNumber = x.MonthNumber,
+                    ProfitTotal = MapPrice(x.ProfitTotal),
+                    SalesCount = x.SalesCount,
+                    UsersCount = x.UsersCount,
+                    YearNumber = x.YearNumber
+                }).ToList()
             };
         }
 

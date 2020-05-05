@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <canvas id="priftChart" *ngIf="profitData && statsLabels" mdbChart
+                [chartType]="chartType"
+                [datasets]="profitData"
+                [labels]="statsLabels"
+                [colors]="chartProfitColor"
+                [options]="chartOptions"
+                [legend]="true">
+            </canvas>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <canvas id="saleChart" *ngIf="salesData && statsLabels" mdbChart
+                [chartType]="chartType"
+                [datasets]="salesData"
+                [labels]="statsLabels"
+                [colors]="chartSalesColor"
+                [options]="chartOptions"
+                [legend]="true">
+            </canvas>
+        </div>
+    </div>
+</div>
