@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './../../services/API/user.service';
-import { adminLoginFullRoute, adminUserRoute, adminDashRoute, adminCategoryRoute, adminProductRoute } from './admin-routes';
+import { adminLoginFullRoute, adminUserRoute, adminDashRoute, adminCategoryRoute, adminProductRoute, adminOrderRoute } from './admin-routes';
 import { IUser } from 'src/app/models/IUser';
 
 @Component({
@@ -14,6 +14,7 @@ export class ThemeComponent implements OnInit {
     adminDashRoute = adminDashRoute;
     adminCategoryRoute = adminCategoryRoute;
     adminProductRoute = adminProductRoute;
+    adminOrderRoute = adminOrderRoute;
 
     public get getUser(): IUser {
         return this._userService.user;

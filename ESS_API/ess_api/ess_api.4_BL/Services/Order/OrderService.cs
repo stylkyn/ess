@@ -1,6 +1,8 @@
 ﻿using ess_api._4_BL.Services.Order.Requests;
 using ess_api._4_BL.Services.Order.Responses;
 using ess_api._4_BL.Services.Product;
+using ess_api._4_BL.Services.Product.Requests;
+using ess_api._4_BL.Services.Requests;
 using ess_api._4_BL.Services.Responses;
 using ess_api.Core.Constant;
 using ess_api.Core.Model;
@@ -20,6 +22,27 @@ namespace ess_api._4_BL.Services.Order
         {
             _productSharedService = new ProductSharedService();
             _userSharedService = new UserSharedService();
+        }
+
+        public async Task<ResponseList<OrderResponse>> Search(OrderSearchRequest request)
+        {
+            int skip = request.PageNumber * request.PageSize;
+            (var orders, int total) = await _uow.Orders.Search(request.FullText, request.UserId, request.OrderState, request.PaymentState, skip, request.PageSize);
+            if (orders == null)
+                return new ResponseList<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+
+            var result = orders.Select(x => _mapService.MapOrder(x)).ToList();
+            return new ResponseList<OrderResponse>(ResponseStatus.Ok, result, total);
+        }
+
+        public async Task<ResponseList<OrderResponse>> GetAccountOrders(GetAccountOrdersRequest request)
+        {
+            var orders = await _uow.Orders.GetAccountOrders(request?.RequestIdentity?.UserId);
+            if (orders == null)
+                return new ResponseList<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+
+            var result = orders.Select(x => _mapService.MapOrder(x)).ToList();
+            return new ResponseList<OrderResponse>(ResponseStatus.Ok, result);
         }
 
         public async Task<Response<OrderResponse>> GetOrder(GetOrderRequest request)
@@ -125,9 +148,39 @@ namespace ess_api._4_BL.Services.Order
 
             // if order still doest not exist, create new one
             if (order.Id == Guid.Empty)
+            {
+                order.OrderNumber = await _uow.Orders.GetNextOrderNumber();
+                order.OrderNumberFormatted = order.GetForrmattedOrderNumber();
                 order = await _uow.Orders.InsertAsync(order);
+            }
             // if order exist, update it
             else order = await _uow.Orders.FindAndReplaceAsync(order.Id, order);
+
+            var response = _mapService.MapOrder(order);
+            return new Response<OrderResponse>(ResponseStatus.Ok, response);
+        }
+
+        public async Task<Response<OrderResponse>> SetOrderState(SetOrderStateRequest request)
+        {
+            var order = await _uow.Orders.FindAsync(new Guid(request.OrderId));
+            if (order == null)
+                return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.CannotFindOrder);
+
+            order.State = request.State;
+            order = await _uow.Orders.FindAndReplaceAsync(order.Id, order);
+
+            var response = _mapService.MapOrder(order);
+            return new Response<OrderResponse>(ResponseStatus.Ok, response);
+        }
+
+        public async Task<Response<OrderResponse>> SetOrderPaymentState(SetOrderPaymentStateRequest request)
+        {
+            var order = await _uow.Orders.FindAsync(new Guid(request.OrderId));
+            if (order == null)
+                return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.CannotFindOrder);
+
+            order.Payment.State = request.PaymentState;
+            order = await _uow.Orders.FindAndReplaceAsync(order.Id, order);
 
             var response = _mapService.MapOrder(order);
             return new Response<OrderResponse>(ResponseStatus.Ok, response);

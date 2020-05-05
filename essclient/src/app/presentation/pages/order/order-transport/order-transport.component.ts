@@ -7,7 +7,7 @@ import { orderPaymentRoute } from '../order.routing';
 import { Router } from '@angular/router';
 import { TransportStorageService } from 'src/app/services/storage/transport.service';
 import { OrderBussinessService } from './../order.service';
-import { orderRoute } from 'src/app/presentation/theme/presentation.routing';
+import { presentationOrderRoute } from 'src/app/presentation/theme/presentation-routes';
 
 @Component({
   selector: 'app-order-transport',
@@ -51,7 +51,7 @@ export class OrderTransportComponent implements OnInit {
     }
 
     public onNext () {
-        this._router.navigateByUrl(`${orderRoute}/${orderPaymentRoute}`);
+        this._router.navigateByUrl(`${presentationOrderRoute}/${orderPaymentRoute}`);
     }
 
     private loadTransports() {

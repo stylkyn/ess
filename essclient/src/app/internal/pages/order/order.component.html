@@ -1,0 +1,86 @@
+
+<div class="d-flex align-items-center justify-content-between">
+    <div class="d-flex">
+        <h1 nz-typography>Objednávky</h1>
+    </div>
+</div>
+
+<nz-table
+    nzShowSizeChanger
+    [nzData]="dataList"
+    [nzFrontPagination]="false"
+    [nzLoading]="loading"
+    [nzTotal]="total"
+    [nzShowTotal]="totalTemplate"
+    [nzPageSize]="pageSize"
+    [nzPageIndex]="pageNumber"
+    (nzQueryParams)="onQueryParamsChange($event)"
+>
+    <thead>
+        <tr>
+            <th class="p-0" colspan="1">
+                <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+                    <input type="text" nz-input placeholder="Vyhledat" [(ngModel)]="fullText" />
+                </nz-input-group>
+                <ng-template #suffixIconButton>
+                    <button (click)="fullTextChange()" nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+                </ng-template>
+            </th>
+            <th class="p-0 pl-2" colspan="1">
+                <nz-select class="w-100" nzShowSearch nzAllowClear nzPlaceHolder="Vyberte uživatele" 
+                    (ngModelChange)="userChanged($event)" [(ngModel)]="userIdFilter">
+                    <nz-option *ngFor="let item of usersOptions" [nzLabel]="item.name + ' | ' + item.email" [nzValue]="item.id"></nz-option>
+                </nz-select>
+            </th>
+            <th class="p-0 pl-2" colspan="1">
+                <nz-select class="w-100" nzShowSearch nzAllowClear nzPlaceHolder="Vyberte stav" 
+                    (ngModelChange)="orderStateChanged($event)" [(ngModel)]="orderStateFilter">
+                    <nz-option nzLabel="Potvrzená" [nzValue]="OrderState.Confirmed"></nz-option>
+                    <nz-option nzLabel="Zaplacená" [nzValue]="OrderState.Paid"></nz-option>
+                    <nz-option nzLabel="Připravena k vyzvednutí" [nzValue]="OrderState.ReadyToPickup"></nz-option>
+                    <nz-option nzLabel="Připravena k odeslání" [nzValue]="OrderState.ReadyToShip"></nz-option>
+                    <nz-option nzLabel="Odeslaná" [nzValue]="OrderState.Sent"></nz-option>
+                    <nz-option nzLabel="Doručená" [nzValue]="OrderState.Delivered"></nz-option>
+                </nz-select>
+            </th>
+            <th class="p-0 pl-2" colspan="1">
+                <nz-select class="w-100" nzShowSearch nzAllowClear nzPlaceHolder="Vyberte stav platby" 
+                    (ngModelChange)="paymentStateChanged($event)" [(ngModel)]="paymentStateFilter">
+                    <nz-option nzLabel="Zaplacená" [nzValue]="PaymentState.Paid"></nz-option>
+                    <nz-option nzLabel="Nezaplacená" [nzValue]="PaymentState.NotPaid"></nz-option>
+                </nz-select>
+            </th>
+            <th colspan="3"></th>
+        </tr>
+        <tr>
+            <th nzColumnKey="email">Číslo objednávky</th>
+            <th nzColumnKey="firstname">Zákazník</th>
+            <th nzColumnKey="firstname">Stav</th>
+            <th nzColumnKey="firstname">Zaplacená</th>
+            <th nzColumnKey="firstname">Cena bez DPH</th>
+            <th nzColumnKey="firstname">Cena s DPH</th>
+            <th class="text-right"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of dataList; let i = index">
+            <td> {{ item.orderNumberFormatted }} </td>
+            <td>{{ item.customer.company != null ? item.customer.company.companyName : item.customer.personal.firstname + " " + item.customer.personal.lastname }} | {{item.customer.personal.contact.email}}</td>
+            <td>{{ OrderStateName(item.state) }}</td>
+            <td>{{ PaymentStateName(item.payment.state) }}</td>
+            <td>{{ item.calculatedData?.total?.totalPrice?.czkWithoutVat}} {{MapPriceTypes(item.calculatedData?.total?.totalPrice?.priceType) }}</td>
+            <td>{{ item.calculatedData?.total?.totalPrice?.czkWithVat}} {{MapPriceTypes(item?.calculatedData?.total.totalPrice?.priceType) }}</td>
+            <td>
+                <div class="d-flex justify-content-end">
+                    <button (click)="showDetail(item)" nz-button nzsi nzType="primary" nzShape="circle"
+                        nz-tooltip nzTooltipTitle="Zobrazit produkt">
+                        <i nz-icon nzType="eye" nzTheme="outline"></i>
+                    </button>
+                </div>
+            </td>
+        </tr> 
+    </tbody>
+</nz-table>
+<ng-template #totalTemplate>
+    Výsledků celkem: {{total}}
+</ng-template>

@@ -5,7 +5,7 @@ import { CustomerStorageService, ICustomerStorage } from 'src/app/services/stora
 import { clearValidators } from 'src/app/utils/formUtils';
 import { OrderBussinessService } from './../order.service';
 import { IOrder } from './../../../../models/IOrder';
-import { orderSummaryRoute } from '../../order-summary/order-summary.routing';
+import { presentationOrderSummaryRoute } from 'src/app/presentation/theme/presentation-routes';
 
 @Component({
   selector: 'app-order-customer',
@@ -107,7 +107,7 @@ export class OrderCustomerComponent implements OnInit {
         this.saveCustomerData(); // save to localstorage
         const order: IOrder = await this._orderBussiness.setOrder();
 
-        this._router.navigate([`${orderSummaryRoute}`, order.id]);
+        this._router.navigate([`${presentationOrderSummaryRoute}`, order.id]);
     }
 
     private setCompanyValidator(validate: boolean) {

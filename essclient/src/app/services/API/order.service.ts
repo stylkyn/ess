@@ -1,11 +1,13 @@
-import { APIService } from './API.service';
+import { APIService, IResponse } from './API.service';
 import { APIRepository } from './API-repository';
 import { Injectable } from '@angular/core';
 import { IProduct, initProduct } from 'src/app/models/IProduct';
 import { map } from 'rxjs/operators';
 import { ICalculatedOrder, calculateOrderInit } from '../../models/ICalculateOrder';
 import { IUserPersonal, IUserCompany } from 'src/app/models/IUser';
-import { IOrder } from 'src/app/models/IOrder';
+import { IOrder, OrderState } from 'src/app/models/IOrder';
+import { Observable } from 'rxjs';
+import { PaymentState } from 'src/app/models/IPayment';
 
 export interface IGetOrderRequets {
     orderId: string;
@@ -42,15 +44,35 @@ export interface IOrderPaymentRequest {
     paymentId: string;
 }
 
+export interface IOrderSearchRequest {
+    userId: string;
+    orderState?: OrderState | null;
+    paymentState?: PaymentState | null;
+
+    fullText: string;
+    pageSize: number;
+    pageNumber: number;
+}
+
+export interface ISetOrderState {
+    orderId: string;
+    orderState: OrderState;
+}
+
+export interface ISetOrderPaymentState {
+    orderId: string;
+    orderState: PaymentState;
+}
+
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 
 export class OrderService extends APIRepository<IProduct> {
     public activeOrder: IOrder;
     public calculatedOrder: ICalculatedOrder = calculateOrderInit;
 
-    constructor(public _API: APIService) {
+    constructor (public _API: APIService) {
         super(_API, 'Orders');
     }
 
@@ -70,6 +92,22 @@ export class OrderService extends APIRepository<IProduct> {
                 return order;
             })
         ).toPromise();
+    }
+
+    public fetchAccountOrders(): Observable<IOrder[]> {
+        return this._API.get(`${this.className}/GetAccountOrders`);
+    }
+
+    public search(request: IOrderSearchRequest): Observable<IResponse<IOrder[]>> {
+        return this._API.getQueryTotal<IOrder[]>(`${this.className}/Search`, request);
+    }
+
+    public setOrderState(request: ISetOrderState): Observable<IProduct> {
+        return this._API.put(`${this.className}/SetOrderState`, request);
+    }
+
+    public setPaymentState(request: ISetOrderPaymentState): Observable<IProduct> {
+        return this._API.put(`${this.className}/SetPaymentState`, request);
     }
 
     public setOrder(request: ISetOrderRequest): Promise<IOrder> {

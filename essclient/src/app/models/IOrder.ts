@@ -9,6 +9,7 @@ export interface IOrder {
     id: string;
     state: OrderState;
     orderNumber: number;
+    orderNumberFormatted: string;
     customer: IOrderCustomer;
     transport: IOrderTransport;
     payment: IOrderPayment;
@@ -63,6 +64,34 @@ export enum OrderState {
     Sent,
     Delivered,
 }
+
+export const OrderStateName = (state: OrderState) => {
+    switch(state) {
+        case OrderState.Created:
+            return 'Vytvořená';
+        case OrderState.CalculateReady:
+            return 'Uložen výpočet';
+        case OrderState.TransportReady:
+            return 'Uložena doprava';
+        case OrderState.PaymentReady:
+            return 'Uložena platba';
+        case OrderState.CustomerReady:
+            return 'Uloženy osobní údaje';
+        case OrderState.Confirmed:
+            return 'Potvrzená';
+        case OrderState.Paid:
+            return 'Zaplacená';
+        case OrderState.ReadyToPickup:
+            return 'Připravena k vyzvednutí';
+        case OrderState.ReadyToShip:
+            return 'Připravena k odeslání';
+        case OrderState.Sent:
+            return 'Odeslaná';
+        case OrderState.Delivered:
+            return 'Doručená';
+    }
+    return '';
+};
 
 
 export interface IOrderStateOption {

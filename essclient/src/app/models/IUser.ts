@@ -40,6 +40,12 @@ export interface IIAuthentificationToken {
     jwt: string;
 }
 
+export interface IUserOption {
+    id: string;
+    name: string;
+    email: string;
+}
+
 const tokenInitial: IIAuthentificationToken = {
     expiresDate: null,
     jwt: null

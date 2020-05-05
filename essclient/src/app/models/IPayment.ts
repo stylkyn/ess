@@ -28,3 +28,12 @@ export enum PaymentState {
     NotPaid,
     Paid
 }
+
+export const PaymentStateName = (state: PaymentState) => {
+    switch (state) {
+        case PaymentState.NotPaid:
+            return 'Nezaplacená';
+        case PaymentState.Paid:
+            return 'Zaplacená';
+    }
+};

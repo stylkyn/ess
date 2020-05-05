@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { orderTransportRoute } from '../order.routing';
 import { BasketStorageService } from 'src/app/services/storage/basket.service';
-import { orderRoute } from 'src/app/presentation/theme/presentation.routing';
+import { presentationOrderRoute } from 'src/app/presentation/theme/presentation-routes';
 
 @Component({
   selector: 'app-order-products',
@@ -17,7 +17,7 @@ export class OrderProductsComponent implements OnInit {
   }
 
   onNext() {
-    this._router.navigateByUrl(`${orderRoute}/${orderTransportRoute}`);
+    this._router.navigateByUrl(`${presentationOrderRoute}/${orderTransportRoute}`);
   }
 
 }

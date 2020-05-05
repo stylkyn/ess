@@ -28,6 +28,18 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
 
+        [JwtAuthenticationAdmin]
+        [Route("GetAllOptions")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetAllOptions(Request request)
+        {
+            if (request == null)
+                request = new Request();
+
+            var response = await _userService.GetUsersOptions(request);
+            return new CreateResult(response);
+        }
+
         [RequiredRequest]
         [JwtAuthenticationAdmin]
         [Route("Search")]

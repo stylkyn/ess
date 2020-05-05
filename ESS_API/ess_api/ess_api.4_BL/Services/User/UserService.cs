@@ -24,6 +24,13 @@ namespace ess_api._4_BL.Services
             _userSharedService = new UserSharedService();
         }
 
+        public async Task<ResponseList<UserOptionResponse>> GetUsersOptions(Request request)
+        {
+            var users = await _uow.Users.FindManyAsync();
+
+            var result = users.Select(user => _mapService.MapUserOption(user)).ToList();
+            return new ResponseList<UserOptionResponse>(ResponseStatus.Ok, result);
+        }
 
         public async Task<Response<UserResponse>> Get(string id)
         {

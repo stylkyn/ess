@@ -112,6 +112,7 @@ namespace ess_api._4_BL.Shared
                 Id = request.Id.ToString(),
                 State = request.State,
                 OrderNumber = request.OrderNumber,
+                OrderNumberFormatted = request.OrderNumberFormatted,
                 Customer = request.Customer != null ? new OrderCustomerResponse {
                     UserId = request.Customer.UserId,
                     Personal = MapUserPersonal(request.Customer?.Personal),
@@ -249,6 +250,18 @@ namespace ess_api._4_BL.Shared
             return users.Select(x => MapUser(x, null, withIds)).ToList();
         }
 
+        public UserOptionResponse MapUserOption(UserModel user)
+        {
+            return new UserOptionResponse
+            {
+                Id = user.Id.ToString(),
+                Name = user.Company?.CompanyId != null
+                    ? user.Company?.CompanyName
+                    : $"{user.Personal?.Firstname} {user.Personal?.Lastname}",
+                Email = user.Email
+            };
+        }
+
         private UserPersonalResponse MapUserPersonal(UserPersonal personal)
         {
             if (personal == null)
@@ -293,5 +306,6 @@ namespace ess_api._4_BL.Shared
                 }
             };
         }
+
     }
 }

@@ -2,7 +2,7 @@ import { APIService, IResponse } from './API.service';
 import { APIRepository } from './API-repository';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { IUser, cookieJwtName } from 'src/app/models/IUser';
+import { IUser, cookieJwtName, IUserOption } from 'src/app/models/IUser';
 import { map } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { SortType } from 'src/app/models/shared/Sort';
@@ -50,6 +50,7 @@ export class UserService extends APIRepository<IUser> {
 
     private _user: IUser;
     private isLoadedPromise: Promise<IUser>;
+    private _userOptions: IUserOption[] = [];
 
     public get getIsLoadedPromise(): Promise<IUser> {
         return this.isLoadedPromise;
@@ -57,6 +58,10 @@ export class UserService extends APIRepository<IUser> {
 
     public get user(): IUser {
         return this._user;
+    }
+
+    public get userOptions() {
+        return this._userOptions;
     }
 
     public setUser(value) {
@@ -116,6 +121,18 @@ export class UserService extends APIRepository<IUser> {
                 this.setUser(user);
                 return user;
             }));
+    }
+
+    public getAllOptions(): Promise<IUserOption[]> {
+        if (!this.userOptions || this.userOptions.length === 0)
+        {
+            return this._API.get<IUserOption[]>(`${this.className}/GetAllOptions`).pipe(
+                map((userOptions: IUserOption[]) => {
+                    this._userOptions = userOptions;
+                    return userOptions;
+                })).toPromise();
+        }
+        return new Promise((resolve) => resolve(this.userOptions));
     }
 
     public search(request: ISearchUserRequest): Observable<IResponse<IUser[]>> {

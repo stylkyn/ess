@@ -1,15 +1,23 @@
 ﻿using ess_api.Core.Model.Shared;
+using MongoDB.Driver;
 
 namespace ess_api.Core.Model
 {
     public class OrderModel : BaseModel
     {
         public OrderState State { get; set; } = OrderState.Created;
-        public int OrderNumber { get; set; }
+
+        public long OrderNumber { get; set; }
+        public string OrderNumberFormatted { get; set; }
         public OrderCustomer Customer { get; set; }
         public OrderTransport Transport { get; set; }
         public OrderPayment Payment { get; set; }
         public CalculatedOrder CalculatedData { get; set; }
+
+        public string GetForrmattedOrderNumber()
+        {
+            return OrderNumber.ToString("00000000");
+        }
 
         public bool IsReadyToConfirm() =>
             Customer != null && Customer.HasAllData()

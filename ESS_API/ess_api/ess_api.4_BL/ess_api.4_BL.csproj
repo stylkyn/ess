@@ -57,7 +57,11 @@
     <Compile Include="Services\Category\Requests\CategoryRemoveRequest.cs" />
     <Compile Include="Services\Category\Requests\CategorySearchRequest.cs" />
     <Compile Include="Services\Order\OrderService.cs" />
+    <Compile Include="Services\Order\Requests\GetAccountOrdersRequest.cs" />
+    <Compile Include="Services\Order\Requests\SetOrderPaymentStateRequest.cs" />
+    <Compile Include="Services\Order\Requests\SetOrderStateRequest.cs" />
     <Compile Include="Services\Order\Requests\GetOrderRequest.cs" />
+    <Compile Include="Services\Order\Requests\OrderSearchRequest.cs" />
     <Compile Include="Services\Order\Requests\SetOrderRequest.cs" />
     <Compile Include="Services\Order\Requests\CalculateOrderRequest.cs" />
     <Compile Include="Services\Order\Responses\CalculatedOrderResponse.cs" />
@@ -92,6 +96,7 @@
     <Compile Include="Response.cs" />
     <Compile Include="Services\User\Requests\UserSearchRequest.cs" />
     <Compile Include="Services\User\Requests\UserUpdateRequest.cs" />
+    <Compile Include="Services\User\Responses\UserOptionResponse.cs" />
     <Compile Include="Services\User\Responses\UserResponse.cs" />
     <Compile Include="Services\Category\Responses\CategoryResponse.cs" />
     <Compile Include="Services\Product\Responses\ProductResponse.cs" />

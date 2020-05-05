@@ -6,8 +6,7 @@ import { PaymentStorageService } from './../../../services/storage/payment.servi
 import { CustomerStorageService } from 'src/app/services/storage/customer.service';
 import { Router } from '@angular/router';
 import { OrderBussinessService } from './order.service';
-import { orderSummaryRoute } from '../order-summary/order-summary.routing';
-import { orderRoute } from '../../theme/presentation.routing';
+import { presentationOrderSummaryRoute, presentationOrderRoute } from '../../theme/presentation-routes';
 
 @Component({
     selector: 'app-order',
@@ -19,7 +18,7 @@ export class OrderComponent implements OnInit{
     orderTransportRoute = orderTransportRoute;
     orderPaymentRoute = orderPaymentRoute;
     orderCustomerRoute = orderCustomerRoute;
-    orderSummaryRoute = orderSummaryRoute;
+    presentationOrderSummaryRoute = presentationOrderSummaryRoute;
 
     get isProductsValid () {
         return this._basketStorage.productsInStorage.length > 0;
@@ -46,12 +45,12 @@ export class OrderComponent implements OnInit{
         private _router: Router
         ) { 
             if (this.isCustomerValid)
-                    this._router.navigateByUrl(`${orderRoute}/${orderCustomerRoute}`);
+                    this._router.navigateByUrl(`${presentationOrderRoute}/${orderCustomerRoute}`);
             else if (this.isPaymentValid)
-                    this._router.navigateByUrl(`${orderRoute}/${orderPaymentRoute}`);
+                    this._router.navigateByUrl(`${presentationOrderRoute}/${orderPaymentRoute}`);
             else if (this.isTransportValid)
-                    this._router.navigateByUrl(`${orderRoute}/${orderTransportRoute}`);
-            else this._router.navigateByUrl(`${orderRoute}/${orderBasketRoute}`);
+                    this._router.navigateByUrl(`${presentationOrderRoute}/${orderTransportRoute}`);
+            else this._router.navigateByUrl(`${presentationOrderRoute}/${orderBasketRoute}`);
     }
 
     ngOnInit(): void {

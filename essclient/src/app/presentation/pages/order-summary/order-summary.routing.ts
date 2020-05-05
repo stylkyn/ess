@@ -3,8 +3,6 @@ import { MetaGuard } from 'ng2-meta';
 import { ModuleWithProviders } from '@angular/core';
 import { OrderSummaryComponent } from './order-summary.component';
 
-export const orderSummaryRoute = 'objednavka-souhrn';
-
 const APP_ROUTES: Routes = [
     {
         path: `:orderId`,

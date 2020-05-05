@@ -3,9 +3,7 @@ import { ModuleWithProviders } from '@angular/core';
 import { ThemeComponent } from './theme.component';
 import { MetaGuard, MetaConfig } from 'ng2-meta';
 import { HomepageComponent } from '../pages/homepage/homepage.component';
-import { orderSummaryRoute } from '../pages/order-summary/order-summary.routing';
-
-export const orderRoute = 'objednavka';
+import { presentationProductRoute, presentationOrderRoute, presentationOrderSummaryRoute, presentationHomepage } from './presentation-routes';
 
 // defaultni data pro meta tagy
 const metaConfig: MetaConfig = {
@@ -18,10 +16,10 @@ const metaConfig: MetaConfig = {
 
 const APP_ROUTES: Routes = [
     // Main tamplate
-    { path: '', pathMatch: 'full', redirectTo: 'homepage' },
+    { path: '', pathMatch: 'full', redirectTo: presentationHomepage },
     { path: '', component: ThemeComponent, children: [
         {
-            path: 'homepage',
+            path: presentationHomepage,
             component: HomepageComponent,
             canActivate: [MetaGuard],
             data: {
@@ -32,15 +30,15 @@ const APP_ROUTES: Routes = [
             }
         },
         {
-            path: 'nase-produkty',
+            path: presentationProductRoute,
             loadChildren: () => import('./../pages/eshop/eshop.module').then(mod => mod.EshopModule)
         },
         {
-            path: 'objednavka',
+            path: presentationOrderRoute,
             loadChildren: () => import('./../pages/order/order.module').then(mod => mod.OrderModule)
         },
         {
-            path: orderSummaryRoute,
+            path: presentationOrderSummaryRoute,
             loadChildren: () => import('./../pages/order-summary/order-summary.module').then(mod => mod.OrderSummaryModule)
         }
     ]}

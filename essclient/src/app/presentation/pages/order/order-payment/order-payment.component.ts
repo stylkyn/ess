@@ -9,7 +9,7 @@ import { ICalculateOrderRequest, OrderService } from 'src/app/services/API/order
 import { BasketStorageService } from 'src/app/services/storage/basket.service';
 import { TransportStorageService } from 'src/app/services/storage/transport.service';
 import { OrderBussinessService } from './../order.service';
-import { orderRoute } from 'src/app/presentation/theme/presentation.routing';
+import { presentationOrderRoute } from 'src/app/presentation/theme/presentation-routes';
 
 @Component({
   selector: 'app-order-payment',
@@ -51,7 +51,7 @@ export class OrderPaymentComponent implements OnInit {
     }
 
     public onNext () {
-        this._router.navigateByUrl(`${orderRoute}/${orderCustomerRoute}`);
+        this._router.navigateByUrl(`${presentationOrderRoute}/${orderCustomerRoute}`);
     }
 
     private loadPayments() {

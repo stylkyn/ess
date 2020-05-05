@@ -14,7 +14,10 @@ namespace ess_api._4_BL.Services.Order.Responses
         public OrderState State { get; set; }
 
         [JsonProperty("orderNumber")]
-        public int OrderNumber { get; set; }
+        public long OrderNumber { get; set; }
+
+        [JsonProperty("orderNumberFormatted")]
+        public string OrderNumberFormatted { get; set; }
 
         [JsonProperty("customer")]
         public OrderCustomerResponse Customer { get; set; }

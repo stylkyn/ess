@@ -8,6 +8,7 @@ export const adminDashRoute = `prehled`;
 export const adminUserRoute = `uzivatele`;
 export const adminCategoryRoute = `kategorie`;
 export const adminProductRoute = `produkty`;
+export const adminOrderRoute = `objednavky`;
 
 // full paths
 export const adminLoginFullRoute = `${adminBaseRoute}/${adminLoginRoute}`;
@@ -16,3 +17,4 @@ export const adminDashFullRoute = `${adminBaseRoute}/${adminDashRoute}`;
 export const adminUserFullRoute = `${adminBaseRoute}/${adminUserRoute}`;
 export const adminCategoryFullRoute = `${adminBaseRoute}/${adminCategoryRoute}`;
 export const adminProductFullRoute = `${adminBaseRoute}/${adminProductRoute}`;
+export const adminOrderFullRoute = `${adminBaseRoute}/${adminOrderRoute}`;
