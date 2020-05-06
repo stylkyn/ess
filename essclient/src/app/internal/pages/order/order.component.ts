@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { MapPriceTypes } from 'src/app/models/IPrice';
 import { getProductTypeName, ProductType } from 'src/app/models/IProduct';
 import { IOrder, OrderState, OrderStateName } from 'src/app/models/IOrder';
-import { OrderService, IOrderSearchRequest } from 'src/app/services/API/order.service';
+import { OrderService, IOrderSearchRequest, ISetOrderPaymentState } from 'src/app/services/API/order.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { UserService } from 'src/app/services/API/user.service';
 import { IUserOption } from './../../../models/IUser';
 import { NzTableQueryParams } from 'ng-zorro-antd/table/public-api';
 import { getOrderRoute } from 'src/app/presentation/theme/presentation-routes';
 import { PaymentState, PaymentStateName } from 'src/app/models/IPayment';
+import { ISetOrderState } from './../../../services/API/order.service';
 
 @Component({
     selector: 'app-order',
@@ -22,28 +23,31 @@ export class OrderComponent implements OnInit {
     OrderStateName = OrderStateName;
     PaymentStateName = PaymentStateName;
 
+    selectedChangeOrderState: OrderState;
+    selectedChangePaymentState: PaymentState;
+
     total = 1;
     dataList: IOrder[] = [];
-    
+
     paymentStateFilter: PaymentState;
     orderStateFilter: OrderState;
     userIdFilter: string;
-    
+
     loading = true;
     pageSize = 10;
     pageNumber = 1;
     fullText: string = null;
     visibleRemovePopup: boolean;
 
-    public get usersOptions () {
+    public get usersOptions() {
         return this._userService.userOptions;
     }
 
     constructor (
-        private _orderService: OrderService, 
-        private _userService: UserService, 
+        private _orderService: OrderService,
+        private _userService: UserService,
         private _modalNz: NzModalService,
-        ) { }
+    ) { }
 
     ngOnInit(): void {
         this.loadData();
@@ -94,7 +98,7 @@ export class OrderComponent implements OnInit {
             this.dataList = response.data;
         });
     }
-    
+
 
     onQueryParamsChange(params: NzTableQueryParams): void {
         const { pageSize, pageIndex } = params;
@@ -104,17 +108,59 @@ export class OrderComponent implements OnInit {
         this.loadData();
     }
 
+    // change order state logic
 
-    // showDeleteConfirm(product: IProduct): void {
-    //     this._modalNz.confirm({
-    //         nzTitle: `Opravdu chcete smazat tento produkt?`,
-    //         nzContent: `<b style="color: red;">${product.name}</br>`,
-    //         nzOkText: 'Smazat',
-    //         nzOkType: 'danger',
-    //         nzOnOk: () => this.removeProduct(product),
-    //         nzCancelText: 'Zrušit'
-    //     });
-    // }
+    changeStateModal(order: IOrder, tplContent: TemplateRef<{}>): void {
+        this.selectedChangeOrderState = order.state;
+        this._modalNz.create({
+            nzTitle: `Opravdu chcete zmenit stav objednávky?`,
+            nzCancelText: 'Zrušit',
+            nzOkText: 'Zmenit',
+            nzOkType: 'primary',
+            nzContent: tplContent,
+            nzOnOk: () => this.changeOrderState(order)
+        });
+    }
+
+    changeOrderState(order: IOrder) {
+        const request: ISetOrderState = {
+            orderId: order.id,
+            state: this.selectedChangeOrderState
+        };
+        this._orderService.setOrderState(request)
+            .subscribe(x => this.loadData());
+    }
+
+    selectedOrderStateChanged(orderState: OrderState) {
+        this.selectedChangeOrderState = orderState;
+    }
+
+    // change paymnet state logic 
+
+    changePaymnetStateModal(order: IOrder, tplContent: TemplateRef<{}>): void {
+        this.selectedChangePaymentState = order.payment.state;
+        this._modalNz.create({
+            nzTitle: `Opravdu chcete zmenit stav platby?`,
+            nzCancelText: 'Zrušit',
+            nzOkText: 'Zmenit',
+            nzOkType: 'primary',
+            nzContent: tplContent,
+            nzOnOk: () => this.changePaymentState(order)
+        });
+    }
+
+    changePaymentState(order: IOrder) {
+        const request: ISetOrderPaymentState = {
+            orderId: order.id,
+            paymentState: this.selectedChangePaymentState
+        };
+        this._orderService.setPaymentState(request)
+            .subscribe(x => this.loadData());
+    }
+
+    selectedPaymentStateChanged(paymentState: PaymentState) {
+        this.selectedChangePaymentState = paymentState;
+    }
 
     // show order detail
     showDetail(order: IOrder) {

@@ -56,12 +56,12 @@ export interface IOrderSearchRequest {
 
 export interface ISetOrderState {
     orderId: string;
-    orderState: OrderState;
+    state: OrderState;
 }
 
 export interface ISetOrderPaymentState {
     orderId: string;
-    orderState: PaymentState;
+    paymentState: PaymentState;
 }
 
 @Injectable({
