@@ -31,7 +31,6 @@ namespace ess_api._4_BL.Services.Stats
                 .OrderByDescending(x => x.YearNumber)
                 .ThenBy(x => x.MonthNumber)
                 .Take(12)
-                .Reverse()
                 .ToList();
             return new Response<StatsResponse>(ResponseStatus.Ok, _mapService.MapStats(result));
         }

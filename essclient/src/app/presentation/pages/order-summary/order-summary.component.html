@@ -1,4 +1,4 @@
-<div class="container py-5">
+<div *ngIf="order" class="container py-5">
     <div class="OrderSummary-Tab d-flex">
         <ng-container *ngFor="let state of orderSummaryStates(order); let last = last;">
             <a class="OrderSummary-Tab-item disabled {{state.type <= order.state ? 'active' : ''}}">
@@ -27,14 +27,14 @@
         <div class="table-responsive">
             <table class="OrderSummary-Table OrderSummary-Table-products table product-table mb-0">
                 <tbody>
-                    <tr *ngIf="order.calculatedData.products.length == 0">
+                    <tr *ngIf="order?.calculatedData?.products?.length == 0">
                         <td>
                             <h6 class="mt-3">
                                 <strong>V košíku nemáte žádné produkty</strong>
                             </h6>
                         </td>
                     </tr>
-                    <tr *ngFor="let product of order.calculatedData.products">
+                    <tr *ngFor="let product of order?.calculatedData?.products">
                         <th scope="row">
                             <img src="{{product.product.image.secureUrl}}" alt="" class="img-fluid z-depth-0">
                         </th>
@@ -64,7 +64,7 @@
                 <div class="table-responsive">
                     <table class="OrderSummary-Table OrderSummary-Table-transport table product-table mb-0">
                         <tbody>
-                            <tr *ngIf="order.calculatedData.transport">
+                            <tr *ngIf="order?.calculatedData?.transport">
                                 <th scope="row">
                                     <img *ngIf="order.calculatedData.transport.type == TransportType.PersonalPickup" [src]="'assets/icons/personal-pickup.png'" />
                                     <img *ngIf="order.calculatedData.transport.type == TransportType.Zasilkovna" [src]="'assets/icons/zasilkovna.png'" />
@@ -92,7 +92,7 @@
                 <div class="table-responsive">
                     <table class="OrderSummary-Table OrderSummary-Table-payment table product-table mb-0">
                         <tbody>
-                            <tr *ngIf="order.calculatedData.payment">
+                            <tr *ngIf="order?.calculatedData?.payment">
                                 <th scope="row">
                                     <img *ngIf="order.calculatedData.payment.type == PaymentType.CashOnDelivery" [src]="'assets/icons/wallet.png'" />
                                     <img *ngIf="order.calculatedData.payment.type == PaymentType.PaymentOrder" [src]="'assets/icons/bank.png'" />
@@ -126,7 +126,7 @@
                             </h4>
                         </td>
                         <td colspan="4" class="text-right">
-                            <h4 class="mt-2">
+                            <h4 *ngIf="order?.calculatedData?.total?.totalPrice" class="mt-2">
                                 <strong>{{order.calculatedData.total.totalPrice.czkWithVat}} {{mapPriceTypes(order.calculatedData.total.totalPrice.priceType)}}</strong>
                             </h4>
                         </td>
@@ -141,14 +141,14 @@
             <mdb-card class="OrderSummary-Card-address">
                 <mdb-card-header class="bg-white">Doručovací údaje</mdb-card-header>
                 <mdb-card-body>
-                    <div *ngIf="order.customer.company == null">
+                    <div *ngIf="order?.customer?.company == null">
                         <p>{{order.customer.personal?.address?.street}} {{order.customer.personal?.address?.houseNumber}}</p>
                         <p>{{order.customer.personal?.address?.postalCode}} {{order.customer.personal?.address?.city}}</p>
                         <p>{{order.customer.personal?.address?.country}}</p>
                         <hr />
                         <p>{{order.customer.personal?.firstname}} {{order.customer.personal?.lastname}}</p>
                     </div>
-                    <div *ngIf="order.customer.company != null">
+                    <div *ngIf="order?.customer?.company != null">
                         <p>{{order.customer.company?.address?.street}} {{order.customer.company?.address?.houseNumber}}</p>
                         <p>{{order.customer.company?.address?.postalCode}} {{order.customer.company?.address?.city}}</p>
                         <p>{{order.customer.company?.address?.country}}</p>

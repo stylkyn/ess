@@ -38,7 +38,7 @@
                         {{userSrv.user?.email}}
                     </a>
                     <div class="dropdown-menu dropdown-primary">
-                        <a class="dropdown-item" href="#">Můj účet</a>
+                        <a class="dropdown-item" routerLink="/{{presentationMyAccountFullOrderRoute}}">Moje objednávky</a>
                         <div class="divider dropdown-divider"></div>
                         <a class="dropdown-item" (click)="logOut()">Odhlásit</a>
                       </div>
