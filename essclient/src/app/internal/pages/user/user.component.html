@@ -37,8 +37,8 @@
     <tbody>
         <tr *ngFor="let item of dataList">
             <td>{{ item.email }}</td>
-            <td>{{ item.firstname }}</td>
-            <td>{{ item.lastname }}</td>
+            <td>{{ item?.personal?.firstname }}</td>
+            <td>{{ item?.personal?.lastname }}</td>
             <td>{{ item.company?.companyName }}</td>
             <td>
                 <span *ngIf="item.hasAgentAccess && item.hasAdminAccess">Admin</span>
