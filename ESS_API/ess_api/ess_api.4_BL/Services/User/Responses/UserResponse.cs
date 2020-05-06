@@ -21,6 +21,9 @@ namespace ess_api._4_BL.Services.Responses
 
         [JsonProperty("hasAdminAccess")]
         public bool HasAdminAccess { get; set; }
+
+        [JsonProperty("hasAgentAccess")]
+        public bool HasAgentAccess { get; set; }
     }
 
     public class UserPersonalResponse

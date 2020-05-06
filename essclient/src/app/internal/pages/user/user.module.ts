@@ -8,6 +8,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { FormsModule } from '@angular/forms';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
         NzButtonModule,
         NzInputModule,
         NzIconModule,
-        FormsModule
+        FormsModule,
+        NzModalModule
     ],
     declarations: [UserComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -43,6 +43,14 @@ export interface ISearchUserRequest {
     sortType: SortType;
 }
 
+export interface IPromoteAgentRequest {
+    userId: string;
+}
+
+export interface IPromoteAdminRequest {
+    userId: string;
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -122,6 +130,15 @@ export class UserService extends APIRepository<IUser> {
                 return user;
             }));
     }
+
+    public promoteAgent(request: IPromoteAgentRequest): Observable<IUser>  {
+        return this._API.put(`${this.className}/PromoteAgent`, request)
+    }
+
+    public promoteAdmin(request: IPromoteAdminRequest): Observable<IUser>  {
+        return this._API.put(`${this.className}/PromoteAdmin`, request)
+    }
+
 
     public getAllOptions(): Promise<IUserOption[]> {
         if (!this.userOptions || this.userOptions.length === 0)

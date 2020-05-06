@@ -260,7 +260,8 @@ namespace ess_api._4_BL.Shared
                 Token = token,
                 Personal = MapUserPersonal(user?.Personal),
                 Company = MapUserCompany(user?.Company),
-                HasAdminAccess = user.HasAdminAccess
+                HasAdminAccess = user.HasAdminAccess,
+                HasAgentAccess = user.HasAgentAccess
             };
             if (withIds)
                 result.Id = user.Id.ToString();

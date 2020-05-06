@@ -85,13 +85,30 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
 
-
         [Route("Update")]
         [JwtAuthentication]
         [HttpPut]
         public async Task<IHttpActionResult> Update([FromBody]UserUpdateRequest request)
         {
             var response = await _userService.Update(request);
+            return new CreateResult(response);
+        }
+
+        [Route("PromoteAdmin")]
+        [JwtAuthenticationAdmin]
+        [HttpPut]
+        public async Task<IHttpActionResult> PromoteAdmin([FromBody]UserPromoteAdminRequest request)
+        {
+            var response = await _userService.PromoteAdmin(request);
+            return new CreateResult(response);
+        }
+
+        [Route("PromoteAgent")]
+        [JwtAuthenticationAdmin]
+        [HttpPut]
+        public async Task<IHttpActionResult> PromoteAgent([FromBody]UserPromoteAgentRequest request)
+        {
+            var response = await _userService.PromoteAgent(request);
             return new CreateResult(response);
         }
 

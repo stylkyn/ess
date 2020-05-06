@@ -130,6 +130,36 @@ namespace ess_api._4_BL.Services
             return new Response<UserResponse>(ResponseStatus.Ok, _mapService.MapUser(user));
         }
 
+        public async Task<Response<UserResponse>> PromoteAgent(UserPromoteAgentRequest request)
+        {
+            if(request.UserId == null)
+                return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessages.BadRequest);
+
+            var user = await _uow.Users.FindAsync(new Guid(request.UserId));
+            if (user == null)
+                return new Response<UserResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+
+            user.HasAgentAccess = true;
+            await _uow.Users.ReplaceAsync(user.Id, user);
+
+            return new Response<UserResponse>(ResponseStatus.Ok, _mapService.MapUser(user));
+        }
+
+        public async Task<Response<UserResponse>> PromoteAdmin(UserPromoteAdminRequest request)
+        {
+            if (request.UserId == null)
+                return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessages.BadRequest);
+
+            var user = await _uow.Users.FindAsync(new Guid(request.UserId));
+            if (user == null)
+                return new Response<UserResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+
+            user.HasAdminAccess = true;
+            await _uow.Users.ReplaceAsync(user.Id, user);
+
+            return new Response<UserResponse>(ResponseStatus.Ok, _mapService.MapUser(user));
+        }
+
         public async Task<Response> Remove(UserRemoveRequest request)
         {
             if (request.Id == request.RequestIdentity.UserId)

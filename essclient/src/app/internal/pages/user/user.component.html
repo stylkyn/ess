@@ -16,7 +16,7 @@
 >
     <thead>
         <tr>
-            <th class="p-0" colspan="4">
+            <th class="p-0" colspan="5">
                 <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
                     <input type="text" nz-input placeholder="Vyhledat" [(ngModel)]="fullText" />
                 </nz-input-group>
@@ -30,7 +30,7 @@
             <th nzColumnKey="firstname" [nzSortFn]="true">Jméno</th>
             <th nzColumnKey="lastname" [nzSortFn]="true">Přijmení</th>
             <th nzColumnKey="companyName" [nzSortFn]="true">Název firmy</th>
-            <!-- <th class="text-right" nzColumnKey="companyName"></th> -->
+            <th nzColumnKey="role" [nzSortFn]="true">Role</th>
         </tr>
     </thead>
     <tbody>
@@ -39,9 +39,21 @@
             <td>{{ item.firstname }}</td>
             <td>{{ item.lastname }}</td>
             <td>{{ item.company?.companyName }}</td>
-            <!-- <td class="d-flex justify-content-end">
-                <button nz-button nzType="primary" nzShape="circle"><i nz-icon nzType="edit"></i></button>
-            </td> -->
+            <td>
+                <span *ngIf="item.hasAgentAccess && item.hasAdminAccess">Admin</span>
+                <div *ngIf="item.hasAgentAccess && !item.hasAdminAccess" class="d-flex flex-row align-items-center">
+                    Agent
+                    <button class="ml-2" (click)="showPromoteAdminModal(item)" nz-button nzsi nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Povýšit na admina">
+                        <i nz-icon nzType="edit" nzTheme="outline"></i>
+                    </button>
+                </div>
+                <div *ngIf="!item.hasAgentAccess && !item.hasAdminAccess" class="d-flex flex-row align-items-center">
+                    Uživatel
+                    <button class="ml-2" (click)="showPromoteAgentModal(item)" nz-button nzsi nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Povýšit na agenta">
+                        <i nz-icon nzType="edit" nzTheme="outline"></i>
+                    </button>
+                </div>
+            </td>
         </tr>
     </tbody>
 </nz-table>

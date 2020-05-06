@@ -9,6 +9,7 @@
         public UserCompany Company { get; set; } = new UserCompany();
 
         public bool HasAdminAccess { get; set; } = false;
+        public bool HasAgentAccess { get; set; } = false;
     }
     public class UserPersonal
     {

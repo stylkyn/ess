@@ -1,10 +1,10 @@
 export interface IUser {
-    firstname: string;
-    lastname: string;
+    id: string;
     email: string;
     personal: IUserPersonal;
     company: IUserCompany;
     hasAdminAccess: boolean;
+    hasAgentAccess: boolean;
     token: IIAuthentificationToken;
 }
 
