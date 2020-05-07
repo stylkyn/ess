@@ -8,7 +8,7 @@ export interface IPayment {
     description: string;
     cashOnDelivery: ICashOnDeliveryPayment;
     paymentOrder: IPaymentOrder;
-    price: IPrice;
+    totalPrice: IPrice;
 }
 
 // tslint:disable-next-line:no-empty-interface

@@ -10,7 +10,7 @@ export interface ITransport {
     personalPickup: IPersonalPickupTransport;
     czechPost: ICzechPostTransport;
     zasilkovna: IZasilkovnaTransport;
-    price: IPrice;
+    totalPrice: IPrice;
 }
 
 // tslint:disable-next-line:no-empty-interface

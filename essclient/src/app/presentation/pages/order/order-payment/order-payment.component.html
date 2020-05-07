@@ -18,11 +18,11 @@
                                 <p>{{payment.description}}</p>
                             </div>
                             <div class="OrderPayment-Item-price">
-                                <span *ngIf="payment.price.czkWithVat == 0">
+                                <span *ngIf="payment.totalPrice.czkWithVat == 0">
                                     Zdarma
                                 </span>
-                                <span *ngIf="payment.price.czkWithVat > 0">
-                                    {{payment.price.czkWithVat}} {{mapPriceTypes(payment.price.priceType)}}
+                                <span *ngIf="payment.totalPrice.czkWithVat > 0">
+                                    {{payment.totalPrice.czkWithVat}} {{mapPriceTypes(payment.totalPrice.priceType)}}
                                 </span>
                             </div>
                         </label>

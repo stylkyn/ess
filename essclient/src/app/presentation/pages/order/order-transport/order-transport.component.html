@@ -18,11 +18,11 @@
                                 <p>{{transport.description}}</p>
                             </div>
                             <div class="OrderTransport-Item-price">
-                                <span *ngIf="transport.price.czkWithVat == 0">
+                                <span *ngIf="transport.totalPrice?.czkWithVat == 0">
                                     Zdarma
                                 </span>
-                                <span *ngIf="transport.price.czkWithVat > 0">
-                                    {{transport.price.czkWithVat}} {{mapPriceTypes(transport.price.priceType)}}
+                                <span *ngIf="transport.totalPrice?.czkWithVat > 0">
+                                    {{transport.totalPrice?.czkWithVat}} {{mapPriceTypes(transport.totalPrice?.priceType)}}
                                 </span>
                             </div>
                         </label>
