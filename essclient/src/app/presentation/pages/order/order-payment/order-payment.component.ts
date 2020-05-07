@@ -10,6 +10,7 @@ import { BasketStorageService } from 'src/app/services/storage/basket.service';
 import { TransportStorageService } from 'src/app/services/storage/transport.service';
 import { OrderBussinessService } from './../order.service';
 import { presentationOrderRoute } from 'src/app/presentation/theme/presentation-routes';
+import { MapPriceTypes } from 'src/app/models/IPrice';
 
 @Component({
   selector: 'app-order-payment',
@@ -18,6 +19,7 @@ import { presentationOrderRoute } from 'src/app/presentation/theme/presentation-
 })
 export class OrderPaymentComponent implements OnInit {
     PaymentType = PaymentType;
+    mapPriceTypes = MapPriceTypes;
     public paymentForm: FormGroup;
 
     public get payments (): IPayment[] {

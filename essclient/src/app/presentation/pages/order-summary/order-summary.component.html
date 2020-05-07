@@ -36,7 +36,7 @@
                     </tr>
                     <tr *ngFor="let product of order?.calculatedData?.products">
                         <th scope="row">
-                            <img src="{{product.product.image.secureUrl}}" alt="" class="img-fluid z-depth-0">
+                            <img src="{{product.product.image.secureUrl}}" alt="{{product.product.image.originalFileName}}" class="img-fluid z-depth-0">
                         </th>
                         <td>
                             <h5 class="mt-3">
@@ -66,8 +66,8 @@
                         <tbody>
                             <tr *ngIf="order?.calculatedData?.transport">
                                 <th scope="row">
-                                    <img *ngIf="order.calculatedData.transport.type == TransportType.PersonalPickup" [src]="'assets/icons/personal-pickup.png'" />
-                                    <img *ngIf="order.calculatedData.transport.type == TransportType.Zasilkovna" [src]="'assets/icons/zasilkovna.png'" />
+                                    <img *ngIf="order.calculatedData.transport.type == TransportType.PersonalPickup" [alt]="'Personal pickup icon'" [src]="'assets/icons/personal-pickup.png'" />
+                                    <img *ngIf="order.calculatedData.transport.type == TransportType.Zasilkovna" [alt]="'Zasilkovna icon'" [src]="'assets/icons/zasilkovna.png'" />
                                 </th>
                                 <td class="w-100">
                                     <h5 class="OrderSummary-Card-name">
@@ -94,8 +94,8 @@
                         <tbody>
                             <tr *ngIf="order?.calculatedData?.payment">
                                 <th scope="row">
-                                    <img *ngIf="order.calculatedData.payment.type == PaymentType.CashOnDelivery" [src]="'assets/icons/wallet.png'" />
-                                    <img *ngIf="order.calculatedData.payment.type == PaymentType.PaymentOrder" [src]="'assets/icons/bank.png'" />
+                                    <img *ngIf="order.calculatedData.payment.type == PaymentType.CashOnDelivery" [alt]="'Platba na miste'" [src]="'assets/icons/wallet.png'" />
+                                    <img *ngIf="order.calculatedData.payment.type == PaymentType.PaymentOrder" [alt]="'Platebni prikaz'" [src]="'assets/icons/bank.png'" />
                                 </th>
                                 <td class="w-100">
                                     <h5 class="OrderSummary-Card-name">

@@ -8,7 +8,7 @@
         <div class="col-lg-6 col-md-12">
             <div class="single-news mb-lg-0 mb-4">
                 <div class="view overlay rounded z-depth-1-half mb-4">
-                    <img class="img-fluid" [src]="_activeProduct.image?.secureUrl" alt="Sample image">
+                    <img class="img-fluid" [src]="_activeProduct.image?.secureUrl" alt="{{_activeProduct.image?.originalFileName}}">
                     <a>
                         <div class="mask rgba-white-slight waves-light" mdbWavesEffect></div>
                     </a>
@@ -18,7 +18,7 @@
                         <div class="col-md-4" [ngClass]="{'d-none d-md-block': cardIndex !== 0}" *ngFor="let img of _activeProduct.gallery; let cardIndex = index">
                             <mdb-card class="mb-3">
                                 <div class="view overlay rounded z-depth-1-half">
-                                    <img class="img-fluid" [src]="img?.secureUrl" alt="Sample image">
+                                    <img class="img-fluid" [src]="img?.secureUrl" alt="{{img?.originalFileName}}">
                                     <a>
                                         <div class="mask rgba-white-slight waves-light" mdbWavesEffect></div>
                                     </a>

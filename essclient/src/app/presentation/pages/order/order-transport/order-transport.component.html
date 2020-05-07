@@ -10,19 +10,19 @@
                                 formControlName="transportType" name="transportType">
                         <label class="form-check-label OrderTransport-Item" for="transportType-{{i}}">
                             <div class="OrderTransport-Item-imgBox">
-                                <img *ngIf="transport.type == TransportType.PersonalPickup" [src]="'assets/icons/personal-pickup.png'" />
-                                <img *ngIf="transport.type == TransportType.Zasilkovna" [src]="'assets/icons/zasilkovna.png'" />
+                                <img *ngIf="transport.type == TransportType.PersonalPickup" [alt]="'Personal pickup icon'" [src]="'assets/icons/personal-pickup.png'" />
+                                <img *ngIf="transport.type == TransportType.Zasilkovna" [alt]="'Zasilkovna icon'" [src]="'assets/icons/zasilkovna.png'" />
                             </div>
                             <div class="w-100 px-2">
                                 {{transport.name}}
                                 <p>{{transport.description}}</p>
                             </div>
                             <div class="OrderTransport-Item-price">
-                                <span *ngIf="transport.totalPrice.czkWithVat == 0">
+                                <span *ngIf="transport.price.czkWithVat == 0">
                                     Zdarma
                                 </span>
-                                <span *ngIf="transport.totalPrice.czkWithVat > 0">
-                                    {{transport.totalPrice.czkWithVat}} {{mapPriceTypes(transport.totalPrice.priceType)}}
+                                <span *ngIf="transport.price.czkWithVat > 0">
+                                    {{transport.price.czkWithVat}} {{mapPriceTypes(transport.price.priceType)}}
                                 </span>
                             </div>
                         </label>

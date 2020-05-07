@@ -10,19 +10,19 @@
                                 formControlName="paymentType" name="paymentType">
                         <label class="form-check-label OrderPayment-Item" for="paymentType-{{i}}">
                             <div class="OrderPayment-Item-imgBox">
-                                <img *ngIf="payment.type == PaymentType.CashOnDelivery" [src]="'assets/icons/wallet.png'" />
-                                <img *ngIf="payment.type == PaymentType.PaymentOrder" [src]="'assets/icons/bank.png'" />
+                                <img *ngIf="payment.type == PaymentType.CashOnDelivery" [alt]="'Wallet icon'" [src]="'assets/icons/wallet.png'" />
+                                <img *ngIf="payment.type == PaymentType.PaymentOrder" [alt]="'Bank icon'" [src]="'assets/icons/bank.png'" />
                             </div>
                             <div class="w-100 pl-2">
                                 {{payment.name}}
                                 <p>{{payment.description}}</p>
                             </div>
                             <div class="OrderPayment-Item-price">
-                                <span *ngIf="payment.totalPrice.czkWithVat == 0">
+                                <span *ngIf="payment.price.czkWithVat == 0">
                                     Zdarma
                                 </span>
-                                <span *ngIf="payment.totalPrice.czkWithVat > 0">
-                                    {{payment.totalPrice.czkWithVat}} {{mapPriceTypes(payment.totalPrice.priceType)}}
+                                <span *ngIf="payment.price.czkWithVat > 0">
+                                    {{payment.price.czkWithVat}} {{mapPriceTypes(payment.price.priceType)}}
                                 </span>
                             </div>
                         </label>

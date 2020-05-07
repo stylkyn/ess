@@ -13,5 +13,5 @@
         <i class="upload-icon" nz-icon [nzType]="loading ? 'loading' : 'plus'"></i>
         <div class="ant-upload-text">Upload</div>
     </ng-container>
-    <img *ngIf="activeImage" [src]="activeImage?.secureUrl" style="width: 100%" />
+    <img *ngIf="activeImage" [src]="activeImage?.secureUrl" [alt]="activeImage?.originalFileName" style="width: 100%" />
 </nz-upload>

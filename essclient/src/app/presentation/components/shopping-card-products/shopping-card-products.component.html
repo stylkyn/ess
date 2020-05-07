@@ -10,7 +10,7 @@
             </tr>
             <tr *ngFor="let product of calculatedOrder.products">
                 <th scope="row">
-                    <img src="{{product.product.image.secureUrl}}" alt="" class="img-fluid z-depth-0">
+                    <img src="{{product.product.image.secureUrl}}" alt="{{product.product.image.originalFileName}}" class="img-fluid z-depth-0">
                 </th>
                 <td>
                     <h5 class="mt-3">

@@ -20,8 +20,8 @@
 
                     <tr *ngIf="calculatedOrder.transport">
                         <th scope="row">
-                            <img *ngIf="calculatedOrder.transport.type == TransportType.PersonalPickup" [src]="'assets/icons/personal-pickup.png'" />
-                            <img *ngIf="calculatedOrder.transport.type == TransportType.Zasilkovna" [src]="'assets/icons/zasilkovna.png'" />
+                            <img *ngIf="calculatedOrder.transport.type == TransportType.PersonalPickup" [alt]="'Osobní vyzvednutí'" [src]="'assets/icons/personal-pickup.png'" />
+                            <img *ngIf="calculatedOrder.transport.type == TransportType.Zasilkovna" [alt]="'Zasilkovna'" [src]="'assets/icons/zasilkovna.png'" />
                         </th>
                         <td class="w-100">
                             <h5 class="OrderSummaryCard-name">
@@ -38,8 +38,8 @@
 
                     <tr *ngIf="calculatedOrder.payment">
                         <th scope="row">
-                            <img *ngIf="calculatedOrder.payment.type == PaymentType.CashOnDelivery" [src]="'assets/icons/wallet.png'" />
-                            <img *ngIf="calculatedOrder.payment.type == PaymentType.PaymentOrder" [src]="'assets/icons/bank.png'" />
+                            <img *ngIf="calculatedOrder.payment.type == PaymentType.CashOnDelivery" [alt]="'Platba na miste'" [src]="'assets/icons/wallet.png'" />
+                            <img *ngIf="calculatedOrder.payment.type == PaymentType.PaymentOrder" [alt]="'Platebni prikaz'" [src]="'assets/icons/bank.png'" />
                         </th>
                         <td class="w-100">
                             <h5 class="OrderSummaryCard-name">
