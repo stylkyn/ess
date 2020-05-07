@@ -91,6 +91,8 @@ export class MultipleFileUploadComponent implements OnInit, OnChanges {
                 const replaceIndex = info.fileList.findIndex(x => x.uid == info.file.uid);
                 info.fileList[replaceIndex] = this.toImageUploader(image, 'done');
                 
+                if (!this.imagesList)
+                    this.imagesList = [];
                 // pass to internal storage
                 this.imagesList.push(image);
                 this.changed.next(this.imagesList);

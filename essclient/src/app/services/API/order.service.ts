@@ -64,6 +64,11 @@ export interface ISetOrderPaymentState {
     paymentState: PaymentState;
 }
 
+export interface ISetOrderAgent {
+    userId: string; // agent id
+    orderId: string;
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -98,6 +103,14 @@ export class OrderService extends APIRepository<IProduct> {
         return this._API.get(`${this.className}/GetAccountOrders`);
     }
 
+    public fetchAgentActiveOrders(): Observable<IOrder[]> {
+        return this._API.get(`${this.className}/GetAgentActiveOrders`);
+    }
+
+    public fetchAgentHistoryOrders(): Observable<IOrder[]> {
+        return this._API.get(`${this.className}/GetAgentHistoryOrders`);
+    }
+
     public search(request: IOrderSearchRequest): Observable<IResponse<IOrder[]>> {
         return this._API.getQueryTotal<IOrder[]>(`${this.className}/Search`, request);
     }
@@ -108,6 +121,10 @@ export class OrderService extends APIRepository<IProduct> {
 
     public setPaymentState(request: ISetOrderPaymentState): Observable<IProduct> {
         return this._API.put(`${this.className}/SetPaymentState`, request);
+    }
+
+    public setOrderAgent(request: ISetOrderAgent): Observable<IProduct> {
+        return this._API.put(`${this.className}/SetOrderAgent`, request);
     }
 
     public setOrder(request: ISetOrderRequest): Promise<IOrder> {

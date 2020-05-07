@@ -80,10 +80,12 @@ export class CategoryService extends APIRepository<ICategory> {
     }
 
     public add(request: ICategoryCreateRequest): Observable<ICategory> {
+        this.categories = [];
         return this._API.post(`${this.className}/Add`, request);
     }
 
     public update(request: ICategoryUpdateRequest): Observable<ICategory> {
+        this.categories = [];
         return this._API.put(`${this.className}/Update`, request);
     }
 

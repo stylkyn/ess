@@ -48,6 +48,28 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
 
+        [HttpGet]
+        [JwtAuthentication]
+        [Route("GetAgentActiveOrders")]
+        public async Task<IHttpActionResult> GetAgentActiveOrders(Request request)
+        {
+            if (request == null)
+                request = new Request();
+            var response = await _orderService.GetAgentActiveOrders(request);
+            return new CreateResult(response);
+        }
+
+        [HttpGet]
+        [JwtAuthentication]
+        [Route("GetAgentHistoryOrders")]
+        public async Task<IHttpActionResult> GetAgentHistoryOrders(Request request)
+        {
+            if (request == null)
+                request = new Request();
+            var response = await _orderService.GetAgentHistoryOrders(request);
+            return new CreateResult(response);
+        }
+
 
         [HttpPost]
         [Route("CalculateOrder")]

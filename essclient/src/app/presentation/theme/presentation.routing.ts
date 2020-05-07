@@ -3,7 +3,7 @@ import { ModuleWithProviders } from '@angular/core';
 import { ThemeComponent } from './theme.component';
 import { MetaGuard, MetaConfig } from 'ng2-meta';
 import { HomepageComponent } from '../pages/homepage/homepage.component';
-import { presentationProductRoute, presentationOrderRoute, presentationOrderSummaryRoute, presentationHomepage, presentationMyAccountRoute } from './presentation-routes';
+import { presentationProductRoute, presentationOrderRoute, presentationOrderSummaryRoute, presentationHomepage, presentationMyAccountRoute, presentationAgentRoute } from './presentation-routes';
 
 // defaultni data pro meta tagy
 const metaConfig: MetaConfig = {
@@ -44,6 +44,10 @@ const APP_ROUTES: Routes = [
         {
             path: presentationMyAccountRoute,
             loadChildren: () => import('./../pages/my-account/my-account.module').then(mod => mod.MyAccountModule)
+        },
+        {
+            path: presentationAgentRoute,
+            loadChildren: () => import('./../pages/agent/agent.module').then(mod => mod.AgentModule)
         }
     ]}
 ];

@@ -1,6 +1,7 @@
 ﻿using ess_api._4_BL.Services.Requests;
 using ess_api._4_BL.Shared.Filters;
 using ess_api.Core.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -8,10 +9,16 @@ namespace ess_api._4_BL.Services.Order.Requests
 {
     public class SetOrderRequest : Request
     {
+        public OrderService Service { get; set; }
         public OrderCustomerRequest Customer { get; set; }
         public OrderTransportRequest Transport { get; set; }
         public OrderPaymentRequest Payment { get; set; }
         public CalculateOrderRequest CalculateOrder { get; set; }
+    }
+
+    public class OrderService
+    {
+        public DateTime Date { get; set; }
     }
 
     public class OrderCustomerRequest

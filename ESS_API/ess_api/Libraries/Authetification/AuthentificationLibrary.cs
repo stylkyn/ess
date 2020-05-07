@@ -69,13 +69,22 @@ namespace Libraries.Authetification
                 {
                     UserEmail = claims.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value,
                     UserId = claims.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value,
-                    HasAdminAccess = false
+                    HasAdminAccess = false,
+                    HasAgentAccess = false
                 };
+                // admin access
                 string hasAdminAccessStr = claims.Claims.FirstOrDefault(x => x.Type == AuthentificationConstants.HasAdminAccess)?.Value;
                 bool hasAdminAccess = false;
 
                 bool.TryParse(hasAdminAccessStr, out hasAdminAccess);
                 result.HasAdminAccess = hasAdminAccess;
+
+                // agent access
+                string hasAgentAccessStr = claims.Claims.FirstOrDefault(x => x.Type == AuthentificationConstants.HasAgentAccess)?.Value;
+                bool hasAgentAccess = false;
+
+                bool.TryParse(hasAgentAccessStr, out hasAgentAccess);
+                result.HasAgentAccess = hasAgentAccess;
 
                 return result;
             } catch (Exception e)

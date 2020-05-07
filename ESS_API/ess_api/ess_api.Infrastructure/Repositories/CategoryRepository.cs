@@ -17,7 +17,7 @@ namespace ess_api.Repository
                 fullTextCleared == "" 
                 || x.Name.ToLower().Contains(fullTextCleared) 
                 || x.UrlName.ToLower().Contains(fullTextCleared),
-                null, null, skip, take
+                SortType.DESC, x => x.CreatedDate, skip, take
             );
 
             return result;

@@ -4,7 +4,7 @@
             <a class="OrderSummary-Tab-item disabled {{state.type <= order.state ? 'active' : ''}}">
                 <button floating="true" mdbBtn>
                     <mdb-icon *ngIf="state.type == OrderState.Confirmed" fas icon="clipboard-list"></mdb-icon>
-                    <mdb-icon *ngIf="state.type == OrderState.Paid" fas icon="credit-card"></mdb-icon>
+                    <mdb-icon *ngIf="state.type == OrderState.WaitForPaid" fas icon="credit-card"></mdb-icon>
                     
                     <mdb-icon *ngIf="state.type == OrderState.ReadyToPickup" fas icon="archive"></mdb-icon>
                     

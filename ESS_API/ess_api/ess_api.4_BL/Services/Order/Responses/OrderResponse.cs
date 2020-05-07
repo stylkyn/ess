@@ -4,6 +4,7 @@ using ess_api._4_BL.Services.Responses;
 using ess_api._4_BL.Services.Transport.Responses;
 using ess_api.Core.Model;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace ess_api._4_BL.Services.Order.Responses
@@ -12,6 +13,9 @@ namespace ess_api._4_BL.Services.Order.Responses
     {
         [JsonProperty("state")]
         public OrderState State { get; set; }
+
+        [JsonProperty("service")]
+        public OrderServiceResponse Service { get; set; }
 
         [JsonProperty("orderNumber")]
         public long OrderNumber { get; set; }
@@ -30,6 +34,12 @@ namespace ess_api._4_BL.Services.Order.Responses
 
         [JsonProperty("calculatedData")]
         public CalculatedOrderResponse CalculatedData { get; set; }
+    }
+
+    public class OrderServiceResponse
+    {
+        public DateTime Date { get; set; }
+        public string UserId { get; set; } // user agent id
     }
 
     public class OrderTransportResponse

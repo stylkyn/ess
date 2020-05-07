@@ -80,8 +80,8 @@ export class ProductFormComponent implements OnInit{
     }
 
     // price input set currency
-    formatterCurrency = (value: number) => value ? `${value} Kč` : null;
-    parserCurrency = (value: string) => value ? value.replace(' Kč', '') : null;
+    formatterCurrency = (value: number) => value ? `${value} Kč` : '';
+    parserCurrency = (value: string) => value ? value.replace(' Kč', '') : '';
 
     // main image set
     mainImageChanged(image: IImage) {
@@ -105,7 +105,7 @@ export class ProductFormComponent implements OnInit{
             this.previewName.setValue(product.previewName);
             this.description.setValue(product.description);
             this.previewDescription.setValue(product.previewDescription);
-            this.price.setValue(product.totalPrice.czkWithoutVat);
+            this.price.setValue(product.totalPrice?.czkWithoutVat);
             this.categoryId.setValue(product.categoryId);
             this.gallery = product.gallery;
             this.mainImage = product.image;
@@ -179,7 +179,7 @@ export class ProductFormComponent implements OnInit{
             buy: ProductType.Buy == this.type.value ? {
                 priceWithoutVat: this.price.value
             }: null,
-            servis: ProductType.Buy == this.type.value ? {
+            servis: ProductType.Servis == this.type.value ? {
                 priceWithoutVat: this.price.value
 
             }: null,

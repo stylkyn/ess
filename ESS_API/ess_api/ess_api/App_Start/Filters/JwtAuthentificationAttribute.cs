@@ -47,7 +47,8 @@ namespace ess_api.App_Start.Filters
                         new List<Claim> {
                             new Claim(AuthentificationConstants.UserId, authUser?.UserId),
                             new Claim(AuthentificationConstants.UserEmail, authUser?.UserEmail),
-                            new Claim(AuthentificationConstants.HasAdminAccess, authUser?.HasAdminAccess.ToString())
+                            new Claim(AuthentificationConstants.HasAdminAccess, authUser?.HasAdminAccess.ToString()),
+                            new Claim(AuthentificationConstants.HasAgentAccess, authUser?.HasAgentAccess.ToString())
                         }));
             return Task.FromResult(authUser);
         }

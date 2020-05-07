@@ -22,12 +22,16 @@
             </th>
             <th class="p-0 pl-2" colspan="1">
                 <nz-select class="w-100" nzShowSearch nzAllowClear nzPlaceHolder="Vyberte stav" (ngModelChange)="orderStateChanged($event)" [(ngModel)]="orderStateFilter">
-                    <nz-option nzLabel="Potvrzená" [nzValue]="OrderState.Confirmed"></nz-option>
-                    <nz-option nzLabel="Zaplacená" [nzValue]="OrderState.Paid"></nz-option>
-                    <nz-option nzLabel="Připravena k vyzvednutí" [nzValue]="OrderState.ReadyToPickup"></nz-option>
-                    <nz-option nzLabel="Připravena k odeslání" [nzValue]="OrderState.ReadyToShip"></nz-option>
-                    <nz-option nzLabel="Odeslaná" [nzValue]="OrderState.Sent"></nz-option>
-                    <nz-option nzLabel="Doručená" [nzValue]="OrderState.Delivered"></nz-option>
+                    <nz-option [nzLabel]="OrderStateName(OrderState.Confirmed)" [nzValue]="OrderState.Confirmed"></nz-option>
+                    <nz-option [nzLabel]="OrderStateName(OrderState.WaitForPaid)" [nzValue]="OrderState.WaitForPaid"></nz-option>
+                    <nz-option [nzLabel]="OrderStateName(OrderState.ReadyToPickup)" [nzValue]="OrderState.ReadyToPickup"></nz-option>
+                    <nz-option [nzLabel]="OrderStateName(OrderState.ReadyToShip)" [nzValue]="OrderState.ReadyToShip"></nz-option>
+                    <nz-option [nzLabel]="OrderStateName(OrderState.Sent)" [nzValue]="OrderState.Sent"></nz-option>
+                    <nz-option [nzLabel]="OrderStateName(OrderState.Delivered)" [nzValue]="OrderState.Delivered"></nz-option>
+                    <nz-option [nzLabel]="OrderStateName(OrderState.AgentAssign)" [nzValue]="OrderState.AgentAssign"></nz-option>
+                    <nz-option [nzLabel]="OrderStateName(OrderState.AgentReady)" [nzValue]="OrderState.AgentReady"></nz-option>
+                    <nz-option [nzLabel]="OrderStateName(OrderState.AgentOnWay)" [nzValue]="OrderState.AgentOnWay"></nz-option>
+                    <nz-option [nzLabel]="OrderStateName(OrderState.Finished)" [nzValue]="OrderState.Finished"></nz-option>
                 </nz-select>
             </th>
             <th class="p-0 pl-2" colspan="1">
@@ -43,6 +47,8 @@
             <th nzColumnKey="firstname">Zákazník</th>
             <th nzColumnKey="firstname">Stav</th>
             <th nzColumnKey="firstname">Zaplacená</th>
+            <th nzColumnKey="firstname">Služba</th>
+            <th nzColumnKey="firstname">Agent</th>
             <th nzColumnKey="firstname">Cena bez DPH</th>
             <th nzColumnKey="firstname">Cena s DPH</th>
             <th class="text-right"></th>
@@ -68,6 +74,15 @@
                     </button>
                 </div>
             </td>
+            <td>{{ item.service ? 'Se službou' : 'Bez služby' }}</td>
+            <td>
+                <div class="d-flex flex-row align-items-center">
+                    {{ item.service?.userId ? findUserName(item.service?.userId) : '' }}
+                    <button *ngIf="item.service" class="ml-2" (click)="changeAssignAgentModal(item, assignAgentModal)" nz-button nzsi nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Upravit stav platby">
+                        <i nz-icon nzType="plus" nzTheme="outline"></i>
+                    </button>
+                </div>
+            </td>
             <td>{{ item.calculatedData?.total?.totalPrice?.czkWithoutVat}} {{MapPriceTypes(item.calculatedData?.total?.totalPrice?.priceType) }}</td>
             <td>{{ item.calculatedData?.total?.totalPrice?.czkWithVat}} {{MapPriceTypes(item?.calculatedData?.total.totalPrice?.priceType) }}</td>
             <td>
@@ -90,12 +105,16 @@
             <nz-form-label>Zadejte nový stav objednávky</nz-form-label>
             <nz-form-control>
                 <nz-select [ngModelOptions]="{standalone: true}" class="w-100" nzShowSearch nzAllowClear nzPlaceHolder="Vyberte stav platby" (ngModelChange)="selectedOrderStateChanged($event)" [(ngModel)]="selectedChangeOrderState">
-                    <nz-option nzLabel="Potvrzená" [nzValue]="OrderState.Confirmed"></nz-option>
-                    <nz-option nzLabel="Zaplacená" [nzValue]="OrderState.Paid"></nz-option>
-                    <nz-option nzLabel="Připravena k vyzvednutí" [nzValue]="OrderState.ReadyToPickup"></nz-option>
-                    <nz-option nzLabel="Připravena k odeslání" [nzValue]="OrderState.ReadyToShip"></nz-option>
-                    <nz-option nzLabel="Odeslaná" [nzValue]="OrderState.Sent"></nz-option>
-                    <nz-option nzLabel="Doručená" [nzValue]="OrderState.Delivered"></nz-option>
+                    <nz-option [nzLabel]="OrderStateName(OrderState.Confirmed)" [nzValue]="OrderState.Confirmed"></nz-option>
+                    <nz-option [nzLabel]="OrderStateName(OrderState.WaitForPaid)" [nzValue]="OrderState.WaitForPaid"></nz-option>
+                    <nz-option [nzLabel]="OrderStateName(OrderState.ReadyToPickup)" [nzValue]="OrderState.ReadyToPickup"></nz-option>
+                    <nz-option [nzLabel]="OrderStateName(OrderState.ReadyToShip)" [nzValue]="OrderState.ReadyToShip"></nz-option>
+                    <nz-option [nzLabel]="OrderStateName(OrderState.Sent)" [nzValue]="OrderState.Sent"></nz-option>
+                    <nz-option [nzLabel]="OrderStateName(OrderState.Delivered)" [nzValue]="OrderState.Delivered"></nz-option>
+                    <nz-option [nzLabel]="OrderStateName(OrderState.AgentAssign)" [nzValue]="OrderState.AgentAssign"></nz-option>
+                    <nz-option [nzLabel]="OrderStateName(OrderState.AgentReady)" [nzValue]="OrderState.AgentReady"></nz-option>
+                    <nz-option [nzLabel]="OrderStateName(OrderState.AgentOnWay)" [nzValue]="OrderState.AgentOnWay"></nz-option>
+                    <nz-option [nzLabel]="OrderStateName(OrderState.Finished)" [nzValue]="OrderState.Finished"></nz-option>
                 </nz-select>
             </nz-form-control>
         </nz-form-item>
@@ -110,6 +129,19 @@
                 <nz-select [ngModelOptions]="{standalone: true}" class="w-100" nzShowSearch nzAllowClear nzPlaceHolder="Vyberte stav platby" (ngModelChange)="selectedPaymentStateChanged($event)" [(ngModel)]="selectedChangePaymentState">
                     <nz-option nzLabel="Zaplacená" [nzValue]="PaymentState.Paid"></nz-option>
                     <nz-option nzLabel="Nezaplacená" [nzValue]="PaymentState.NotPaid"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</ng-template>
+
+<ng-template #assignAgentModal let-params let-ref="modalRef">
+    <form nz-form [nzLayout]="'vertical'">
+        <nz-form-item>
+            <nz-form-label>Vyberte agenta k objednávce</nz-form-label>
+            <nz-form-control>
+                <nz-select class="w-100" nzShowSearch nzAllowClear nzPlaceHolder="Vyberte agenta" (ngModelChange)="agentChange($event)" [(ngModel)]="selectedAgentId">
+                    <nz-option *ngFor="let item of usersOptions" [nzLabel]="item.name + ' | ' + item.email" [nzValue]="item.id"></nz-option>
                 </nz-select>
             </nz-form-control>
         </nz-form-item>

@@ -1,11 +1,13 @@
 ﻿using ess_api.Core.Model.Shared;
 using MongoDB.Driver;
+using System;
 
 namespace ess_api.Core.Model
 {
     public class OrderModel : BaseModel
     {
         public OrderState State { get; set; } = OrderState.Created;
+        public OrderService Service { get; set; }
 
         public long OrderNumber { get; set; }
         public string OrderNumberFormatted { get; set; }
@@ -24,6 +26,12 @@ namespace ess_api.Core.Model
             && Transport != null && Transport.HasAllData()
             && Payment != null && Payment.HasAllData()
             && CalculatedData != null && CalculatedData.HasAllData();
+    }
+
+    public class OrderService
+    {
+        public DateTime Date { get; set; }
+        public string UserId { get; set; } // user agent id
     }
 
     public class OrderCustomer {
@@ -115,12 +123,18 @@ namespace ess_api.Core.Model
         CustomerReady,
 
         Confirmed,
-        Paid,
-        ReadyToPickup,
+        WaitForpaid,
 
+        ReadyToPickup,
         ReadyToShip,
         Sent,
         Delivered,
+
+        AgentAssign,
+        AgentReady,
+        AgentOnWay,
+
+        Finished
     }
 
     public enum PaymentState

@@ -9,7 +9,7 @@ import { IUserOption } from './../../../models/IUser';
 import { NzTableQueryParams } from 'ng-zorro-antd/table/public-api';
 import { getOrderRoute } from 'src/app/presentation/theme/presentation-routes';
 import { PaymentState, PaymentStateName } from 'src/app/models/IPayment';
-import { ISetOrderState } from './../../../services/API/order.service';
+import { ISetOrderState, ISetOrderAgent } from './../../../services/API/order.service';
 
 @Component({
     selector: 'app-order',
@@ -25,6 +25,7 @@ export class OrderComponent implements OnInit {
 
     selectedChangeOrderState: OrderState;
     selectedChangePaymentState: PaymentState;
+    selectedAgentId: string;
 
     total = 1;
     dataList: IOrder[] = [];
@@ -39,8 +40,12 @@ export class OrderComponent implements OnInit {
     fullText: string = null;
     visibleRemovePopup: boolean;
 
-    public get usersOptions() {
+    public get usersOptions(): IUserOption[] {
         return this._userService.userOptions;
+    }
+
+    public findUserName(userId: string): string {
+        return this.usersOptions.find(x => x.id == userId)?.name ?? 'Nepřiřazen';
     }
 
     constructor (
@@ -160,6 +165,32 @@ export class OrderComponent implements OnInit {
 
     selectedPaymentStateChanged(paymentState: PaymentState) {
         this.selectedChangePaymentState = paymentState;
+    }
+
+    // agent logic
+    changeAssignAgentModal(order: IOrder, tplContent: TemplateRef<{}>) {
+        this.selectedChangePaymentState = order.payment.state;
+        this._modalNz.create({
+            nzTitle: `Opravdu chcete přiřadit agenta k objednávce - ${order.orderNumberFormatted}?`,
+            nzCancelText: 'Zrušit',
+            nzOkText: 'Přiřadit',
+            nzOkType: 'primary',
+            nzContent: tplContent,
+            nzOnOk: () => this.assignAgent(order)
+        });
+    }
+
+    assignAgent(order: IOrder) {
+        const request: ISetOrderAgent = {
+            orderId: order.id,
+            userId: this.selectedAgentId
+        };
+        this._orderService.setOrderAgent(request)
+            .subscribe(x => this.loadData());
+    }
+
+    agentChange(userId: string) {
+        this.selectedAgentId = userId;
     }
 
     // show order detail

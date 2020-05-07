@@ -38,7 +38,7 @@ namespace ess_api.Repository
                 || x.UrlName.ToLower().Contains(fullTextCleared))
                 && (categoryId == null || x.CategoryId == categoryId)
                 && (type == null || x.Type == type),
-                null, null, skip, take
+                SortType.DESC, x => x.CreatedDate, skip, take
             );
 
             return result;

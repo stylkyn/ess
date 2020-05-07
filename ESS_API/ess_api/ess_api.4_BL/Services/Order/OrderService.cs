@@ -35,6 +35,32 @@ namespace ess_api._4_BL.Services.Order
             return new ResponseList<OrderResponse>(ResponseStatus.Ok, result, total);
         }
 
+        public async Task<ResponseList<OrderResponse>> GetAgentActiveOrders(Request request)
+        {
+            if (!request.RequestIdentity.HasAdminAccess && !request.RequestIdentity.HasAgentAccess)
+                return new ResponseList<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+
+            var orders = await _uow.Orders.GetAgentActiveOrders(request?.RequestIdentity?.UserId);
+            if (orders == null)
+                return new ResponseList<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+
+            var result = orders.Select(x => _mapService.MapOrder(x)).ToList();
+            return new ResponseList<OrderResponse>(ResponseStatus.Ok, result);
+        }
+
+        public async Task<ResponseList<OrderResponse>> GetAgentHistoryOrders(Request request)
+        {
+            if (!request.RequestIdentity.HasAdminAccess && !request.RequestIdentity.HasAgentAccess)
+                return new ResponseList<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+
+            var orders = await _uow.Orders.GetAgentHistoryOrders(request?.RequestIdentity?.UserId);
+            if (orders == null)
+                return new ResponseList<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+
+            var result = orders.Select(x => _mapService.MapOrder(x)).ToList();
+            return new ResponseList<OrderResponse>(ResponseStatus.Ok, result);
+        }
+
         public async Task<ResponseList<OrderResponse>> GetAccountOrders(GetAccountOrdersRequest request)
         {
             var orders = await _uow.Orders.GetAccountOrders(request?.RequestIdentity?.UserId);
@@ -51,7 +77,7 @@ namespace ess_api._4_BL.Services.Order
             if (order == null)
                 return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.CannotFindOrder);
 
-            if (!AuthentificateUserOrder(order, request.RequestIdentity?.UserId))
+            if (!AuthentificateUserOrder(order, request.RequestIdentity))
                 return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.CannotFindOrder);
 
             var response = _mapService.MapOrder(order);
@@ -243,9 +269,9 @@ namespace ess_api._4_BL.Services.Order
             return calculatedData;
         }
 
-        public bool AuthentificateUserOrder(OrderModel order, string userId)
+        public bool AuthentificateUserOrder(OrderModel order, RequestIdentity user)
         {
-            return order.Customer?.UserId == userId;
+            return order.Customer?.UserId == user.UserId || user.HasAdminAccess || user.HasAgentAccess;
         }
     }
 }

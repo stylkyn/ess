@@ -136,6 +136,11 @@ namespace ess_api._4_BL.Shared
                 State = request.State,
                 OrderNumber = request.OrderNumber,
                 OrderNumberFormatted = request.OrderNumberFormatted,
+                Service = request.Service != null ? new OrderServiceResponse
+                {
+                    Date = request.Service.Date,
+                    UserId = request.Service.UserId
+                } : null,
                 Customer = request.Customer != null ? new OrderCustomerResponse {
                     UserId = request.Customer.UserId,
                     Personal = MapUserPersonal(request.Customer?.Personal),
@@ -231,6 +236,8 @@ namespace ess_api._4_BL.Shared
 
         public CategoryResponse MapCategory(CategoryModel category)
         {
+            if (category == null)
+                return null;
             return new CategoryResponse
             {
                 Id = category.Id.ToString(),

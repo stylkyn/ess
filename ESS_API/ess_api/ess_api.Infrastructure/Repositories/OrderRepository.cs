@@ -42,24 +42,48 @@ namespace ess_api.Infrastructure.Repositories
                 && (userId == null || x.Customer.UserId == userId)
                 && (orderState == null || x.State == orderState)
                 && (paymentState == null || x.Payment.State == paymentState),
-                null, null, skip, take
+                SortType.DESC, x => x.CreatedDate, skip, take
             );
 
             return result;
         }
+        public async Task<List<OrderModel>> GetAgentActiveOrders(string userId)
+        {
+            var types = new List<OrderState>() {
+                OrderState.Confirmed,
+                OrderState.WaitForpaid,
+                OrderState.AgentReady,
+                OrderState.AgentOnWay,
+            };
+            var result = await FindManyAsync(x => x.Service != null && x.Service.UserId == userId
+                && types.Contains(x.State));
+            return result;
+        }
+
+        public async Task<List<OrderModel>> GetAgentHistoryOrders(string userId)
+        {
+            var types = new List<OrderState>() {
+                OrderState.Finished,
+            };
+            var result = await FindManyAsync(x => x.Service != null && x.Service.UserId == userId
+                && types.Contains(x.State), SortType.DESC, x => x.CreatedDate);
+            return result;
+        }
+
 
         public async Task<List<OrderModel>> GetAccountOrders(string userId)
         {
             var types = new List<OrderState>() {
                 OrderState.Confirmed,
-                OrderState.Paid,
+                OrderState.WaitForpaid,
                 OrderState.ReadyToPickup,
                 OrderState.ReadyToShip,
                 OrderState.Sent,
-                OrderState.Delivered
+                OrderState.Delivered,
+                OrderState.Finished
             };
             var result = await FindManyAsync(x => x.Customer != null && x.Customer.UserId == userId
-                && types.Contains(x.State));
+                && types.Contains(x.State), SortType.DESC, x => x.CreatedDate);
             return result;
         }
     }

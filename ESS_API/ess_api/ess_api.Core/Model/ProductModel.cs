@@ -28,11 +28,11 @@ namespace ess_api.Core.Model
             switch (Type)
             {
                 case ProductType.Buy:
-                    return Buy.Price;
+                    return Buy?.Price;
                 case ProductType.Deposit:
-                    return Deposit.Price;
+                    return Deposit?.Price;
                 case ProductType.Servis:
-                    return Servis.Price;
+                    return Servis?.Price;
             }
             return null;
         }

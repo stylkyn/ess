@@ -68,7 +68,7 @@ export class UserService extends APIRepository<IUser> {
         return this._user;
     }
 
-    public get userOptions() {
+    public get userOptions(): IUserOption[] {
         return this._userOptions;
     }
 
@@ -132,11 +132,13 @@ export class UserService extends APIRepository<IUser> {
     }
 
     public promoteAgent(request: IPromoteAgentRequest): Observable<IUser>  {
-        return this._API.put(`${this.className}/PromoteAgent`, request)
+        this._userOptions = [];
+        return this._API.put(`${this.className}/PromoteAgent`, request);
     }
 
     public promoteAdmin(request: IPromoteAdminRequest): Observable<IUser>  {
-        return this._API.put(`${this.className}/PromoteAdmin`, request)
+        this._userOptions = [];
+        return this._API.put(`${this.className}/PromoteAdmin`, request);
     }
 
 

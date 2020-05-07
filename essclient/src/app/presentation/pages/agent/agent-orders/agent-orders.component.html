@@ -1,0 +1,103 @@
+<div class="container">
+    <div class="d-flex align-items-center justify-content-between pt-5">
+        <div class="d-flex">
+            <h1 nz-typography>Aktivní služby</h1>
+        </div>
+    </div>
+    <nz-divider></nz-divider>
+    <nz-table 
+        nzShowSizeChanger 
+        [nzData]="dataList" 
+        [nzFrontPagination]="false"
+        nzNoResult="Nemáte žádné aktivní služby"
+    >
+        <thead>
+            <tr>
+                <th nzColumnKey="email">Číslo objednávky</th>
+                <th nzColumnKey="firstname">Stav</th>
+                <th nzColumnKey="firstname">Zaplacená</th>
+                <th nzColumnKey="firstname">Cena bez DPH</th>
+                <th nzColumnKey="firstname">Cena s DPH</th>
+                <th class="text-right"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of dataList; let i = index">
+                <td> {{ item.orderNumberFormatted }} </td>
+                <td>
+                    <div class="d-flex flex-row align-items-center">
+                        {{ OrderStateName(item.state) }}
+                        <button type="button" class="btn btn-outline-default" mdbBtn floating="true" size="sm" gradient="blue" mdbWavesEffect>
+                            <mdb-icon fas icon="eye"></mdb-icon>
+                        </button>
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex flex-row align-items-center">
+                        {{ PaymentStateName(item.payment.state) }}
+                    </div>
+                </td>
+                <td>{{ item.calculatedData?.total?.totalPrice?.czkWithoutVat}} {{MapPriceTypes(item.calculatedData?.total?.totalPrice?.priceType) }}</td>
+                <td>{{ item.calculatedData?.total?.totalPrice?.czkWithVat}} {{MapPriceTypes(item?.calculatedData?.total.totalPrice?.priceType) }}</td>
+                <td>
+                    <div class="d-flex justify-content-end">
+                        <a routerLink="/{{getOrderRoute(item)}}" mdbBtn floating="true" size="sm" gradient="blue" mdbWavesEffect>
+                            <mdb-icon fas icon="eye"></mdb-icon>
+                          </a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+
+    <div class="d-flex align-items-center justify-content-between pt-5">
+        <div class="d-flex">
+            <h1 nz-typography>Hotové služby</h1>
+        </div>
+    </div>
+    <nz-divider></nz-divider>
+    <nz-table 
+        nzShowSizeChanger 
+        [nzData]="dataList" 
+        [nzFrontPagination]="false"
+        nzNoResult="Nemáte žádné hotové služby"
+    >
+        <thead>
+            <tr>
+                <th nzColumnKey="email">Číslo objednávky</th>
+                <th nzColumnKey="firstname">Stav</th>
+                <th nzColumnKey="firstname">Zaplacená</th>
+                <th nzColumnKey="firstname">Cena bez DPH</th>
+                <th nzColumnKey="firstname">Cena s DPH</th>
+                <th class="text-right"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of dataList; let i = index">
+                <td> {{ item.orderNumberFormatted }} </td>
+                <td>
+                    <div class="d-flex flex-row align-items-center">
+                        {{ OrderStateName(item.state) }}
+                        <button type="button" class="btn btn-outline-default" mdbBtn floating="true" size="sm" gradient="blue" mdbWavesEffect>
+                            <mdb-icon fas icon="eye"></mdb-icon>
+                        </button>
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex flex-row align-items-center">
+                        {{ PaymentStateName(item.payment.state) }}
+                    </div>
+                </td>
+                <td>{{ item.calculatedData?.total?.totalPrice?.czkWithoutVat}} {{MapPriceTypes(item.calculatedData?.total?.totalPrice?.priceType) }}</td>
+                <td>{{ item.calculatedData?.total?.totalPrice?.czkWithVat}} {{MapPriceTypes(item?.calculatedData?.total.totalPrice?.priceType) }}</td>
+                <td>
+                    <div class="d-flex justify-content-end">
+                        <a routerLink="/{{getOrderRoute(item)}}" mdbBtn floating="true" size="sm" gradient="blue" mdbWavesEffect>
+                            <mdb-icon fas icon="eye"></mdb-icon>
+                          </a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>

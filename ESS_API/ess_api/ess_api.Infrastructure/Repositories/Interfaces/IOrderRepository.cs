@@ -11,6 +11,8 @@ namespace ess_api.Core.Interfaces
         Task<OrderModel> GetLastUserOrderInProgress(string userId);
         Task<(List<OrderModel>, int)> Search(string fullText, string userId, OrderState? orderState, PaymentState? paymentState, int skip, int take);
         Task<List<OrderModel>> GetAccountOrders(string userId);
+        Task<List<OrderModel>> GetAgentActiveOrders(string userId);
+        Task<List<OrderModel>> GetAgentHistoryOrders(string userId);
         Task<long> GetNextOrderNumber();
     }
 }

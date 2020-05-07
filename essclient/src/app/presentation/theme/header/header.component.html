@@ -12,7 +12,7 @@
                     <a class="nav-link" routerLink="/homepage">Homepage</a>
                 </li>   
                 <li class="nav-item waves-light" mdbWavesEffect>
-                <a class="nav-link" routerLink="/nase-produkty">Naše produkty</a>
+                    <a class="nav-link" routerLink="/nase-produkty">Naše produkty</a>
                 </li>   
             </ul>
         </links>
@@ -38,7 +38,8 @@
                         {{userSrv.user?.email}}
                     </a>
                     <div class="dropdown-menu dropdown-primary">
-                        <a class="dropdown-item" routerLink="/{{presentationMyAccountFullOrderRoute}}">Moje objednávky</a>
+                        <a class="dropdown-item" routerLink="/{{presentationAgentOrdersFullRoute}}">Přiřazené služby</a>
+                        <a *ngIf="userSrv.user?.hasAdminAccess || userSrv.user?.hasAgentAccess" class="dropdown-item" routerLink="/{{presentationMyAccountFullOrderRoute}}">Moje objednávky</a>
                         <div class="divider dropdown-divider"></div>
                         <a class="dropdown-item" (click)="logOut()">Odhlásit</a>
                       </div>

@@ -10,10 +10,16 @@ export interface IOrder {
     state: OrderState;
     orderNumber: number;
     orderNumberFormatted: string;
+    service: IOrderService;
     customer: IOrderCustomer;
     transport: IOrderTransport;
     payment: IOrderPayment;
     calculatedData: ICalculatedOrder;
+}
+
+export interface IOrderService {
+    date: Date;
+    userId: string; // agent id
 }
 
 export interface IOrderTransport {
@@ -57,12 +63,18 @@ export enum OrderState {
     CustomerReady,
 
     Confirmed,
-    Paid,
-    ReadyToPickup,
+    WaitForPaid, // wait for paid
 
+    ReadyToPickup,
     ReadyToShip,
     Sent,
     Delivered,
+
+    AgentAssign,
+    AgentReady,
+    AgentOnWay,
+
+    Finished
 }
 
 export const OrderStateName = (state: OrderState) => {
@@ -79,7 +91,7 @@ export const OrderStateName = (state: OrderState) => {
             return 'Uloženy osobní údaje';
         case OrderState.Confirmed:
             return 'Potvrzená';
-        case OrderState.Paid:
+        case OrderState.WaitForPaid:
             return 'Zaplacená';
         case OrderState.ReadyToPickup:
             return 'Připravena k vyzvednutí';
@@ -89,6 +101,14 @@ export const OrderStateName = (state: OrderState) => {
             return 'Odeslaná';
         case OrderState.Delivered:
             return 'Doručená';
+        case OrderState.AgentAssign:
+            return 'Čeká na přiřazení agenta';
+        case OrderState.AgentReady:
+            return 'Agent připraven';
+        case OrderState.AgentOnWay:
+            return 'Agent na cestě';
+        case OrderState.Finished:
+            return 'Dokončená';
     }
     return '';
 };
@@ -109,7 +129,7 @@ export const orderSummaryStates = (order: IOrder): IOrderStateOption[] => {
     // payments states
     switch(paymentType) {
         case PaymentType.PaymentOrder:
-            states.push({ type:  OrderState.Paid, label: 'Zaplacená'});
+            states.push({ type:  OrderState.WaitForPaid, label: 'Čeká na zaplacení'});
             break;
         case PaymentType.CashOnDelivery:
             break;

@@ -16,7 +16,9 @@ namespace ess_api.Infrastructure.Repositories
 
         public async Task<(List<UserModel>, int)> SearchUser(string fullText, int skip, int take, SortType? sortType, UserSortField? sortField)
         {
-            Expression<Func<UserModel, object>> sortFunc = null;
+            if (sortType == null)
+                sortType = SortType.DESC;
+            Expression<Func<UserModel, object>> sortFunc = x => x.CreatedDate;
             switch(sortField)
             {
                 case UserSortField.Email:
