@@ -39,7 +39,9 @@
                     <a>{{_activeProduct.previewName}}</a>
                 </h2>
                 <p class="dark-grey-text mb-lg-0 mb-md-5 mb-4">{{_activeProduct.previewDescription}}</p>
-                <!-- <app-date-range></app-date-range> -->
+
+                <app-date-range *ngIf="_activeProduct.type == ProductType.Servis"></app-date-range>
+                
                 <div class="row">
                     <div class="col-md-6">
                     </div>
@@ -62,9 +64,18 @@
                         color="primary" 
                         mdbWavesEffect
                         mdbBtn>Přidat do košíku</button>
+                        <button 
+                            *ngIf="productsCount > 0 && _activeProduct.type == ProductType.Servis" 
+                            (click)="saveProductBasket(0)" 
+                            outline="true" 
+                            type="button" 
+                            color="danger" 
+                            mdbWavesEffect
+                        mdbBtn>Odebrat z košíku</button>
+                    
                     <app-shopping-button 
                         #shoppingButton
-                        *ngIf="productsCount > 0" 
+                        *ngIf="productsCount > 0 && _activeProduct.type != ProductType.Servis" 
                         (changed)="saveProductBasket($event)" 
                         [productsCount]="productsCount"></app-shopping-button>
                 </div>

@@ -9,16 +9,17 @@ namespace ess_api._4_BL.Services.Order.Requests
 {
     public class SetOrderRequest : Request
     {
-        public OrderService Service { get; set; }
+        public OrderServiceRequest Service { get; set; }
         public OrderCustomerRequest Customer { get; set; }
         public OrderTransportRequest Transport { get; set; }
         public OrderPaymentRequest Payment { get; set; }
         public CalculateOrderRequest CalculateOrder { get; set; }
     }
 
-    public class OrderService
+    public class OrderServiceRequest
     {
         public DateTime Date { get; set; }
+        public string UserId { get; set; } // user agent id
     }
 
     public class OrderCustomerRequest

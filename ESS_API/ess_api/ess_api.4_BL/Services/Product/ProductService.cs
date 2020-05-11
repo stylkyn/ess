@@ -222,6 +222,7 @@ namespace ess_api._4_BL.Services.Product
                 Id = request.Id.ToString(),
                 Name = request.Name,
                 UrlName = request.UrlName,
+                Type = request.Type,
                 PreviewName = request.PreviewName,
                 PreviewDescription = request.PreviewDescription,
                 Image = SharedMapService.MapImage(request.Image),

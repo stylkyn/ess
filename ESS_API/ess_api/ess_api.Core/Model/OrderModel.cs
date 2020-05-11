@@ -7,7 +7,7 @@ namespace ess_api.Core.Model
     public class OrderModel : BaseModel
     {
         public OrderState State { get; set; } = OrderState.Created;
-        public OrderService Service { get; set; }
+        public OrderAgentService Service { get; set; }
 
         public long OrderNumber { get; set; }
         public string OrderNumberFormatted { get; set; }
@@ -28,7 +28,7 @@ namespace ess_api.Core.Model
             && CalculatedData != null && CalculatedData.HasAllData();
     }
 
-    public class OrderService
+    public class OrderAgentService
     {
         public DateTime Date { get; set; }
         public string UserId { get; set; } // user agent id

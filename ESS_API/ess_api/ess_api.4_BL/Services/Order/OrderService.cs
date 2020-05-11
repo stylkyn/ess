@@ -111,6 +111,14 @@ namespace ess_api._4_BL.Services.Order
                 order.State = OrderState.CalculateReady;
             }
 
+            if (request.Service != null)
+            {
+                order.Service = new OrderAgentService
+                {
+                    Date = request.Service.Date
+                };
+            }
+
             if (request.Transport != null)
             {
                 var transport = await _uow.Transports.FindAsync(new Guid(request.Transport.TransportId));

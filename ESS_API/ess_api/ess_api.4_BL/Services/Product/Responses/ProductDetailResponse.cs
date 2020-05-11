@@ -12,6 +12,9 @@ namespace ess_api._4_BL.Services.Product.Responses
         [JsonProperty("previewName")]
         public string PreviewName { get; set; }
 
+        [JsonProperty("type")]
+        public ProductType Type { get; set; }
+
         [JsonProperty("previewDescription")]
         public string PreviewDescription { get; set; }
 

@@ -6,6 +6,7 @@ import { MapPriceTypes } from 'src/app/models/IPrice';
 import { ICalculatedOrderProductOrder } from 'src/app/models/ICalculateOrder';
 import { TransportStorageService } from 'src/app/services/storage/transport.service';
 import { PaymentStorageService } from './../../../services/storage/payment.service';
+import { ProductType } from 'src/app/models/IProduct';
 
 @Component({
   selector: 'app-shopping-card-products',
@@ -14,7 +15,8 @@ import { PaymentStorageService } from './../../../services/storage/payment.servi
 })
 export class ShoppingCardProductsComponent implements OnInit {
 
-    public mapPriceTypes = MapPriceTypes;
+    mapPriceTypes = MapPriceTypes;
+    ProductType = ProductType;
 
     public get calculatedOrder () {
         return this._orderService.calculatedOrder;

@@ -6,6 +6,7 @@ import { MyToastService } from 'src/app/services/toast.service';
 import { BasketStorageService, IBasketProductStorage } from '../../../../services/storage/basket.service';
 import { CategoryService } from './../../../../services/API/category.service';
 import { ICategory } from './../../../../models/ICategory';
+import { ProductType } from 'src/app/models/IProduct';
 
 @Component({
     selector: 'app-eshop-detail',
@@ -13,15 +14,16 @@ import { ICategory } from './../../../../models/ICategory';
     styleUrls: ['./eshop-detail.component.scss']
 })
 export class EshopDetailComponent implements OnInit {
-    public mapPriceTypes = MapPriceTypes;
-    public mapVatTypes = MapVatTypes;
-    public productsCountOptions = [
+    mapPriceTypes = MapPriceTypes;
+    ProductType = ProductType;
+    mapVatTypes = MapVatTypes;
+    productsCountOptions = [
         { value: 1, label: '1' },
         { value: 2, label: '2' },
         { value: 3, label: '3' },
         ];
 
-    public get productsCount () {
+    get productsCount () {
         if (!this._productService.activeProduct) {
             return 0;
         }
@@ -34,15 +36,15 @@ export class EshopDetailComponent implements OnInit {
         return selectedProduct.productsCount;
     }
 
-    public get category(): ICategory {
+    get category(): ICategory {
         return this._categoryService.categories.find(c => c.id == this._activeProduct.categoryId);
     }
 
-    public get _activeProductVAT () {
+    get _activeProductVAT () {
         return this._activeProduct.buy && this.mapVatTypes(this._activeProduct.buy.price.vatType);
     }
 
-    public get _activeProduct() {
+    get _activeProduct() {
         return this._productService.activeProduct;
     }
 

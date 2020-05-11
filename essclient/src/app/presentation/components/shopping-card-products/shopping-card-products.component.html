@@ -21,7 +21,8 @@
                     {{product.product.buy.price.czkWithVat}} {{mapPriceTypes(product.product.buy.price.priceType)}} / ks
                 </td>
                 <td>
-                    <input type="number" [min]="1" (change)="onChangeProductCount(+$event.target.value, product)" [value]="product.count" aria-label="Search" class="form-control" style="width: 100px">
+                    <p *ngIf="product.product.type == ProductType.Servis" class="mb-0">1 ks</p>
+                    <input *ngIf="product.product.type != ProductType.Servis" type="number" [min]="1" (change)="onChangeProductCount(+$event.target.value, product)" [value]="product.count" aria-label="Search" class="form-control" style="width: 100px">
                 </td>
                 <td class="font-weight-bold">
                     <strong>{{product.totalPrice.czkWithVat}} {{mapPriceTypes(product.totalPrice.priceType)}}</strong> s DPH
