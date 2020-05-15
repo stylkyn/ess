@@ -41,8 +41,18 @@ namespace ess_api._4_BL.Services.Product.Responses
         [JsonProperty("buy")]
         public ProductBuyResponse Buy { get; set; }
 
+        [JsonProperty("service")]
+        public ProductServiceResponse Service { get; set; }
+
         [JsonProperty("totalPrice")]
         public PriceResponse TotalPrice { get; set; }
+    }
+
+    public class ProductServiceResponse
+    {
+        [JsonProperty("price")]
+        public PriceResponse Price { get; set; }
+
     }
 
     public class ProductDepositResponse

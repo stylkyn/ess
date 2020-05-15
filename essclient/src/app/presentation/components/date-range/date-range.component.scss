@@ -1,0 +1,18 @@
+@import '../../../../styles/config';
+
+::ng-deep {
+    .calendar {
+        .disabled.off {
+            color: #f10000;
+            border-radius: 0;
+            background: white !important;
+        }
+
+        td {
+            min-width: 37px !important;
+            &.active {
+                background-color: $blue !important;
+            }
+        }
+    }
+}

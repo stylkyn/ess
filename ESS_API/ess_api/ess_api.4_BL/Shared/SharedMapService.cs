@@ -8,6 +8,7 @@ using ess_api._4_BL.Shared.Responses;
 using ess_api.Core.Model;
 using ess_api.Core.Model.Shared;
 using Libraries.Authetification.Responses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -225,9 +226,53 @@ namespace ess_api._4_BL.Shared
             };
         }
 
+        public ProductDetailResponse MapProductDetail(ProductModel request, List<ProductAvailability> availabilities = null)
+        {
+            return new ProductDetailResponse
+            {
+                Id = request.Id.ToString(),
+                Name = request.Name,
+                UrlName = request.UrlName,
+                Type = request.Type,
+                PreviewName = request.PreviewName,
+                PreviewDescription = request.PreviewDescription,
+                Image = MapImage(request.Image),
+                Description = request.Description,
+                CategoryId = request.CategoryId,
+                Gallery = request.Gallery.Select(i => MapImage(i)).ToList(),
+                Service = request.Servis != null ? new ProductDetailServiceResponse
+                {
+                    Price = MapPrice(request.Servis.Price),
+                    Availabilities = MapProductAvailablities(availabilities)
+                } : null,
+                Buy = request.Buy != null ? new ProductDetailBuyResponse
+                {
+                    Price = MapPrice(request.Buy.Price),
+                } : null,
+                Deposit = request.Deposit != null ? new ProductDetailDepositResponse
+                {
+                    DepositValue = MapPrice(request.Deposit.DepositValue),
+                    Price = MapPrice(request.Deposit.Price),
+                    Availabilities = MapProductAvailablities(availabilities)
+                } : null,
+            };
+        }
+
         public List<ProductResponse> MapProducts(List<ProductModel> product)
         {
             return product.Select(x => MapProduct(x)).ToList();
+        }
+
+        public List<ProductAvailabilityResponse> MapProductAvailablities(List<ProductAvailability> availabilities)
+        {
+            if (availabilities == null)
+                return new List<ProductAvailabilityResponse>();
+
+            return availabilities.Select(x => new ProductAvailabilityResponse
+            {
+                Day = x.Day,
+                FreeCapacity = x.FreeCapacity
+            }).ToList();
         }
 
         /**

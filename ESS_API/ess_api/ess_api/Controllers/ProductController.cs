@@ -48,6 +48,15 @@ namespace ess_api.Controllers
         }
 
         [HttpGet]
+        [RequiredRequest]
+        [Route("GetProductAvailabilities")]
+        public async Task<IHttpActionResult> GetProductAvailablities([FromUri] ProductAvailabilityRequest request)
+        {
+            var response = await _productService.GetProductAvailabilities(request);
+            return new CreateResult(response);
+        }
+
+        [HttpGet]
         [Route("GetByUrl")]
         public async Task<IHttpActionResult> GetByUrl([FromUri] GetProductDetailByUrlRequest request)
         {

@@ -7,6 +7,7 @@ import { BasketStorageService, IBasketProductStorage } from '../../../../service
 import { CategoryService } from './../../../../services/API/category.service';
 import { ICategory } from './../../../../models/ICategory';
 import { ProductType } from 'src/app/models/IProduct';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-eshop-detail',

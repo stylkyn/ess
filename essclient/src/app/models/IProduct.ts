@@ -24,15 +24,22 @@ export interface IProduct {
 export interface IProductDeposit {
     depositValue: IPrice;
     price: IPrice;
+    availabilities: IProductAvailability[];
 }
 
 export interface IProductServis {
     price: IPrice;
-    servisDate: Date;
+    availabilities: IProductAvailability[];
 }
 
 export interface IProductBuy {
     price: IPrice;
+}
+
+export interface IProductAvailability
+{
+    day: string;
+    freeCapacity: number;
 }
 
 export const getProductTypeName = (type: ProductType) => {

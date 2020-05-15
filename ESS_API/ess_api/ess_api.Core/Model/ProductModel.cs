@@ -41,7 +41,6 @@ namespace ess_api.Core.Model
     public class ProductServis
     {
         public Price Price { get; set; }
-        public DateTime ServisDate { get; set; }
     }
 
     public class ProductDeposit

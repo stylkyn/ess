@@ -39,8 +39,20 @@ namespace ess_api._4_BL.Services.Product.Responses
         [JsonProperty("deposit")]
         public ProductDetailDepositResponse Deposit { get; set; }
 
+        [JsonProperty("service")]
+        public ProductDetailServiceResponse Service { get; set; }
+
         [JsonProperty("buy")]
         public ProductDetailBuyResponse Buy { get; set; }
+    }
+
+    public class ProductDetailServiceResponse
+    {
+        [JsonProperty("price")]
+        public PriceResponse Price { get; set; }
+
+        [JsonProperty("availabilities")]
+        public List<ProductAvailabilityResponse> Availabilities { get; set; }
     }
 
     public class ProductDetailDepositResponse
@@ -51,7 +63,8 @@ namespace ess_api._4_BL.Services.Product.Responses
         [JsonProperty("depositValue")]
         public PriceResponse DepositValue { get; set; } // deposit value
 
-        public List<DateTime> InvalidDays { get; set; } // blocked days
+        [JsonProperty("availabilities")]
+        public List<ProductAvailabilityResponse> Availabilities { get; set; } // available days
     }
 
     public class ProductDetailBuyResponse

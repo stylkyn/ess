@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import * as moment from 'moment';
 import { LocaleConfig } from 'ngx-daterangepicker-material';
 
@@ -8,23 +8,15 @@ import { LocaleConfig } from 'ngx-daterangepicker-material';
     styleUrls: ['./date-range.component.scss']
 })
 export class DateRangeComponent implements OnInit {
+    @Input() invalidFunction: (day: moment.Moment) => boolean;
+
     private momentCs = moment;
-    public minDate = moment(new Date());
-
+    public minDate: moment.Moment;
+    public maxDate: moment.Moment;
     public config: LocaleConfig = {};
-    public ranges: any = {
-        'Dnes': [moment(), moment()],
-        'Včera': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-        'This Month': [moment().startOf('month'), moment().endOf('month')],
-        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-    };
 
-    invalidDates: moment.Moment[] = [moment().add(2, 'days'), moment().add(3, 'days'), moment().add(5, 'days')];
-
-    public isInvalidDate = (m: moment.Moment) =>  {
-        return this.invalidDates.some(d => d.isSame(m, 'day'));
+    public isInvalidDate = (day: moment.Moment) => {
+        return this.invalidFunction(day);
     }
 
     constructor() {
@@ -37,11 +29,14 @@ export class DateRangeComponent implements OnInit {
             cancelLabel: 'Zrušit', // detault is 'Cancel'
             applyLabel: 'Potvrdit', // detault is 'Apply'
             clearLabel: 'Smazat', // detault is 'Clear'
-            customRangeLabel: 'Custom range',
             daysOfWeek: this.momentCs.weekdaysMin(),
             monthNames: this.momentCs.monthsShort(),
             firstDay: 1 // first day is monday
         };
+
+        this.minDate = moment(new Date());
+        this.maxDate = moment(this.minDate);
+        this.maxDate.add(1, 'M');
     }
 
     ngOnInit() {

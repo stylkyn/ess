@@ -1,10 +1,5 @@
 import { APIService } from './API.service';
-// import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 
-// @Injectable({
-//   providedIn: 'root'
-// })
 export class APIRepository<T> {
 
   protected className: string;

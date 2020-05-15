@@ -2,6 +2,13 @@
     <div class="col-8">
         <form [formGroup]="transportForm">
             <mdb-card>
+                <mdb-card-header class="bg-white">Datum příjezdu technika</mdb-card-header>
+                <!-- <p class="pl-3 pt-2">Vyberte datum příjezdu technika</p> -->
+                <app-date-range
+                    [invalidFunction]="invalidDateFunction">
+                </app-date-range>
+            </mdb-card>
+            <mdb-card class="mt-3">
                 <mdb-card-header class="bg-white">Doprava</mdb-card-header>
                 <ul class="list-group list-group-flush">
                     <li *ngFor="let transport of transports; let i = index" class="list-group-item">
