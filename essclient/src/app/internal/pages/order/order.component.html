@@ -44,13 +44,13 @@
         </tr>
         <tr>
             <th nzColumnKey="email">Číslo objednávky</th>
-            <th nzColumnKey="firstname">Zákazník</th>
-            <th nzColumnKey="firstname">Stav</th>
-            <th nzColumnKey="firstname">Zaplacená</th>
-            <th nzColumnKey="firstname">Služba</th>
-            <th nzColumnKey="firstname">Agent</th>
-            <th nzColumnKey="firstname">Cena bez DPH</th>
-            <th nzColumnKey="firstname">Cena s DPH</th>
+            <th nzColumnKey="customer">Zákazník</th>
+            <th nzColumnKey="state">Stav</th>
+            <th nzColumnKey="payment">Zaplacená</th>
+            <th nzColumnKey="service">Služba</th>
+            <th nzColumnKey="agent">Agent</th>
+            <th nzColumnKey="priceWithoutVat">Cena bez DPH</th>
+            <th nzColumnKey="priceWithVat">Cena s DPH</th>
             <th class="text-right"></th>
         </tr>
     </thead>
@@ -79,7 +79,8 @@
                 <div class="d-flex flex-row align-items-center">
                     {{ item.service?.userId ? findUserName(item.service?.userId) : '' }}
                     <button *ngIf="item.service" class="ml-2" (click)="changeAssignAgentModal(item, assignAgentModal)" nz-button nzsi nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Upravit stav platby">
-                        <i nz-icon nzType="plus" nzTheme="outline"></i>
+                        <i *ngIf="!item.service.userId" nz-icon nzType="plus" nzTheme="outline"></i>
+                        <i *ngIf="item.service.userId" nz-icon nzType="edit" nzTheme="outline"></i>
                     </button>
                 </div>
             </td>
@@ -140,7 +141,7 @@
         <nz-form-item>
             <nz-form-label>Vyberte agenta k objednávce</nz-form-label>
             <nz-form-control>
-                <nz-select class="w-100" nzShowSearch nzAllowClear nzPlaceHolder="Vyberte agenta" (ngModelChange)="agentChange($event)" [(ngModel)]="selectedAgentId">
+                <nz-select [ngModelOptions]="{standalone: true}" class="w-100" nzShowSearch nzAllowClear nzPlaceHolder="Vyberte agenta" (ngModelChange)="agentChange($event)" [(ngModel)]="selectedAgentId">
                     <nz-option *ngFor="let item of usersOptions" [nzLabel]="item.name + ' | ' + item.email" [nzValue]="item.id"></nz-option>
                 </nz-select>
             </nz-form-control>

@@ -194,11 +194,33 @@ namespace ess_api._4_BL.Services.Order
             return new Response<OrderResponse>(ResponseStatus.Ok, response);
         }
 
+        public async Task<Response<OrderResponse>> SetOrderAgent(SetOrderAgentRequest request)
+        {
+            var order = await _uow.Orders.FindAsync(new Guid(request.OrderId));
+            if (order == null)
+                return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.CannotFindOrder);
+
+            order.Service.UserId = request.UserId;
+            order.State = OrderState.AgentReady;
+            order = await _uow.Orders.FindAndReplaceAsync(order.Id, order);
+
+            var response = _mapService.MapOrder(order);
+            return new Response<OrderResponse>(ResponseStatus.Ok, response);
+        }
+
         public async Task<Response<OrderResponse>> SetOrderState(SetOrderStateRequest request)
         {
             var order = await _uow.Orders.FindAsync(new Guid(request.OrderId));
             if (order == null)
                 return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.CannotFindOrder);
+
+            // agent can set only specific states
+            if (!request.RequestIdentity.HasAdminAccess && request.RequestIdentity.HasAgentAccess)
+            {
+                var availableStates = new List<OrderState> { OrderState.Finished };
+                if (!availableStates.Contains(request.State))
+                    return new Response<OrderResponse>(ResponseStatus.BadRequest, null, ResponseMessages.AgentHasNotPermissionSetThisState);
+            }
 
             order.State = request.State;
             order = await _uow.Orders.FindAndReplaceAsync(order.Id, order);

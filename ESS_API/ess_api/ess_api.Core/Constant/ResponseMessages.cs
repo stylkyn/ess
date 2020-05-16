@@ -16,6 +16,7 @@ namespace ess_api.Core.Constant
         public const string CannotAssignOrderToCustomer = "cannot-assign-order-to-customer";
         public const string CannotAssignPaymentToOrder = "cannot-assign-payment-to-order";
         public const string CannotAssignTransportToOrder = "cannot-assign-transport-to-order";
+        public const string AgentHasNotPermissionSetThisState = "agent-has-not-permission-set-this-state";
 
         // user
         public const string CannotDeleteYourself = "cannot-delete-yourselft";

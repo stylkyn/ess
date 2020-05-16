@@ -170,6 +170,9 @@ export class OrderComponent implements OnInit {
     // agent logic
     changeAssignAgentModal(order: IOrder, tplContent: TemplateRef<{}>) {
         this.selectedChangePaymentState = order.payment.state;
+        if (order.service?.userId) {
+            this.selectedAgentId = order.service?.userId;
+        }
         this._modalNz.create({
             nzTitle: `Opravdu chcete přiřadit agenta k objednávce - ${order.orderNumberFormatted}?`,
             nzCancelText: 'Zrušit',

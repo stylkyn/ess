@@ -18,7 +18,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 
 @NgModule({
     imports: [
-    CommonModule,
+        CommonModule,
         routing,
         ComponentsModule,
         FormsModule,

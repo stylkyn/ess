@@ -91,6 +91,15 @@ namespace ess_api.Controllers
 
         [HttpPut]
         [JwtAuthenticationAdmin]
+        [Route("SetOrderAgent")]
+        public async Task<IHttpActionResult> SetOrderAgent([FromBody] SetOrderAgentRequest request)
+        {
+            var response = await _orderService.SetOrderAgent(request);
+            return new CreateResult(response);
+        }
+
+        [HttpPut]
+        [JwtAuthenticationAdmin]
         [Route("SetOrderState")]
         public async Task<IHttpActionResult> SetOrderState([FromBody] SetOrderStateRequest request)
         {
