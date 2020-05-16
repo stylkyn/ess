@@ -1,12 +1,34 @@
 <div class="row">
     <div class="col-8">
         <form [formGroup]="transportForm">
-            <mdb-card>
+            <mdb-card *ngIf="showServiceCard">
                 <mdb-card-header class="bg-white">Datum příjezdu technika</mdb-card-header>
-                <!-- <p class="pl-3 pt-2">Vyberte datum příjezdu technika</p> -->
-                <app-date-range
-                    [invalidFunction]="invalidDateFunction">
-                </app-date-range>
+                <mdb-card-body>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="d-flex justify-content-center">
+                                <app-date-range
+                                    [invalidFunction]="invalidDateFunction"
+                                    (changeSelectedDate)="selectedDate($event)"
+                                    [selectedDate]="selectedServisDate">
+                                </app-date-range>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="ServisBox-container">
+                                <div *ngIf="!selectedServisDate" class="ServisBox">
+                                    <mdb-icon class="opacity-8" size="4x" fas icon="tools"></mdb-icon>
+                                    <p class="pl-3 pt-4">Vyberte plánovaný přijezd technika</p>
+                                </div>
+                                <div *ngIf="selectedServisDate" class="ServisBox">
+                                    <mdb-icon size="4x" fas icon="tools"></mdb-icon>
+                                    <p class="pl-3 pt-3">Plánovaný přijezd technika</p>
+                                    <p class="h3">{{selectedServisDate?.format("D.M. YYYY")}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mdb-card-body>
             </mdb-card>
             <mdb-card class="mt-3">
                 <mdb-card-header class="bg-white">Doprava</mdb-card-header>

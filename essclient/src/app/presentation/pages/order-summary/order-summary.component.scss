@@ -88,3 +88,14 @@
         }
     }
 }
+::ng-deep {
+    .ServisBox {
+        text-align: center;
+        vertical-align: center;
+        &-icon {
+            align-items: center;
+            justify-content: center;
+            display: flex;
+        }
+    }
+}

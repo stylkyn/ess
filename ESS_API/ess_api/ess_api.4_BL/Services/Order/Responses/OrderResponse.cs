@@ -38,7 +38,10 @@ namespace ess_api._4_BL.Services.Order.Responses
 
     public class OrderServiceResponse
     {
+        [JsonProperty("date")]
         public DateTime Date { get; set; }
+
+        [JsonProperty("userId")]
         public string UserId { get; set; } // user agent id
     }
 

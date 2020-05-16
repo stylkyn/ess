@@ -7,6 +7,7 @@ import { IGetOrderRequets } from './../../../services/API/order.service';
 import { MapPriceTypes } from 'src/app/models/IPrice';
 import { PaymentType } from 'src/app/models/IPayment';
 import { TransportType } from 'src/app/models/ITransport';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-order-summary',
@@ -19,6 +20,7 @@ export class OrderSummaryComponent implements OnInit {
     TransportType = TransportType;
     PaymentType = PaymentType;
     mapPriceTypes = MapPriceTypes;
+    moment = moment;
 
     public get order(): IOrder {
         return this._orderService.activeOrder;

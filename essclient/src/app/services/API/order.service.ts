@@ -29,6 +29,11 @@ export interface ISetOrderRequest {
     transport: IOrderTransportRequest;
     payment: IOrderPaymentRequest;
     calculateOrder: ICalculateOrderRequest;
+    service: IServiceOrderRequest | null;
+}
+
+export interface IServiceOrderRequest {
+    date: string;
 }
 
 export interface IOrderCustomerRequest {
@@ -79,6 +84,10 @@ export class OrderService extends APIRepository<IProduct> {
 
     constructor (public _API: APIService) {
         super(_API, 'Orders');
+    }
+
+    public get hasService(): boolean {
+        return this.calculatedOrder?.products?.some(x => x.product?.servis != null);
     }
 
     public fetchCalculatedOrder(request: ICalculateOrderRequest): Promise<ICalculatedOrder> {

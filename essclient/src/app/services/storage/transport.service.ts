@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ITransport } from 'src/app/models/ITransport';
+import * as moment from 'moment';
 
 const TransportLocalStorageName = 'transport';
 

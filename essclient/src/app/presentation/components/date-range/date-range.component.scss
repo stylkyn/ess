@@ -3,7 +3,7 @@
 ::ng-deep {
     .calendar {
         .disabled.off {
-            color: #f10000;
+            color: #f10000 !important;
             border-radius: 0;
             background: white !important;
         }

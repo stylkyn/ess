@@ -6,5 +6,8 @@
     [isInvalidDate]="isInvalidDate"
     [singleDatePicker]="true"
     [alwaysShowCalendars]="true"
+    (startDateChanged)="changeDate($event)"
+    [startDate]="selectedDateInternal"
+    [endDate]="selectedDateInternal"
    >
 </ngx-daterangepicker-material>

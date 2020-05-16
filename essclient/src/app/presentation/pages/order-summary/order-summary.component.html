@@ -58,7 +58,47 @@
         </div>
     </mdb-card>
     <div class="row">
-        <div class="col-6">
+        <div class="col-12">
+            <mdb-card class="mt-4">
+                <div class="table-responsive">
+                    <table class="table product-table mb-0">
+                        <tbody>
+                            <tr>
+                                <td colspan="2">
+                                    <h4 class="mt-2">
+                                        <strong>Celkem s DPH</strong>
+                                    </h4>
+                                </td>
+                                <td colspan="4" class="text-right">
+                                    <h4 *ngIf="order?.calculatedData?.total?.totalPrice" class="mt-2">
+                                        <strong>{{order.calculatedData.total.totalPrice.czkWithVat}} {{mapPriceTypes(order.calculatedData.total.totalPrice.priceType)}}</strong>
+                                    </h4>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </mdb-card>
+        </div>
+        <div class="col">
+            <mdb-card class="mt-4" *ngIf="order.service">
+                <mdb-card-header class="bg-white">Datum příjezdu technika</mdb-card-header>
+                <mdb-card-body>
+                    <div class="ServisBox">
+                        <div class="row">
+                            <div class="ServisBox-icon col">
+                                <mdb-icon size="4x" fas icon="tools"></mdb-icon>
+                            </div>
+                            <div class="col">
+                                <p>Plánovaný přijezd technika</p>
+                                <p class="h3">{{order.service.date && moment(order.service.date)?.format("D.M. YYYY")}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </mdb-card-body>
+            </mdb-card>
+        </div>
+        <div class="col">
             <mdb-card class="mt-4">
                 <mdb-card-header class="bg-white">Doprava</mdb-card-header>
                 <div class="table-responsive">
@@ -86,7 +126,7 @@
                 </div>
             </mdb-card>
         </div>
-        <div class="col-6">
+        <div class="col">
             <mdb-card class="mt-4">
                 <mdb-card-header class="bg-white">Platba</mdb-card-header>
                 <div class="table-responsive">
@@ -115,26 +155,6 @@
             </mdb-card>
         </div>
     </div>
-    <mdb-card class="mt-4">
-        <div class="table-responsive">
-            <table class="table product-table mb-0">
-                <tbody>
-                    <tr>
-                        <td colspan="2">
-                            <h4 class="mt-2">
-                                <strong>Celkem s DPH</strong>
-                            </h4>
-                        </td>
-                        <td colspan="4" class="text-right">
-                            <h4 *ngIf="order?.calculatedData?.total?.totalPrice" class="mt-2">
-                                <strong>{{order.calculatedData.total.totalPrice.czkWithVat}} {{mapPriceTypes(order.calculatedData.total.totalPrice.priceType)}}</strong>
-                            </h4>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </mdb-card>
     <hr />
     <div class="row mt-4">
         <div class="col-6">
