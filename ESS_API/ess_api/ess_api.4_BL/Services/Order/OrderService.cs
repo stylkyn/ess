@@ -96,9 +96,14 @@ namespace ess_api._4_BL.Services.Order
                 // if user has order in progress, use the exist order
                 if (latestOrder != null)
                     order = latestOrder;
-                // if user has no order in progress, assign user to new order
-                else order.Customer = new OrderCustomer { UserId = user.Id.ToString() };
+            } else
+            {
+                // create user if user is not logged and email is not already exist
+                var userEmailExist = await _uow.Users.FindManyAsync(x => x.Email == request.Customer.Personal.Contact.Email);
+                if (userEmailExist.Count == 0)
+                    user = await _userSharedService.Add(request.Customer?.Personal?.Contact?.Email, request.Customer?.Personal?.Password);
             }
+
             // if user with this email already exist
             if (user == null)
                 return new Response<OrderResponse>(ResponseStatus.BadRequest, null, ResponseMessages.CannotAssignOrderToCustomer);
@@ -150,10 +155,6 @@ namespace ess_api._4_BL.Services.Order
 
             if (request.Customer != null)
             {
-                // create user if user is not logged
-                if (!request.RequestIdentity.IsAuthentificated)
-                    user = await _userSharedService.Add(request.Customer?.Personal?.Contact?.Email);
-
                 // assign customer data
                 order.Customer = new OrderCustomer
                 {

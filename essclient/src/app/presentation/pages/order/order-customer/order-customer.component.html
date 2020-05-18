@@ -36,6 +36,22 @@
                             </div>
                         </div>
                     </div>
+                    <div *ngIf="!loggedUser" class="row">
+                        <div class="col-6">
+                            <div class="md-form">
+                                <input id="password" formControlName="password" type="password" class="form-control" mdbInput mdbValidate>
+                                <label for="password">Heslo</label>
+                                <mdb-error *ngIf="password.invalid && (password.dirty || password.touched)">Heslo musí mít 6 a více znaků</mdb-error>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="md-form">
+                                <input id="passwordConfirm" formControlName="passwordConfirm" type="password" class="form-control" mdbInput mdbValidate>
+                                <label for="passwordConfirm">Potvrzení hesla</label>
+                                <mdb-error *ngIf="passwordConfirm.invalid && (passwordConfirm.dirty || passwordConfirm.touched)">Hesla se neshodují</mdb-error>
+                            </div>
+                        </div>
+                    </div>
                 </mdb-card-body>
             </mdb-card>
             <mdb-card formGroupName="personal" class="mt-3">

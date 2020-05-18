@@ -1,7 +1,7 @@
 import { APIService, IResponse } from './API.service';
 import { APIRepository } from './API-repository';
 import { Observable } from 'rxjs';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { IUser, cookieJwtName, IUserOption } from 'src/app/models/IUser';
 import { map } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
@@ -59,6 +59,8 @@ export class UserService extends APIRepository<IUser> {
     private _user: IUser;
     private isLoadedPromise: Promise<IUser>;
     private _userOptions: IUserOption[] = [];
+    
+    public onUserChange: EventEmitter<IUser> = new EventEmitter();
 
     public get getIsLoadedPromise(): Promise<IUser> {
         return this.isLoadedPromise;
@@ -74,7 +76,7 @@ export class UserService extends APIRepository<IUser> {
 
     public setUser(value) {
         this._user = value;
-
+        this.onUserChange.next(value);
         if (!value) {
             this.isLoadedPromise = Promise.resolve(null);
         }

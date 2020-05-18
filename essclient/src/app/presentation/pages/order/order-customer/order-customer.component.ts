@@ -6,6 +6,7 @@ import { clearValidators } from 'src/app/utils/formUtils';
 import { OrderBussinessService } from './../order.service';
 import { IOrder } from './../../../../models/IOrder';
 import { presentationOrderSummaryRoute } from 'src/app/presentation/theme/presentation-routes';
+import { UserService, ILoginRequest } from './../../../../services/API/user.service';
 
 @Component({
   selector: 'app-order-customer',
@@ -28,6 +29,9 @@ export class OrderCustomerComponent implements OnInit {
     get phone () { return this.customerForm.get('personal.contact.phone'); }
     get email () { return this.customerForm.get('personal.contact.email'); }
 
+    get password () { return this.customerForm?.get('personal.password'); }
+    get passwordConfirm () { return this.customerForm?.get('personal.passwordConfirm'); }
+
 
     // company
     get invoiceToCompany () { return this.customerForm.get('invoiceToCompany'); }
@@ -48,11 +52,14 @@ export class OrderCustomerComponent implements OnInit {
     get termsAndConditions () { return this.customerForm.get('termsAndConditions'); }
     get gpdrTerms () { return this.customerForm.get('gpdrTerms'); }
 
+    get loggedUser () { return this._userService.user; }
+
     constructor(
         private _formBuilder: FormBuilder,
         private _router: Router,
         private _customerStorage: CustomerStorageService,
-        private _orderBussiness: OrderBussinessService
+        private _orderBussiness: OrderBussinessService,
+        private _userService: UserService
         ) {
         this.customerForm = this._formBuilder.group({
             personal: this._formBuilder.group({
@@ -68,7 +75,9 @@ export class OrderCustomerComponent implements OnInit {
                 contact: this._formBuilder.group({
                     phone: [_customerStorage.customerInStorage?.personal?.contact?.phone, Validators.required],
                     email: [_customerStorage.customerInStorage?.personal?.contact?.email, Validators.required],
-                })
+                }),
+                password: ['', [Validators.required, Validators.minLength(6)]],
+                passwordConfirm: ['', [Validators.required, Validators.minLength(6)]],
             }),
             invoiceToCompany: [_customerStorage.customerInStorage?.invoiceToCompany ?? false],
             company: this._formBuilder.group({
@@ -86,6 +95,24 @@ export class OrderCustomerComponent implements OnInit {
             }),
             termsAndConditions: [false, Validators.requiredTrue],
             gpdrTerms: [false, Validators.requiredTrue]
+        }, {
+            validator: (group: any) => {
+                if (!this.loggedUser) {
+                    if (group.value.personal.passwordConfirm === group.value.personal.password 
+                            && group.value.personal.password && group.value.personal.password.length >= 6) {
+                        group.controls.personal.controls.passwordConfirm.setErrors(null);
+                        return null;
+                    }
+                    group.controls.personal.controls.passwordConfirm.setErrors({invalidPasswordConfirm: true});
+
+                    if (group.value.personal.password.length < 6)
+                        group.controls.personal.controls.password.setErrors({invalidPassword: true});
+                    else group.controls.personal.controls.password.setErrors(null);
+
+                    return {invalidPassword: true, invalidPasswordConfirm: true};
+                }
+                return null;
+            }
         });
     }
 
@@ -98,6 +125,11 @@ export class OrderCustomerComponent implements OnInit {
             this.setCompanyAddressValidator(transportToSameAddress));
 
         this.setCompanyValidator(this._customerStorage.customerInStorage?.invoiceToCompany);
+
+        this.setPasswordValidator(this._userService.user ? false : true);
+        this._userService.onUserChange.subscribe(user => {
+            this.setPasswordValidator(user ? false : true);
+        });
     }
 
     /**
@@ -106,6 +138,9 @@ export class OrderCustomerComponent implements OnInit {
     public async onConfirm () {
         this.saveCustomerData(); // save to localstorage
         const order: IOrder = await this._orderBussiness.setOrder();
+
+        if(!this.loggedUser)
+            await this.login();
 
         this._router.navigate([`${presentationOrderSummaryRoute}`, order.id]);
     }
@@ -121,6 +156,16 @@ export class OrderCustomerComponent implements OnInit {
             clearValidators(this.companyVat);
         }
         this.setCompanyAddressValidator(validate);
+    }
+
+    private setPasswordValidator(validate: boolean) {
+        if (validate) {
+            this.password.setValidators([Validators.required, Validators.minLength(6)]);
+            this.passwordConfirm.setValidators([Validators.required, Validators.minLength(6)]);
+        } else {
+            clearValidators(this.password);
+            clearValidators(this.passwordConfirm);
+        }
     }
 
     private setCompanyAddressValidator(validate: boolean) {
@@ -145,6 +190,7 @@ export class OrderCustomerComponent implements OnInit {
             personal: {
                 firstname: formValues.personal.firstname,
                 lastname: formValues.personal.lastname,
+                password: formValues.personal.password,
                 address: {
                     country: formValues.personal.address.conutry,
                     postalCode: formValues.personal.address.postalCode,
@@ -173,5 +219,13 @@ export class OrderCustomerComponent implements OnInit {
             transportToSameAddress: formValues.company.transportToSameAddress,
         };
         this._customerStorage.set(customer);
+    }
+
+    private async login() {
+        const request: ILoginRequest = {
+            email: this.email.value,
+            password: this.password.value
+        };
+        await this._userService.verifyLogin(request).toPromise();
     }
 }

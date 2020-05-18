@@ -16,6 +16,8 @@ namespace ess_api._4_BL.Services.Requests
 
         [Required]
         public UserContact Contact { get; set; }
+
+        public string Password { get; set; }
     }
 
     public class UserCompanyRequest
