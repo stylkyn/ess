@@ -9,6 +9,8 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { FormsModule } from '@angular/forms';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { DeleteOutline } from '@ant-design/icons-angular/icons';
 
 @NgModule({
     imports: [
@@ -21,7 +23,9 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
         NzInputModule,
         NzIconModule,
         FormsModule,
-        NzModalModule
+        NzModalModule,
+        NzToolTipModule,
+        NzIconModule.forChild([DeleteOutline]),
     ],
     declarations: [UserComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

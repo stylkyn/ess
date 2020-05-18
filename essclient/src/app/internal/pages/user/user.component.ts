@@ -20,6 +20,10 @@ export class UserComponent implements OnInit {
     sortType: SortType = null;
     sortField: UserSortField = null;
 
+    public get loggedUser(): IUser {
+        return this._userService.user;
+    }
+
     constructor (
         private _userService: UserService,
         private _modalNz: NzModalService
@@ -96,7 +100,25 @@ export class UserComponent implements OnInit {
     promoteAgent(user: IUser) {
         const request: IPromoteAgentRequest = {
             userId: user.id
-        }
+        };
         this._userService.promoteAgent(request).subscribe(_ => this.loadData());
+    }
+
+    // remove logic
+    removeUser(user: IUser) {
+        this._userService.delete(user.id).subscribe(x => {
+            this.loadData();
+        });
+    }
+
+    showDeleteConfirm(user: IUser): void {
+        this._modalNz.confirm({
+            nzTitle: `Opravdu chcete odstranit uživatele?`,
+            nzContent: `<b style="color: red;">${user.personal?.firstname} ${user.personal?.lastname} | ${user.email}</br>`,
+            nzOkText: 'Smazat',
+            nzOkType: 'danger',
+            nzOnOk: () => this.removeUser(user),
+            nzCancelText: 'Zrušit'
+        });
     }
 }

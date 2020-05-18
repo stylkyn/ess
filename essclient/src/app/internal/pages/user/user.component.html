@@ -24,7 +24,7 @@
                     <button (click)="fullTextChange()" nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
                 </ng-template>
             </th>
-            <th colspan="1"></th>
+            <th colspan="2"></th>
         </tr>
         <tr>
             <th nzColumnKey="email" [nzSortFn]="true">Email</th>
@@ -32,6 +32,7 @@
             <th nzColumnKey="lastname" [nzSortFn]="true">Přijmení</th>
             <th nzColumnKey="companyName" [nzSortFn]="true">Název firmy</th>
             <th nzColumnKey="role" [nzSortFn]="true">Role</th>
+            <th colspan="1"></th>
         </tr>
     </thead>
     <tbody>
@@ -54,6 +55,12 @@
                         <i nz-icon nzType="edit" nzTheme="outline"></i>
                     </button>
                 </div>
+            </td>
+            <td class="d-flex justify-content-end">
+                <button *ngIf="loggedUser.email != item.email" (click)="showDeleteConfirm(item)" nz-button nzType="danger" nzShape="circle"
+                    nz-tooltip nzTooltipTitle="Odstranit uživatele">
+                    <i nz-icon nzType="delete" nzTheme="outline"></i>
+                </button>
             </td>
         </tr>
     </tbody>

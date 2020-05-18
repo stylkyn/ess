@@ -157,4 +157,8 @@ export class UserService extends APIRepository<IUser> {
     public search(request: ISearchUserRequest): Observable<IResponse<IUser[]>> {
         return this._API.getQueryTotal<IUser[]>(`${this.className}/Search`, request);
     }
+
+    public delete(id: string): Observable<any> {
+        return this._API.delete<any>(`${this.className}/Delete?Id=${id}`);
+    }
 }
