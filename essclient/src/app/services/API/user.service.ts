@@ -59,7 +59,7 @@ export class UserService extends APIRepository<IUser> {
     private _user: IUser;
     private isLoadedPromise: Promise<IUser>;
     private _userOptions: IUserOption[] = [];
-    
+
     public onUserChange: EventEmitter<IUser> = new EventEmitter();
 
     public get getIsLoadedPromise(): Promise<IUser> {
@@ -129,6 +129,10 @@ export class UserService extends APIRepository<IUser> {
         return this._API.post(`${this.className}/Add`, request).pipe(
             map((user: IUser) => {
                 this.setUser(user);
+                this._cookieService.set(
+                    cookieJwtName,
+                    JSON.stringify(user.token),
+                    new Date(user.token.expiresDate).getDate());
                 return user;
             }));
     }
