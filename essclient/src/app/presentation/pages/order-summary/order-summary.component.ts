@@ -40,7 +40,5 @@ export class OrderSummaryComponent implements OnInit {
             orderId: this.route.snapshot.paramMap.get('orderId')
         };
         await this._orderService.fetchOrder(request);
-        console.log(orderSummaryStates(this.order));
-        console.log(this.order);
     }
 }

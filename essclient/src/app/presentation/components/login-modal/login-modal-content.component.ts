@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { MDBModalRef } from 'ng-uikit-pro-standard';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService, ILoginRequest } from 'src/app/services/API/user.service';
@@ -10,6 +10,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./login-modal-content.component.scss']
 })
 export class LoginModalContentComponent implements OnInit{
+    @Output() showRegister: EventEmitter<any> = new EventEmitter();
+    
     public busyForm: Subscription;
     public loginForm: FormGroup;
     public isBadAccess = false;
@@ -50,6 +52,12 @@ export class LoginModalContentComponent implements OnInit{
                 this._modalRef.hide();
             },
             (e) => this.isBadAccess = true);
+    }
+
+    showRegisterModal() {
+        // this._modalRef.hide();
+        this.showRegister.next(true);
+        console.log('aaa')
     }
 
 }

@@ -56,5 +56,5 @@
     </div>
 </mdb-navbar>
 <app-shopping-card-modal #shoppingCardModal></app-shopping-card-modal>
-<app-login-modal #loginModal></app-login-modal>
-<app-register-modal #registerModal></app-register-modal>
+<app-login-modal (showRegister)="registerModal.showModal()" #loginModal></app-login-modal>
+<app-register-modal (showLogin)="loginModal.showModal()" #registerModal></app-register-modal>

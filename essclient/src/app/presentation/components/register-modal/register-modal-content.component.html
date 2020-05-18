@@ -34,9 +34,15 @@
         <button [ngBusy]="busyForm" [disabled]="registerForm.invalid" (click)="confirmRegister()" mdbBtn color="info" outline="true" rounded="true" block="true" class="my-4 waves-effect z-depth-0" mdbWavesEffect
             type="submit">Registrovat</button>
 
-        <a type="button" mdbBtn floating="true" color="fb" size="sm">
+        <p>
+            Již máte účet u nás?
+            <a className="login-btn" (click)="showLoginModal()">Přihlašte se!</a>
+        </p>
+              
+
+        <!-- <a type="button" mdbBtn floating="true" color="fb" size="sm">
           <mdb-icon fab icon="facebook"></mdb-icon>
-        </a>
+        </a> -->
       </form>
     </mdb-card-body>
   </mdb-card>
