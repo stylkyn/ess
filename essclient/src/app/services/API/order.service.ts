@@ -1,7 +1,7 @@
 import { APIService, IResponse } from './API.service';
 import { APIRepository } from './API-repository';
 import { Injectable } from '@angular/core';
-import { IProduct, initProduct } from 'src/app/models/IProduct';
+import { IProduct, initProduct, ProductType } from 'src/app/models/IProduct';
 import { map } from 'rxjs/operators';
 import { ICalculatedOrder, calculateOrderInit } from '../../models/ICalculateOrder';
 import { IUserPersonal, IUserCompany } from 'src/app/models/IUser';
@@ -87,7 +87,7 @@ export class OrderService extends APIRepository<IProduct> {
     }
 
     public get hasService(): boolean {
-        return this.calculatedOrder?.products?.some(x => x.product?.servis != null);
+        return this.calculatedOrder?.products?.some(x => x.product?.type == ProductType.Servis);
     }
 
     public fetchCalculatedOrder(request: ICalculateOrderRequest): Promise<ICalculatedOrder> {
