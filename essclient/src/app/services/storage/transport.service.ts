@@ -19,6 +19,11 @@ export class TransportStorageService {
         localStorage.setItem(TransportLocalStorageName, JSON.stringify(transport));
     }
 
+    public reset() {
+        this.transportInStorage = null;
+        localStorage.removeItem(TransportLocalStorageName);
+    }
+
     private loadFromStorage() {
         const transport: ITransport = JSON.parse(localStorage.getItem(TransportLocalStorageName));
         if (transport) {

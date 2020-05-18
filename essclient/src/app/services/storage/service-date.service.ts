@@ -18,6 +18,11 @@ export class ServiceDateStorageService {
         localStorage.setItem(ServiceDateLocalStorageName, JSON.stringify(serviceDate));
     }
 
+    public reset() {
+        this.servisDateInStorage = null;
+        localStorage.removeItem(ServiceDateLocalStorageName);
+    }
+
     private loadFromStorage() {
         const serviceDate: string = JSON.parse(localStorage.getItem(ServiceDateLocalStorageName));
         if (serviceDate) {

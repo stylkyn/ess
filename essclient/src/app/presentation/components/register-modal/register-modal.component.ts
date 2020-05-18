@@ -15,6 +15,7 @@ export class RegisterModalComponent implements OnInit {
     }
 
     public showModal() {
+        console.log('b');
         this.modalService.show(RegisterModalContentComponent, {
             backdrop: true,
             keyboard: true,

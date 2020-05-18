@@ -18,6 +18,11 @@ export class PaymentStorageService {
         localStorage.setItem(paymentLocalStorageName, JSON.stringify(payment));
     }
 
+    public reset() {
+        this.paymentInStorage = null;
+        localStorage.removeItem(paymentLocalStorageName);
+    }
+
     private loadFromStorage() {
         const payment: IPayment = JSON.parse(localStorage.getItem(paymentLocalStorageName));
         if (payment) {

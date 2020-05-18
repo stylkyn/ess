@@ -26,6 +26,11 @@ export class CustomerStorageService {
         localStorage.setItem(customerLocalStorageName, JSON.stringify(customer));
     }
 
+    public reset() {
+        this.customerInStorage = null;
+        localStorage.removeItem(customerLocalStorageName);
+    }
+
     private loadFromStorage() {
         const customer: ICustomerStorage = JSON.parse(localStorage.getItem(customerLocalStorageName));
         if (customer) {

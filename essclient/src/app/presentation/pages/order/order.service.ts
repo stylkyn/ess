@@ -73,6 +73,14 @@ export class OrderBussinessService {
                 date: servisDate.toISOString()
             } : null
         };
-        return this._orderService.setOrder(request);
+        return this._orderService.setOrder(request).then(order => {
+            this._basketStorage.reset();
+            this._transportStorage.reset();
+            this._serviceDateStorage.reset();
+            this._paymentStorage.reset();
+            this._customerStorage.reset();
+
+            return order;
+        });
     }
 }

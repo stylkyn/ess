@@ -43,6 +43,10 @@ export class BasketStorageService {
         this.setProductsToStorage();
     }
 
+    public reset() {
+        this.productsInStorage = [];
+        localStorage.removeItem(basketLocalStorageName);
+    }
 
     private setProductsToStorage() {
         const basket: IBasket = {
