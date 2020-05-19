@@ -58,7 +58,6 @@ export class RegisterModalContentComponent implements OnInit{
         });
     }
 
-
     confirmRegister() {
         const request: ICreateUserRequest = {
             email: this.emailForm.value,

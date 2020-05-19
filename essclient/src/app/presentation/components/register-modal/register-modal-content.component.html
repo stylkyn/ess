@@ -1,48 +1,50 @@
 <mdb-card>
     <mdb-card-header class="black-text bg-white text-center py-4">
-      <h5 class="mb-0">
-        <strong>Registrace</strong>
-      </h5>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="_modalRef.hide()">
+            <span aria-hidden="true">×</span>
+        </button>
+        <h5 class="mb-0">
+            <strong>Registrace</strong>
+        </h5>
     </mdb-card-header>
-  
+
     <mdb-card-body class="px-lg-5 pt-0">
-  
-      <form [formGroup]="registerForm"  class="text-center" style="color: #757575;">
-  
-        <div class="md-form">
-            <input formControlName="email" type="email" class="form-control" mdbInput mdbValidate >
-            <label for="materialRegisterFormEmail">E-mail</label>
-            <mdb-error *ngIf="emailForm.invalid && (emailForm.dirty || emailForm.touched)">Špatný formát emailu</mdb-error>
-        </div>
-        <div class="md-form">
-            <input formControlName="password" type="password" class="form-control" mdbInput mdbValidate>
-            <label for="materialRegisterFormPassword">Heslo</label>
-            <mdb-error *ngIf="passwordForm.invalid && (passwordForm.dirty || passwordForm.touched)">Heslo je povinné</mdb-error>
-        </div>
-        <div class="md-form">
-            <input formControlName="passwordConfirm" type="password" class="form-control" mdbInput mdbValidate>
-            <label for="materialRegisterFormPassword">Potvrzení hesla</label>
-            <mdb-error *ngIf="passwordConfirmForm.invalid && (passwordConfirmForm.dirty || passwordConfirmForm.touched)">Hesla se neshodují</mdb-error>
-        </div>
-        <mdb-checkbox formControlName="terms" >Souhlasím s podmínkami</mdb-checkbox>
-        <div *ngIf="termsForm.invalid && (termsForm.dirty || termsForm.touched)" class="alert alert-danger mt-2" role="alert">
-            Souhlas s podmínkami je povinný
-        </div>
-        <div *ngIf="isBadAccess" class="alert alert-danger mt-2" role="alert">
-            Uživatle s tímto emailem již existuje, prosím resetujte si heslo, nebo zadejte jiný email
-        </div>
-        <button [ngBusy]="busyForm" [disabled]="registerForm.invalid" (click)="confirmRegister()" mdbBtn color="info" outline="true" rounded="true" block="true" class="my-4 waves-effect z-depth-0" mdbWavesEffect
-            type="submit">Registrovat</button>
 
-        <p>
-            Máte již účet u nás?
-            <a class="login-btn" (click)="showLoginModal()">Přihlašte se!</a>
-        </p>
-              
+        <form [formGroup]="registerForm" class="text-center" style="color: #757575;">
 
-        <!-- <a type="button" mdbBtn floating="true" color="fb" size="sm">
+            <div class="md-form">
+                <input formControlName="email" type="email" class="form-control" mdbInput mdbValidate>
+                <label for="materialRegisterFormEmail">E-mail</label>
+                <mdb-error *ngIf="emailForm.invalid && (emailForm.dirty || emailForm.touched)">Špatný formát emailu</mdb-error>
+            </div>
+            <div class="md-form">
+                <input formControlName="password" type="password" class="form-control" mdbInput mdbValidate>
+                <label for="materialRegisterFormPassword">Heslo</label>
+                <mdb-error *ngIf="passwordForm.invalid && (passwordForm.dirty || passwordForm.touched)">Heslo je povinné</mdb-error>
+            </div>
+            <div class="md-form">
+                <input formControlName="passwordConfirm" type="password" class="form-control" mdbInput mdbValidate>
+                <label for="materialRegisterFormPassword">Potvrzení hesla</label>
+                <mdb-error *ngIf="passwordConfirmForm.invalid && (passwordConfirmForm.dirty || passwordConfirmForm.touched)">Hesla se neshodují</mdb-error>
+            </div>
+            <mdb-checkbox formControlName="terms">Souhlasím s podmínkami</mdb-checkbox>
+            <div *ngIf="termsForm.invalid && (termsForm.dirty || termsForm.touched)" class="alert alert-danger mt-2" role="alert">
+                Souhlas s podmínkami je povinný
+            </div>
+            <div *ngIf="isBadAccess" class="alert alert-danger mt-2" role="alert">
+                Uživatle s tímto emailem již existuje, prosím resetujte si heslo, nebo zadejte jiný email
+            </div>
+            <button [ngBusy]="busyForm" [disabled]="registerForm.invalid" (click)="confirmRegister()" mdbBtn color="info" outline="true" rounded="true" block="true" class="my-4 waves-effect z-depth-0" mdbWavesEffect type="submit">Registrovat</button>
+
+            <p>
+                Máte již účet u nás?
+                <a class="login-btn" (click)="showLoginModal()">Přihlašte se!</a>
+            </p>
+
+
+            <!-- <a type="button" mdbBtn floating="true" color="fb" size="sm">
           <mdb-icon fab icon="facebook"></mdb-icon>
         </a> -->
-      </form>
+        </form>
     </mdb-card-body>
-  </mdb-card>
+</mdb-card>
