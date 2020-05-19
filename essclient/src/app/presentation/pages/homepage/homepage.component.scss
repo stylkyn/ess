@@ -6,6 +6,9 @@
 }
 #mainCarousel{
     height: calc(100vh - 100px);
+    h1, h2, h3, h4, h5, h6, span, p, a {
+        color: white !important;
+    } 
     .carousel{
         height: 100%;
         .carousel-item{
