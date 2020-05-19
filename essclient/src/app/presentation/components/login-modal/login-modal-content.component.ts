@@ -55,9 +55,8 @@ export class LoginModalContentComponent implements OnInit{
     }
 
     showRegisterModal() {
-        // this._modalRef.hide();
+        this._modalRef.hide();
         this.showRegister.next(true);
-        console.log('aaa')
     }
 
 }

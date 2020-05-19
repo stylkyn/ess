@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MDBModalService } from 'ng-uikit-pro-standard';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { MDBModalService, MDBModalRef } from 'ng-uikit-pro-standard';
 import { RegisterModalContentComponent } from './register-modal-content.component';
 
 @Component({
@@ -8,15 +8,16 @@ import { RegisterModalContentComponent } from './register-modal-content.componen
   styleUrls: []
 })
 export class RegisterModalComponent implements OnInit {
-
+    @Output() showLogin: EventEmitter<any> = new EventEmitter();
+    modalRef: MDBModalRef;
+    
     constructor (private modalService: MDBModalService) { }
 
     ngOnInit() {
     }
 
     public showModal() {
-        console.log('b');
-        this.modalService.show(RegisterModalContentComponent, {
+        this.modalRef = this.modalService.show(RegisterModalContentComponent, {
             backdrop: true,
             keyboard: true,
             focus: true,
@@ -25,6 +26,9 @@ export class RegisterModalComponent implements OnInit {
             class: 'modal-center modal-md',
             containerClass: 'center',
             animated: true
+        });
+        this.modalRef.content.showLogin.subscribe(x => {
+            this.showLogin.next(true);
         });
     }
 

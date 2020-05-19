@@ -25,4 +25,8 @@ export class HeaderComponent implements OnInit {
     ngOnInit() {
         
     }
+
+    showRegister() {
+        console.log('bbb');
+    }
 }
