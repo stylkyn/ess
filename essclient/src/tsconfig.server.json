@@ -7,8 +7,8 @@
   "files": [
     "main.server.ts",
     "./app/presentation/theme/theme.module.ts",
+    "./app/internal/theme/theme.module.ts",
     "./../server.ts",
-    // "./app/internal/theme/theme.module.ts"
   ],
   "angularCompilerOptions": {
     "entryModule": "./app/app.server.module#AppServerModule"
