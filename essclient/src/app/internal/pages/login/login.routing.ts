@@ -5,9 +5,8 @@ import { LoginCardComponent } from './login-card/login-card.component';
 
 const APP_ROUTES: Routes = [
     {
-        path: '', component: LoginComponent, children: [
-            { path: '', component: LoginCardComponent }
-        ]
+        path: '', 
+        component: LoginComponent
     }
 ];
 
