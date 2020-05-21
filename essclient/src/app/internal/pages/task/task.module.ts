@@ -4,6 +4,7 @@ import { TaskComponent } from './task.component';
 import { routing } from './task.routing';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -14,6 +15,9 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
       useFactory: adapterFactory
     }),
   ],
-  declarations: [TaskComponent]
+  declarations: [TaskComponent],
+  exports: [
+    RouterModule
+],
 })
 export class TaskModule { }

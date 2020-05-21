@@ -8,6 +8,7 @@ import { routing } from './internal.routing';
 import { CompareValidatorModule } from 'angular-compare-validator';
 import { AdminAuthGuardService } from '../../services/guards/admin-auth-guard.service';
 import { AdminAuthExistGuardService } from './../../services/guards/admin-auth-exist-guard.service';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     imports: [
@@ -33,8 +34,9 @@ import { AdminAuthExistGuardService } from './../../services/guards/admin-auth-e
         AdminAuthExistGuardService
     ],
     exports: [
-        ThemeComponent
+        RouterModule
     ],
+    
     schemas: [NO_ERRORS_SCHEMA],
 })
 export class ThemeModule { }

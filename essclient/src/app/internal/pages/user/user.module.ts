@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { DeleteOutline } from '@ant-design/icons-angular/icons';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     imports: [
@@ -28,6 +29,9 @@ import { DeleteOutline } from '@ant-design/icons-angular/icons';
         NzIconModule.forChild([DeleteOutline]),
     ],
     declarations: [UserComponent],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    exports: [
+        RouterModule
+    ],
 })
 export class UserModule { }

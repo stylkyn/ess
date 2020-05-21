@@ -21,6 +21,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     imports: [
@@ -46,6 +47,9 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
         NzToolTipModule
     ],
     declarations: [ProductComponent, ProductFormComponent],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    exports: [
+        RouterModule
+    ],
 })
 export class ProductModule { }

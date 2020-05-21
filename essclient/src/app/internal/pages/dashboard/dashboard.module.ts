@@ -24,6 +24,9 @@ import { ChartsModule, ChartSimpleModule, WavesModule } from 'ng-uikit-pro-stand
     declarations: [
         DashboardComponent,
         StatsComponent
-    ]
+    ],
+    exports: [
+        RouterModule
+    ],
 })
 export class DashboardModule { }

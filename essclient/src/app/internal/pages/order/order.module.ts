@@ -15,6 +15,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { DeleteOutline, PlusOutline, EyeOutline } from '@ant-design/icons-angular/icons';
 import { NzFormModule } from 'ng-zorro-antd/form';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     imports: [
@@ -35,6 +36,9 @@ import { NzFormModule } from 'ng-zorro-antd/form';
         NzToolTipModule,
         NzFormModule,
     ],
-    declarations: [OrderComponent]
+    declarations: [OrderComponent],
+    exports: [
+        RouterModule
+    ],
 })
 export class OrderModule { }

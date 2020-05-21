@@ -5,6 +5,7 @@ import { LoginComponent } from './login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginCardComponent } from './login-card/login-card.component';
 import { InputsModule, InputUtilitiesModule, WavesModule, ButtonsModule } from 'ng-uikit-pro-standard';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     imports: [
@@ -20,6 +21,9 @@ import { InputsModule, InputUtilitiesModule, WavesModule, ButtonsModule } from '
     declarations: [
         LoginComponent,
         LoginCardComponent
-    ]
+    ],
+    exports: [
+        RouterModule
+    ],
 })
 export class LoginModule { }
