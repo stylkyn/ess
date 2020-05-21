@@ -21,7 +21,7 @@ export class LoginCardComponent implements OnInit {
     subs: Subscription;
 
     public get _lg() {
-        return this.loginForm.controls;
+        return this.loginForm?.controls;
     }
 
     constructor (
@@ -32,19 +32,24 @@ export class LoginCardComponent implements OnInit {
         private _socialLoginSrv: SocialLoginService,
         private _el: ElementRef,
         private _renderer2: Renderer2,
-    ) {
+        ) {
+        }
+        
+    ngOnInit() {
         // Login form
-        this.loginForm = _fb.group({
+        this.loginForm = this._fb.group({
             email: ['', Validators.required],
             password: ['', Validators.required],
         });
-    }
-
-    ngOnInit() {
-        this.loginForm.valueChanges.subscribe(values => this.resetLoginValid());
+        console.log(this.loginForm);
+        this.loginForm.valueChanges.subscribe(values => {
+            console.log(values); 
+            this.resetLoginValid();
+        });
     }
 
     public login() {
+        console.log('login request');
         const login: ILoginRequest = {
             email: this._lg.email.value,
             password: this._lg.password.value

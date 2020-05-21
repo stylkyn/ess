@@ -24,8 +24,6 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
         LoginCardComponent
     ],
     exports: [
-        LoginComponent,
-        LoginCardComponent,
         RouterModule
     ],
 })
