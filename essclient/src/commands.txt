@@ -1,4 +1,4 @@
-rozbalit projekt z https://mdbootstrap.com/
+rozbalit projekt z https://mdbootstrap.com/   pro package for npm install - (git+https://oauth2:4Rse24AzowgQtdoYY27n@git.mdbootstrap.com/mdb/angular/ng-uikit-pro-standard.git)
 nainstalovat npm
 npm install
 
