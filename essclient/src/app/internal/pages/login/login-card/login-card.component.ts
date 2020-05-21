@@ -41,15 +41,12 @@ export class LoginCardComponent implements OnInit {
             email: ['', Validators.required],
             password: ['', Validators.required],
         });
-        console.log(this.loginForm);
         this.loginForm.valueChanges.subscribe(values => {
-            console.log(values); 
             this.resetLoginValid();
         });
     }
 
     public login() {
-        console.log('login request');
         const login: ILoginRequest = {
             email: this._lg.email.value,
             password: this._lg.password.value
