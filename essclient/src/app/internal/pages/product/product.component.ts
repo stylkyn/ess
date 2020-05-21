@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { ProductService, IProductSearchRequest, IProductSearchExtendRequest } from '../../../services/API/product.service';
-import { IProduct, getProductTypeName, ProductType } from '../../../models/Iproduct';
+import { IProduct, getProductTypeName, ProductType } from '../../../models/IProduct';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { CategoryService } from './../../../services/API/category.service';
