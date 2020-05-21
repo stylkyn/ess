@@ -124,28 +124,35 @@ export const orderSummaryStates = (order: IOrder): IOrderStateOption[] => {
 
     const transportType: TransportType = order.transport?.sourceData?.type;
     const paymentType: PaymentType = order.payment?.sourceData?.type;
-    const states: IOrderStateOption[] = [{ type:  OrderState.Confirmed, label: 'Přijatá'}];
+    const states: IOrderStateOption[] = [{ type:  OrderState.Confirmed, label: OrderStateName(OrderState.Confirmed)}];
 
     // payments states
     switch(paymentType) {
         case PaymentType.PaymentOrder:
-            states.push({ type:  OrderState.WaitForPaid, label: 'Čeká na zaplacení'});
+            states.push({ type:  OrderState.WaitForPaid, label: OrderStateName(OrderState.WaitForPaid)});
             break;
         case PaymentType.CashOnDelivery:
             break;
     }
 
+    // // servis states
+    // if (order.service) {
+    //     states.push({ type:  OrderState.AgentAssign, label: OrderStateName(OrderState.AgentAssign)});
+    //     states.push({ type:  OrderState.AgentReady, label: OrderStateName(OrderState.AgentReady)});
+    //     states.push({ type:  OrderState.AgentOnWay, label: OrderStateName(OrderState.AgentOnWay)});
+    // }
+
     // transport states
     switch(transportType) {
         case TransportType.PersonalPickup:
-            states.push({ type:  OrderState.ReadyToPickup, label: 'Připravena k vyzvednutí'});
+            states.push({ type:  OrderState.ReadyToPickup, label: OrderStateName(OrderState.ReadyToPickup)});
             break;
         case TransportType.CzechPost:
         case TransportType.Zasilkovna:
             states.push(
-                { type:  OrderState.ReadyToShip, label: 'Připravena k odeslání'},
-                { type:  OrderState.Sent, label: 'Odeslána'},
-                { type:  OrderState.Delivered, label: 'Doručena'});
+                { type:  OrderState.ReadyToShip, label: OrderStateName(OrderState.ReadyToShip)},
+                { type:  OrderState.Sent, label: OrderStateName(OrderState.Sent)},
+                { type:  OrderState.Delivered, label: OrderStateName(OrderState.Delivered)});
 
     }
     return states;
