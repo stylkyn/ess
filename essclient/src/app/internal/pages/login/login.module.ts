@@ -6,6 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginCardComponent } from './login-card/login-card.component';
 import { InputsModule, InputUtilitiesModule, WavesModule, ButtonsModule } from 'ng-uikit-pro-standard';
 import { RouterModule } from '@angular/router';
+import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzFormModule } from 'ng-zorro-antd/form';
 
 @NgModule({
     imports: [
@@ -16,13 +18,17 @@ import { RouterModule } from '@angular/router';
         InputUtilitiesModule,
         WavesModule,
         ButtonsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NzInputModule,
+        NzFormModule,
     ],
     declarations: [
         LoginComponent,
         LoginCardComponent
     ],
     exports: [
+        LoginComponent,
+        LoginCardComponent,
         RouterModule
     ],
 })

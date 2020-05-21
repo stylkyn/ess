@@ -29,3 +29,11 @@
     width: 20rem !important;
   }
 }
+
+::ng-deep {
+    .text-white {
+        label {
+            color: white !important;
+        }
+    }
+}
