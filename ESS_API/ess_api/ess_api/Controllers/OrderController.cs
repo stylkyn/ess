@@ -99,7 +99,7 @@ namespace ess_api.Controllers
         }
 
         [HttpPut]
-        [JwtAuthenticationAdmin]
+        [JwtAuthenticationAgent]
         [Route("SetOrderState")]
         public async Task<IHttpActionResult> SetOrderState([FromBody] SetOrderStateRequest request)
         {

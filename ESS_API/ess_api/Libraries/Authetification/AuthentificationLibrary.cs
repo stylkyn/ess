@@ -32,7 +32,8 @@ namespace Libraries.Authetification
                 Subject = new ClaimsIdentity(new[] {
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(AuthentificationConstants.HasAdminAccess, user.HasAdminAccess.ToString())
+                    new Claim(AuthentificationConstants.HasAdminAccess, user.HasAdminAccess.ToString()),
+                    new Claim(AuthentificationConstants.HasAgentAccess, user.HasAgentAccess.ToString())
                 }),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(_secret), SecurityAlgorithms.HmacSha512Signature)
             });

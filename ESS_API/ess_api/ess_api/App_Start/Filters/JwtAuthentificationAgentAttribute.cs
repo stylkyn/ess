@@ -14,13 +14,13 @@ using System.Web.Http.Filters;
 
 namespace ess_api.App_Start.Filters
 {
-    public class JwtAuthenticationAgentAttribute : Attribute, IAuthenticationFilter
+    public class JwtAuthenticationAdminAttribute : Attribute, IAuthenticationFilter
     {
         public bool AllowMultiple => false;
         public bool Optional;
         public readonly AuthentificationLibrary _authentificationLibrary;
 
-        public JwtAuthenticationAgentAttribute(bool optional = false) {
+        public JwtAuthenticationAdminAttribute(bool optional = false) {
             _authentificationLibrary = new AuthentificationLibrary();
             Optional = optional;
         }
@@ -35,7 +35,7 @@ namespace ess_api.App_Start.Filters
             var token = authorization?.Parameter;
             var authUser =  _authentificationLibrary.AuthentificateJwt(token);
 
-            if (!Optional && (authUser == null || authUser.UserEmail == null || authUser.UserId == null || !authUser.HasAgentAccess))
+            if (!Optional && (authUser == null || authUser.UserEmail == null || authUser.UserId == null || !authUser.HasAdminAccess))
             {
                 context.ErrorResult = new CreateResult(new Response(ResponseStatus.NotFound, ResponseMessages.NotFound));
                 return Task.FromResult(0);
