@@ -6,7 +6,7 @@ import { AdminAuthGuardService } from '../../services/guards/admin-auth-guard.se
 import { AdminAuthExistGuardService } from './../../services/guards/admin-auth-exist-guard.service';
 
 const APP_ROUTES: Routes = [
-    { path: '', pathMatch: 'full', redirectTo: adminDashRoute },
+    { path: '', pathMatch: 'full', redirectTo: adminLoginRoute },
     {
         path: '',
         component: ThemeComponent,
