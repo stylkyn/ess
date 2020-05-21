@@ -73,8 +73,8 @@
                 </div>
             </mdb-card>
         </div>
-        <div class="col">
-            <mdb-card class="mt-4" *ngIf="order.service">
+        <div *ngIf="order.service" class="col">
+            <mdb-card class="mt-4">
                 <mdb-card-header class="bg-white">Datum příjezdu technika</mdb-card-header>
                 <mdb-card-body>
                     <div class="ServisBox">
