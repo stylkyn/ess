@@ -18,6 +18,8 @@
 
         public UserAddress Address { get; set; }
         public UserContact Contact { get; set; }
+
+        public string GetFullName() => $"{Firstname} {Lastname}";
     }
 
     public class UserCompany

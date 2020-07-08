@@ -7,6 +7,8 @@ using ess_api._4_BL.Services.Responses;
 using ess_api.Core.Constant;
 using ess_api.Core.Model;
 using ess_api.Core.Model.Shared;
+using Libraries.Mailing;
+using Libraries.Mailing.Abstraction;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +20,12 @@ namespace ess_api._4_BL.Services.Order
     {
         private readonly ProductSharedService _productSharedService;
         private readonly UserSharedService _userSharedService;
+        private readonly IMailingLibrary _mailingLibrary;
         public OrderService()
         {
             _productSharedService = new ProductSharedService();
             _userSharedService = new UserSharedService();
+            _mailingLibrary = new MailingLibrary();
         }
 
         public async Task<ResponseList<OrderResponse>> Search(OrderSearchRequest request)
@@ -178,8 +182,12 @@ namespace ess_api._4_BL.Services.Order
                 order.State = OrderState.CustomerReady;
             }
 
+            // confirm order
             if (order.IsReadyToConfirm())
+            {
                 order.State = OrderState.Confirmed;
+                await _mailingLibrary.SendConfirmedOrderEmail(order);
+            }
 
             // if order still doest not exist, create new one
             if (order.Id == Guid.Empty)

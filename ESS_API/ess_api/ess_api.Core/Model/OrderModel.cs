@@ -40,6 +40,8 @@ namespace ess_api.Core.Model
         public UserCompany Company { get; set; }
 
         public bool HasAllData() => UserId != null && Personal != null;
+
+        public bool IsCompany() => Company?.CompanyId != null;
     }
 
     public class OrderPayment
