@@ -24,7 +24,7 @@ namespace Libraries.Mailing
             _transactionsClient = new SendGridClient(MailingConstants.SendGridApiKey);
         }
 
-        public async Task<bool> SendConfirmedOrderEmail(OrderModel order)
+        public async Task<bool> SendConfirmedOrderEmail(OrderModel order, FileResult invoiceAttachment)
         {
             return await SendTransactionalEmail(
                 MailingConstants.ConfirmedOrder,
@@ -33,7 +33,8 @@ namespace Libraries.Mailing
                 order.Customer?.Personal?.Contact?.Email,
                 MailingConstants.EmailNamed,
                 order.Customer.IsCompany() ? order.Customer.Company.CompanyName 
-                    : order.Customer.Personal.GetFullName()
+                    : order.Customer.Personal.GetFullName(),
+                invoiceAttachment
             );
         }
 

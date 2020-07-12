@@ -12,10 +12,20 @@ namespace ess_api.Core.Model
 
         public Price(decimal czkWithoutVat, decimal czkWithVat, PriceTypes priceType = PriceTypes.Czk)
         {
-            VatPercentage = czkWithVat != 0 ? (int)(100 * (1 - (czkWithoutVat / czkWithVat))) : 0;
+            VatPercentage = czkWithVat != 0 ? (int)(100 * ((czkWithVat / czkWithoutVat) - 1)) : 0;
             CzkWithoutVat = czkWithoutVat;
             CzkWithVat = czkWithVat;
             VatType = VatTypes.Sum;
+            PriceType = priceType;
+        }
+
+        public Price(decimal czkWithoutVat, int vatPrecentage, VatTypes vatType = VatTypes.Czk21, PriceTypes priceType = PriceTypes.Czk)
+        {
+            int vatPecentage = vatPrecentage;
+            VatPercentage = vatPecentage;
+            CzkWithoutVat = czkWithoutVat;
+            CzkWithVat = czkWithoutVat * (1 + (vatPecentage / 100.0M));
+            VatType = vatType;
             PriceType = priceType;
         }
 
@@ -29,15 +39,15 @@ namespace ess_api.Core.Model
             PriceType = priceType;
         }
 
-        public static Price operator -(Price a, int b) => new Price(a.CzkWithoutVat + b, a.VatType, a.PriceType);
-        public static Price operator +(Price a, int b) => new Price(a.CzkWithoutVat - b, a.VatType, a.PriceType);
-        public static Price operator *(Price a, int b) => new Price(a.CzkWithoutVat * b, a.VatType, a.PriceType);
-        public static Price operator /(Price a, int b) => new Price(b != 0 ? (a.CzkWithoutVat / b) : 0, a.VatType, a.PriceType);
+        public static Price operator -(Price a, int b) => new Price(a.CzkWithoutVat + b, a.VatPercentage, a.VatType, a.PriceType);
+        public static Price operator +(Price a, int b) => new Price(a.CzkWithoutVat - b, a.VatPercentage, a.VatType, a.PriceType);
+        public static Price operator *(Price a, int b) => new Price(a.CzkWithoutVat * b, a.VatPercentage, a.VatType, a.PriceType);
+        public static Price operator /(Price a, int b) => new Price(b != 0 ? (a.CzkWithoutVat / b) : 0, a.VatPercentage, a.VatType, a.PriceType);
 
-        public static Price operator -(Price a, decimal b) => new Price(a.CzkWithoutVat + b, a.VatType, a.PriceType);
-        public static Price operator +(Price a, decimal b) => new Price(a.CzkWithoutVat - b, a.VatType, a.PriceType);
-        public static Price operator *(Price a, decimal b) => new Price(a.CzkWithoutVat * b, a.VatType, a.PriceType);
-        public static Price operator /(Price a, decimal b) => new Price(b != 0 ? (a.CzkWithoutVat / b) : 0, a.VatType, a.PriceType);
+        public static Price operator -(Price a, decimal b) => new Price(a.CzkWithoutVat - b, a.VatPercentage, a.VatType, a.PriceType);
+        public static Price operator +(Price a, decimal b) => new Price(a.CzkWithoutVat + b, a.VatPercentage, a.VatType, a.PriceType);
+        public static Price operator *(Price a, decimal b) => new Price(a.CzkWithoutVat * b, a.VatPercentage, a.VatType, a.PriceType);
+        public static Price operator /(Price a, decimal b) => new Price(b != 0 ? (a.CzkWithoutVat / b) : 0, a.VatPercentage, a.VatType, a.PriceType);
 
         private int GetVatPercentage(VatTypes vatType)
         {

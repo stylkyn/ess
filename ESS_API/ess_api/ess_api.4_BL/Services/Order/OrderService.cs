@@ -7,6 +7,8 @@ using ess_api._4_BL.Services.Responses;
 using ess_api.Core.Constant;
 using ess_api.Core.Model;
 using ess_api.Core.Model.Shared;
+using Libraries.DocumentHtml.Abstraction;
+using Libraries.DocumentHtml.Repositories;
 using Libraries.Mailing;
 using Libraries.Mailing.Abstraction;
 using System;
@@ -21,11 +23,13 @@ namespace ess_api._4_BL.Services.Order
         private readonly ProductSharedService _productSharedService;
         private readonly UserSharedService _userSharedService;
         private readonly IMailingLibrary _mailingLibrary;
+        private readonly IDocumentInvoiceRepository _documentInvoiceRepository;
         public OrderService()
         {
             _productSharedService = new ProductSharedService();
             _userSharedService = new UserSharedService();
             _mailingLibrary = new MailingLibrary();
+            _documentInvoiceRepository = new DocumentInvoiceRepository();
         }
 
         public async Task<ResponseList<OrderResponse>> Search(OrderSearchRequest request)
@@ -182,13 +186,6 @@ namespace ess_api._4_BL.Services.Order
                 order.State = OrderState.CustomerReady;
             }
 
-            // confirm order
-            if (order.IsReadyToConfirm())
-            {
-                order.State = OrderState.Confirmed;
-                await _mailingLibrary.SendConfirmedOrderEmail(order);
-            }
-
             // if order still doest not exist, create new one
             if (order.Id == Guid.Empty)
             {
@@ -198,6 +195,14 @@ namespace ess_api._4_BL.Services.Order
             }
             // if order exist, update it
             else order = await _uow.Orders.FindAndReplaceAsync(order.Id, order);
+
+            // confirm order
+            if (order.IsReadyToConfirm())
+            {
+                order.State = OrderState.Confirmed;
+                var invoice = _documentInvoiceRepository.GenerateInvoice(order);
+                await _mailingLibrary.SendConfirmedOrderEmail(order, invoice);
+            }
 
             var response = _mapService.MapOrder(order);
             return new Response<OrderResponse>(ResponseStatus.Ok, response);

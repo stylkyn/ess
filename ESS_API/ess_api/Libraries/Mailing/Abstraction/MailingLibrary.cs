@@ -1,14 +1,11 @@
 ﻿using ess_api.Core.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Libraries.Mailing.Abstraction
 {
     public interface IMailingLibrary
     {
-        Task<bool> SendConfirmedOrderEmail(OrderModel order);
+        Task<bool> SendConfirmedOrderEmail(OrderModel order, FileResult invoiceAttachment);
     }
 }

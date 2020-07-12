@@ -77,6 +77,15 @@
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.7.2\lib\net45\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="PdfSharp, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.50.5147.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.5147\lib\net20\PdfSharp.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="Select.HtmlToPdf, Version=20.1.0.0, Culture=neutral, PublicKeyToken=e0ae9f6e27a97018, processorArchitecture=MSIL">
+      <HintPath>..\packages\Select.HtmlToPdf.20.1.0\lib\net40\Select.HtmlToPdf.dll</HintPath>
+    </Reference>
     <Reference Include="SendGrid, Version=9.17.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
       <HintPath>..\packages\SendGrid.9.17.0\lib\net452\SendGrid.dll</HintPath>
     </Reference>
@@ -96,6 +105,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.5.6.0\lib\net461\System.IdentityModel.Tokens.Jwt.dll</HintPath>
@@ -144,12 +154,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssetsFile\Abstraction\IAssetsFileLibrary.cs" />
+    <Compile Include="AssetsFile\AssetsFileLibrary.cs" />
     <Compile Include="Authetification\Abstraction\IAuthentificationLibrary.cs" />
     <Compile Include="Authetification\AuthentificationLibrary.cs" />
     <Compile Include="Authetification\Responses\AuthentificationTokenResponse.cs" />
     <Compile Include="Authetification\Responses\AuthentificationUserResponse.cs" />
     <Compile Include="Cryptography\Abstraction\ICryptographyLibrary.cs" />
     <Compile Include="Cryptography\CryptographyLibrary.cs" />
+    <Compile Include="DocumentHtml\Abstraction\IDocumentHtmlLibrary.cs" />
+    <Compile Include="DocumentHtml\Abstraction\IDocumentInvoiceRepository.cs" />
+    <Compile Include="DocumentHtml\DocumentHtmlLibrary.cs" />
+    <Compile Include="DocumentHtml\Models\InvoiceTemplateModel.cs" />
+    <Compile Include="DocumentHtml\Repositories\DocumentInvoiceRepository.cs" />
     <Compile Include="Log\Abstraction\ILogLibrary.cs" />
     <Compile Include="Log\LogLibrary.cs" />
     <Compile Include="Mailing\Abstraction\MailingLibrary.cs" />
@@ -167,6 +184,10 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="AssetsFile\Assets\HtmlTemplates\invoice_template.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

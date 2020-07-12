@@ -39,6 +39,10 @@ namespace ess_api.Core.Model
         public UserPersonal Personal { get; set; }
         public UserCompany Company { get; set; }
 
+        public UserAddress GetAddress() => IsCompany() ? Company.Address : Personal.Address;
+        public string GetName() => IsCompany() ? Company.CompanyName : Personal.GetFullName();
+
+
         public bool HasAllData() => UserId != null && Personal != null;
 
         public bool IsCompany() => Company?.CompanyId != null;
@@ -53,6 +57,7 @@ namespace ess_api.Core.Model
         public PaymentModel SourceData { get; set; }
 
         public bool HasAllData() => PaymentId != null && SourceData != null;
+
 
         public void SetPaymentData(PaymentModel payment)
         {
