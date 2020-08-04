@@ -38,7 +38,7 @@ namespace ess_api._4_BL.Services
         {
             var categories = await _uow.Categories.FindManyAsync(x => x.UrlName == urlName);
             if (categories == null)
-                return new Response<CategoryResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+                return new Response<CategoryResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
 
             var response = categories.FirstOrDefault();
             return new Response<CategoryResponse>(ResponseStatus.Ok, _mapService.MapCategory(response));
@@ -48,7 +48,7 @@ namespace ess_api._4_BL.Services
         {
             var category = await _uow.Categories.FindAsync(new Guid(id));
             if (category == null)
-                return new Response<CategoryResponse>(ResponseStatus.NotFound, _mapService.MapCategory(category), ResponseMessages.NotFound);
+                return new Response<CategoryResponse>(ResponseStatus.NotFound, _mapService.MapCategory(category), ResponseMessagesConstans.NotFound);
 
             return new Response<CategoryResponse>(ResponseStatus.Ok, _mapService.MapCategory(category));
         }
@@ -58,7 +58,7 @@ namespace ess_api._4_BL.Services
             int skip = request.PageNumber * request.PageSize;
             (var categories, int total) = await _uow.Categories.SearchCategory(request.FullText, skip, request.PageSize);
             if (categories == null)
-                return new ResponseList<CategoryResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+                return new ResponseList<CategoryResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
 
             return new ResponseList<CategoryResponse>(ResponseStatus.Ok, _mapService.MapCategories(categories), total);
         }

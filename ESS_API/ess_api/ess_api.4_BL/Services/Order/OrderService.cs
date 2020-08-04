@@ -37,7 +37,7 @@ namespace ess_api._4_BL.Services.Order
             int skip = request.PageNumber * request.PageSize;
             (var orders, int total) = await _uow.Orders.Search(request.FullText, request.UserId, request.OrderState, request.PaymentState, skip, request.PageSize);
             if (orders == null)
-                return new ResponseList<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+                return new ResponseList<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
 
             var result = orders.Select(x => _mapService.MapOrder(x)).ToList();
             return new ResponseList<OrderResponse>(ResponseStatus.Ok, result, total);
@@ -46,11 +46,11 @@ namespace ess_api._4_BL.Services.Order
         public async Task<ResponseList<OrderResponse>> GetAgentActiveOrders(Request request)
         {
             if (!request.RequestIdentity.HasAdminAccess && !request.RequestIdentity.HasAgentAccess)
-                return new ResponseList<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+                return new ResponseList<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
 
             var orders = await _uow.Orders.GetAgentActiveOrders(request?.RequestIdentity?.UserId);
             if (orders == null)
-                return new ResponseList<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+                return new ResponseList<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
 
             var result = orders.Select(x => _mapService.MapOrder(x)).ToList();
             return new ResponseList<OrderResponse>(ResponseStatus.Ok, result);
@@ -59,11 +59,11 @@ namespace ess_api._4_BL.Services.Order
         public async Task<ResponseList<OrderResponse>> GetAgentHistoryOrders(Request request)
         {
             if (!request.RequestIdentity.HasAdminAccess && !request.RequestIdentity.HasAgentAccess)
-                return new ResponseList<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+                return new ResponseList<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
 
             var orders = await _uow.Orders.GetAgentHistoryOrders(request?.RequestIdentity?.UserId);
             if (orders == null)
-                return new ResponseList<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+                return new ResponseList<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
 
             var result = orders.Select(x => _mapService.MapOrder(x)).ToList();
             return new ResponseList<OrderResponse>(ResponseStatus.Ok, result);
@@ -73,7 +73,7 @@ namespace ess_api._4_BL.Services.Order
         {
             var orders = await _uow.Orders.GetAccountOrders(request?.RequestIdentity?.UserId);
             if (orders == null)
-                return new ResponseList<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+                return new ResponseList<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
 
             var result = orders.Select(x => _mapService.MapOrder(x)).ToList();
             return new ResponseList<OrderResponse>(ResponseStatus.Ok, result);
@@ -83,10 +83,10 @@ namespace ess_api._4_BL.Services.Order
         {
             var order = await _uow.Orders.FindAsync(new Guid(request.OrderId));
             if (order == null)
-                return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.CannotFindOrder);
+                return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.CannotFindOrder);
 
             if (!AuthentificateUserOrder(order, request.RequestIdentity))
-                return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.CannotFindOrder);
+                return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.CannotFindOrder);
 
             var response = _mapService.MapOrder(order);
             return new Response<OrderResponse>(ResponseStatus.Ok, response);
@@ -114,7 +114,7 @@ namespace ess_api._4_BL.Services.Order
 
             // if user with this email already exist
             if (user == null)
-                return new Response<OrderResponse>(ResponseStatus.BadRequest, null, ResponseMessages.CannotAssignOrderToCustomer);
+                return new Response<OrderResponse>(ResponseStatus.BadRequest, null, ResponseMessagesConstans.CannotAssignOrderToCustomer);
 
             if (request.CalculateOrder != null)
             {
@@ -136,7 +136,7 @@ namespace ess_api._4_BL.Services.Order
             {
                 var transport = await _uow.Transports.FindAsync(new Guid(request.Transport.TransportId));
                 if (transport == null)
-                    return new Response<OrderResponse>(ResponseStatus.BadRequest, null, ResponseMessages.CannotAssignTransportToOrder);
+                    return new Response<OrderResponse>(ResponseStatus.BadRequest, null, ResponseMessagesConstans.CannotAssignTransportToOrder);
 
                 order.Transport = new OrderTransport();
                 order.Transport.TransportId = transport.Id.ToString();
@@ -150,7 +150,7 @@ namespace ess_api._4_BL.Services.Order
             {
                 var payment = await _uow.Payments.FindAsync(new Guid(request.Payment.PaymentId));
                 if (payment == null)
-                    return new Response<OrderResponse>(ResponseStatus.BadRequest, null, ResponseMessages.CannotAssignPaymentToOrder);
+                    return new Response<OrderResponse>(ResponseStatus.BadRequest, null, ResponseMessagesConstans.CannotAssignPaymentToOrder);
 
                 order.Payment = new OrderPayment();
                 order.Payment.PaymentId = payment.Id.ToString();
@@ -212,7 +212,7 @@ namespace ess_api._4_BL.Services.Order
         {
             var order = await _uow.Orders.FindAsync(new Guid(request.OrderId));
             if (order == null)
-                return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.CannotFindOrder);
+                return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.CannotFindOrder);
 
             order.Service.UserId = request.UserId;
             order.State = OrderState.AgentReady;
@@ -226,14 +226,14 @@ namespace ess_api._4_BL.Services.Order
         {
             var order = await _uow.Orders.FindAsync(new Guid(request.OrderId));
             if (order == null)
-                return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.CannotFindOrder);
+                return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.CannotFindOrder);
 
             // agent can set only specific states
             if (!request.RequestIdentity.HasAdminAccess && request.RequestIdentity.HasAgentAccess)
             {
                 var availableStates = new List<OrderState> { OrderState.Finished };
                 if (!availableStates.Contains(request.State))
-                    return new Response<OrderResponse>(ResponseStatus.BadRequest, null, ResponseMessages.AgentHasNotPermissionSetThisState);
+                    return new Response<OrderResponse>(ResponseStatus.BadRequest, null, ResponseMessagesConstans.AgentHasNotPermissionSetThisState);
             }
 
             order.State = request.State;
@@ -247,7 +247,7 @@ namespace ess_api._4_BL.Services.Order
         {
             var order = await _uow.Orders.FindAsync(new Guid(request.OrderId));
             if (order == null)
-                return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessages.CannotFindOrder);
+                return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.CannotFindOrder);
 
             order.Payment.State = request.PaymentState;
             order = await _uow.Orders.FindAndReplaceAsync(order.Id, order);

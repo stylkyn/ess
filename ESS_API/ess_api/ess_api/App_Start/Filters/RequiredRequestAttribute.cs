@@ -29,7 +29,7 @@ namespace ess_api.App_Start.Filters
                 var result = new CreateResult(
                     new Response(
                         ResponseStatus.NotFound,
-                        ResponseMessages.RequestCannotBeNullMissingProperties));
+                        ResponseMessagesConstans.RequestCannotBeNullMissingProperties));
                 actionContext.Response = result.ToHttpResponseMessage();
             }
 

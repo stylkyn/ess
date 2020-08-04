@@ -32,7 +32,7 @@ namespace ess_api._4_BL.Services.Product
             int skip = request.PageNumber * request.PageSize;
             (var products, int total) = await _uow.Products.SearchExtend(request.CategoryId, request.FullText, request.ProductType, skip, request.PageSize);
             if (products == null)
-                return new ResponseList<ProductResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+                return new ResponseList<ProductResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
 
             return new ResponseList<ProductResponse>(ResponseStatus.Ok, _mapService.MapProducts(products), total);
         }

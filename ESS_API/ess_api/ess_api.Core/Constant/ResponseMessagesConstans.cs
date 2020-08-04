@@ -1,7 +1,7 @@
 ﻿
 namespace ess_api.Core.Constant
 {
-    public static class ResponseMessages
+    public static class ResponseMessagesConstans
     {
         public const string NotFound = "not-found";
         public const string BadRequest = "bad-request";

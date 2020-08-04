@@ -20,7 +20,7 @@ namespace ess_api.App_Start.Filters
                 var result = new CreateResult(
                     new Response(
                         ResponseStatus.BadRequest,
-                        ResponseMessages.BadRequest,
+                        ResponseMessagesConstans.BadRequest,
                         actionContext.ModelState
                             .SelectMany(x => 
                                 x.Value.Errors.Select(e => new Exception(e.ErrorMessage, e.Exception)))

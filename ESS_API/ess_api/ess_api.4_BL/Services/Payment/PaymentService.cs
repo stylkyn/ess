@@ -39,7 +39,7 @@ namespace ess_api._4_BL.Services.Payment
         {
             var result = await _uow.Payments.FindAsync(new Guid(request.Id));
             if (result == null)
-                return new Response<PaymentResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+                return new Response<PaymentResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
 
             result.IsActive = request.IsActive;
             result.Name = request.Name;

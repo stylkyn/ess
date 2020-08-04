@@ -47,7 +47,7 @@ namespace ess_api._4_BL.Services.Transport
         {
             var result = await _uow.Transports.FindAsync(new Guid(request.Id));
             if (result == null)
-                return new Response<TransportResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+                return new Response<TransportResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
 
             result.IsActive = request.IsActive;
             result.Name = request.Name;

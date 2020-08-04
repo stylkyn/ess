@@ -118,7 +118,7 @@
     <Compile Include="Extension\DecimalExtension.cs" />
     <Compile Include="Model\Shared\CalculatedOrder.cs" />
     <Compile Include="Constant\MongoDBContants.cs" />
-    <Compile Include="Constant\ResponseMessages.cs" />
+    <Compile Include="Constant\ResponseMessagesConstans.cs" />
     <Compile Include="Constant\CryptographyConstants.cs" />
     <Compile Include="Constant\AuthentificationConstants.cs" />
     <Compile Include="Constant\UserConstants.cs" />

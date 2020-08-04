@@ -48,7 +48,7 @@ namespace ess_api._4_BL.Services
         {
             var user = await _uow.Users.FindAsync(new Guid(request.RequestIdentity.UserId));
             if (user == null)
-                return new Response<UserResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+                return new Response<UserResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
 
             var token = _authentificationLibrary.GenerateJWT(user);
             return new Response<UserResponse>(ResponseStatus.Ok, _mapService.MapUser(user, token));
@@ -58,17 +58,17 @@ namespace ess_api._4_BL.Services
         {
             var user = await _uow.Users.GetUser(request.Email);
             if (user == null)
-                return new Response<UserResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+                return new Response<UserResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
 
             if (!user.HasAdminAccess)
-                return new Response<UserResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+                return new Response<UserResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
 
             if (user.Password == null)
-                return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessages.PasswordIsNotValid);
+                return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessagesConstans.PasswordIsNotValid);
 
             var passwordRequestHashed = _cryptographyLibrary.CalculateHash(request.Password);
             if (passwordRequestHashed != user.Password)
-                return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessages.PasswordIsNotValid);
+                return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessagesConstans.PasswordIsNotValid);
 
 
             var token = _authentificationLibrary.GenerateJWT(user);
@@ -79,14 +79,14 @@ namespace ess_api._4_BL.Services
         {
             var user = await _uow.Users.GetUser(request.Email);
             if (user == null)
-                return new Response<UserResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+                return new Response<UserResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
             
             if (user.Password == null)
-                return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessages.PasswordIsNotValid);
+                return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessagesConstans.PasswordIsNotValid);
 
             var passwordRequestHashed = _cryptographyLibrary.CalculateHash(request.Password);
             if (passwordRequestHashed != user.Password)
-                return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessages.PasswordIsNotValid);
+                return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessagesConstans.PasswordIsNotValid);
 
             var token = _authentificationLibrary.GenerateJWT(user);
             return new Response<UserResponse>(ResponseStatus.Ok, _mapService.MapUser(user, token));
@@ -96,7 +96,7 @@ namespace ess_api._4_BL.Services
         {
             var user = await _userSharedService.Add(request.Email, request.Password);
             if (user == null)
-                return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessages.EmailAlreadyExist);
+                return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessagesConstans.EmailAlreadyExist);
 
             var token = _authentificationLibrary.GenerateJWT(user);
             return new Response<UserResponse>(ResponseStatus.Ok, _mapService.MapUser(user, token));
@@ -106,7 +106,7 @@ namespace ess_api._4_BL.Services
         public async Task<Response<UserResponse>> Update(UserUpdateRequest request)
         {
             if (request.Id != null && !request.RequestIdentity.HasAdminAccess)
-                return new Response<UserResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+                return new Response<UserResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
             // edit passed user if admin is loggged or edit yourself
             string userToEdit = request.Id != null ? request.Id : request.RequestIdentity.UserId;
 
@@ -133,11 +133,11 @@ namespace ess_api._4_BL.Services
         public async Task<Response<UserResponse>> PromoteAgent(UserPromoteAgentRequest request)
         {
             if(request.UserId == null)
-                return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessages.BadRequest);
+                return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessagesConstans.BadRequest);
 
             var user = await _uow.Users.FindAsync(new Guid(request.UserId));
             if (user == null)
-                return new Response<UserResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+                return new Response<UserResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
 
             user.HasAgentAccess = true;
             await _uow.Users.ReplaceAsync(user.Id, user);
@@ -148,11 +148,11 @@ namespace ess_api._4_BL.Services
         public async Task<Response<UserResponse>> PromoteAdmin(UserPromoteAdminRequest request)
         {
             if (request.UserId == null)
-                return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessages.BadRequest);
+                return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessagesConstans.BadRequest);
 
             var user = await _uow.Users.FindAsync(new Guid(request.UserId));
             if (user == null)
-                return new Response<UserResponse>(ResponseStatus.NotFound, null, ResponseMessages.NotFound);
+                return new Response<UserResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
 
             user.HasAdminAccess = true;
             await _uow.Users.ReplaceAsync(user.Id, user);
@@ -163,7 +163,7 @@ namespace ess_api._4_BL.Services
         public async Task<Response> Remove(UserRemoveRequest request)
         {
             if (request.Id == request.RequestIdentity.UserId)
-                return new Response(ResponseStatus.BadRequest, ResponseMessages.CannotDeleteYourself);
+                return new Response(ResponseStatus.BadRequest, ResponseMessagesConstans.CannotDeleteYourself);
 
             await _uow.Users.DeleteAsync(new Guid(request.Id));
             return new Response(ResponseStatus.Ok);

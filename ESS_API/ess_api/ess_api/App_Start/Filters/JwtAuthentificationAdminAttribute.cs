@@ -37,7 +37,7 @@ namespace ess_api.App_Start.Filters
 
             if (!Optional && (authUser == null || authUser.UserEmail == null || authUser.UserId == null || !authUser.HasAgentAccess))
             {
-                context.ErrorResult = new CreateResult(new Response(ResponseStatus.NotFound, ResponseMessages.NotFound));
+                context.ErrorResult = new CreateResult(new Response(ResponseStatus.NotFound, ResponseMessagesConstans.NotFound));
                 return Task.FromResult(0);
             }
 
