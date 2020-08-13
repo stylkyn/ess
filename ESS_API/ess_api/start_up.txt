@@ -1,0 +1,11 @@
+Ke spuštění projektu naklonujte všechny soubory umístěné v tomto souboru.
+Stáhněte a nainstalujte si Visual Studio 2019 - https://visualstudio.microsoft.com/cs/downloads/
+Spustně soubor ess_api.sln.
+Po najetí visual studia spusťte aplikace na vašem IIS serveru/Browseru.
+-----------------------------------------------------------------------
+Po spuštění by se měl otevřít prohlížeč, který bude hlásit chybu, 
+jelikož nás spuštění aplikace odkáže na špatnou adresu, 
+to je ale v pořádku, jelikož využíváme pouze API tohoto systému.
+-----------------------------------------------------------------------
+Jelikož většina služeb běží v cloudu je potřeba pro úplnou funkčnost 
+v četně databáze mít přístup k INTERNETU !!!

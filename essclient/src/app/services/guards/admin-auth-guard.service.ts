@@ -12,7 +12,6 @@ export class AdminAuthGuardService implements CanActivate, CanActivateChild {
         return this.verifyAccess();
     }
 
-
     canActivate(): Promise<UrlTree | boolean> | boolean  {
         return this.verifyAccess();
     }

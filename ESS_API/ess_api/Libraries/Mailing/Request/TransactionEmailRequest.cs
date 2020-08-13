@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-namespace Libraries.Mailing.Model
+namespace Libraries.Mailing.Request
 {
     public class TransactionalEmailRequest
     {

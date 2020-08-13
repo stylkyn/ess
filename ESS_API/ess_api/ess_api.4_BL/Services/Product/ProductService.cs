@@ -69,7 +69,10 @@ namespace ess_api._4_BL.Services.Product
         {
             var products = await _uow.Products.FindManyAsync(x => x.UrlName == request.UrlName);
             if (products.IsEmpty())
-                return new Response<ProductDetailResponse>(ResponseStatus.NotFound, null, $"Product with urlName: {request.UrlName} was not founded");
+                return new Response<ProductDetailResponse>(
+                    ResponseStatus.NotFound, 
+                    null, 
+                    $"Product with urlName: {request.UrlName} was not founded");
 
             var product = products.First();
             if (product.Deposit != null || product.Servis != null)

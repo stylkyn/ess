@@ -56,7 +56,8 @@ namespace ess_api._4_BL.Services
         public async Task<ResponseList<CategoryResponse>> Search(CategorySearchRequest request)
         {
             int skip = request.PageNumber * request.PageSize;
-            (var categories, int total) = await _uow.Categories.SearchCategory(request.FullText, skip, request.PageSize);
+            (var categories, int total) = await _uow.Categories.SearchCategory(request.FullText,         skip, 
+                request.PageSize);
             if (categories == null)
                 return new ResponseList<CategoryResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
 
@@ -82,6 +83,8 @@ namespace ess_api._4_BL.Services
         public async Task<Response<CategoryResponse>> Update(CategoryRequest request)
         {
             var category = await _uow.Categories.FindAsync(new Guid(request.Id));
+            if (category == null)
+                return new Response<CategoryResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
 
             category.Name = request.Name;
             category.UrlName = WebUtility.UrlEncode(request.UrlName);

@@ -3,7 +3,7 @@ using ess_api.Core.Model;
 using Libraries.Log;
 using Libraries.Log.Abstraction;
 using Libraries.Mailing.Abstraction;
-using Libraries.Mailing.Model;
+using Libraries.Mailing.Request;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System;
