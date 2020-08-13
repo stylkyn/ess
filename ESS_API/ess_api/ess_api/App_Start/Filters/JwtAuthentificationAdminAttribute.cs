@@ -35,9 +35,14 @@ namespace ess_api.App_Start.Filters
             var token = authorization?.Parameter;
             var authUser =  _authentificationLibrary.AuthentificateJwt(token);
 
-            if (!Optional && (authUser == null || authUser.UserEmail == null || authUser.UserId == null || !authUser.HasAgentAccess))
+            if (!Optional && 
+                (authUser == null 
+                || authUser.UserEmail == null 
+                || authUser.UserId == null 
+                || !authUser.HasAgentAccess))
             {
-                context.ErrorResult = new CreateResult(new Response(ResponseStatus.NotFound, ResponseMessagesConstans.NotFound));
+                context.ErrorResult = new CreateResult(
+                    new Response(ResponseStatus.NotFound, ResponseMessagesConstans.NotFound));
                 return Task.FromResult(0);
             }
 

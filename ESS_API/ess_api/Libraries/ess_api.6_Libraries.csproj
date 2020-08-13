@@ -171,7 +171,7 @@
     <Compile Include="Log\LogLibrary.cs" />
     <Compile Include="Mailing\Abstraction\MailingLibrary.cs" />
     <Compile Include="Mailing\MailingLibrary.cs" />
-    <Compile Include="Mailing\Model\TransactionEmailRequest.cs" />
+    <Compile Include="Mailing\Request\TransactionEmailRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

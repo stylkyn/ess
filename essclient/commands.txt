@@ -1,6 +1,14 @@
-rozbalit projekt z https://mdbootstrap.com/   pro package for npm install - (git+https://oauth2:4Rse24AzowgQtdoYY27n@git.mdbootstrap.com/mdb/angular/ng-uikit-pro-standard.git)
-nainstalovat npm
-npm install
+Před instalací projektu si prosím nainstalujte na své prostředí Node.js
+Plně podporovaná verze pro náš systém je v12.16.2
+Ke stažení na: https://nodejs.org
+
+Stáhnou verzi z CD - essclient, nebo využít nejnovější verzi a naklonovat si projekt z GIT-u z adresy https://github.com/stylkyn/ess.
+Jelikož práce s gitem je rutiní záležitostí každého schopného programátora, nebudu jí detailně popisovat, je možné si ji nastudovat na adrese. https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository. 
+
+Po naklonování projektu postupně zadávat příkazdy do cmd níze. Při zadávání příkazů je potřeba být ve složce essclient (složka kde máme umístěnou složku node_modules).
+
+nainstalovat npm, ktere nam vygeneruje slozku node_modules
+npm install 
 
 25.07.2018 
 - komponenta pro automaticke generovani meta tagu - https://github.com/vinaygopinath/ng2-meta
@@ -52,3 +60,10 @@ https://www.npmjs.com/package/ng-busy
 // generate uuid for admin uploader gallery
 https://www.npmjs.com/package/uuid
  npm install uuid
+
+============================
+SPUŠTĚNÍ
+============================
+ng serve
+- nebo zabezpečeně na HTTPS
+ng serve -ssl
