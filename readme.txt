@@ -18,7 +18,7 @@ PŘÍSTUPY DO SYSTÉMU DLE JEDNOTLIVÝCH ROLÍ
 -----------------------------------------------------------
 Přístup jako administrátor
 přihlašovací jméno: admin@admin.cz
-heslo: admin
+heslo: adminadmin
 
 Přístup jako agent (navíc nabídka "Moje Služby")
 přihlašovací jméno: agent@agent.cz
