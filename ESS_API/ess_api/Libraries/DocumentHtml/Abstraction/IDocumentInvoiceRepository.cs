@@ -5,6 +5,6 @@ namespace Libraries.DocumentHtml.Abstraction
 {
     public interface IDocumentInvoiceRepository
     {
-        FileResult GenerateInvoice(OrderModel order);
+        FileResult GenerateInvoice(OrderModel order, string basePath);
     }
 }

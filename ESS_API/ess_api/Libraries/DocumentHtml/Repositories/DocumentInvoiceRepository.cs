@@ -20,9 +20,9 @@ namespace Libraries.DocumentHtml.Repositories
             _documentHtmlLibrary = new DocumentHtmlLibrary();
         }
 
-        public FileResult GenerateInvoice(OrderModel order)
+        public FileResult GenerateInvoice(OrderModel order, string basePath)
         {
-            string html = AssetsFileLibrary.GetInvoiceTemplate();
+            string html = AssetsFileLibrary.GetInvoiceTemplate(basePath);
             var invoiceTemplate = new InvoiceTemplateModel
             {
                 CreatedDateLabel = "Datum vystavení:",

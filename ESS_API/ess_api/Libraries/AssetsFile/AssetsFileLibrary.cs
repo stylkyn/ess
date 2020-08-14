@@ -1,4 +1,5 @@
 ﻿using Libraries.AssetsFile.Abstraction;
+using System;
 using System.IO;
 using System.Reflection;
 
@@ -6,24 +7,38 @@ namespace Libraries.AssetsFile
 {
     public class AssetsFileLibrary : IAssetsFileLibrary
     {
-        private const string BasePath = "Libraries.AssetsFile.Assets";
+        private const string BasePathProduction = "Libraries.AssetsFile.Assets";
+        
+        private const string Bin = "bin";
+        private const string ProjectPath = "AssetsFile";
+        private const string FolderPath = "Assets";
+        
         private const string HtmlTemplateFolder = "HtmlTemplates";
         // templates
         private const string InvoiceTemplate = "invoice_template.html";
 
-        public static string GetInvoiceTemplate()
+        public static string GetInvoiceTemplate(string basePath)
         {
-            return GetHTMLTemplate(InvoiceTemplate);
+            //return GetHTMLTemplate(InvoiceTemplate);
+            return GetHTMLTemplate(basePath);
         }
 
-        private static string GetHTMLTemplate(string fileName)
+        private static string GetHTMLTemplate(string basePath)
         {
-            var assembly = typeof(AssetsFileLibrary).GetTypeInfo().Assembly;
-            string path = $"{BasePath}.{HtmlTemplateFolder}.{fileName}";
-            Stream stream = assembly.GetManifestResourceStream(path);
-
+            string path = Path.Combine(basePath, Bin, ProjectPath, FolderPath, HtmlTemplateFolder, InvoiceTemplate);
+            Stream stream = new MemoryStream(File.ReadAllBytes(path));
             return StreamToString(stream);
         }
+
+        // find file by assembly
+        //private static string GetHTMLTemplate(string fileName)
+        //{
+        //    var assembly = typeof(AssetsFileLibrary).GetTypeInfo().Assembly;
+        //    string path = $"{ProjectPath}.{FolderPath}.{HtmlTemplateFolder}.{fileName}";
+        //    Stream stream = assembly.GetManifestResourceStream(path);
+
+        //    return StreamToString(stream);
+        //}
 
         private static string StreamToString(Stream stream)
         {

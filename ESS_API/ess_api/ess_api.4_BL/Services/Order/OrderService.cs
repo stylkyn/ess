@@ -13,6 +13,7 @@ using Libraries.Mailing;
 using Libraries.Mailing.Abstraction;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -200,7 +201,9 @@ namespace ess_api._4_BL.Services.Order
             if (order.IsReadyToConfirm())
             {
                 order.State = OrderState.Confirmed;
-                var invoice = _documentInvoiceRepository.GenerateInvoice(order);
+
+                string basePath = System.Web.Hosting.HostingEnvironment.ApplicationPhysicalPath;
+                var invoice = _documentInvoiceRepository.GenerateInvoice(order, basePath);
                 await _mailingLibrary.SendConfirmedOrderEmail(order, invoice);
             }
 
