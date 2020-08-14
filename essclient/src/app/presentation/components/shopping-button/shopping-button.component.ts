@@ -26,11 +26,18 @@ export class ShoppingButtonComponent implements OnInit {
             this.changed.emit(0);
             return;
         }
+
+        if (count > 10) {
+            return this.productsCount = 10;
+        }
         
         this.changed.emit(count);
     }
 
     addOne() {
+        if (this.productsCount == 10)
+            return;
+
         this.changed.emit(this.productsCount + 1);
     }
 

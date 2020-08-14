@@ -39,7 +39,7 @@ export class ShoppingCardProductsComponent implements OnInit {
     }
 
     onChangeProductCount(count: number, product: ICalculatedOrderProductOrder) {
-        if (count == product.count) {
+        if (count == product.count || count <= 0 || count > 10) {
             return;
         }
 
