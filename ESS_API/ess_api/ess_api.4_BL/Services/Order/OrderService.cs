@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace ess_api._4_BL.Services.Order
 {
@@ -203,8 +204,9 @@ namespace ess_api._4_BL.Services.Order
                 order.State = OrderState.Confirmed;
 
                 string basePath = System.Web.Hosting.HostingEnvironment.ApplicationPhysicalPath;
-                var invoice = _documentInvoiceRepository.GenerateInvoice(order, basePath);
-                await _mailingLibrary.SendConfirmedOrderEmail(order, invoice);
+                //var invoice = _documentInvoiceRepository.GenerateInvoice(order, basePath);
+                //await _mailingLibrary.SendConfirmedOrderEmail(order, invoice);
+                await _mailingLibrary.SendConfirmedOrderEmail(order, null);
             }
 
             var response = _mapService.MapOrder(order);
