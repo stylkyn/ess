@@ -1,8 +1,11 @@
 ﻿using ess_api._4_BL.Services.Order;
 using ess_api._4_BL.Services.Order.Requests;
+using ess_api._4_BL.Services.Order.Responses;
 using ess_api._4_BL.Services.Product.Requests;
 using ess_api._4_BL.Services.Requests;
+using ess_api._4_BL.Services.Responses;
 using ess_api.App_Start.Filters;
+using System;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -85,8 +88,15 @@ namespace ess_api.Controllers
         [Route("SetOrder")]
         public async Task<IHttpActionResult> SetOrder([FromBody] SetOrderRequest request)
         {
-            var response = await _orderService.SetOrder(request);
-            return new CreateResult(response);
+            try
+            {
+                var response = await _orderService.SetOrder(request);
+                return new CreateResult(response);
+            } catch(Exception e)
+            {
+                var response = new Response<OrderResponse>(ResponseStatus.InternalError, null, e.Message);
+                return new CreateResult(response);
+            }
         }
 
         [HttpPut]
