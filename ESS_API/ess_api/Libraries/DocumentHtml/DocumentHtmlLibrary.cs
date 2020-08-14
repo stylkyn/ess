@@ -1,11 +1,8 @@
-﻿using ess_api.Core.Model;
-using Libraries.AssetsFile;
-using Libraries.DocumentHtml.Abstraction;
-using SelectPdf;
-using System.Collections.Generic;
+﻿using Libraries.DocumentHtml.Abstraction;
+using NReco.PdfGenerator;
 using System.IO;
-using System.Threading.Tasks;
 using System.Web.Mvc;
+using TheArtOfDev.HtmlRenderer.PdfSharp;
 
 namespace Libraries.DocumentHtml
 {
@@ -13,32 +10,47 @@ namespace Libraries.DocumentHtml
     {    
         public FileResult HtmlToFile(string html, string fileName)
         {
-            PdfDocument pdf = CreatePdfDoc(html);
+            //PdfDocument pdf = CreatePdfDoc(html);
 
-            byte[] pdfBytes = null;
-            using (MemoryStream ms = new MemoryStream())
-            {
-                pdf.Save(ms);
-                pdfBytes = ms.ToArray();
-                pdf.Close();
-            }
+            //using (MemoryStream ms = new MemoryStream())
+            //{
+            //    pdf.Save(ms);
+            //    pdfBytes = ms.ToArray();
+            //    pdf.Close();
+            //}
 
+            byte[] pdfBytes = CreatePdfDoc(html);
             FileResult fileResult = new FileContentResult(pdfBytes, "application/pdf");
             fileResult.FileDownloadName = fileName;
             return fileResult;
         }
 
-        private PdfDocument CreatePdfDoc(string html)
+        private byte[] CreatePdfDoc(string html)
         {
-            HtmlToPdf converter = new HtmlToPdf();
-            converter.Options.PdfPageSize = PdfPageSize.A4;
-            converter.Options.WebPageWidth = 1024;
-            converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
-            converter.Options.MinPageLoadTime = 2;
-            converter.Options.MaxPageLoadTime = 120;
+            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter();
+            var res = htmlConverter.GeneratePdf(html);
 
-            PdfDocument doc = converter.ConvertHtmlString(html);
-            return doc;
+            //byte[] res = null;
+            //using (MemoryStream ms = new MemoryStream())
+            //{
+            //    var pdf = PdfGenerator.GeneratePdf(html, PdfSharp.PageSize.A4);
+            //    pdf.Save(ms);
+            //    res = ms.ToArray();
+            //}
+            return res;
         }
+
+        //private PdfDocument CreatePdfDoc(string html)
+        //{
+        //    HtmlToPdf converter = new HtmlToPdf();
+        //    converter.Options.PdfPageSize = PdfPageSize.A4;
+        //    converter.Options.WebPageWidth = 1024;
+        //    converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
+        //    converter.Options.MinPageLoadTime = 2;
+        //    converter.Options.MaxPageLoadTime = 120;
+
+        //    PdfDocument doc = converter.ConvertHtmlString(html);
+        //    return doc;
+        //}
     }
 }
