@@ -1,4 +1,6 @@
 ﻿using Libraries.AssetsFile.Abstraction;
+using Libraries.Log;
+using NLog;
 using System;
 using System.IO;
 using System.Reflection;
@@ -26,7 +28,16 @@ namespace Libraries.AssetsFile
         private static string GetHTMLTemplate(string basePath)
         {
             string path = Path.Combine(basePath, Bin, ProjectPath, FolderPath, HtmlTemplateFolder, InvoiceTemplate);
-            Stream stream = new MemoryStream(File.ReadAllBytes(path));
+            Stream stream = null;
+            try
+            {
+                stream = new MemoryStream(File.ReadAllBytes(path));
+            } catch (Exception e)
+            {
+                var _logLibrary = new LogLibrary<AssetsFileLibrary>();
+                _logLibrary.Error($"{nameof(AssetsFileLibrary)} - Cannot find file with path - {path}, exception: {e.Message}");
+            }
+
             return StreamToString(stream);
         }
 

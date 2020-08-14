@@ -19,3 +19,4 @@ ESS_API/ess_api/ess_api.Core/obj/Debug/ess_api.1_Core.csproj.CoreCompileInputs.c
 ESS_API/ess_api/.vs/ess_api/v16/Server/sqlite3/storage.ide
 ESS_API/ess_api/.vs/ess_api/v16/Server/sqlite3/storage.ide
 ESS_API/ess_api/.vs/ess_api/v16/.suo
+*.cache
