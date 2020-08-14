@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { presentationProductFullRoute, presentationMyAccountFullOrderRoute } from '../presentation-routes';
+import { presentationProductFullRoute, presentationMyAccountFullOrderRoute, presentationContactRoute, presentationAboutUsRoute } from '../presentation-routes';
 import { UserService } from './../../../services/API/user.service';
 
 @Component({
@@ -10,6 +10,8 @@ import { UserService } from './../../../services/API/user.service';
 export class FooterComponent implements OnInit {
     presentationProductFullRoute = presentationProductFullRoute;
     presentationMyAccountFullOrderRoute = presentationMyAccountFullOrderRoute;
+    presentationContactRoute = presentationContactRoute;
+    presentationAboutUsRoute = presentationAboutUsRoute;
     
     constructor (public _userService: UserService) { }
 
