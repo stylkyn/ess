@@ -204,6 +204,7 @@ namespace ess_api._4_BL.Services.Order
                 order.State = OrderState.Confirmed;
 
                 string basePath = System.Web.Hosting.HostingEnvironment.ApplicationPhysicalPath;
+                // TODO: Fix generating invoice on Azure 
                 //var invoice = _documentInvoiceRepository.GenerateInvoice(order, basePath);
                 //await _mailingLibrary.SendConfirmedOrderEmail(order, invoice);
                 await _mailingLibrary.SendConfirmedOrderEmail(order, null);
