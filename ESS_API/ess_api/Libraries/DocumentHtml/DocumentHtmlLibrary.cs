@@ -34,6 +34,8 @@ namespace Libraries.DocumentHtml
             converter.Options.PdfPageSize = PdfPageSize.A4;
             converter.Options.WebPageWidth = 1024;
             converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
+            converter.Options.MinPageLoadTime = 2;
+            converter.Options.MaxPageLoadTime = 120;
 
             PdfDocument doc = converter.ConvertHtmlString(html);
             return doc;
