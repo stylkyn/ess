@@ -1,4 +1,66 @@
-<mdb-navbar [containerInside]="false" SideClass="_Header-navbar pres-navbar navbar navbar-expand-lg fixed-top scrolling-navbar">
+<!--Mobile-->
+<mdb-navbar SideClass="_Header-navbar Header-mobile navbar-light pres-navbar navbar navbar-expand-lg fixed-top" [containerInside]="false">
+    <logo>
+        <a class="logo navbar-brand waves-light" routerLink="/homepage" mdbWavesEffect href="#">
+            Elitec Software
+            <!-- <img src="http://www.elitecsoftware.cz/wp-content/themes/images/ELITECsoftwareLogo.png"/> -->
+        </a>
+    </logo>
+    <links>
+        <ul class="navbar-nav mr-auto">
+            <hr class="w-100" />
+            <!-- loged aut -->
+            <li *ngIf="!userSrv.user" class="nav-item waves-light py-2" mdbWavesEffect>
+                <a (click)="registerModal.showModal()">
+                    Registrovat
+                </a>
+            </li>    
+            <li *ngIf="!userSrv.user" class="nav-item waves-light py-2" mdbWavesEffect>
+                <a (click)="loginModal.showModal()">
+                    <mdb-icon class="pr-1" fas icon="user"></mdb-icon>
+                    Přihlásit
+                </a>
+            </li> 
+            <!-- logged in -->
+            <div  *ngIf="userSrv.user" >
+                <li class="nav-item waves-light py-2">
+                    <a class="waves-light" mdbWavesEffect>
+                        <mdb-icon class="pr-1" fas icon="user"></mdb-icon>
+                        {{userSrv.user?.email}}
+                    </a>
+                </li> 
+                <li class="nav-item waves-light py-2"  
+                    *ngIf="userSrv.user?.hasAdminAccess || userSrv.user?.hasAgentAccess"
+                    routerLink="/{{presentationAgentOrdersFullRoute}}" mdbWavesEffect>
+                    <a routerLink="/{{presentationMyAccountFullOrderRoute}}">
+                        Přiřazené služby
+                    </a>
+                </li> 
+                <li class="nav-item waves-light py-2" mdbWavesEffect>
+                    <a routerLink="/{{presentationMyAccountFullOrderRoute}}">
+                        Moje objednávky
+                    </a>
+                </li> 
+                <li class="nav-item waves-light py-2" mdbWavesEffect>
+                    <a (click)="logOut()">
+                        Odhlásit
+                    </a>
+                </li> 
+            </div>
+
+            <hr class="w-100" />
+            <li class="nav-item waves-light py-2" mdbWavesEffect>
+                <a (click)="shoppingCardModal.showModal()">
+                    <mdb-icon class="pr-1" fas icon="shopping-basket"></mdb-icon>
+                    Košík
+                </a>
+            </li>  
+        </ul>
+    </links>
+</mdb-navbar>
+
+<!--Not Mobile-->
+<mdb-navbar [containerInside]="false" SideClass="_Header-navbar Header-desktop pres-navbar navbar navbar-expand-lg fixed-top scrolling-navbar">
     <div class="container-fluid">
         <logo>
             <a class="logo navbar-brand waves-light" routerLink="/homepage" mdbWavesEffect href="#">
@@ -22,7 +84,7 @@
                 </li>
             </ul>
         </links>
-        <links>
+        <links class="links-right">
             <ul class="navbar-nav ml-auto">
                 <!-- loged aut -->
                 <li *ngIf="!userSrv.user" class="nav-item waves-light mr-3" mdbWavesEffect>
@@ -33,7 +95,7 @@
                 </li>    
                 <li *ngIf="!userSrv.user" class="nav-item waves-light mr-3" mdbWavesEffect>
                     <a (click)="loginModal.showModal()">
-                        <mdb-icon class="pr-1" fas icon="user"></mdb-icon>
+                        <mdb-icon class="hide-tablet pr-1" fas icon="user"></mdb-icon>
                         Přihlásit
                     </a>
                 </li> 
@@ -41,7 +103,7 @@
                 <li *ngIf="userSrv.user" class="nav-item waves-light mr-3" dropdown>
                     <a class="dropdown-toggle waves-light" dropdownToggle mdbWavesEffect>
                         <mdb-icon class="pr-1" fas icon="user"></mdb-icon>
-                        {{userSrv.user?.email}}
+                        <span class="hide-tablet">{{userSrv.user?.email}}</span>
                     </a>
                     <div class="dropdown-menu dropdown-primary">
                         <a *ngIf="userSrv.user?.hasAdminAccess || userSrv.user?.hasAgentAccess" class="dropdown-item" routerLink="/{{presentationAgentOrdersFullRoute}}">Přiřazené služby</a>
@@ -54,13 +116,14 @@
                 <li class="nav-item waves-light" mdbWavesEffect>
                     <a (click)="shoppingCardModal.showModal()">
                         <mdb-icon class="pr-1" fas icon="shopping-basket"></mdb-icon>
-                        Košík
+                        <span class="hide-tablet">Košík</span>
                     </a>
                 </li>   
             </ul>
         </links>
     </div>
 </mdb-navbar>
+
 <app-shopping-card-modal #shoppingCardModal></app-shopping-card-modal>
 <app-login-modal (showRegister)="registerModal.showModal()" #loginModal></app-login-modal>
 <app-register-modal (showLogin)="loginModal.showModal()" #registerModal></app-register-modal>

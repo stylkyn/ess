@@ -1,4 +1,38 @@
-
 .dropdown-item:hover {
     color: white !important;
+}
+
+::ng-deep {
+    .Header {
+        &-mobile {
+            background: white;
+            
+            @media only screen and (max-width: 990.98px) {
+                display: flex !important;
+            }
+            @media only screen and (min-width: 991px) {
+                display: none !important;
+            }
+        }
+        &-desktop {
+            @media only screen and (max-width: 990.98px) {
+                display: none !important;
+            }
+            
+            @media only screen and (min-width: 991.98) and (max-width: 1068px) {
+                display: flex !important;
+                .hide-tablet {
+                    display: none;
+                }
+                links {
+                    width: auto !important;
+                }
+            }
+
+            @media only screen and (min-width: 1069px) {
+                display: flex !important;
+            }
+
+        }
+    }
 }
