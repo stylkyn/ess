@@ -125,5 +125,14 @@ namespace ess_api.Controllers
             var response = await _orderService.SetOrderPaymentState(request);
             return new CreateResult(response);
         }
+
+        [HttpGet]
+        [JwtAuthentication]
+        [Route("VerifyProductsAvailability")]
+        public async Task<IHttpActionResult> VerifyProductsAvailability([FromUri] string orderId)
+        {
+            var response = await _orderService.VerifyProductsAvailability(orderId);
+            return new CreateResult(response);
+        }
     }
 }

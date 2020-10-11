@@ -201,13 +201,30 @@ namespace ess_api._4_BL.Services.Order
             // confirm order
             if (order.IsReadyToConfirm())
             {
-                order.State = OrderState.Confirmed;
+                // deduct product count
+                var productsInOrder = order.CalculatedData.Products.Where(p => p.Product.Type == ProductType.Buy || p.Product.Type == ProductType.Deposit).ToList();
+                var productsInOrderId = productsInOrder.Select(p => p.Product.Id.ToString()).ToList();
+                var products = await _productSharedService.GetSelected(productsInOrderId);
 
-                string basePath = System.Web.Hosting.HostingEnvironment.ApplicationPhysicalPath;
+                var productUpdatedTask = new List<Task>();
+                foreach (var product in products)
+                {
+                    int orderedCount = productsInOrder.FirstOrDefault(po => po.Product.Id == product.Id).Count;
+                    if (product.Stock.Count < orderedCount && product.Stock.Count > 0)
+                        return new Response<OrderResponse>(ResponseStatus.BadRequest, null, $"{ResponseMessagesConstans.MissingGoodsInStock} Product: {product.Name} available: {product.Stock.Count} requested: {orderedCount}");
+                    
+                    product.Stock.Count -= orderedCount;
+                    productUpdatedTask.Add(_productSharedService.Update(product));
+                }
+                await Task.WhenAll(productUpdatedTask);
+
                 // TODO: Fix generating invoice on Azure 
+                //string basePath = System.Web.Hosting.HostingEnvironment.ApplicationPhysicalPath;
                 //var invoice = _documentInvoiceRepository.GenerateInvoice(order, basePath);
                 //await _mailingLibrary.SendConfirmedOrderEmail(order, invoice);
                 await _mailingLibrary.SendConfirmedOrderEmail(order, null);
+
+                order.State = OrderState.Confirmed;
             }
 
             var response = _mapService.MapOrder(order);
@@ -268,6 +285,28 @@ namespace ess_api._4_BL.Services.Order
 
             var response = _mapService.MapCalculatedOrder(calculatedData);
             return new Response<CalculatedOrderResponse>(ResponseStatus.Ok, response);
+        }
+
+        public async Task<Response<OrderResponse>> VerifyProductsAvailability(string orderId)
+        {
+            var order = await _uow.Orders.FindAsync(new Guid(orderId));
+            if (order == null)
+                return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.CannotFindOrder);
+
+            var productsInOrder = order.CalculatedData.Products.Where(p => p.Product.Type == ProductType.Buy || p.Product.Type == ProductType.Deposit).ToList();
+            var productsInOrderId = productsInOrder.Select(p => p.Product.Id.ToString()).ToList();
+            var products = await _productSharedService.GetSelected(productsInOrderId);
+
+            var productUpdatedTask = new List<Task>();
+            foreach (var product in products)
+            {
+                int orderedCount = productsInOrder.FirstOrDefault(po => po.Product.Id == product.Id).Count;
+                if (product.Stock.Count < orderedCount)
+                    return new Response<OrderResponse>(ResponseStatus.BadRequest, null, $"{ResponseMessagesConstans.MissingGoodsInStock} Product: {product.Name} available: {product.Stock.Count} requested: {orderedCount}");
+            }
+
+            var response = _mapService.MapOrder(order);
+            return new Response<OrderResponse>(ResponseStatus.Ok, response);
         }
 
         private async Task<CalculatedOrder> CalculateOrder(List<CalculatedOrderProductRequest> products, string transportId, string paymentId)

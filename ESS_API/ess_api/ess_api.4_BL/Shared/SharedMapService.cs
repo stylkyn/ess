@@ -217,12 +217,21 @@ namespace ess_api._4_BL.Shared
                 {
                     Price = MapPrice(request.Buy.Price)
                 } : null,
+                Service = new ProductServiceResponse
+                {
+                    Price = MapPrice(request.Servis?.Price)
+                },
                 Deposit = request.Deposit != null ? new ProductDepositResponse
                 {
                     DepositValue = MapPrice(request.Deposit.DepositValue),
                     Price = MapPrice(request.Deposit.Price)
                 } : null,
-                TotalPrice = MapPrice(request.GetTotalPrice())
+                TotalPrice = MapPrice(request.GetTotalPrice()),
+                Stock = request.Stock != null ? new ProductStockResponse
+                {
+                    Count = request.Stock.Count,
+                    PreOrderDays = request.Stock.PreOrderDays
+                } : null,
             };
         }
 

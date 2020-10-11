@@ -120,6 +120,11 @@ namespace ess_api._4_BL.Services.Product
                 Gallery = request.Gallery,
                 PreviewDescription = request.PreviewDescription,
                 UrlName = WebUtility.UrlEncode(request.UrlName),
+                Stock = new ProductStock
+                {
+                    Count = request.Stock.Count,
+                    PreOrderDays = request.Stock.PreOrderDays,
+                },
                 Type = request.Type
             };
 
@@ -165,6 +170,8 @@ namespace ess_api._4_BL.Services.Product
             product.Image = request.Image;
             product.Gallery = request.Gallery;
             product.Type = request.Type;
+            product.Stock.Count = request.Stock.Count;
+            product.Stock.PreOrderDays = request.Stock.PreOrderDays;
 
             switch (request.Type)
             {

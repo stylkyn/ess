@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,9 @@ namespace ess_api.Core.Model
         public ProductBuy Buy { get; set; } = null;
         public ProductServis Servis { get; set; } = null;
 
+        // informace o skladu
+        public ProductStock Stock = new ProductStock();
+
         public Price GetTotalPrice()
         {
             switch (Type)
@@ -36,6 +40,12 @@ namespace ess_api.Core.Model
             }
             return null;
         }
+    }
+
+    public class ProductStock
+    {
+        public int Count { get; set; } = 0;
+        public int PreOrderDays { get; set; } = 14;
     }
 
     public class ProductServis

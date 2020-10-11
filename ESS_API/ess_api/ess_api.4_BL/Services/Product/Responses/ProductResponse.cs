@@ -46,6 +46,18 @@ namespace ess_api._4_BL.Services.Product.Responses
 
         [JsonProperty("totalPrice")]
         public PriceResponse TotalPrice { get; set; }
+
+        [JsonProperty("Stock")]
+        public ProductStockResponse Stock { get; set; }
+    }
+
+    public class ProductStockResponse
+    {
+        [JsonProperty("count")]
+        public int Count { get; set; }
+
+        [JsonProperty("preOrderDays")]
+        public int PreOrderDays { get; set; }
     }
 
     public class ProductServiceResponse

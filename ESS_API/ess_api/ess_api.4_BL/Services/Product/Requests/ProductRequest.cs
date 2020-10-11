@@ -37,6 +37,13 @@ namespace ess_api._4_BL.Services.Product.Requests
         public BuyRequest Buy { get; set; }
         public ServisRequest Servis { get; set; }
         public DepositRequest Deposit { get; set; }
+        public StockRequest Stock { get; set; }
+    }
+
+    public class StockRequest
+    {
+        public int Count { get; set; }
+        public int PreOrderDays { get; set; }
     }
 
     public class ServisRequest

@@ -20,7 +20,6 @@ namespace ess_api._4_BL.Services.Product
         /*
          * GET
          * **/
-
         public async Task<List<ProductModel>> GetSelected(List<string> productsIds)
         {
             if (productsIds.Count == 0)
@@ -93,6 +92,19 @@ namespace ess_api._4_BL.Services.Product
             var invalidDays = daysInRange.Where(day => (productTotalCount - reservationsFlat.Where(r => r.DateFrom < day && day < r.DateTo).Count()) >= orderProductsCount);
 
             return invalidDays.ToList();
+        }
+
+        /*
+         * SET
+         * **/
+
+        public async Task<ProductModel> Update(ProductModel product)
+        {
+            if (product == null)
+                return null;
+
+            var response = await _uow.Products.FindAndReplaceAsync(product.Id, product);
+            return response;
         }
     }
 }
