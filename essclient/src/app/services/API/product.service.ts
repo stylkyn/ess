@@ -45,6 +45,11 @@ export interface IProductSetRequest {
     buy: BuyRequest;
     servis: ServisRequest;
     deposit: DepositRequest;
+    stock: StockRequest;
+}
+export interface StockRequest {
+    count: number;
+    preOrderDays: number;
 }
 export interface ServisRequest {
     priceWithoutVat: number;

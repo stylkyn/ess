@@ -46,16 +46,32 @@
                     </div>
                   </div>
                 <div class="EshopDetail-pricing">
-                    <span class="EshopDetail-pricing-value">
-                        {{_activeProduct.buy?.price?.czkWithVat}} {{mapPriceTypes(_activeProduct.buy?.price?.priceType)}}
-                        <span *ngIf="_activeProductVAT == 0" class="EshopDetail-pricing-vat">bez DPH</span>
-                        <span *ngIf="_activeProductVAT > 0" class="EshopDetail-pricing-vat">s DPH {{_activeProductVAT}}%</span>
-                    </span>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="EshopDetail-pricing-value">
+                                {{_activeProduct.buy?.price?.czkWithVat}} {{mapPriceTypes(_activeProduct.buy?.price?.priceType)}}
+                                <span class="EshopDetail-pricing-vat">s DPH {{_activeProductVAT}}%</span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="EshopDetail-pricing-value">
+                                {{_activeProduct.buy?.price?.czkWithoutVat}} {{mapPriceTypes(_activeProduct.buy?.price?.priceType)}}
+                                <span class="EshopDetail-pricing-vat">bez DPH</span>
+                            </span>
+                        </div>
+                    </div>
                 </div>
                 <div class="mt-3 w-50">
+                    <span class="font-weight-bold text-success" *ngIf="_activeProduct.stock.count > 4">Skladem</span>
+                    <span class="font-weight-bold text-warning" *ngIf="_activeProduct.stock.count > 1 && _activeProduct.stock.count <= 4">Skladem poslední {{_activeProduct.stock.count}} kusy</span>
+                    <span class="font-weight-bold text-warning" *ngIf="_activeProduct.stock.count == 1">Skladem poslední kus</span>
+                    <span class="font-weight-bold text-warning" *ngIf="_activeProduct.stock.count == 0">Očekáváme do {{_activeProduct.stock.preOrderDays}} dnů</span>
                     <button 
                         *ngIf="productsCount == 0" 
                         (click)="saveProductBasket(productsCount + 1, true)" 
+                        [disabled]="!_activeProduct.stock.count || _activeProduct.stock.count == 0" 
                         outline="true" 
                         type="button" 
                         color="primary" 
@@ -70,10 +86,11 @@
                             mdbWavesEffect
                         mdbBtn>Odebrat z košíku</button>
                     
-                    <app-shopping-button 
+                    <app-shopping-button
                         #shoppingButton
                         *ngIf="productsCount > 0 && _activeProduct.type != ProductType.Servis" 
                         (changed)="saveProductBasket($event)" 
+                        [maxCount]="_activeProduct.stock.count"
                         [productsCount]="productsCount"></app-shopping-button>
                 </div>
             </div>

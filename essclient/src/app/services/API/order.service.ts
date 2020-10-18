@@ -136,6 +136,10 @@ export class OrderService extends APIRepository<IProduct> {
         return this._API.put(`${this.className}/SetOrderAgent`, request);
     }
 
+    public verifyProductsAvailability(orderId: string): Observable<IProduct> {
+        return this._API.getQuery(`${this.className}/VerifyProductsAvailability`, { orderId: orderId });
+    }
+
     public setOrder(request: ISetOrderRequest): Promise<IOrder> {
         return this._API.post(`${this.className}/SetOrder`, request).pipe(
             map((order: IOrder) => {

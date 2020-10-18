@@ -17,8 +17,14 @@ export interface IProduct {
     deposit: IProductDeposit;
     buy: IProductBuy;
     servis: IProductServis;
+    stock: IProductStock;
 
     totalPrice: IPrice;
+}
+
+export interface IProductStock {
+    count: number;
+    preOrderDays: number;
 }
 
 export interface IProductDeposit {
@@ -74,5 +80,9 @@ export const initProduct: IProduct = {
     deposit: null,
     servis: null,
     buy: null,
-    totalPrice: null
+    totalPrice: null,
+    stock: {
+        count: null,
+        preOrderDays: null,
+    }
 };

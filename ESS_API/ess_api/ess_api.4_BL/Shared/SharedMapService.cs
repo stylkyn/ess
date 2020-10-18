@@ -264,6 +264,11 @@ namespace ess_api._4_BL.Shared
                     Price = MapPrice(request.Deposit.Price),
                     Availabilities = MapProductAvailablities(availabilities)
                 } : null,
+                Stock = request.Stock != null ? new ProductDetailStockResponse
+                {
+                    Count = request.Stock.Count,
+                    PreOrderDays = request.Stock.PreOrderDays,
+                } : null,
             };
         }
 

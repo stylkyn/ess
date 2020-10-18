@@ -54,7 +54,16 @@ namespace ess_api.Core.Model.Shared
 
         public Price CalculateTotal()
         {
+            VerifyAvailabilty();
             return Product.Buy.Price * Count;
+        }
+
+        private void VerifyAvailabilty()
+        {
+            if (Count > Product.Stock.Count)
+            {
+                Count = Product.Stock.Count;
+            }
         }
     }
 

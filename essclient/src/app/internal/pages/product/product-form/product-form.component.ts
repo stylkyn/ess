@@ -49,6 +49,8 @@ export class ProductFormComponent implements OnInit{
     get previewDescription () { return this.productForm.get('previewDescription'); }
     get slug () { return this.productForm.get('slug'); }
     get price () { return this.productForm.get('price'); }
+    get stockCount () { return this.productForm.get('stockCount'); }
+    get stockPreOrderDays () { return this.productForm.get('stockPreOrderDays'); }
 
     constructor (
         private _fb: FormBuilder,
@@ -63,7 +65,9 @@ export class ProductFormComponent implements OnInit{
             previewName: ['', Validators.required],
             previewDescription: ['', Validators.required],
             slug: ['', Validators.required],
-            price: [null, [Validators.required, Validators.min(1)]]
+            price: [null, [Validators.required, Validators.min(1)]],
+            stockCount: [null],
+            stockPreOrderDays: [14]
         });
         this.name.valueChanges.subscribe(name => {
             const slug = removeAccents(name).replace(' ', '-').toLowerCase();
@@ -154,6 +158,10 @@ export class ProductFormComponent implements OnInit{
 
             }: null,
             deposit: null,
+            stock: {
+                count: this.stockCount.value ?? 0,
+                preOrderDays: this.stockPreOrderDays.value ?? 14,
+            }
         };
         this._productService.add(request).subscribe((product: IProduct) => {
             this.changeData.next(product);
@@ -184,6 +192,10 @@ export class ProductFormComponent implements OnInit{
 
             }: null,
             deposit: null,
+            stock: {
+                count: this.stockCount.value ?? 0,
+                preOrderDays: this.stockPreOrderDays.value ?? 14,
+            }
         };
         this._productService.update(request).subscribe((product: IProduct) => {
             this.changeData.next(product);

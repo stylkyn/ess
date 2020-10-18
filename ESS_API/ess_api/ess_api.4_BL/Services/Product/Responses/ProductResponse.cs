@@ -47,7 +47,7 @@ namespace ess_api._4_BL.Services.Product.Responses
         [JsonProperty("totalPrice")]
         public PriceResponse TotalPrice { get; set; }
 
-        [JsonProperty("Stock")]
+        [JsonProperty("stock")]
         public ProductStockResponse Stock { get; set; }
     }
 

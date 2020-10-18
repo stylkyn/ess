@@ -89,6 +89,26 @@
                 </nz-form-control>
             </nz-form-item>
 
+            <nz-divider *ngIf="type.value == ProductType.Buy || type.value == ProductType.Deposit" nzOrientation="left" nzText="Skladové informace"></nz-divider>
+            <div *ngIf="type.value == ProductType.Buy || type.value == ProductType.Deposit" nz-row [nzGutter]="16">
+                <div class="gutter-row" nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label>Množství na skladě *</nz-form-label>
+                        <nz-input-group nzAddOnAfter="kusů">
+                            <input formControlName="stockCount" type="number" nz-input placeholder="0" />
+                        </nz-input-group>
+                    </nz-form-item>
+                </div>
+                <div class="gutter-row" nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label>Počet dní k dodání *</nz-form-label>
+                        <nz-input-group nzAddOnAfter="dnů">
+                            <input formControlName="stockPreOrderDays" type="number" nz-input placeholder="0" />
+                        </nz-input-group>
+                    </nz-form-item>
+                </div>
+            </div>
+
             <nz-divider nzOrientation="left" nzText="Hlavní obrázek *"></nz-divider>
             <app-file-upload #mainImageUploader [initial]="this.activeProduct?.image" (changed)="mainImageChanged($event)" ></app-file-upload>
 

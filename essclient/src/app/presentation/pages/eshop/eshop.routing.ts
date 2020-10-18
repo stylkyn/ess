@@ -25,7 +25,7 @@ const APP_ROUTES: Routes = [
                 canActivate: [MetaGuard],
                 data: {
                     meta: {
-                        title: 'Eshop produkty',
+                        title: 'Produkty',
                         keywords: 'Producsts'
                     }
                 }
@@ -36,7 +36,7 @@ const APP_ROUTES: Routes = [
                 canActivate: [MetaGuard],
                 data: {
                     meta: {
-                        title: 'Eshop produkty',
+                        title: 'Produkty',
                         keywords: 'Producsts'
                     }
                 }
@@ -47,7 +47,7 @@ const APP_ROUTES: Routes = [
                 canActivate: [MetaGuard],
                 data: {
                     meta: {
-                        title: 'Eshop detial',
+                        title: 'Detail produktu',
                         keywords: 'detail'
                     }
                 }

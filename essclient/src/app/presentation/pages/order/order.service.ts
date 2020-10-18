@@ -39,7 +39,7 @@ export class OrderBussinessService {
         this._orderService.fetchCalculatedOrder(request);
     }
 
-    public setOrder (): Promise<IOrder> {
+    public async setOrder (): Promise<IOrder> {
         const customer = this._customerStorage.customerInStorage;
         const productsInBasket = this._basketStorage.productsInStorage;
         const transportId = this._transportStorage.transportInStorage?.id;

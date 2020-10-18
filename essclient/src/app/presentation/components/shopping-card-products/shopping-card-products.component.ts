@@ -39,13 +39,15 @@ export class ShoppingCardProductsComponent implements OnInit {
     }
 
     onChangeProductCount(count: number, product: ICalculatedOrderProductOrder) {
-        if (count == product.count || count <= 0 || count > 10) {
+        if (this.hasInvalidCount(count, product)) {
             return;
         }
 
         const request: IBasketProductStorage = {
             productId: product.product.id,
-            productsCount: count
+            productsCount: count > product.product.stock.count 
+                ? product.product.stock.count 
+                : count
         };
         this._basketStorage.setProduct(request);
         this.calculateOrder();
@@ -66,4 +68,7 @@ export class ShoppingCardProductsComponent implements OnInit {
         this._orderService.fetchCalculatedOrder(request);
     }
 
+    private hasInvalidCount(count: number, product: ICalculatedOrderProductOrder) { 
+        return count == product.count || count <= 0;
+    }
 }

@@ -13,6 +13,9 @@ export class ShoppingButtonComponent implements OnInit {
     @Input()
     productsCount = 0;
 
+    @Input()
+    maxCount = 10;
+
     @Output()
     changed = new EventEmitter<number>();
 
@@ -22,12 +25,12 @@ export class ShoppingButtonComponent implements OnInit {
     }
 
     changeCount(count: number) {
-        if (count <= 0) {
+        if (count <= this.maxCount) {
             this.changed.emit(0);
             return;
         }
 
-        if (count > 10) {
+        if (count > this.maxCount) {
             return this.productsCount = 10;
         }
         
@@ -35,7 +38,7 @@ export class ShoppingButtonComponent implements OnInit {
     }
 
     addOne() {
-        if (this.productsCount == 10)
+        if (this.productsCount == this.maxCount)
             return;
 
         this.changed.emit(this.productsCount + 1);

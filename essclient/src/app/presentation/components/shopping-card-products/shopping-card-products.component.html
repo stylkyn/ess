@@ -22,7 +22,7 @@
                 </td>
                 <td>
                     <p *ngIf="product.product.type == ProductType.Servis" class="mb-0">1 ks</p>
-                    <input *ngIf="product.product.type != ProductType.Servis" type="number" [min]="1" [max]="10" (change)="onChangeProductCount(+$event.target.value, product)" [value]="product.count" aria-label="Search" class="form-control" style="width: 100px">
+                    <input *ngIf="product.product.type != ProductType.Servis" type="number" [min]="1" [max]="product.product.stock.count" (change)="onChangeProductCount(+$event.target.value, product)" [value]="product.count" aria-label="Search" class="form-control" style="width: 100px">
                 </td>
                 <td class="font-weight-bold">
                     <strong>{{product.totalPrice.czkWithVat}} {{mapPriceTypes(product.totalPrice.priceType)}}</strong> s DPH
