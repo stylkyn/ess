@@ -210,7 +210,8 @@ namespace ess_api._4_BL.Services.Order
                 foreach (var product in products)
                 {
                     int orderedCount = productsInOrder.FirstOrDefault(po => po.Product.Id == product.Id).Count;
-                    if (product.Stock.Count < orderedCount && product.Stock.Count > 0)
+                    var requestProduct = request.CalculateOrder.Products.FirstOrDefault(p => p.ProductId == product.Id.ToString());
+                    if ((product.Stock.Count < orderedCount && product.Stock.Count > 0) || requestProduct.Count != orderedCount)
                         return new Response<OrderResponse>(ResponseStatus.BadRequest, null, $"{ResponseMessagesConstans.MissingGoodsInStock} Product: {product.Name} available: {product.Stock.Count} requested: {orderedCount}");
                     
                     product.Stock.Count -= orderedCount;

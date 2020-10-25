@@ -113,6 +113,8 @@ export class ProductFormComponent implements OnInit{
             this.categoryId.setValue(product.categoryId);
             this.gallery = product.gallery;
             this.mainImage = product.image;
+            this.stockCount.setValue(product.stock.count);
+            this.stockPreOrderDays.setValue(product.stock.preOrderDays);
         }
     }
 
