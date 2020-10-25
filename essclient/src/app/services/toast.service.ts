@@ -18,4 +18,16 @@ export class MyToastService {
     public showSuccess(title: string, message: string = null) {
         return this._toastService.success(message, title, this.options);
     }
+
+    public showError(title: string, message: string = null) {
+        const options = {...this.options};
+        options.timeOut = 4000;
+        return this._toastService.error(message, title, this.options);
+    }
+
+    public showWarning(title: string, message: string = null) {
+        const options = {...this.options};
+        options.timeOut = 3000;
+        return this._toastService.warning(message, title, this.options);
+    }
 }

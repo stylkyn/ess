@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { throwError, Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { tokenToObject, cookieJwtName } from 'src/app/models/IUser';
+import { MyToastService } from '../toast.service';
 
 let loaderSrv: LoaderService;
 
@@ -27,6 +28,7 @@ export class APIService {
     constructor (
         private _http: HttpClient,
         private _loaderSrv: LoaderService,
+        private _toustSrv: MyToastService,
         private _cookieService: CookieService
     ) {
         loaderSrv = _loaderSrv;
@@ -122,6 +124,7 @@ export class APIService {
 
     // handlery chyb
     private errorHandlerLog(error: HttpErrorResponse, url: string, method: string, data_in: any = null) {
+        this._toustSrv.showError('Chyba', error.error.message);
         loaderSrv.hide();
         return throwError(error || 'API error');
     }
@@ -132,14 +135,6 @@ export class APIService {
     }
     // handler uspesneho dokonceni
     private async successHandlerLog(url: string, method: string, data_in: any = null) {
-        // let newLog: ILog = {
-        //   db_type: 'API',
-        //   log_type: 'success',
-        //   data_in: data_in,
-        //   api_method: method,
-        //   api_url: url
-        // };
-        // this.logSubs.next(newLog);
         loaderSrv.hide();
     }
     // vraci nastavneou hlavicku
