@@ -64,14 +64,16 @@
                     </div>
                 </div>
                 <div class="mt-3 w-50">
-                    <span class="font-weight-bold text-success" *ngIf="_activeProduct.stock.count > 4">Skladem</span>
-                    <span class="font-weight-bold text-warning" *ngIf="_activeProduct.stock.count > 1 && _activeProduct.stock.count <= 4">Skladem poslední {{_activeProduct.stock.count}} kusy</span>
-                    <span class="font-weight-bold text-warning" *ngIf="_activeProduct.stock.count == 1">Skladem poslední kus</span>
-                    <span class="font-weight-bold text-warning" *ngIf="_activeProduct.stock.count == 0">Očekáváme do {{_activeProduct.stock.preOrderDays}} dnů</span>
+                    <ng-container *ngIf="_activeProduct.type != ProductType.Servis">
+                        <span class="font-weight-bold text-success" *ngIf="_activeProduct.stock.count > 4">Skladem</span>
+                        <span class="font-weight-bold text-warning" *ngIf="_activeProduct.stock.count > 1 && _activeProduct.stock.count <= 4">Skladem poslední {{_activeProduct.stock.count}} kusy</span>
+                        <span class="font-weight-bold text-warning" *ngIf="_activeProduct.stock.count == 1">Skladem poslední kus</span>
+                        <span class="font-weight-bold text-warning" *ngIf="_activeProduct.stock.count == 0">Očekáváme do {{_activeProduct.stock.preOrderDays}} dnů</span>
+                    </ng-container>
                     <button 
                         *ngIf="productsCount == 0" 
                         (click)="saveProductBasket(productsCount + 1, true)" 
-                        [disabled]="!_activeProduct.stock.count || _activeProduct.stock.count == 0" 
+                        [disabled]="(!_activeProduct.stock.count || _activeProduct.stock.count == 0) && _activeProduct.type != ProductType.Servis" 
                         outline="true" 
                         type="button" 
                         color="primary" 
