@@ -22,7 +22,7 @@ namespace ess_api.Core.Model
         public ProductType Type { get; set; }
         public ProductDeposit Deposit { get; set; } = null;
         public ProductBuy Buy { get; set; } = null;
-        public ProductServis Servis { get; set; } = null;
+        public ProductService Service { get; set; } = null;
 
         // informace o skladu
         public ProductStock Stock = new ProductStock();
@@ -35,8 +35,8 @@ namespace ess_api.Core.Model
                     return Buy?.Price;
                 case ProductType.Deposit:
                     return Deposit?.Price;
-                case ProductType.Servis:
-                    return Servis?.Price;
+                case ProductType.Service:
+                    return Service?.Price;
             }
             return null;
         }
@@ -48,7 +48,7 @@ namespace ess_api.Core.Model
         public int PreOrderDays { get; set; } = 14;
     }
 
-    public class ProductServis
+    public class ProductService
     {
         public Price Price { get; set; }
     }
@@ -86,7 +86,7 @@ namespace ess_api.Core.Model
     public enum ProductType
     {
         Buy,
-        Servis,
+        Service,
         Deposit
     }
 }

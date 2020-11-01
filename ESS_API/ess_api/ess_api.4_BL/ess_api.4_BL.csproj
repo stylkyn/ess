@@ -84,6 +84,9 @@
     <Compile Include="Services\Product\Requests\ProductSearchRequest.cs" />
     <Compile Include="Services\Product\Responses\ProductDetailResponse.cs" />
     <Compile Include="Services\Product\Responses\ProductAvailability.cs" />
+    <Compile Include="Services\Setting\Requests\UpdateSettingRequest.cs" />
+    <Compile Include="Services\Setting\Responses\SettingResponse.cs" />
+    <Compile Include="Services\Setting\SettingService.cs" />
     <Compile Include="Services\Stats\Responses\StatsResponse.cs" />
     <Compile Include="Services\Stats\StatsService.cs" />
     <Compile Include="Services\Transport\Requests\TransportUpdateRequest.cs" />

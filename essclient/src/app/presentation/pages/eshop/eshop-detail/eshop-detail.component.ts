@@ -18,25 +18,14 @@ export class EshopDetailComponent implements OnInit {
     mapPriceTypes = MapPriceTypes;
     ProductType = ProductType;
     mapVatTypes = MapVatTypes;
+    moment = moment;
     productsCountOptions = [
         { value: 1, label: '1' },
         { value: 2, label: '2' },
         { value: 3, label: '3' },
         ];
 
-    get productsCount () {
-        if (!this._productService.activeProduct) {
-            return 0;
-        }
-
-        const selectedProduct = this._basketService.findSelectedProduct(this._productService.activeProduct.id);
-        if (!selectedProduct) {
-            return 0;
-        }
-
-        return selectedProduct.productsCount;
-    }
-
+        
     get category(): ICategory {
         return this._categoryService.categories.find(c => c.id == this._activeProduct.categoryId);
     }
@@ -47,6 +36,27 @@ export class EshopDetailComponent implements OnInit {
 
     get _activeProduct() {
         return this._productService.activeProduct;
+    }
+
+    get selectedProduct (): IBasketProductStorage {
+        if (!this._activeProduct) {
+            return null;
+        }
+
+        const selectedProduct = this._basketService.findSelectedProduct(this._productService.activeProduct.id);
+        if (!selectedProduct) {
+            return null;
+        }
+
+        return selectedProduct;
+    }
+
+    get productsCount (): number {
+        const selectedProduct = this.selectedProduct;
+        if (!selectedProduct) {
+            return 0;
+        }
+        return selectedProduct.productsCount;
     }
 
     constructor(
@@ -72,6 +82,16 @@ export class EshopDetailComponent implements OnInit {
             urlName: urlName,
         };
         this._productService.fetchProductByUrl(request);
+    }
+
+    onSelectDate(date: moment.Moment) {
+        this._toastService.showSuccess('Přidáno do košíku');
+        const selectedProduct: IBasketProductStorage = {
+            productId: this._productService.activeProduct.id,
+            serviceDate: date.toDate(),
+            productsCount: 1
+        };
+        this._basketService.setProduct(selectedProduct);
     }
 
     saveProductBasket(count: number, showAddedNotify = false) {

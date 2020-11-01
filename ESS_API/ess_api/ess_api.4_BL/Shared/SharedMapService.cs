@@ -2,6 +2,7 @@
 using ess_api._4_BL.Services.Payment.Responses;
 using ess_api._4_BL.Services.Product.Responses;
 using ess_api._4_BL.Services.Responses;
+using ess_api._4_BL.Services.Setting.Responses;
 using ess_api._4_BL.Services.Stats.Responses;
 using ess_api._4_BL.Services.Transport.Responses;
 using ess_api._4_BL.Shared.Responses;
@@ -137,11 +138,6 @@ namespace ess_api._4_BL.Shared
                 State = request.State,
                 OrderNumber = request.OrderNumber,
                 OrderNumberFormatted = request.OrderNumberFormatted,
-                Service = request.Service != null ? new OrderServiceResponse
-                {
-                    Date = request.Service.Date,
-                    UserId = request.Service.UserId
-                } : null,
                 Customer = request.Customer != null ? new OrderCustomerResponse {
                     UserId = request.Customer.UserId,
                     Personal = MapUserPersonal(request.Customer?.Personal),
@@ -187,6 +183,11 @@ namespace ess_api._4_BL.Shared
                 {
                     Count = p.Count,
                     Product = MapProduct(p.Product),
+                    Service = p.Service != null ? new CalculatedOrderProductServiceResponse {
+                        Date = p.Service.Date,
+                        UserId = p.Service.UserId,
+                        Done = p.Service.Done,
+                    } : null,
                     TotalPrice = MapPrice(p.TotalPrice)
                 }).ToList(),
                 Total = new CalculatedOrderTotalResponse
@@ -219,7 +220,7 @@ namespace ess_api._4_BL.Shared
                 } : null,
                 Service = new ProductServiceResponse
                 {
-                    Price = MapPrice(request.Servis?.Price)
+                    Price = MapPrice(request.Service?.Price)
                 },
                 Deposit = request.Deposit != null ? new ProductDepositResponse
                 {
@@ -249,9 +250,9 @@ namespace ess_api._4_BL.Shared
                 Description = request.Description,
                 CategoryId = request.CategoryId,
                 Gallery = request.Gallery.Select(i => MapImage(i)).ToList(),
-                Service = request.Servis != null ? new ProductDetailServiceResponse
+                Service = request.Service != null ? new ProductDetailServiceResponse
                 {
-                    Price = MapPrice(request.Servis.Price),
+                    Price = MapPrice(request.Service.Price),
                     Availabilities = MapProductAvailablities(availabilities)
                 } : null,
                 Buy = request.Buy != null ? new ProductDetailBuyResponse
@@ -397,5 +398,22 @@ namespace ess_api._4_BL.Shared
             };
         }
 
+        /*
+         * 
+         * Settings
+         * 
+         * **/
+
+        public SettingResponse MapSettings(SettingModel setting)
+        {
+            if (setting == null)
+                return null;
+
+            return new SettingResponse
+            {
+                MaxServicesInDay = setting.MaxServicesInDay,
+                MaxAvailabilityDays = setting.MaxAvailabilityDays
+            };
+        }
     }
 }

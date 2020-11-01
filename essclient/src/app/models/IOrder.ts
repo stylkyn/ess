@@ -135,7 +135,7 @@ export const orderSummaryStates = (order: IOrder): IOrderStateOption[] => {
             break;
     }
 
-    // // servis states
+    // // service states
     // if (order.service) {
     //     states.push({ type:  OrderState.AgentAssign, label: OrderStateName(OrderState.AgentAssign)});
     //     states.push({ type:  OrderState.AgentReady, label: OrderStateName(OrderState.AgentReady)});

@@ -4,6 +4,7 @@ using ess_api._4_BL.Shared.Responses;
 using ess_api.Core.Model;
 using ess_api.Core.Model.Shared;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace ess_api._4_BL.Services.Order.Responses
@@ -68,5 +69,21 @@ namespace ess_api._4_BL.Services.Order.Responses
 
         [JsonProperty("totalPrice")]
         public PriceResponse TotalPrice { get; set; }
+
+        [JsonProperty("service")]
+        public CalculatedOrderProductServiceResponse Service { get; set; }
+
+    }
+
+    public class CalculatedOrderProductServiceResponse
+    {
+        [JsonProperty("date")]
+        public DateTime? Date { get; set; }
+
+        [JsonProperty("userId")]
+        public string UserId { get; set; } // user agent id
+
+        [JsonProperty("done")]
+        public bool Done { get; set; }
     }
 }

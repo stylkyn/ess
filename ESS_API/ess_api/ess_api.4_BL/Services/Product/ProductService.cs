@@ -72,15 +72,12 @@ namespace ess_api._4_BL.Services.Product
                 return new Response<ProductDetailResponse>(
                     ResponseStatus.NotFound, 
                     null, 
-                    $"Product with urlName: {request.UrlName} was not founded");
+                    $"Product with urlName: {request.UrlName} was not found");
 
             var product = products.First();
-            if (product.Deposit != null || product.Servis != null)
-            {
-                var availabilities = await _productSharedService.GetProductAvailabilities(product);
-                return new Response<ProductDetailResponse>(ResponseStatus.Ok, _mapService.MapProductDetail(product, availabilities));
-            }
-            return new Response<ProductDetailResponse>(ResponseStatus.Ok, _mapService.MapProductDetail(product));
+
+            var availabilities = await _productSharedService.GetProductAvailabilities(product);
+            return new Response<ProductDetailResponse>(ResponseStatus.Ok, _mapService.MapProductDetail(product, availabilities));
         }
 
         public async Task<Response<ProductDetailResponse>> Get(GetProductDetailRequest request)
@@ -90,12 +87,8 @@ namespace ess_api._4_BL.Services.Product
                 return new Response<ProductDetailResponse>(ResponseStatus.NotFound, null, $"Product with id: {request.ProductId} was not founded");
 
 
-            if (product.Deposit != null || product.Servis != null)
-                {
-                var availabilities = await _productSharedService.GetProductAvailabilities(product);
-                return new Response<ProductDetailResponse>(ResponseStatus.Ok, _mapService.MapProductDetail(product, availabilities));
-            }
-            return new Response<ProductDetailResponse>(ResponseStatus.Ok, _mapService.MapProductDetail(product));
+            var availabilities = await _productSharedService.GetProductAvailabilities(product);
+            return new Response<ProductDetailResponse>(ResponseStatus.Ok, _mapService.MapProductDetail(product, availabilities));
         }
 
         public async Task<ResponseList<ProductAvailabilityResponse>> GetProductAvailabilities(ProductAvailabilityRequest request)
@@ -136,10 +129,10 @@ namespace ess_api._4_BL.Services.Product
                         Price = new Price(request.Buy.PriceWithoutVat)
                     } : null;
                     break;
-                case ProductType.Servis:
-                    product.Servis = request.Servis != null ? new ProductServis
+                case ProductType.Service:
+                    product.Service = request.Service != null ? new Core.Model.ProductService
                     {
-                        Price = new Price(request.Servis.PriceWithoutVat, VatTypes.Czk21, PriceTypes.Czk),
+                        Price = new Price(request.Service.PriceWithoutVat, VatTypes.Czk21, PriceTypes.Czk),
                     } : null;
                     break;
                 case ProductType.Deposit:
@@ -181,10 +174,10 @@ namespace ess_api._4_BL.Services.Product
                         Price = new Price(request.Buy.PriceWithoutVat)
                     } : null;
                     break;
-                case ProductType.Servis:
-                    product.Servis = request.Servis != null ? new ProductServis
+                case ProductType.Service:
+                    product.Service = request.Service != null ? new Core.Model.ProductService
                     {
-                        Price = new Price(request.Servis.PriceWithoutVat, VatTypes.Czk21, PriceTypes.Czk),
+                        Price = new Price(request.Service.PriceWithoutVat, VatTypes.Czk21, PriceTypes.Czk),
                     } : null;
                     break;
                 case ProductType.Deposit:

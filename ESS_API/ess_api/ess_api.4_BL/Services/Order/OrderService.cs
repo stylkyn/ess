@@ -13,10 +13,8 @@ using Libraries.Mailing;
 using Libraries.Mailing.Abstraction;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace ess_api._4_BL.Services.Order
 {
@@ -126,14 +124,6 @@ namespace ess_api._4_BL.Services.Order
                 order.State = OrderState.CalculateReady;
             }
 
-            if (request.Service != null)
-            {
-                order.Service = new OrderAgentService
-                {
-                    Date = request.Service.Date
-                };
-            }
-
             if (request.Transport != null)
             {
                 var transport = await _uow.Transports.FindAsync(new Guid(request.Transport.TransportId));
@@ -238,10 +228,20 @@ namespace ess_api._4_BL.Services.Order
             if (order == null)
                 return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.CannotFindOrder);
 
-            order.Service.UserId = request.UserId;
-            order.State = OrderState.AgentReady;
-            order = await _uow.Orders.FindAndReplaceAsync(order.Id, order);
+            // assign agent to product
+            var product = order.CalculatedData.Products.FirstOrDefault(p => p.Product.Id.ToString() == request.ProductId);
+            if (product == null)
+                return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.CannotFindProductInOrder);
+            
+            product.Service.UserId = request.UserId;
 
+            // set Agents ready if are product is already assigned
+            var hasEveryProductAgent = order.CalculatedData.Products.All(p => p.Service.UserId != null);
+            if (hasEveryProductAgent)
+                order.State = OrderState.AgentsReady;
+
+            order = await _uow.Orders.FindAndReplaceAsync(order.Id, order);
+            
             var response = _mapService.MapOrder(order);
             return new Response<OrderResponse>(ResponseStatus.Ok, response);
         }
@@ -318,10 +318,15 @@ namespace ess_api._4_BL.Services.Order
             var productsIds = products.Select(p => p.ProductId).ToList();
             var selectedProducts = await _productSharedService.GetSelected(productsIds);
             calculatedData.Products = selectedProducts.Select(p => {
+                var productRequest = products.FirstOrDefault(x => x.ProductId == p.Id.ToString());
                 var res = new CalculatedOrderProduct
                 {
                     Product = p,
-                    Count = products.FirstOrDefault(x => x.ProductId == p.Id.ToString())?.Count ?? 0,
+                    Service = p.Service != null ? new CalculatedOrderProductService
+                    {
+                        Date = productRequest?.ServiceDate,
+                    } : null,
+                    Count = productRequest?.Count ?? 1,
                 };
                 res.TotalPrice = res.CalculateTotal();
                 return res;

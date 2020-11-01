@@ -1,0 +1,14 @@
+.ServiceBox-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.ServiceBox {
+    display: flex;
+    justify-items: center;
+    flex-direction: column;
+    align-items: center;
+}

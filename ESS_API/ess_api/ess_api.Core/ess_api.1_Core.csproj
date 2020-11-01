@@ -134,6 +134,7 @@
     <Compile Include="Model\Shared\StatsModel.cs" />
     <Compile Include="Model\TransportModel.cs" />
     <Compile Include="Model\OrderModel.cs" />
+    <Compile Include="Model\SettingModel.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

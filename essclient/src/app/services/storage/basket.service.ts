@@ -9,6 +9,7 @@ export interface IBasket {
 export interface IBasketProductStorage {
     productId: string;
     productsCount: number;
+    serviceDate?: Date;
 }
 
 @Injectable({

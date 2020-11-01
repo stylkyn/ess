@@ -18,6 +18,8 @@ import { RegisterModalContentComponent } from './register-modal/register-modal-c
 import { ShoppingButtonComponent } from './shopping-button/shopping-button.component';
 import { ShoppingCardProductsComponent } from './shopping-card-products/shopping-card-products.component';
 import { OrderSummaryCardComponent } from './order-summary-card/order-summary-card.component';
+import { ServiceDateContentComponent } from './service-date/service-date-content.component';
+import { ServiceDateComponent } from './service-date/service-date.component';
 
 @NgModule({
     imports: [
@@ -53,11 +55,14 @@ import { OrderSummaryCardComponent } from './order-summary-card/order-summary-ca
         ShoppingButtonComponent,
         ShoppingCardProductsComponent,
         OrderSummaryCardComponent,
+        ServiceDateContentComponent,
+        ServiceDateComponent,
     ],
     entryComponents: [
         ShoppingCardModalContentComponent,
         LoginModalContentComponent,
-        RegisterModalContentComponent
+        RegisterModalContentComponent,
+        ServiceDateContentComponent,
     ],
     exports: [
         DateRangeComponent,
@@ -67,6 +72,7 @@ import { OrderSummaryCardComponent } from './order-summary-card/order-summary-ca
         ShoppingButtonComponent,
         ShoppingCardProductsComponent,
         OrderSummaryCardComponent,
+        ServiceDateComponent,
     ]
 })
 export class ComponentsModule { }

@@ -7,7 +7,6 @@ import { OrderService, ICalculateOrderRequest } from 'src/app/services/API/order
 import { ISetOrderRequest } from './../../../services/API/order.service';
 import { CustomerStorageService } from 'src/app/services/storage/customer.service';
 import { IOrder } from './../../../models/IOrder';
-import { ServiceDateStorageService } from 'src/app/services/storage/service-date.service';
 
 @Injectable({
   providedIn: OrderModule
@@ -17,7 +16,6 @@ export class OrderBussinessService {
     constructor(
         private _paymentStorage: PaymentStorageService,
         private _basketStorage: BasketStorageService,
-        private _serviceDateStorage: ServiceDateStorageService,
         private _transportStorage: TransportStorageService,
         private _customerStorage: CustomerStorageService,
         private _orderService: OrderService,
@@ -31,7 +29,8 @@ export class OrderBussinessService {
         const request: ICalculateOrderRequest = {
             products: productsInBasket.map(x => ({
                 productId: x.productId,
-                count: x.productsCount
+                count: x.productsCount,
+                serviceDate: x.serviceDate
             })),
             transportId: transportId,
             paymentId: paymentId
@@ -43,7 +42,6 @@ export class OrderBussinessService {
         const customer = this._customerStorage.customerInStorage;
         const productsInBasket = this._basketStorage.productsInStorage;
         const transportId = this._transportStorage.transportInStorage?.id;
-        const servisDate = this._serviceDateStorage.servisDateInStorage;
         const paymentId = this._paymentStorage.paymentInStorage?.id;
         const request: ISetOrderRequest = {
             customer: {
@@ -58,7 +56,8 @@ export class OrderBussinessService {
             calculateOrder: {
                 products: productsInBasket.map(x => ({
                     productId: x.productId,
-                    count: x.productsCount
+                    count: x.productsCount,
+                    serviceDate: x.serviceDate
                 })),
                 transportId: transportId,
                 paymentId: paymentId
@@ -69,14 +68,10 @@ export class OrderBussinessService {
             payment: {
                 paymentId: paymentId
             },
-            service: servisDate ? {
-                date: servisDate.toISOString()
-            } : null
         };
         return this._orderService.setOrder(request).then(order => {
             this._basketStorage.reset();
             this._transportStorage.reset();
-            this._serviceDateStorage.reset();
             this._paymentStorage.reset();
             this._customerStorage.reset();
 

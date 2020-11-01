@@ -11,7 +11,7 @@
         <form [formGroup]="productForm" nzLayout="vertical" nz-form>
             <nz-radio-group formControlName="type" nzButtonStyle="solid">
                 <label nz-radio-button [nzValue]="ProductType.Buy">Produkt</label>
-                <label nz-radio-button [nzValue]="ProductType.Servis">Služba</label>
+                <label nz-radio-button [nzValue]="ProductType.Service">Služba</label>
             </nz-radio-group>
             <nz-divider nzOrientation="left" nzText="Základní údaje"></nz-divider>
             <div nz-row [nzGutter]="16">
@@ -39,7 +39,7 @@
                         <textarea
                             formControlName="description"
                             nz-input
-                            placeholder="Detailní popis {{type.value == ProductType.Servis ? 'služby' : 'produktu'}}"
+                            placeholder="Detailní popis {{type.value == ProductType.Service ? 'služby' : 'produktu'}}"
                             [nzAutosize]="{ minRows: 3, maxRows: 10 }">
                         </textarea>
                     </nz-form-item>
@@ -50,7 +50,7 @@
                         <textarea
                             formControlName="previewDescription"
                             nz-input
-                            placeholder="Krátky popis {{type.value == ProductType.Servis ? 'služby' : 'produktu'}}"
+                            placeholder="Krátky popis {{type.value == ProductType.Service ? 'služby' : 'produktu'}}"
                             [nzAutosize]="{ minRows: 3, maxRows: 10 }">
                         </textarea>
                     </nz-form-item>

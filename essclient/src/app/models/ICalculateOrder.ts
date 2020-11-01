@@ -30,8 +30,16 @@ export interface ICalculatedOrderTotalOrder {
 
 export interface ICalculatedOrderProductOrder {
     product: IProduct;
+    service: ICalculatedOrderProductService;
     count: number;
     totalPrice: IPrice;
+}
+
+export interface ICalculatedOrderProductService
+{
+    date: Date | string | null;
+    userId: string; // user agent id
+    done: boolean;
 }
 
 export const calculateOrderInit: ICalculatedOrder = {

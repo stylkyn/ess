@@ -1,26 +1,18 @@
-﻿using ess_api._4_BL.Services;
-using ess_api._4_BL.Services.Product;
-using ess_api._4_BL.Services.Product.Requests;
-using ess_api._4_BL.Services.Requests;
-using ess_api._4_BL.Services.Responses;
+﻿using ess_api._4_BL.Services.Product.Requests;
 using ess_api.App_Start.Filters;
-using ess_api.Core.Model;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Description;
 
 namespace ess_api.Controllers
 {
     [RoutePrefix("api/Products")]
     public class ProductsController : BaseApiController
     {
-        private ProductService _productService;
+        private _4_BL.Services.Product.ProductService _productService;
 
         public ProductsController()
         {
-            _productService = new ProductService();
+            _productService = new _4_BL.Services.Product.ProductService();
         }
 
         [HttpGet]

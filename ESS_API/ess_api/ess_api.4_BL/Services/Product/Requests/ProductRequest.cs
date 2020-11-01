@@ -35,7 +35,7 @@ namespace ess_api._4_BL.Services.Product.Requests
 
         public ProductType Type { get; set; }
         public BuyRequest Buy { get; set; }
-        public ServisRequest Servis { get; set; }
+        public ServiceRequest Service { get; set; }
         public DepositRequest Deposit { get; set; }
         public StockRequest Stock { get; set; }
     }
@@ -46,9 +46,9 @@ namespace ess_api._4_BL.Services.Product.Requests
         public int PreOrderDays { get; set; }
     }
 
-    public class ServisRequest
+    public class ServiceRequest
     {
-        public DateTime ServisDate { get; set; }
+        public DateTime ServiceDate { get; set; }
         public decimal PriceWithoutVat { get; set; }
     }
 

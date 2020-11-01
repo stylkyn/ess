@@ -155,7 +155,7 @@ export class ProductFormComponent implements OnInit{
             buy: ProductType.Buy == this.type.value ? {
                 priceWithoutVat: this.price.value
             }: null,
-            servis: ProductType.Buy == this.type.value ? {
+            service: ProductType.Buy == this.type.value ? {
                 priceWithoutVat: this.price.value
 
             }: null,
@@ -189,7 +189,7 @@ export class ProductFormComponent implements OnInit{
             buy: ProductType.Buy == this.type.value ? {
                 priceWithoutVat: this.price.value
             }: null,
-            servis: ProductType.Servis == this.type.value ? {
+            service: ProductType.Service == this.type.value ? {
                 priceWithoutVat: this.price.value
 
             }: null,

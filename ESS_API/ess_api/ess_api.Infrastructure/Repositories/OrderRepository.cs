@@ -5,6 +5,7 @@ using ess_api.DAL.Repository;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ess_api.Infrastructure.Repositories
@@ -52,10 +53,10 @@ namespace ess_api.Infrastructure.Repositories
             var types = new List<OrderState>() {
                 OrderState.Confirmed,
                 OrderState.WaitForpaid,
-                OrderState.AgentReady,
+                OrderState.AgentsReady,
                 OrderState.AgentOnWay,
             };
-            var result = await FindManyAsync(x => x.Service != null && x.Service.UserId == userId
+            var result = await FindManyAsync(x => x.CalculatedData.Products.Any(p => p.Service != null && p.Service.UserId == userId)
                 && types.Contains(x.State));
             return result;
         }
@@ -65,7 +66,7 @@ namespace ess_api.Infrastructure.Repositories
             var types = new List<OrderState>() {
                 OrderState.Finished,
             };
-            var result = await FindManyAsync(x => x.Service != null && x.Service.UserId == userId
+            var result = await FindManyAsync(x => x.CalculatedData.Products.Any(p => p.Service != null && p.Service.UserId == userId)
                 && types.Contains(x.State), SortType.DESC, x => x.CreatedDate);
             return result;
         }

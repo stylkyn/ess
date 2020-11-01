@@ -17,6 +17,7 @@ namespace ess_api.DAL
         public static IMongoCollection<ProductModel> Products { get; set; }
         public static IMongoCollection<TransportModel> Transports { get; set; }
         public static IMongoCollection<PaymentModel> Payments { get; set; }
+        public static IMongoCollection<SettingModel> Settings { get; set; }
 
         public MongoDB()
         {
@@ -30,6 +31,7 @@ namespace ess_api.DAL
                 Products = _db.GetCollection<ProductModel>("products");
                 Transports = _db.GetCollection<TransportModel>("transports");
                 Payments = _db.GetCollection<PaymentModel>("payments");
+                Settings = _db.GetCollection<SettingModel>("settings");
             }
             catch (Exception)
             {

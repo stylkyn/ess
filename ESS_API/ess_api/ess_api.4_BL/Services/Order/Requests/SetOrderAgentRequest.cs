@@ -10,6 +10,7 @@ namespace ess_api._4_BL.Services.Order.Requests
     public class SetOrderAgentRequest : Request
     {
         public string UserId { get; set; }
+        public string ProductId { get; set; }
         public string OrderId { get; set; }
     }
 }

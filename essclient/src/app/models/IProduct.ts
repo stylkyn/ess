@@ -16,7 +16,7 @@ export interface IProduct {
     type: ProductType;
     deposit: IProductDeposit;
     buy: IProductBuy;
-    servis: IProductServis;
+    service: IProductService;
     stock: IProductStock;
 
     totalPrice: IPrice;
@@ -33,7 +33,7 @@ export interface IProductDeposit {
     availabilities: IProductAvailability[];
 }
 
-export interface IProductServis {
+export interface IProductService {
     price: IPrice;
     availabilities: IProductAvailability[];
 }
@@ -54,7 +54,7 @@ export const getProductTypeName = (type: ProductType) => {
             return 'Produkt';
         case ProductType.Deposit:
             return 'Pronájem';
-        case ProductType.Servis:
+        case ProductType.Service:
             return 'Služba';
         }
     return '';
@@ -62,7 +62,7 @@ export const getProductTypeName = (type: ProductType) => {
 
 export enum ProductType {
     Buy,
-    Servis,
+    Service,
     Deposit
 }
 
@@ -78,7 +78,7 @@ export const initProduct: IProduct = {
     gallery: [],
     type: null,
     deposit: null,
-    servis: null,
+    service: null,
     buy: null,
     totalPrice: null,
     stock: {

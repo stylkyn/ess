@@ -21,6 +21,7 @@ export interface ICalculateOrderRequest {
 
 export interface ICalculatedOrderProductRequest {
     productId: string;
+    serviceDate: Date;
     count: number;
 }
 
@@ -29,11 +30,6 @@ export interface ISetOrderRequest {
     transport: IOrderTransportRequest;
     payment: IOrderPaymentRequest;
     calculateOrder: ICalculateOrderRequest;
-    service: IServiceOrderRequest | null;
-}
-
-export interface IServiceOrderRequest {
-    date: string;
 }
 
 export interface IOrderCustomerRequest {
@@ -87,7 +83,7 @@ export class OrderService extends APIRepository<IProduct> {
     }
 
     public get hasService(): boolean {
-        return this.calculatedOrder?.products?.some(x => x.product?.type == ProductType.Servis);
+        return this.calculatedOrder?.products?.some(x => x.product?.type == ProductType.Service);
     }
 
     public fetchCalculatedOrder(request: ICalculateOrderRequest): Promise<ICalculatedOrder> {

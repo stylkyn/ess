@@ -1,16 +1,9 @@
-﻿using ess_api._4_BL.Services.Order;
-using ess_api._4_BL.Services.Product.Requests;
-using ess_api._4_BL.Services.Product.Responses;
-using ess_api._4_BL.Services.Requests;
-using ess_api._4_BL.Services.Responses;
-using ess_api._4_BL.Shared;
-using ess_api.Core.Extension;
+﻿using ess_api.Core.Extension;
 using ess_api.Core.Model;
 using ess_api.Core.Model.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace ess_api._4_BL.Services.Product
@@ -32,24 +25,39 @@ namespace ess_api._4_BL.Services.Product
 
         public async Task<List<ProductAvailability>> GetProductAvailabilities(ProductModel product)
         {
+            var settings = await _uow.Settings.GetSettings();
             DateTime startDate = DateTime.Now;
-            DateTime endDate = startDate.AddMonths(1);
+            DateTime endDate = startDate.AddDays(settings.MaxAvailabilityDays);
             var dates = Enumerable.Range(0, 1 + endDate.Subtract(startDate).Days)
                 .Select(offset => startDate.AddDays(offset))
                 .ToList();
 
-            if (product.Servis != null)
+            if (product.Service != null)
             {
-                // TODO: move max services to MondoDB, set per day for all next 30 days
-                int maxServicesInDay = 8;
-                var orders = await _uow.Orders.FindManyAsync(x => x.Service != null);
+                var orders = await _uow.Orders.FindManyAsync(o => o.CalculatedData.Products.Any(p => p.Service != null && !p.Service.Done));
 
                 return dates.Select(day => {
-                    int freeCapacity = maxServicesInDay - orders.Where(o => o.CreatedDate.Date == day.Date).Count();
+                    bool isWeekend = day.DayOfWeek == DayOfWeek.Saturday || day.DayOfWeek == DayOfWeek.Sunday;
+                    if (isWeekend)
+                    {
+                        return new ProductAvailability
+                        {
+                            Day = day,
+                            FreeCapacity = 0
+                        };
+                    }
+
+                    var actualServiceInDay = orders
+                        .Where(o => o.CreatedDate.Date == day.Date)
+                        .Select(o => o.CalculatedData.Products
+                            .Where(p => p.Product.Type == ProductType.Service)
+                            .Count())
+                        .Sum();
+                    int freeCapacity = settings.MaxServicesInDay - actualServiceInDay;
                     return new ProductAvailability
                     {
                         Day = day,
-                        FreeCapacity = freeCapacity >= 0 ? freeCapacity : 0
+                        FreeCapacity = freeCapacity > 0 ? freeCapacity : 0
                     };
                 }).ToList();
             }

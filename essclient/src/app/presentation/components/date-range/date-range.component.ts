@@ -11,11 +11,11 @@ export class DateRangeComponent implements OnInit, OnChanges {
     @Input() invalidFunction: (day: moment.Moment) => boolean;
     @Output() changeSelectedDate = new EventEmitter<moment.Moment>();
     @Input() selectedDate: moment.Moment;
+    @Input() minDate: moment.Moment = moment();
+    @Input() maxDate: moment.Moment = moment();
     selectedDateInternal: moment.Moment = moment(new Date());
 
     private momentCs = moment;
-    public minDate: moment.Moment;
-    public maxDate: moment.Moment;
     public config: LocaleConfig = {};
 
     public isInvalidDate = (day: moment.Moment) => {
@@ -36,19 +36,13 @@ export class DateRangeComponent implements OnInit, OnChanges {
             monthNames: this.momentCs.monthsShort(),
             firstDay: 1 // first day is monday
         };
-
-        this.minDate = moment(new Date());
-        this.minDate.add(1, 'd');
-
-        this.maxDate = moment(this.minDate);
-        this.maxDate.add(1, 'M');
     }
 
     ngOnInit() {
     }
 
     ngOnChanges(simpleChanges: SimpleChanges) {
-        if (simpleChanges.selectedDate.currentValue) {
+        if (simpleChanges.selectedDate?.currentValue) {
             this.selectedDateInternal = simpleChanges.selectedDate.currentValue;
         }
     }

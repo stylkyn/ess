@@ -7,6 +7,7 @@ import { ICalculatedOrderProductOrder } from 'src/app/models/ICalculateOrder';
 import { TransportStorageService } from 'src/app/services/storage/transport.service';
 import { PaymentStorageService } from './../../../services/storage/payment.service';
 import { ProductType } from 'src/app/models/IProduct';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-shopping-card-products',
@@ -17,6 +18,7 @@ export class ShoppingCardProductsComponent implements OnInit {
 
     mapPriceTypes = MapPriceTypes;
     ProductType = ProductType;
+    moment = moment;
 
     public get calculatedOrder () {
         return this._orderService.calculatedOrder;
@@ -60,7 +62,8 @@ export class ShoppingCardProductsComponent implements OnInit {
         const request: ICalculateOrderRequest = {
             products: productsInBasket.map(x => ({
                 productId: x.productId,
-                count: x.productsCount
+                count: x.productsCount,
+                serviceDate: x.serviceDate
             })),
             transportId: transportId,
             paymentId: paymentId

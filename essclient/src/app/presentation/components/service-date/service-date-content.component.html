@@ -1,0 +1,43 @@
+<mdb-card>
+    <mdb-card-header>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="_modalRef.hide()">
+            <span aria-hidden="true">×</span>
+        </button>
+        Očekávaný datum příjezdu technika
+    </mdb-card-header>
+    <mdb-card-body>
+        <div class="row">
+            <div class="col-6 col-xs-12">
+                <div class="d-flex justify-content-center">
+                    <app-date-range
+                        [invalidFunction]="isInvalidDay"
+                        [minDate]="minDate"
+                        [maxDate]="maxDate"
+                        (changeSelectedDate)="selectedDate($event)"
+                        [selectedDate]="selectedServiceDate">
+                    </app-date-range>
+                </div>
+            </div>
+            <div class="col-6 col-xs-12">
+                <div class="ServiceBox-container">
+                    <div *ngIf="!selectedServiceDate" class="ServiceBox">
+                        <mdb-icon class="opacity-8" size="4x" fas icon="tools"></mdb-icon>
+                        <p class="pt-4">Vyberte očekávaný datum přijezdu technika.</p>
+                        <p class="font-weight-bold">O konečném termínu Vás informujeme na Vaši emailovou adresu.</p>
+                    </div>
+                    <div *ngIf="selectedServiceDate" class="ServiceBox">
+                        <mdb-icon size="4x" fas icon="tools"></mdb-icon>
+                        <p class="pl-3 pt-3">Plánovaný přijezd technika:</p>
+                        <p class="h3">{{selectedServiceDate?.format("D.M. YYYY")}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mdb-card-body>
+    <mdb-card-footer>
+        <div class="pull-right">
+            <button type="button" mdbBtn color="link" class="waves-light" aria-label="Close" (click)="_modalRef.hide()" mdbWavesEffect>Zrušit</button>
+            <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="confirmDate()" mdbWavesEffect>Zvolit termín</button>
+        </div>
+    </mdb-card-footer>
+</mdb-card>

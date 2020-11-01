@@ -12,6 +12,7 @@ namespace ess_api.DAL.Repositories
         public ITransportRepository Transports { get; private set; }
         public IPaymentRepository Payments { get; private set; }
         public IOrderRepository Orders { get; private set; }
+        public ISettingRepository Settings { get; private set; }
 
 
         public UnitOfWork(DBContext db)
@@ -22,6 +23,7 @@ namespace ess_api.DAL.Repositories
             Transports = new TransportRepository(db);
             Payments = new PaymentRepository(db);
             Orders = new OrderRepository(db);
+            Settings = new SettingRepository(db);
         }
     }
 }

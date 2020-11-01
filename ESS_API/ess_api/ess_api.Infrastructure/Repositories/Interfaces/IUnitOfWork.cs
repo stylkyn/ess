@@ -10,5 +10,6 @@ namespace ess_api.Core.Interfaces
         ITransportRepository Transports { get; }
         IPaymentRepository Payments { get; }
         IOrderRepository Orders { get; }
+        ISettingRepository Settings { get; }
     }
 }

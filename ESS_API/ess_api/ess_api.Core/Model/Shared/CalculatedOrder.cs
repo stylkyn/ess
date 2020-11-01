@@ -1,4 +1,5 @@
 ﻿using ess_api.Core.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -51,20 +52,30 @@ namespace ess_api.Core.Model.Shared
         public ProductModel Product { get; set; }
         public int Count { get; set; }
         public Price TotalPrice { get; set; }
+        // omly for product type - service
+        public CalculatedOrderProductService Service { get; set; }
 
         public Price CalculateTotal()
         {
-            VerifyAvailabilty();
-            return Product.Buy.Price * Count;
+                VerifyAvailabiltyInStock();
+            
+            return Product.GetTotalPrice() * Count;
         }
 
-        private void VerifyAvailabilty()
+        private void VerifyAvailabiltyInStock()
         {
+            if (Product.Type == ProductType.Service)
+                return;
+
             if (Count > Product.Stock.Count)
-            {
                 Count = Product.Stock.Count;
-            }
         }
+    }
+
+    public class CalculatedOrderProductService {
+        public DateTime? Date { get; set; }
+        public string UserId { get; set; } // user agent id
+        public bool Done { get; set; }
     }
 
     public class CalculatedOrderTotal

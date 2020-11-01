@@ -162,6 +162,7 @@
     <Compile Include="App_Start\Filters\JwtAuthentificationAttribute.cs" />
     <Compile Include="App_Start\Filters\RequiredRequestAttribute.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\StatsController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
