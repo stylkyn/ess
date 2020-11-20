@@ -108,7 +108,9 @@ namespace ess_api._4_BL.Services.Order
             {
                 // create user if user is not logged and email is not already exist
                 var userEmailExist = await _uow.Users.FindManyAsync(x => x.Email == request.Customer.Personal.Contact.Email);
-                if (userEmailExist.Count == 0)
+                if (userEmailExist.Count > 0)
+                    user = userEmailExist.FirstOrDefault();
+                else
                     user = await _userSharedService.Add(request.Customer?.Personal?.Contact?.Email, request.Customer?.Personal?.Password);
             }
 
