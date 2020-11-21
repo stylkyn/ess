@@ -6,6 +6,8 @@ import { PaymentType } from 'src/app/models/IPayment';
 import { TransportType } from 'src/app/models/ITransport';
 
 export interface IOrder {
+    lastModified: Date;
+    createdDate: Date;
     id: string;
     state: OrderState;
     orderNumber: number;

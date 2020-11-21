@@ -11,6 +11,7 @@ import { getOrderRoute } from 'src/app/presentation/theme/presentation-routes';
 import { PaymentState, PaymentStateName } from 'src/app/models/IPayment';
 import { ISetOrderState, ISetOrderAgent } from './../../../services/API/order.service';
 import { ICalculatedOrderProductOrder, ICalculatedOrderProductService } from 'src/app/models/ICalculateOrder';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-order',
@@ -23,6 +24,7 @@ export class OrderComponent implements OnInit {
     OrderState = OrderState;
     OrderStateName = OrderStateName;
     PaymentStateName = PaymentStateName;
+    moment = moment;
 
     selectedChangeOrderState: OrderState;
     selectedChangePaymentState: PaymentState;

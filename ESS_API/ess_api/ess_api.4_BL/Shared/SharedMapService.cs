@@ -134,6 +134,8 @@ namespace ess_api._4_BL.Shared
         {
             return new OrderResponse
             {
+                CreatedDate = request.CreatedDate,
+                LastModified = request.LastModified,
                 Id = request.Id.ToString(),
                 State = request.State,
                 OrderNumber = request.OrderNumber,

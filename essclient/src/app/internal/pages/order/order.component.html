@@ -49,6 +49,7 @@
             <th nzColumnKey="payment">Zaplacená</th>
             <th nzColumnKey="service">Služba</th>
             <th nzColumnKey="agent">Agenti</th>
+            <th nzColumnKey="createdDate">Datum přijetí</th>
             <th nzColumnKey="priceWithoutVat">Cena bez DPH</th>
             <th nzColumnKey="priceWithVat">Cena s DPH</th>
             <th class="text-right"></th>
@@ -82,6 +83,9 @@
                         <i nz-icon nzType="edit" nzTheme="outline"></i>
                     </button>
                 </div>
+            </td>
+            <td>
+                {{ moment(item.createdDate).format('D.M.YYYY') }}
             </td>
             <td>{{ item.calculatedData?.total?.totalPrice?.czkWithoutVat}} {{MapPriceTypes(item.calculatedData?.total?.totalPrice?.priceType) }}</td>
             <td>{{ item.calculatedData?.total?.totalPrice?.czkWithVat}} {{MapPriceTypes(item?.calculatedData?.total.totalPrice?.priceType) }}</td>

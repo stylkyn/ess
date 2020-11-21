@@ -11,6 +11,12 @@ namespace ess_api._4_BL.Services.Order.Responses
 {
     public class OrderResponse : ResponseData
     {
+        [JsonProperty("createdDate")]
+        public DateTime CreatedDate { get; set; }
+
+        [JsonProperty("lastModified")]
+        public DateTime LastModified { get; set; }
+
         [JsonProperty("state")]
         public OrderState State { get; set; }
 
