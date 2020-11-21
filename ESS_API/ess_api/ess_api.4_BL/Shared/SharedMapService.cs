@@ -109,21 +109,8 @@ namespace ess_api._4_BL.Shared
                 Description = request.Description,
                 Type = request.Type,
                 IsActive = request.IsActive,
+                Image = MapImage(request.Image),
                 TotalPrice = MapPrice(request.TotalPrice),
-                PersonalPickup = request.PersonalPickup != null ? 
-                    new PersonalPickupTransportResponse { }
-                : null,
-                CzechPost = request.CzechPost != null ? 
-                    new CzechPostTransportResponse {
-                        Places = request.CzechPost?.Places?.Select(x => new CzechPostTransportOptionResponse
-                        {
-                            Name = x.Name
-                        }).ToList()
-                    }
-                : null,
-                Zasilkovna = request.Zasilkovna != null ? 
-                    new ZasilkovnaTransportResponse { }
-                : null
             };
         }
         /**
@@ -147,9 +134,6 @@ namespace ess_api._4_BL.Shared
                 } : null,
                 Transport = request.Transport != null ? new OrderTransportResponse {
                     TransportId = request.Transport.TransportId,
-                    CzechPost = request.Transport.CzechPost != null ? new OrderCzechPostTransportResponse { } : null,
-                    PersonalPickup = request.Transport.PersonalPickup != null ? new OrderPersonalPickupTransportResponse { } : null,
-                    Zasilkovna = request.Transport.Zasilkovna != null ? new OrderZasilkovnaTransportResponse { } : null,
                     SourceData = MapTransport(request.Transport.SourceData)
                 } : null,
                 Payment = request.Payment != null ? new OrderPaymentResponse

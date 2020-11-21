@@ -131,25 +131,34 @@ export const orderSummaryStates = (order: IOrder): IOrderStateOption[] => {
             break;
     }
 
-    // // service states
-    // if (order.service) {
-    //     states.push({ type:  OrderState.AgentAssign, label: OrderStateName(OrderState.AgentAssign)});
-    //     states.push({ type:  OrderState.AgentReady, label: OrderStateName(OrderState.AgentReady)});
-    //     states.push({ type:  OrderState.AgentOnWay, label: OrderStateName(OrderState.AgentOnWay)});
-    // }
+     // // service states
+    const hasService = order.calculatedData.products.some(product => product.service);
+    if (hasService) {
+        states.push({ type:  OrderState.AgentAssign, label: OrderStateName(OrderState.AgentAssign)});
+        states.push({ type:  OrderState.AgentReady, label: OrderStateName(OrderState.AgentReady)});
+    }
 
     // transport states
     switch(transportType) {
         case TransportType.PersonalPickup:
             states.push({ type:  OrderState.ReadyToPickup, label: OrderStateName(OrderState.ReadyToPickup)});
             break;
-        case TransportType.CzechPost:
-        case TransportType.Zasilkovna:
+        case TransportType.DeliveryPoint:
             states.push(
                 { type:  OrderState.ReadyToShip, label: OrderStateName(OrderState.ReadyToShip)},
                 { type:  OrderState.Sent, label: OrderStateName(OrderState.Sent)},
-                { type:  OrderState.Delivered, label: OrderStateName(OrderState.Delivered)});
-
+                { type:  OrderState.ReadyToPickup, label: OrderStateName(OrderState.ReadyToPickup)},
+            );
+            break;
+        case TransportType.PersonalDelivery:
+            states.push({ type:  OrderState.AgentOnWay, label: OrderStateName(OrderState.AgentOnWay)});
+            break;
+        case TransportType.HomeDelivery:
+            states.push(
+                { type:  OrderState.ReadyToShip, label: OrderStateName(OrderState.ReadyToShip)},
+                { type:  OrderState.Sent, label: OrderStateName(OrderState.Sent)},
+                { type:  OrderState.Delivered, label: OrderStateName(OrderState.Delivered)}
+            );
     }
     return states;
 };

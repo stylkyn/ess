@@ -13,36 +13,15 @@ namespace ess_api.Core.Model
         public bool IsActive { get; set; } = true;
         public string Name { get; set; }
         public string Description { get; set; }
+        public Image Image { get; set; }
         public Price TotalPrice { get; set; } = new Price(0.0M);
-        public PersonalPickupTransport PersonalPickup { get; set; }
-        public CzechPostTransport CzechPost { get; set; }
-        public ZasilkovnaTransport Zasilkovna { get; set; }
-    }
-
-    // Osobni vyzvednuti
-    public class PersonalPickupTransport
-    {
-    }
-
-    // Ceska Posta
-    public class CzechPostTransport
-    {
-        public List<CzechPostTransportOption> Places { get; set; }
-    }
-
-    public class CzechPostTransportOption
-    {
-        public string Name { get; set; }
-    }
-
-    public class ZasilkovnaTransport
-    {
     }
 
     public enum TransportType
     {
-        PersonalPickup,
-        CzechPost,
-        Zasilkovna
+        PersonalPickup, // personal pickup on our point
+        PersonalDelivery, // personal delivery by agent
+        HomeDelivery, // delivery to the address
+        DeliveryPoint // delivery to the delivery point
     }
 }

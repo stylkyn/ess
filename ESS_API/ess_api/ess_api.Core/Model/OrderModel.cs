@@ -74,41 +74,9 @@ namespace ess_api.Core.Model
     public class OrderTransport
     {
         public string TransportId { get; set; }
-        public OrderPersonalPickupTransport PersonalPickup { get; set; }
-        public OrderCzechPostTransport CzechPost { get; set; }
-        public OrderZasilkovnaTransport Zasilkovna { get; set; }
         public TransportModel SourceData { get; set; }
 
         public bool HasAllData() => TransportId != null && SourceData != null;
-
-        public void SetTransporttData(TransportModel transport)
-        {
-            switch (transport.Type)
-            {
-                case TransportType.CzechPost:
-                    CzechPost = new OrderCzechPostTransport { };
-                    break;
-                case TransportType.PersonalPickup:
-                    PersonalPickup = new OrderPersonalPickupTransport { };
-                    break;
-                case TransportType.Zasilkovna:
-                    Zasilkovna = new OrderZasilkovnaTransport { };
-                    break;
-            }
-        }
-    }
-
-    public class OrderPersonalPickupTransport
-    {
-    }
-
-    public class OrderCzechPostTransport
-    {
-        public CzechPostTransportOption Option { get; set; }
-    }
-
-    public class OrderZasilkovnaTransport
-    {
     }
 
     public enum OrderState {

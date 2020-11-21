@@ -1,0 +1,54 @@
+
+<div class="d-flex align-items-center justify-content-between">
+    <div class="d-flex">
+        <h1 nz-typography>Způsoby doprav</h1>
+    </div>
+    <div class="d-flex">
+        <app-transport-form #transportForm (changeData)="loadData()"></app-transport-form>
+    </div>
+</div>
+
+<nz-table
+    nzShowSizeChanger
+    [nzData]="dataList"
+    [nzFrontPagination]="false"
+    [nzLoading]="loading"
+>
+    <thead>
+        <tr>
+            <th nzColumnKey="photo">Foto</th>
+            <th nzColumnKey="name">Název</th>
+            <th nzColumnKey="description">Popis</th>
+            <th nzColumnKey="type">Typ</th>
+            <th nzColumnKey="isActive">Aktivní</th>
+            <th nzColumnKey="priceWithoutVat">Cena bez DPH</th>
+            <th nzColumnKey="priceWIthVat">Cena s DPH</th>
+            <th class="text-right"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of dataList; let i = index">
+            <td>
+                <img [src]="item.image.secureUrl" [alt]="item.image.originalFileName" height="60px" />
+            </td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.description }}</td>
+            <td>{{ getTransportTypeName(item.type) }}</td>
+            <td>{{ item.isActive ? 'Aktivní' : 'NeaktivnÍ' }}</td>
+            <td>{{ item.totalPrice?.czkWithoutVat}} {{MapPriceTypes(item?.totalPrice?.priceType) }}</td>
+            <td>{{ item.totalPrice?.czkWithVat}} {{MapPriceTypes(item?.totalPrice?.priceType) }}</td>
+            <td>
+                <div class="d-flex justify-content-end">
+                    <button (click)="showUpdateDrawer(item)" nz-button nzType="primary" nzShape="circle"
+                        nz-tooltip nzTooltipTitle="Upravit produkt">
+                        <i nz-icon nzType="edit"></i>
+                    </button>
+                    <button (click)="showDeleteConfirm(item)" nz-button nzType="danger" nzShape="circle"
+                        nz-tooltip nzTooltipTitle="Odstranit produkt">
+                        <i nz-icon nzType="delete" nzTheme="outline"></i>
+                    </button>
+                </div>
+            </td>
+        </tr> 
+    </tbody>
+</nz-table>

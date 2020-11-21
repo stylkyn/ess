@@ -1,3 +1,4 @@
+import { IImage } from './IImage';
 import { IPrice } from './IPrice';
 
 export interface ITransport {
@@ -6,31 +7,28 @@ export interface ITransport {
     isActive: boolean;
     name: string;
     description: string;
-    logoUrl: string;
-    personalPickup: IPersonalPickupTransport;
-    czechPost: ICzechPostTransport;
-    zasilkovna: IZasilkovnaTransport;
+    image: IImage;
     totalPrice: IPrice;
 }
 
-// tslint:disable-next-line:no-empty-interface
-export interface IPersonalPickupTransport { }
-
-// Ceska Posta
-export interface ICzechPostTransport {
-    places: ICzechPostTransportOption[];
-}
-
-export interface ICzechPostTransportOption {
-    name: string;
-}
-
-// tslint:disable-next-line:no-empty-interface
-export interface IZasilkovnaTransport {
-}
+export const getTransportTypeName = (type: TransportType) => {
+    switch (type) {
+        case TransportType.PersonalPickup:
+            return 'Osobní vyzvednutí';
+        case TransportType.PersonalDelivery:
+            return 'Osobní doručení';
+        case TransportType.HomeDelivery:
+            return 'Doručení na adresu';
+        case TransportType.DeliveryPoint:
+            return 'Doručení na výdejní místo';
+    }
+    return '';
+};
 
 export enum TransportType {
     PersonalPickup,
-    CzechPost,
-    Zasilkovna
-}
+    PersonalDelivery,
+    HomeDelivery,
+    DeliveryPoint
+};
+

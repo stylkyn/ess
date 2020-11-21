@@ -20,8 +20,7 @@
 
                     <tr *ngIf="calculatedOrder.transport">
                         <th scope="row">
-                            <img *ngIf="calculatedOrder.transport.type == TransportType.PersonalPickup" [alt]="'Osobní vyzvednutí'" [src]="'assets/icons/personal-pickup.png'" />
-                            <img *ngIf="calculatedOrder.transport.type == TransportType.Zasilkovna" [alt]="'Zasilkovna'" [src]="'assets/icons/zasilkovna.png'" />
+                            <img [alt]="calculatedOrder.transport.name" [src]="calculatedOrder.transport.imageUrl" />
                         </th>
                         <td class="w-100">
                             <h5 class="OrderSummaryCard-name">

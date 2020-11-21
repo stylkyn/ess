@@ -135,7 +135,6 @@ namespace ess_api._4_BL.Services.Order
                 order.Transport = new OrderTransport();
                 order.Transport.TransportId = transport.Id.ToString();
                 order.Transport.SourceData = transport;
-                order.Transport.SetTransporttData(transport);
 
                 order.State = OrderState.TransportReady;
             }

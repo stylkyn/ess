@@ -89,6 +89,7 @@
     <Compile Include="Services\Setting\SettingService.cs" />
     <Compile Include="Services\Stats\Responses\StatsResponse.cs" />
     <Compile Include="Services\Stats\StatsService.cs" />
+    <Compile Include="Services\Transport\Requests\TransportRemoveRequest.cs" />
     <Compile Include="Services\Transport\Requests\TransportUpdateRequest.cs" />
     <Compile Include="Services\Transport\Requests\TransportAddRequest.cs" />
     <Compile Include="Services\Transport\TransportService.cs" />

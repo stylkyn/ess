@@ -21,6 +21,7 @@ export interface ICalculatedOrderTransport {
     transportId: string;
     type: TransportType;
     name: string;
+    imageUrl: string;
     totalPrice: IPrice;
 }
 

@@ -29,14 +29,8 @@ namespace ess_api._4_BL.Services.Transport
                 IsActive = request.IsActive,
                 Name = request.Name,
                 Description = request.Description,
-                PersonalPickup = request.PersonalPickup != null ?  new PersonalPickupTransport { } : null,
-                CzechPost = request.CzechPost != null ? new CzechPostTransport {
-                    Places = request.CzechPost?.Places?.Select(x => new CzechPostTransportOption
-                    {
-                        Name = x.Name
-                    }).ToList()
-                }: null,
-                Zasilkovna = request.Zasilkovna != null ? new ZasilkovnaTransport { } : null
+                TotalPrice = new Price(request.PriceWithoutVat),
+                Image = request.Image
             };
             result = await _uow.Transports.InsertAsync(result);
 
@@ -51,16 +45,11 @@ namespace ess_api._4_BL.Services.Transport
 
             result.IsActive = request.IsActive;
             result.Name = request.Name;
+            result.TotalPrice = new Price(request.PriceWithoutVat);
             result.Description = request.Description;
-            result.PersonalPickup = request.PersonalPickup != null ? new PersonalPickupTransport { } : null;
-            result.CzechPost = request.CzechPost != null ? new CzechPostTransport
-            {
-                Places = request.CzechPost?.Places?.Select(x => new CzechPostTransportOption
-                {
-                    Name = x.Name
-                }).ToList()
-            } : null;
-            result.Zasilkovna = request.Zasilkovna != null ? new ZasilkovnaTransport { } : null;
+            result.Image = request.Image;
+            result.Type = request.Type;
+
             result = await _uow.Transports.FindAndReplaceAsync(new Guid(request.Id), result);
 
             return new Response<TransportResponse>(ResponseStatus.Ok, _mapService.MapTransport(result));
