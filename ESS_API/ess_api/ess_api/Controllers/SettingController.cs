@@ -29,7 +29,7 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
 
-        [HttpPost]
+        [HttpPut]
         [JwtAuthenticationAdmin]
         [Route("Update")]
         public async Task<IHttpActionResult> Update([FromBody] UpdateSettingRequest request)

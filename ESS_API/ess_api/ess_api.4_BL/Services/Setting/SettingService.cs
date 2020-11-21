@@ -26,6 +26,9 @@ namespace ess_api._4_BL.Services.Setting
                 return new Response<SettingResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
 
             setting.MaxServicesInDay = request.MaxServicesInDay;
+            setting.MaxAvailabilityDays = request.MaxAvailabilityDays;
+
+            await _uow.Settings.ReplaceAsync(setting.Id, setting);
 
             var response = _mapService.MapSettings(setting);
             return new Response<SettingResponse>(ResponseStatus.Ok, response);

@@ -1,3 +1,25 @@
-<p>
-  settings works!
-</p>
+<nz-card nzTitle="Nastavení služeb">
+    <nz-spin [nzSpinning]="isLoading" nzTip="Probíhá ukládání...">
+        <form [formGroup]="settingsForm" nzLayout="vertical" nz-form>
+            <div nz-row [nzGutter]="16">
+                <div class="gutter-row" nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label>Maximální počet služeb v jeden den</nz-form-label>
+                        <nz-form-control>
+                            <input type="number" formControlName="maxServicesInDay" nz-input placeholder="Zadejte počet"  />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="gutter-row" nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label>Mavimální počet dní dopředu, kdy je možné objednat servis</nz-form-label>
+                        <nz-input-group nzAddOnAfter="dní">
+                            <input type="number" formControlName="maxAvailabilityDays" nz-input placeholder="Zadejte počet dní"  />
+                        </nz-input-group>
+                    </nz-form-item>
+                </div>
+            </div>
+            <button class="pull-right" (click)="save()" nz-button nzType="primary">Uložit</button>
+        </form>
+    </nz-spin>
+</nz-card>
