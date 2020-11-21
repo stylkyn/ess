@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { MapPriceTypes } from 'src/app/models/IPrice';
-import { getProductTypeName, ProductType } from 'src/app/models/IProduct';
+import { getProductTypeName, IProduct, ProductType } from 'src/app/models/IProduct';
 import { IOrder, OrderState, OrderStateName } from 'src/app/models/IOrder';
 import { OrderService, IOrderSearchRequest, ISetOrderPaymentState } from 'src/app/services/API/order.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
@@ -10,6 +10,7 @@ import { NzTableQueryParams } from 'ng-zorro-antd/table/public-api';
 import { getOrderRoute } from 'src/app/presentation/theme/presentation-routes';
 import { PaymentState, PaymentStateName } from 'src/app/models/IPayment';
 import { ISetOrderState, ISetOrderAgent } from './../../../services/API/order.service';
+import { ICalculatedOrderProductOrder, ICalculatedOrderProductService } from 'src/app/models/ICalculateOrder';
 
 @Component({
     selector: 'app-order',
@@ -26,6 +27,7 @@ export class OrderComponent implements OnInit {
     selectedChangeOrderState: OrderState;
     selectedChangePaymentState: PaymentState;
     selectedAgentId: string;
+    selectedOrder: IOrder;
 
     total = 1;
     dataList: IOrder[] = [];
@@ -40,12 +42,28 @@ export class OrderComponent implements OnInit {
     fullText: string = null;
     visibleRemovePopup: boolean;
 
+    public get hasService(): boolean { 
+        return this._orderService.activeOrder?.calculatedData?.products.some(product => product.service) ?? false;
+    }
+
+    public get services(): ICalculatedOrderProductService[] { 
+        return this._orderService.activeOrder?.calculatedData?.products.filter(product => product.service).map(x => x.service) ?? [];
+    }
+
     public get usersOptions(): IUserOption[] {
         return this._userService.userOptions;
     }
 
     public findUserName(userId: string): string {
         return this.usersOptions.find(x => x.id == userId)?.name ?? 'Nepřiřazen';
+    }
+
+    public getServices(order: IOrder): ICalculatedOrderProductOrder[] {
+        return order?.calculatedData?.products.filter(product => product.service) ?? [];
+    }
+
+    public hasUnassignedAgent(order: IOrder): boolean { 
+        return order?.calculatedData?.products.some(product => product.service && !product.service.userId) ?? false;
     }
 
     constructor (
@@ -168,28 +186,45 @@ export class OrderComponent implements OnInit {
     }
 
     // agent logic
-    changeAssignAgentModal(order: IOrder, tplContent: TemplateRef<{}>) {
-        this.selectedChangePaymentState = order.payment.state;
-        if (order.service?.userId) {
-            this.selectedAgentId = order.service?.userId;
-        }
+    changeAgentSetupModal(order: IOrder, tplContent: TemplateRef<{}>) {
+        this.selectedOrder = order;
         this._modalNz.create({
-            nzTitle: `Opravdu chcete přiřadit agenta k objednávce - ${order.orderNumberFormatted}?`,
+            nzTitle: `Správa agentů k objednávce - ${order.orderNumberFormatted}?`,
             nzCancelText: 'Zrušit',
-            nzOkText: 'Přiřadit',
+            nzOkText: 'Zavřít',
             nzOkType: 'primary',
+            
             nzContent: tplContent,
-            nzOnOk: () => this.assignAgent(order)
         });
     }
 
-    assignAgent(order: IOrder) {
+    // agent logic
+    changeAssignAgentModal(order: IOrder, product: ICalculatedOrderProductOrder, tplContent: TemplateRef<{}>) {
+        this.selectedChangePaymentState = order.payment.state;
+        this._modalNz.create({
+            nzTitle: `Opravdu chcete přiřadit agenta k servisu - ${order.orderNumberFormatted}?`,
+            nzCancelText: 'Zrušit',
+            nzOkText: 'Přiřadit',
+            nzOkType: 'primary',
+            
+            nzContent: tplContent,
+            nzOnOk: () => this.assignAgent(order, product)
+        });
+    }
+
+    assignAgent(order: IOrder, product: ICalculatedOrderProductOrder) {
         const request: ISetOrderAgent = {
             orderId: order.id,
+            productId: product.product.id,
             userId: this.selectedAgentId
         };
+        console.log(product);
         this._orderService.setOrderAgent(request)
-            .subscribe(x => this.loadData());
+            .subscribe((orderResponse: IOrder) => { 
+                this.selectedOrder = orderResponse;
+                this.loadData();
+                
+            });
     }
 
     agentChange(userId: string) {

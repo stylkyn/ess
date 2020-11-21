@@ -2,7 +2,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ThemeComponent } from './theme.component';
 import { MDBSpinningPreloader,
     ButtonsModule, DropdownModule, SidenavModule, AccordionModule,
-    IconsModule, CardsModule, NavbarModule, SelectModule, WavesModule, CarouselModule, InputsModule
+    IconsModule, CardsModule, NavbarModule, WavesModule, CarouselModule, InputsModule
 } from 'ng-uikit-pro-standard';
 import { routing } from './internal.routing';
 import { CompareValidatorModule } from 'angular-compare-validator';

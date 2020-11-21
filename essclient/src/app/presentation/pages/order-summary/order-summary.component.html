@@ -38,6 +38,8 @@
                         </td>
                         <td>
                             {{product.product.buy.price.czkWithVat}} {{mapPriceTypes(product.product.buy.price.priceType)}} / ks
+                            <br/>
+                            {{moment(product?.service.date)?.format('DD.MM.YYYY')}}
                         </td>
                         <td>
                             {{product.count}} ks
@@ -71,24 +73,6 @@
                         </tbody>
                     </table>
                 </div>
-            </mdb-card>
-        </div>
-        <div *ngIf="order.service" class="col">
-            <mdb-card class="mt-4">
-                <mdb-card-header class="bg-white">Datum příjezdu technika</mdb-card-header>
-                <mdb-card-body>
-                    <div class="ServiceBox">
-                        <div class="row">
-                            <div class="ServiceBox-icon col">
-                                <mdb-icon size="4x" fas icon="tools"></mdb-icon>
-                            </div>
-                            <div class="col">
-                                <p>Plánovaný přijezd technika</p>
-                                <p class="h3">{{order.service.date && moment(order.service.date)?.format("D.M. YYYY")}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </mdb-card-body>
             </mdb-card>
         </div>
         <div class="col">

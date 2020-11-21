@@ -48,7 +48,7 @@
             <th nzColumnKey="state">Stav</th>
             <th nzColumnKey="payment">Zaplacená</th>
             <th nzColumnKey="service">Služba</th>
-            <th nzColumnKey="agent">Agent</th>
+            <th nzColumnKey="agent">Agenti</th>
             <th nzColumnKey="priceWithoutVat">Cena bez DPH</th>
             <th nzColumnKey="priceWithVat">Cena s DPH</th>
             <th class="text-right"></th>
@@ -74,14 +74,11 @@
                     </button>
                 </div>
             </td>
-            <td>{{ item.service ? 'Se službou' : 'Bez služby' }}</td>
+            <td>{{ hasService ? 'Se službou' : 'Bez služby' }}</td>
             <td>
                 <div class="d-flex flex-row align-items-center">
-                    {{ item.service?.userId ? findUserName(item.service?.userId) : '' }}
-                    <button *ngIf="item.service && !item.service.userId" class="ml-2" (click)="changeAssignAgentModal(item, assignAgentModal)" nz-button nzsi nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Přiřadit agenta">
-                        <i nz-icon nzType="plus" nzTheme="outline"></i>
-                    </button>
-                    <button *ngIf="item.service && item.service.userId" class="ml-2" (click)="changeAssignAgentModal(item, assignAgentModal)" nz-button nzsi nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Změnit agenta">
+                    {{ hasUnassignedAgent(item) ? 'Chybí agent' : 'Ok' }}
+                    <button class="ml-2" (click)="changeAgentSetupModal(item, agentSetupModal)" nz-button nzsi nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Správa agentů">
                         <i nz-icon nzType="edit" nzTheme="outline"></i>
                     </button>
                 </div>
@@ -138,10 +135,23 @@
     </form>
 </ng-template>
 
+<ng-template #agentSetupModal let-params let-ref="modalRef">
+    <div *ngFor="let product of getServices(selectedOrder)" class="d-flex flex-row align-items-center">
+        {{ product.product.name }}
+        |
+        {{ product.service.userId 
+            ? findUserName(product.service.userId) 
+            : 'nepřiřazen'}}
+        <button class="ml-2" (click)="changeAssignAgentModal(selectedOrder, product, assignAgentModal)" nz-button nzsi nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Správa agentů">
+            <i nz-icon nzType="edit" nzTheme="outline"></i>
+        </button>
+    </div>
+</ng-template>
+
 <ng-template #assignAgentModal let-params let-ref="modalRef">
     <form nz-form [nzLayout]="'vertical'">
         <nz-form-item>
-            <nz-form-label>Vyberte agenta k objednávce</nz-form-label>
+            <nz-form-label>Přiřaďte agenta k servisu</nz-form-label>
             <nz-form-control>
                 <nz-select [ngModelOptions]="{standalone: true}" class="w-100" nzShowSearch nzAllowClear nzPlaceHolder="Vyberte agenta" (ngModelChange)="agentChange($event)" [(ngModel)]="selectedAgentId">
                     <nz-option *ngFor="let item of usersOptions" [nzLabel]="item.name + ' | ' + item.email" [nzValue]="item.id"></nz-option>

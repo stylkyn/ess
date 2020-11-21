@@ -9,6 +9,7 @@ export const adminUserRoute = `uzivatele`;
 export const adminCategoryRoute = `kategorie`;
 export const adminProductRoute = `produkty`;
 export const adminOrderRoute = `objednavky`;
+export const adminSettingsRoute = `nastaveni`;
 
 // full paths
 export const adminLoginFullRoute = `${adminBaseRoute}/${adminLoginRoute}`;

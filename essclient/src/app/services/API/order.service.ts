@@ -67,6 +67,7 @@ export interface ISetOrderPaymentState {
 
 export interface ISetOrderAgent {
     userId: string; // agent id
+    productId: string;
     orderId: string;
 }
 
@@ -120,19 +121,19 @@ export class OrderService extends APIRepository<IProduct> {
         return this._API.getQueryTotal<IOrder[]>(`${this.className}/Search`, request);
     }
 
-    public setOrderState(request: ISetOrderState): Observable<IProduct> {
+    public setOrderState(request: ISetOrderState): Observable<IOrder> {
         return this._API.put(`${this.className}/SetOrderState`, request);
     }
 
-    public setPaymentState(request: ISetOrderPaymentState): Observable<IProduct> {
+    public setPaymentState(request: ISetOrderPaymentState): Observable<IOrder> {
         return this._API.put(`${this.className}/SetPaymentState`, request);
     }
 
-    public setOrderAgent(request: ISetOrderAgent): Observable<IProduct> {
+    public setOrderAgent(request: ISetOrderAgent): Observable<IOrder> {
         return this._API.put(`${this.className}/SetOrderAgent`, request);
     }
 
-    public verifyProductsAvailability(orderId: string): Observable<IProduct> {
+    public verifyProductsAvailability(orderId: string): Observable<IOrder> {
         return this._API.getQuery(`${this.className}/VerifyProductsAvailability`, { orderId: orderId });
     }
 

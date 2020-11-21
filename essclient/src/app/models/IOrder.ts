@@ -10,16 +10,10 @@ export interface IOrder {
     state: OrderState;
     orderNumber: number;
     orderNumberFormatted: string;
-    service: IOrderService;
     customer: IOrderCustomer;
     transport: IOrderTransport;
     payment: IOrderPayment;
     calculatedData: ICalculatedOrder;
-}
-
-export interface IOrderService {
-    date: Date;
-    userId: string; // agent id
 }
 
 export interface IOrderTransport {
