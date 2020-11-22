@@ -16,7 +16,7 @@ export interface ITransportAddRequest {
     name: string;
     image: IImage;
     priceWithoutVat: number;
-    description: string;
+    description?: string;
 }
 
 export interface ITransportUpdateRequest {
@@ -26,7 +26,7 @@ export interface ITransportUpdateRequest {
     name: string;
     priceWithoutVat: number;
     image: IImage;
-    description: string;
+    description?: string;
 }
 
 @Injectable({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { orderSummaryStates, IOrderStateOption, OrderState } from 'src/app/models/IOrder';
+import { orderSummaryStates, IOrderStateOption, OrderState, IOrderCustomer } from 'src/app/models/IOrder';
 import { OrderService } from 'src/app/services/API/order.service';
 import { IOrder } from './../../../models/IOrder';
 import { ActivatedRoute } from '@angular/router';
@@ -28,11 +28,15 @@ export class OrderSummaryComponent implements OnInit {
     }
 
     public get transport(): ITransport {
-        return this.order.calculatedData.transport.sourceData;
+        return this.order?.calculatedData?.transport?.sourceData;
     }
 
     public get payment(): IPayment {
-        return this.order.calculatedData.payment.sourceData;
+        return this.order?.calculatedData?.payment?.sourceData;
+    }
+
+    public get customer(): IOrderCustomer {
+        return this.order?.customer;
     }
 
     constructor(

@@ -59,9 +59,9 @@
                                 <strong>Celkem s DPH</strong>
                             </h4>
                         </td>
-                        <td colspan="4" >
+                        <td *ngIf="total" colspan="4" >
                             <h4>
-                                <strong class="OrderSummaryCard-total-price">{{order.calculatedData.total.totalPrice.czkWithVat}} {{mapPriceTypes(order.calculatedData.total.totalPrice.priceType)}}</strong>
+                                <strong class="OrderSummaryCard-total-price">{{total.totalPrice.czkWithVat}} {{mapPriceTypes(total.totalPrice.priceType)}}</strong>
                             </h4>
                         </td>
                     </tr>

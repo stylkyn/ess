@@ -83,14 +83,9 @@ namespace ess_api._4_BL.Shared
                 Name = request.Name,
                 Description = request.Description,
                 Type = request.Type,
+                Image = MapImage(request.Image),
                 IsActive = request.IsActive,
                 TotalPrice = MapPrice(request.TotalPrice),
-                CashOnDelivery = request.CashOnDelivery != null ?
-                    new CashOnDeliveryPaymentResponse { }
-                : null,
-                PaymentOrder = request.PaymentOrder != null ? 
-                    new PaymentOrderResponse { }
-                : null,
             };
         }
 
@@ -125,6 +120,7 @@ namespace ess_api._4_BL.Shared
                 LastModified = request.LastModified,
                 Id = request.Id.ToString(),
                 State = request.State,
+                PaymentState = request.PaymentState,
                 OrderNumber = request.OrderNumber,
                 OrderNumberFormatted = request.OrderNumberFormatted,
                 Customer = request.Customer != null ? new OrderCustomerResponse {

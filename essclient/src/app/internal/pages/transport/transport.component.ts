@@ -31,7 +31,6 @@ export class TransportComponent implements OnInit {
     }
 
     loadData(): void {
-        console.log('loaddata');
         this.loading = true;
 
         const request: ITransportQueryRequest = { };

@@ -25,10 +25,10 @@ namespace ess_api._4_BL.Services.Payment
             {
                 Type = request.Type,
                 IsActive = request.IsActive,
+                Image = request.Image,
                 Name = request.Name,
+                TotalPrice = new Price(request.PriceWithoutVat),
                 Description = request.Description,
-                CashOnDelivery = request.CashOnDelivery != null ? new CashOnDeliveryPayment { } : null,
-                PaymentOrder = request.PaymentOrder != null ? new PaymentOrder { } : null
             };
             result = await _uow.Payments.InsertAsync(result);
 
@@ -44,8 +44,8 @@ namespace ess_api._4_BL.Services.Payment
             result.IsActive = request.IsActive;
             result.Name = request.Name;
             result.Description = request.Description;
-            result.CashOnDelivery = request.CashOnDelivery != null ? new CashOnDeliveryPayment { } : null;
-            result.PaymentOrder = request.PaymentOrder != null ? new PaymentOrder { } : null;
+            result.Image = request.Image;
+            result.TotalPrice = new Price(request.PriceWithoutVat);
             result = await _uow.Payments.FindAndReplaceAsync(new Guid(request.Id), result);
 
             return new Response<PaymentResponse>(ResponseStatus.Ok, _mapService.MapPayment(result));

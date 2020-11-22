@@ -1,0 +1,69 @@
+<button (click)="open()" nz-button nzType="primary" nzShape="round">Přidat <i nz-icon nzType="plus"></i></button>
+<nz-drawer 
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom': '53px' }" 
+    [nzMaskClosable]="true" 
+    [nzWidth]="620" 
+    [nzVisible]="visible" 
+    [nzTitle]="formType == 'update' ? 'Úprava přepravy' : 'Přidání přepravy'" 
+    (nzOnClose)="close()">
+    <nz-spin [nzSpinning]="isLoading" nzTip="Probíhá ukládání...">
+        
+        <form [formGroup]="paymentForm" nzLayout="vertical" nz-form>
+            <nz-form-item>
+                <nz-form-label>Typ *</nz-form-label>
+                <nz-radio-group formControlName="type" nzButtonStyle="solid">
+                    <label nz-radio-button [nzValue]="PaymentType.CashOnDelivery">{{ getPaymentTypeName(PaymentType.CashOnDelivery) }}</label>
+                    <label nz-radio-button [nzValue]="PaymentType.CashOnPlace">{{ getPaymentTypeName(PaymentType.CashOnPlace) }}</label>
+                    <label nz-radio-button [nzValue]="PaymentType.PaymentOrder">{{ getPaymentTypeName(PaymentType.PaymentOrder) }}</label>
+                </nz-radio-group>
+            </nz-form-item>
+            <div nz-row [nzGutter]="16">
+                <div class="gutter-row" nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label>Název *</nz-form-label>
+                        <nz-form-control>
+                            <input formControlName="name" nz-input placeholder="Zadejte název"  />
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div class="gutter-row" nz-col [nzSpan]="12">
+                    <nz-form-item>
+                        <nz-form-label>Cena bez DPH *</nz-form-label>
+                        <nz-input-number
+                            formControlName="price"
+                            class="w-100"
+                            nzPlaceHolder="0 Kč"
+                            [nzMin]="1"
+                            [nzStep]="100"
+                            [nzFormatter]="formatterCurrency"
+                            [nzParser]="parserCurrency"
+                            ></nz-input-number>
+                    </nz-form-item>
+                </div>
+            </div>
+            <div nz-row [nzGutter]="16">
+                <div class="gutter-row" nz-col [nzSpan]="16">
+                    <nz-form-label>Popis</nz-form-label>
+                    <textarea
+                        formControlName="description"
+                        nz-input
+                        placeholder="Zadejte popis přepravy"
+                        [nzAutosize]="{ minRows: 3, maxRows: 10 }">
+                    </textarea>
+                </div>
+                <div class="gutter-row" nz-col [nzSpan]="8">
+                    <nz-form-item>
+                        <nz-form-item>
+                            <label nz-checkbox formControlName="isActive">Aktivní</label>
+                        </nz-form-item>
+                    </nz-form-item>
+                </div>
+            </div>
+            <nz-divider nzOrientation="left" nzText="Hlavní obrázek *"></nz-divider>
+            <app-file-upload #mainImageUploader [initial]="activePayment?.image" (changed)="mainImageChanged($event)" ></app-file-upload>
+
+            <hr class="mt-4"/>
+            <button [disabled]="paymentForm.invalid || !mainImage" (click)="confirm()" nz-button nzType="primary" nzShape="round" class="pull-right">Uložit <i nz-icon nzType="check"></i></button>
+        </form>
+    </nz-spin>
+</nz-drawer>

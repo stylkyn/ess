@@ -1,33 +1,39 @@
+import { IImage } from './IImage';
 import { IPrice } from './IPrice';
 
 export interface IPayment {
     id: string;
     type: PaymentType;
     isActive: boolean;
+    image: IImage;
     name: string;
     description: string;
-    cashOnDelivery: ICashOnDeliveryPayment;
-    paymentOrder: IPaymentOrder;
     totalPrice: IPrice;
 }
 
-// tslint:disable-next-line:no-empty-interface
-export interface ICashOnDeliveryPayment {
-}
-
-// tslint:disable-next-line:no-empty-interface
-export interface IPaymentOrder {
-}
 
 export enum PaymentType {
     CashOnDelivery,
-    PaymentOrder
+    CashOnPlace,
+    PaymentOrder,
 }
 
 export enum PaymentState {
     NotPaid,
     Paid
 }
+
+export const getPaymentTypeName = (type: PaymentType) => {
+    switch (type) {
+        case PaymentType.CashOnDelivery:
+            return 'Dobirka';
+        case PaymentType.CashOnPlace:
+            return 'Platba při prevzetí';
+        case PaymentType.PaymentOrder:
+            return 'Platebním příkazem';
+    }
+    return '';
+};
 
 export const PaymentStateName = (state: PaymentState) => {
     switch (state) {

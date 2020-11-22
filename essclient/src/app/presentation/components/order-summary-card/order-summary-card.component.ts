@@ -5,7 +5,7 @@ import { MapPriceTypes } from 'src/app/models/IPrice';
 import { IPayment, PaymentType } from 'src/app/models/IPayment';
 import { ITransport, TransportType } from 'src/app/models/ITransport';
 import { IOrder } from 'src/app/models/IOrder';
-import { ICalculatedOrderProductOrder } from 'src/app/models/ICalculateOrder';
+import { ICalculatedOrderProductOrder, ICalculatedOrderTotalOrder } from 'src/app/models/ICalculateOrder';
 
 @Component({
   selector: 'app-order-summary-card',
@@ -31,6 +31,10 @@ export class OrderSummaryCardComponent {
 
     public get payment(): IPayment {
         return this.order?.calculatedData?.payment?.sourceData;
+    }
+
+    public get total(): ICalculatedOrderTotalOrder {
+        return this.order?.calculatedData?.total;
     }
 
     constructor(

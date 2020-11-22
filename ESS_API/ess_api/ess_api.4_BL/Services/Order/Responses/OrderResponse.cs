@@ -18,6 +18,9 @@ namespace ess_api._4_BL.Services.Order.Responses
         public DateTime LastModified { get; set; }
 
         [JsonProperty("state")]
+        public PaymentState PaymentState { get; set; }
+
+        [JsonProperty("state")]
         public OrderState State { get; set; }
 
         [JsonProperty("orderNumber")]
@@ -29,71 +32,9 @@ namespace ess_api._4_BL.Services.Order.Responses
         [JsonProperty("customer")]
         public OrderCustomerResponse Customer { get; set; }
 
-        [JsonProperty("transport")]
-        public OrderTransportResponse Transport { get; set; }
-
-        [JsonProperty("payment")]
-        public OrderPaymentResponse Payment { get; set; }
-
         [JsonProperty("calculatedData")]
         public CalculatedOrderResponse CalculatedData { get; set; }
     }
-
-    public class OrderTransportResponse
-    {
-        [JsonProperty("transportId")]
-        public string TransportId { get; set; }
-
-        [JsonProperty("personalPickup")]
-        public OrderPersonalPickupTransportResponse PersonalPickup { get; set; }
-
-        [JsonProperty("czechPost")]
-        public OrderCzechPostTransportResponse CzechPost { get; set; }
-
-        [JsonProperty("zasilkovna")]
-        public OrderZasilkovnaTransportResponse Zasilkovna { get; set; }
-
-        [JsonProperty("sourceData")]
-        public TransportResponse SourceData { get; set; }
-    }
-
-    public class OrderPersonalPickupTransportResponse
-    {
-    }
-
-    public class OrderCzechPostTransportResponse
-    {
-    }
-    public class OrderZasilkovnaTransportResponse
-    {
-    }
-
-
-    public class OrderPaymentResponse
-    {
-        [JsonProperty("paymentId")]
-        public string PaymentId { get; set; }
-
-        [JsonProperty("state")]
-        public PaymentState State { get; set; } = PaymentState.NotPaid;
-
-        [JsonProperty("paymentOrder")]
-        public OrderPaymentOrderResponse PaymentOrder { get; set; }
-
-        [JsonProperty("orderCashOnDelivery")]
-        public OrderCashOnDeliveryRespoonse OrderCashOnDelivery { get; set; }
-
-        [JsonProperty("sourceData")]
-        public PaymentResponse SourceData { get; set; }
-    }
-    public class OrderPaymentOrderResponse
-    {
-    }
-
-    public class OrderCashOnDeliveryRespoonse
-    {
-    }
-
 
     public class OrderCustomerResponse
     {

@@ -19,7 +19,7 @@ namespace ess_api._4_BL.Services.Transport.Requests
         public Image Image { get; set; }
 
         [Required]
-        public int PriceWithoutVat { get; set; }
+        public decimal PriceWithoutVat { get; set; }
 
         public string Description { get; set; }
     }

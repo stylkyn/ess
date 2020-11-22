@@ -13,20 +13,14 @@ namespace ess_api._4_BL.Services.Transport.Requests
         public bool IsActive { get; set; }
 
         [Required]
+        public Image Image { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
         [Required]
+        public decimal PriceWithoutVat { get; set; }
+
         public string Description { get; set; }
-
-        public CashOnDeliveryPaymentAddRequest CashOnDelivery { get; set; }
-        public PaymentOrderAddRequest PaymentOrder { get; set; }
-    }
-
-    public class CashOnDeliveryPaymentAddRequest
-    {
-    }
-
-    public class PaymentOrderAddRequest
-    {
     }
 }

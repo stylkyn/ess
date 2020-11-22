@@ -30,9 +30,9 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
 
+        [HttpGet]
         [JwtAuthentication]
         [Route("GetAccountOrders")]
-        [HttpGet]
         public async Task<IHttpActionResult> GetAccountOrders([FromUri]GetAccountOrdersRequest request)
         {
             if (request == null)

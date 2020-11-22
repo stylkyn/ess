@@ -30,5 +30,4 @@ export enum TransportType {
     PersonalDelivery,
     HomeDelivery,
     DeliveryPoint
-};
-
+}

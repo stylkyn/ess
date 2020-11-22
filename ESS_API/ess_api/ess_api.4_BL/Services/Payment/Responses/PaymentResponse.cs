@@ -1,9 +1,7 @@
-﻿using ess_api._4_BL.Services.Product.Responses;
-using ess_api._4_BL.Services.Responses;
+﻿using ess_api._4_BL.Services.Responses;
 using ess_api._4_BL.Shared.Responses;
 using ess_api.Core.Model;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 
 namespace ess_api._4_BL.Services.Payment.Responses
 {
@@ -15,6 +13,8 @@ namespace ess_api._4_BL.Services.Payment.Responses
         [JsonProperty("isActive")]
         public bool IsActive { get; set; }
 
+        [JsonProperty("image")]
+        public ImageResponse Image { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -24,19 +24,5 @@ namespace ess_api._4_BL.Services.Payment.Responses
 
         [JsonProperty("totalPrice")]
         public PriceResponse TotalPrice { get; set; }
-
-        [JsonProperty("cashOnDelivery")]
-        public CashOnDeliveryPaymentResponse CashOnDelivery { get; set; }
-
-        [JsonProperty("paymentOrder")]
-        public PaymentOrderResponse PaymentOrder { get; set; }
-    }
-
-    public class CashOnDeliveryPaymentResponse
-    {
-    }
-
-    public class PaymentOrderResponse
-    {
     }
 }

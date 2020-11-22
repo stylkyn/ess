@@ -11,6 +11,11 @@
                     <mdb-icon *ngIf="state.type == OrderState.ReadyToShip" fas icon="truck-loading"></mdb-icon>
                     <mdb-icon *ngIf="state.type == OrderState.Sent" fas icon="truck"></mdb-icon>
                     <mdb-icon *ngIf="state.type == OrderState.Delivered" fas icon="check"></mdb-icon>
+
+                    <mdb-icon *ngIf="state.type == OrderState.AgentAssign" fas icon="user-times"></mdb-icon>
+                    <mdb-icon *ngIf="state.type == OrderState.AgentReady" fas icon="user-check"></mdb-icon>
+                    <mdb-icon *ngIf="state.type == OrderState.AgentOnWay" fas icon="walking"></mdb-icon>
+
                 </button>
                 <h6 class="OrderSummary-Tab-title modal-title">
                    {{state.label}}
@@ -83,7 +88,7 @@
                         <tbody>
                             <tr *ngIf="order?.calculatedData?.transport">
                                 <th scope="row">
-                                    <img [alt]="'Personal pickup icon'" [src]="transport.image.secureUrl" />
+                                    <img [alt]="transport.name" [src]="transport.image.secureUrl" />
                                 </th>
                                 <td class="w-100">
                                     <h5 class="OrderSummary-Card-name">
@@ -108,10 +113,9 @@
                 <div class="table-responsive">
                     <table class="OrderSummary-Table OrderSummary-Table-payment table product-table mb-0">
                         <tbody>
-                            <tr *ngIf="order?.calculatedData?.payment">
+                            <tr *ngIf="payment">
                                 <th scope="row">
-                                    <img *ngIf="payment.type == PaymentType.CashOnDelivery" [alt]="'Platba na miste'" [src]="'assets/icons/wallet.png'" />
-                                    <img *ngIf="payment.type == PaymentType.PaymentOrder" [alt]="'Platebni prikaz'" [src]="'assets/icons/bank.png'" />
+                                    <img [alt]="payment.name" [src]="payment.image.secureUrl" />
                                 </th>
                                 <td class="w-100">
                                     <h5 class="OrderSummary-Card-name">
@@ -132,7 +136,7 @@
         </div>
     </div>
     <hr />
-    <div class="row mt-4">
+    <div *ngIf="customer" class="row mt-4">
         <div class="col-6">
             <mdb-card class="OrderSummary-Card-address">
                 <mdb-card-header class="bg-white">Doručovací údaje</mdb-card-header>
@@ -160,8 +164,8 @@
             <mdb-card class="OrderSummary-Card-address">
                 <mdb-card-header class="bg-white">Kontaktní údaje</mdb-card-header>
                 <mdb-card-body>
-                    <p>{{order.customer?.personal?.contact?.email}}</p>
-                    <p>{{order.customer.personal?.contact?.phone}}</p>
+                    <p>{{customer?.personal?.contact?.email}}</p>
+                    <p>{{customer?.personal?.contact?.phone}}</p>
                 </mdb-card-body>
             </mdb-card>
         </div>

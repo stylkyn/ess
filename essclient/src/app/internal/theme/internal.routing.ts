@@ -4,6 +4,7 @@ import { ThemeComponent } from './theme.component';
 import { adminTaskRoute, adminDashRoute, adminLoginRoute, adminUserRoute, adminCategoryRoute, adminProductRoute, adminOrderRoute, adminSettingsRoute, adminTransportRoute } from './admin-routes';
 import { AdminAuthGuardService } from '../../services/guards/admin-auth-guard.service';
 import { AdminAuthExistGuardService } from './../../services/guards/admin-auth-exist-guard.service';
+import { adminPaymentRoute } from './admin-routes copy';
 
 const APP_ROUTES: Routes = [
     { path: '', pathMatch: 'full', redirectTo: adminLoginRoute },
@@ -21,6 +22,7 @@ const APP_ROUTES: Routes = [
             { path: adminOrderRoute, loadChildren: () => import('./../pages/order/order.module').then(m => m.OrderModule) },
             { path: adminSettingsRoute, loadChildren: () => import('./../pages/settings/settings.module').then(m => m.SettingsModule) },
             { path: adminTransportRoute, loadChildren: () => import('./../pages/transport/transport.module').then(m => m.TransportModule) },
+            { path: adminPaymentRoute, loadChildren: () => import('./../pages/payment/payment.module').then(m => m.PaymentModule) },
         ]
     },
     {

@@ -101,7 +101,7 @@ export interface IOrderStateOption {
 }
 
 export const orderSummaryStates = (order: IOrder): IOrderStateOption[] => {
-    if (order == null) return [];
+    if (order == null || order.calculatedData == null) return [];
 
     const transportType: TransportType = order.calculatedData.transport?.sourceData?.type;
     const paymentType: PaymentType = order.calculatedData.payment?.sourceData?.type;
