@@ -132,18 +132,6 @@ namespace ess_api._4_BL.Shared
                     Personal = MapUserPersonal(request.Customer?.Personal),
                     Company = MapUserCompany(request.Customer?.Company)
                 } : null,
-                Transport = request.Transport != null ? new OrderTransportResponse {
-                    TransportId = request.Transport.TransportId,
-                    SourceData = MapTransport(request.Transport.SourceData)
-                } : null,
-                Payment = request.Payment != null ? new OrderPaymentResponse
-                {
-                    PaymentId = request.Payment.PaymentId,
-                    State = request.Payment.State,
-                    OrderCashOnDelivery = request.Payment.OrderCashOnDelivery != null ? new OrderCashOnDeliveryRespoonse { } : null,
-                    PaymentOrder = request.Payment.PaymentOrder != null ? new OrderPaymentOrderResponse { } : null,
-                    SourceData = MapPayment(request.Payment.SourceData)
-                } : null,
                 CalculatedData = MapCalculatedOrder(request.CalculatedData)
             };
         }
@@ -151,19 +139,15 @@ namespace ess_api._4_BL.Shared
         {
             return new CalculatedOrderResponse
             {
-                Transport = request.Transport != null ? new  CalculatedOrderTransportResponse
+                Transport = request.Transport != null ? new CalculatedOrderTransportResponse
                 {
                     TransportId = request.Transport.TransportId,
-                    Name = request.Transport.Name,
-                    Type = request.Transport.Type,
-                    TotalPrice = MapPrice(request.Transport.TotalPrice),
+                    SourceData = MapTransport(request.Transport.SourceData),
                 } : null,
                 Payment = request.Payment != null ? new CalculatedOrderPaymentResponse
                 {
                     PaymentId = request.Payment.PaymentId,
-                    Name = request.Payment.Name,
-                    Type = request.Payment.Type,
-                    TotalPrice = MapPrice(request.Payment.TotalPrice),
+                    SourceData = MapPayment(request.Payment.SourceData)
                 } : null,
                 Products = request.Products.Select(p => new CalculatedOrderProductResponse
                 {

@@ -83,18 +83,17 @@
                         <tbody>
                             <tr *ngIf="order?.calculatedData?.transport">
                                 <th scope="row">
-                                    <img *ngIf="order.calculatedData.transport.type == TransportType.PersonalPickup" [alt]="'Personal pickup icon'" [src]="'assets/icons/personal-pickup.png'" />
-                                    <img *ngIf="order.calculatedData.transport.type == TransportType.Zasilkovna" [alt]="'Zasilkovna icon'" [src]="'assets/icons/zasilkovna.png'" />
+                                    <img [alt]="'Personal pickup icon'" [src]="transport.image.secureUrl" />
                                 </th>
                                 <td class="w-100">
                                     <h5 class="OrderSummary-Card-name">
-                                        <strong>{{order.calculatedData.transport.name}}</strong>
+                                        <strong>{{transport.name}}</strong>
                                     </h5>
                                 </td>
                                 <td class="font-weight-bold OrderSummary-Card-price">
                                     <strong>
-                                        <span *ngIf="order.calculatedData.transport.totalPrice?.czkWithVat > 0">{{order.calculatedData.transport.totalPrice?.czkWithVat}} {{mapPriceTypes(order.calculatedData.transport.totalPrice?.priceType)}}</span>
-                                        <span *ngIf="order.calculatedData.transport.totalPrice?.czkWithVat == 0">Zdarma</span>
+                                        <span *ngIf="transport.totalPrice?.czkWithVat > 0">{{transport.totalPrice?.czkWithVat}} {{mapPriceTypes(transport.totalPrice?.priceType)}}</span>
+                                        <span *ngIf="transport.totalPrice?.czkWithVat == 0">Zdarma</span>
                                     </strong>
                                 </td>
                             </tr>
@@ -111,18 +110,18 @@
                         <tbody>
                             <tr *ngIf="order?.calculatedData?.payment">
                                 <th scope="row">
-                                    <img *ngIf="order.calculatedData.payment.type == PaymentType.CashOnDelivery" [alt]="'Platba na miste'" [src]="'assets/icons/wallet.png'" />
-                                    <img *ngIf="order.calculatedData.payment.type == PaymentType.PaymentOrder" [alt]="'Platebni prikaz'" [src]="'assets/icons/bank.png'" />
+                                    <img *ngIf="payment.type == PaymentType.CashOnDelivery" [alt]="'Platba na miste'" [src]="'assets/icons/wallet.png'" />
+                                    <img *ngIf="payment.type == PaymentType.PaymentOrder" [alt]="'Platebni prikaz'" [src]="'assets/icons/bank.png'" />
                                 </th>
                                 <td class="w-100">
                                     <h5 class="OrderSummary-Card-name">
-                                        <strong>{{order.calculatedData.payment.name}}</strong>
+                                        <strong>{{payment.name}}</strong>
                                     </h5>
                                 </td>
                                 <td class="font-weight-bold OrderSummary-Card-price">
                                     <strong>
-                                        <span *ngIf="order.calculatedData.payment.totalPrice?.czkWithVat > 0">{{order.calculatedData.payment.totalPrice?.czkWithVat}} {{mapPriceTypes(order.calculatedData.payment.totalPrice?.priceType)}}</span>
-                                        <span *ngIf="order.calculatedData.payment.totalPrice?.czkWithVat == 0">Zdarma</span>
+                                        <span *ngIf="payment.totalPrice?.czkWithVat > 0">{{payment.totalPrice?.czkWithVat}} {{mapPriceTypes(payment.totalPrice?.priceType)}}</span>
+                                        <span *ngIf="payment.totalPrice?.czkWithVat == 0">Zdarma</span>
                                     </strong>
                                 </td>
                             </tr>

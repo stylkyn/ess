@@ -62,12 +62,6 @@ export class OrderBussinessService {
                 transportId: transportId,
                 paymentId: paymentId
             },
-            transport: {
-                transportId: transportId,
-            },
-            payment: {
-                paymentId: paymentId
-            },
         };
         return this._orderService.setOrder(request).then(order => {
             this._basketStorage.reset();

@@ -1,7 +1,7 @@
 import { IProduct } from './IProduct';
 import { IPrice, initPrice } from './IPrice';
-import { PaymentType } from './IPayment';
-import { TransportType } from './ITransport';
+import { IPayment, PaymentType } from './IPayment';
+import { ITransport, TransportType } from './ITransport';
 
 export interface ICalculatedOrder {
     products: ICalculatedOrderProductOrder[];
@@ -12,17 +12,12 @@ export interface ICalculatedOrder {
 
 export interface ICalculatedOrderPayment {
     paymentId: string;
-    type: PaymentType;
-    name: string;
-    totalPrice: IPrice;
+    sourceData: IPayment;
 }
 
 export interface ICalculatedOrderTransport {
     transportId: string;
-    type: TransportType;
-    name: string;
-    imageUrl: string;
-    totalPrice: IPrice;
+    sourceData: ITransport;
 }
 
 export interface ICalculatedOrderTotalOrder {

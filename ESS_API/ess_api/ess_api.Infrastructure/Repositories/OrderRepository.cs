@@ -42,7 +42,7 @@ namespace ess_api.Infrastructure.Repositories
                 (fullTextCleared == "" || x.OrderNumberFormatted.ToLower().Contains(fullTextCleared))
                 && (userId == null || x.Customer.UserId == userId)
                 && (orderState == null || x.State == orderState)
-                && (paymentState == null || x.Payment.State == paymentState),
+                && (paymentState == null || x.PaymentState == paymentState),
                 SortType.DESC, x => x.CreatedDate, skip, take
             );
 

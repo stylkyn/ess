@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 import { IImage } from 'src/app/models/IImage';
 
 export interface ITransportQueryRequest {
-    onlyActive: boolean;
+    onlyActive?: boolean;
 }
 
 export interface ITransportAddRequest {
@@ -41,14 +41,11 @@ export class TransportService extends APIRepository<ITransport> {
     }
 
     public async fetchTransport(request: ITransportQueryRequest): Promise<ITransport[]> {
-        if (this.transports.length === 0) {
         return this._API.getQuery(`${this.className}/Search`, request).pipe(
             map((transports: ITransport[]) => {
             this.transports = transports;
             return transports;
         })).toPromise();
-        }
-        return new Promise((resolve) => resolve(this.transports));
     }
 
     public add(request: ITransportAddRequest): Observable<ITransport> {

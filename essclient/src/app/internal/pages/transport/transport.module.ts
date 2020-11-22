@@ -22,6 +22,7 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { RouterModule } from '@angular/router';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 
 @NgModule({
     imports: [
@@ -32,6 +33,7 @@ import { RouterModule } from '@angular/router';
         ReactiveFormsModule,
 
         NzTableModule,
+        NzCheckboxModule,
         NzButtonModule,
         NzInputModule,
         NzIconModule.forChild([DeleteOutline, PlusOutline, DownloadOutline, FileTwoTone, EyeOutline]),

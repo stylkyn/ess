@@ -21,7 +21,6 @@ namespace ess_api._4_BL.Services.Transport.Requests
         [Required]
         public int PriceWithoutVat { get; set; }
 
-        [Required]
         public string Description { get; set; }
     }
 }

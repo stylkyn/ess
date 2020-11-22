@@ -1,11 +1,11 @@
 import { APIService, IResponse } from './API.service';
 import { APIRepository } from './API-repository';
 import { Injectable } from '@angular/core';
-import { IProduct, initProduct, ProductType } from 'src/app/models/IProduct';
+import { IProduct, ProductType } from 'src/app/models/IProduct';
 import { map } from 'rxjs/operators';
-import { ICalculatedOrder, calculateOrderInit } from '../../models/ICalculateOrder';
+import { ICalculatedOrder } from '../../models/ICalculateOrder';
 import { IUserPersonal, IUserCompany } from 'src/app/models/IUser';
-import { IOrder, OrderState } from 'src/app/models/IOrder';
+import { IOrder, orderInit, OrderState } from 'src/app/models/IOrder';
 import { Observable } from 'rxjs';
 import { PaymentState } from 'src/app/models/IPayment';
 
@@ -27,22 +27,12 @@ export interface ICalculatedOrderProductRequest {
 
 export interface ISetOrderRequest {
     customer: IOrderCustomerRequest;
-    transport: IOrderTransportRequest;
-    payment: IOrderPaymentRequest;
     calculateOrder: ICalculateOrderRequest;
 }
 
 export interface IOrderCustomerRequest {
     personal: IUserPersonal;
     company: IUserCompany;
-}
-
-export interface IOrderTransportRequest {
-    transportId: string;
-}
-
-export interface IOrderPaymentRequest {
-    paymentId: string;
 }
 
 export interface IOrderSearchRequest {
@@ -76,11 +66,14 @@ export interface ISetOrderAgent {
 })
 
 export class OrderService extends APIRepository<IProduct> {
-    public activeOrder: IOrder;
-    public calculatedOrder: ICalculatedOrder = calculateOrderInit;
+    public activeOrder: IOrder = orderInit;
 
     constructor (public _API: APIService) {
         super(_API, 'Orders');
+    }
+
+    public get calculatedOrder(): ICalculatedOrder {
+        return this.activeOrder?.calculatedData;
     }
 
     public get hasService(): boolean {
@@ -90,7 +83,7 @@ export class OrderService extends APIRepository<IProduct> {
     public fetchCalculatedOrder(request: ICalculateOrderRequest): Promise<ICalculatedOrder> {
         return this._API.post(`${this.className}/CalculateOrder`, request).pipe(
             map((calculatedOrder: ICalculatedOrder) => {
-                this.calculatedOrder = calculatedOrder;
+                this.activeOrder.calculatedData = calculatedOrder;
                 return calculatedOrder;
             })
         ).toPromise();

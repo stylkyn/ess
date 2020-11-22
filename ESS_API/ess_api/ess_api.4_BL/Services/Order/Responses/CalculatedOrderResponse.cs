@@ -1,5 +1,7 @@
-﻿using ess_api._4_BL.Services.Product.Responses;
+﻿using ess_api._4_BL.Services.Payment.Responses;
+using ess_api._4_BL.Services.Product.Responses;
 using ess_api._4_BL.Services.Responses;
+using ess_api._4_BL.Services.Transport.Responses;
 using ess_api._4_BL.Shared.Responses;
 using ess_api.Core.Model;
 using ess_api.Core.Model.Shared;
@@ -28,14 +30,8 @@ namespace ess_api._4_BL.Services.Order.Responses
         [JsonProperty("transportId")]
         public string TransportId { get; set; }
 
-        [JsonProperty("type")]
-        public TransportType Type { get; set; }
-
-        [JsonProperty("name")]
-        public string Name { get; set; }
-
-        [JsonProperty("totalPrice")]
-        public PriceResponse TotalPrice { get; set; }
+        [JsonProperty("sourceData")]
+        public TransportResponse SourceData { get; set; }
     }
 
     public class CalculatedOrderPaymentResponse
@@ -43,14 +39,8 @@ namespace ess_api._4_BL.Services.Order.Responses
         [JsonProperty("paymentId")]
         public string PaymentId { get; set; }
 
-        [JsonProperty("type")]
-        public PaymentType Type { get; set; }
-
-        [JsonProperty("name")]
-        public string Name { get; set; }
-
-        [JsonProperty("totalPrice")]
-        public PriceResponse TotalPrice { get; set; }
+        [JsonProperty("sourceData")]
+        public PaymentResponse SourceData { get; set; }
     }
 
     public class CalculatedOrderTotalResponse

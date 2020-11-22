@@ -1,10 +1,10 @@
-<mdb-card class="OrderSummaryCard">
+<mdb-card *ngIf="order" class="OrderSummaryCard">
     <mdb-card-header class="bg-white">Souhrn</mdb-card-header>
     <mdb-card-body class="py-0 px-2">
         <div class="table-responsive">
             <table class="table product-table mb-0 OrderSummaryCard-table">
                 <tbody>
-                    <tr *ngFor="let product of calculatedOrder.products">
+                    <tr *ngFor="let product of products">
                         <th scope="row">
                             <img src="{{product.product.image.secureUrl}}" alt="{{product.product.name}}" class="img-fluid z-depth-0">
                         </th>
@@ -18,37 +18,37 @@
                         </td>
                     </tr>
 
-                    <tr *ngIf="calculatedOrder.transport">
+                    <tr *ngIf="transport">
                         <th scope="row">
-                            <img [alt]="calculatedOrder.transport.name" [src]="calculatedOrder.transport.imageUrl" />
+                            <img [alt]="transport.name" [src]="transport.image.secureUrl" />
                         </th>
                         <td class="w-100">
                             <h5 class="OrderSummaryCard-name">
-                                <strong>{{calculatedOrder.transport.name}}</strong>
+                                <strong>{{transport.name}}</strong>
                             </h5>
                         </td>
                         <td class="font-weight-bold OrderSummaryCard-price">
                             <strong>
-                                <span *ngIf="calculatedOrder.transport.totalPrice?.czkWithVat > 0">{{calculatedOrder.transport.totalPrice?.czkWithVat}} {{mapPriceTypes(calculatedOrder.transport.totalPrice?.priceType)}}</span>
-                                <span *ngIf="calculatedOrder.transport.totalPrice?.czkWithVat == 0">Zdarma</span>
+                                <span *ngIf="transport.totalPrice?.czkWithVat > 0">{{transport.totalPrice?.czkWithVat}} {{mapPriceTypes(transport.totalPrice?.priceType)}}</span>
+                                <span *ngIf="transport.totalPrice?.czkWithVat == 0">Zdarma</span>
                             </strong>
                         </td>
                     </tr>
 
-                    <tr *ngIf="calculatedOrder.payment">
+                    <tr *ngIf="payment">
                         <th scope="row">
-                            <img *ngIf="calculatedOrder.payment.type == PaymentType.CashOnDelivery" [alt]="'Platba na miste'" [src]="'assets/icons/wallet.png'" />
-                            <img *ngIf="calculatedOrder.payment.type == PaymentType.PaymentOrder" [alt]="'Platebni prikaz'" [src]="'assets/icons/bank.png'" />
+                            <img *ngIf="payment.type == PaymentType.CashOnDelivery" [alt]="'Platba na miste'" [src]="'assets/icons/wallet.png'" />
+                            <img *ngIf="payment.type == PaymentType.PaymentOrder" [alt]="'Platebni prikaz'" [src]="'assets/icons/bank.png'" />
                         </th>
                         <td class="w-100">
                             <h5 class="OrderSummaryCard-name">
-                                <strong>{{calculatedOrder.payment.name}}</strong>
+                                <strong>{{payment.name}}</strong>
                             </h5>
                         </td>
                         <td class="font-weight-bold OrderSummaryCard-price">
                             <strong>
-                                <span *ngIf="calculatedOrder.payment.totalPrice?.czkWithVat > 0">{{calculatedOrder.payment.totalPrice?.czkWithVat}} {{mapPriceTypes(calculatedOrder.payment.totalPrice?.priceType)}}</span>
-                                <span *ngIf="calculatedOrder.payment.totalPrice?.czkWithVat == 0">Zdarma</span>
+                                <span *ngIf="payment.totalPrice?.czkWithVat > 0">{{payment.totalPrice?.czkWithVat}} {{mapPriceTypes(payment.totalPrice?.priceType)}}</span>
+                                <span *ngIf="payment.totalPrice?.czkWithVat == 0">Zdarma</span>
                             </strong>
                         </td>
                     </tr>
@@ -61,7 +61,7 @@
                         </td>
                         <td colspan="4" >
                             <h4>
-                                <strong class="OrderSummaryCard-total-price">{{calculatedOrder.total.totalPrice.czkWithVat}} {{mapPriceTypes(calculatedOrder.total.totalPrice.priceType)}}</strong>
+                                <strong class="OrderSummaryCard-total-price">{{order.calculatedData.total.totalPrice.czkWithVat}} {{mapPriceTypes(order.calculatedData.total.totalPrice.priceType)}}</strong>
                             </h4>
                         </td>
                     </tr>

@@ -1,7 +1,7 @@
 
 <div class="d-flex align-items-center justify-content-between">
     <div class="d-flex">
-        <h1 nz-typography>Způsoby doprav</h1>
+        <h1 nz-typography>Způsoby dopravy</h1>
     </div>
     <div class="d-flex">
         <app-transport-form #transportForm (changeData)="loadData()"></app-transport-form>
@@ -9,9 +9,8 @@
 </div>
 
 <nz-table
-    nzShowSizeChanger
     [nzData]="dataList"
-    [nzFrontPagination]="false"
+    [nzShowPagination]="false"
     [nzLoading]="loading"
 >
     <thead>

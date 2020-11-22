@@ -163,7 +163,7 @@ export class OrderComponent implements OnInit {
     // change paymnet state logic 
 
     changePaymnetStateModal(order: IOrder, tplContent: TemplateRef<{}>): void {
-        this.selectedChangePaymentState = order.payment.state;
+        this.selectedChangePaymentState = order.paymentState;
         this._modalNz.create({
             nzTitle: `Opravdu chcete zmenit stav platby?`,
             nzCancelText: 'Zrušit',
@@ -202,7 +202,7 @@ export class OrderComponent implements OnInit {
 
     // agent logic
     changeAssignAgentModal(order: IOrder, product: ICalculatedOrderProductOrder, tplContent: TemplateRef<{}>) {
-        this.selectedChangePaymentState = order.payment.state;
+        this.selectedChangePaymentState = order.paymentState;
         this._modalNz.create({
             nzTitle: `Opravdu chcete přiřadit agenta k servisu - ${order.orderNumberFormatted}?`,
             nzCancelText: 'Zrušit',

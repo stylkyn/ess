@@ -120,38 +120,16 @@ namespace ess_api._4_BL.Services.Order
 
             if (request.CalculateOrder != null)
             {
-                var calculatedData = await CalculateOrder(request.CalculateOrder.Products, request.Transport?.TransportId, request.Payment?.PaymentId);
+                var calculatedData = await CalculateOrder(request.CalculateOrder.Products, request.CalculateOrder?.TransportId, request.CalculateOrder?.PaymentId);
                 order.CalculatedData = calculatedData;
 
                 order.State = OrderState.CalculateReady;
-            }
 
-            if (request.Transport != null)
-            {
-                var transport = await _uow.Transports.FindAsync(new Guid(request.Transport.TransportId));
-                if (transport == null)
-                    return new Response<OrderResponse>(ResponseStatus.BadRequest, null, ResponseMessagesConstans.CannotAssignTransportToOrder);
+                if (calculatedData.HasTransport())
+                    order.State = OrderState.TransportReady;
 
-                order.Transport = new OrderTransport();
-                order.Transport.TransportId = transport.Id.ToString();
-                order.Transport.SourceData = transport;
-
-                order.State = OrderState.TransportReady;
-            }
-
-            if (request.Payment != null)
-            {
-                var payment = await _uow.Payments.FindAsync(new Guid(request.Payment.PaymentId));
-                if (payment == null)
-                    return new Response<OrderResponse>(ResponseStatus.BadRequest, null, ResponseMessagesConstans.CannotAssignPaymentToOrder);
-
-                order.Payment = new OrderPayment();
-                order.Payment.PaymentId = payment.Id.ToString();
-                order.Payment.State = PaymentState.NotPaid;
-                order.Payment.SetPaymentData(payment);
-                order.Payment.SourceData = payment;
-
-                order.State = OrderState.PaymentReady;
+                if (calculatedData.HasPayment())
+                    order.State = OrderState.PaymentReady;
             }
 
             if (request.Customer != null)
@@ -274,7 +252,7 @@ namespace ess_api._4_BL.Services.Order
             if (order == null)
                 return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.CannotFindOrder);
 
-            order.Payment.State = request.PaymentState;
+            order.PaymentState = request.PaymentState;
             order = await _uow.Orders.FindAndReplaceAsync(order.Id, order);
 
             var response = _mapService.MapOrder(order);
@@ -340,9 +318,7 @@ namespace ess_api._4_BL.Services.Order
                 calculatedData.Transport = transport != null ? new CalculatedOrderTransport
                 {
                     TransportId = transport.Id.ToString(),
-                    Type = transport.Type,
-                    Name = transport.Name,
-                    TotalPrice = transport.TotalPrice
+                    SourceData = transport,
                 } : null;
             }
             // add payment 
@@ -352,9 +328,7 @@ namespace ess_api._4_BL.Services.Order
                 calculatedData.Payment = payment != null ? new CalculatedOrderPayment
                 {
                     PaymentId = payment.Id.ToString(),
-                    Type = payment.Type,
-                    Name = payment.Name,
-                    TotalPrice = payment.TotalPrice
+                    SourceData = payment,
                 } : null;
             }
 

@@ -10,39 +10,24 @@ export interface IOrder {
     createdDate: Date;
     id: string;
     state: OrderState;
+    paymentState: PaymentState;
     orderNumber: number;
     orderNumberFormatted: string;
     customer: IOrderCustomer;
-    transport: IOrderTransport;
-    payment: IOrderPayment;
     calculatedData: ICalculatedOrder;
 }
 
-export interface IOrderTransport {
-    transportId: string;
-    personalPickup: IOrderPersonalPickupTransport;
-    czechPost: IOrderCzechPostTransport;
-    zasilkovna: IOrderZasilkovnaTransport;
-    sourceData: ITransport;
-}
-export interface IOrderPersonalPickupTransport {
-}
-export interface IOrderCzechPostTransport {
-}
-export interface IOrderZasilkovnaTransport {
-}
-
-export interface IOrderPayment {
-    paymentId: string;
-    state: PaymentState;
-    paymentOrder: IOrderPaymentOrder;
-    orderCashOnDelivery: IOrderCashOnDeliveryRespoonse;
-    sourceData: IPayment;
-}
-export interface IOrderPaymentOrder {
-}
-export interface IOrderCashOnDeliveryRespoonse {
-}
+export const orderInit: IOrder = {
+    lastModified: undefined,
+    createdDate: undefined,
+    id: undefined,
+    state: undefined,
+    paymentState: undefined,
+    orderNumber: undefined,
+    orderNumberFormatted: undefined,
+    customer: undefined,
+    calculatedData: undefined,
+};
 
 export interface IOrderCustomer {
     userId: string;
@@ -118,8 +103,8 @@ export interface IOrderStateOption {
 export const orderSummaryStates = (order: IOrder): IOrderStateOption[] => {
     if (order == null) return [];
 
-    const transportType: TransportType = order.transport?.sourceData?.type;
-    const paymentType: PaymentType = order.payment?.sourceData?.type;
+    const transportType: TransportType = order.calculatedData.transport?.sourceData?.type;
+    const paymentType: PaymentType = order.calculatedData.payment?.sourceData?.type;
     const states: IOrderStateOption[] = [{ type:  OrderState.Confirmed, label: OrderStateName(OrderState.Confirmed)}];
 
     // payments states

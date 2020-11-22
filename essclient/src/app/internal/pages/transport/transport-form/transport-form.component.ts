@@ -45,7 +45,7 @@ export class TransportFormComponent {
         this.transportForm = _fb.group({
             type: [TransportType.DeliveryPoint, Validators.required],
             name: ['', Validators.required],
-            description: ['', Validators.required],
+            description: [''],
             isActive: [true, Validators.required],
             price: [null, [Validators.required, Validators.min(1)]],
         });
@@ -90,6 +90,10 @@ export class TransportFormComponent {
 
     private reset() {
         this.transportForm.reset();
+        this.transportForm.patchValue({
+            type: TransportType.DeliveryPoint,
+            isActive: true,
+        });
         this.mainImageUploader.reset();
         this.mainImage = null;
     }

@@ -6,8 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 import { IGetOrderRequets } from './../../../services/API/order.service';
 import { MapPriceTypes } from 'src/app/models/IPrice';
 import { PaymentType } from 'src/app/models/IPayment';
-import { TransportType } from 'src/app/models/ITransport';
+import { ITransport, TransportType } from 'src/app/models/ITransport';
 import * as moment from 'moment';
+import { IPayment } from './../../../models/IPayment';
 
 @Component({
   selector: 'app-order-summary',
@@ -24,6 +25,14 @@ export class OrderSummaryComponent implements OnInit {
 
     public get order(): IOrder {
         return this._orderService.activeOrder;
+    }
+
+    public get transport(): ITransport {
+        return this.order.calculatedData.transport.sourceData;
+    }
+
+    public get payment(): IPayment {
+        return this.order.calculatedData.payment.sourceData;
     }
 
     constructor(

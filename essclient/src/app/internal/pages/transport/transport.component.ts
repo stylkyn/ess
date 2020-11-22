@@ -31,11 +31,10 @@ export class TransportComponent implements OnInit {
     }
 
     loadData(): void {
+        console.log('loaddata');
         this.loading = true;
 
-        const request: ITransportQueryRequest = {
-            onlyActive: false,
-        };
+        const request: ITransportQueryRequest = { };
         this._transportService.fetchTransport(request).then(transports => {
             this.loading = false;
             this.dataList = transports;

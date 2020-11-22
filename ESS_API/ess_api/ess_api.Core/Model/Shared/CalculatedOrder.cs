@@ -12,13 +12,16 @@ namespace ess_api.Core.Model.Shared
         public CalculatedOrderPayment Payment { get; set; }
         public CalculatedOrderTotal Total { get; set; }
 
-        public bool HasAllData() => Products.Count() > 0 && Total != null;
+        public bool HasAllData() => Products.Count() > 0 && HasTransport() && HasPayment();
+        public bool HasTransport() => Transport?.TransportId != null && Transport.SourceData != null;
+        public bool HasPayment() => Payment?.PaymentId != null && Transport.SourceData != null;
+
 
         public Price CalculateTotal()
         {
             Price total = CalculateProductsTotal();
-            total += Transport?.TotalPrice?.CzkWithoutVat ?? 0.0M;
-            total += Payment?.TotalPrice?.CzkWithoutVat ?? 0.0M;
+            total += Transport?.SourceData?.TotalPrice?.CzkWithoutVat ?? 0.0M;
+            total += Payment?.SourceData.TotalPrice?.CzkWithoutVat ?? 0.0M;
 
             return total;
         }
@@ -34,17 +37,13 @@ namespace ess_api.Core.Model.Shared
     public class CalculatedOrderTransport
     {
         public string TransportId { get; set; }
-        public TransportType Type { get; set; }
-        public string Name { get; set; }
-        public Price TotalPrice { get; set; }
+        public TransportModel SourceData { get; set; }
     }
 
     public class CalculatedOrderPayment
     {
         public string PaymentId { get; set; }
-        public PaymentType Type { get; set; }
-        public string Name { get; set; }
-        public Price TotalPrice { get; set; }
+        public PaymentModel SourceData { get; set; }
     }
 
     public class CalculatedOrderProduct

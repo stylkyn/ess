@@ -10,8 +10,7 @@
                                 formControlName="transportType" name="transportType">
                         <label class="form-check-label OrderTransport-Item" for="transportType-{{i}}">
                             <div class="OrderTransport-Item-imgBox">
-                                <img *ngIf="transport.type == TransportType.PersonalPickup" [alt]="'Personal pickup icon'" [src]="'assets/icons/personal-pickup.png'" />
-                                <img *ngIf="transport.type == TransportType.Zasilkovna" [alt]="'Zasilkovna icon'" [src]="'assets/icons/zasilkovna.png'" />
+                                <img  [alt]="transport.name" [src]="transport.image.secureUrl" />
                             </div>
                             <div class="w-100 px-2">
                                 {{transport.name}}

@@ -39,7 +39,7 @@ namespace Libraries.DocumentHtml.Repositories
                             DIČ: CZ29032393",
                 PaymentInfo = $@"Bankovní účet: 1111111111/0080
                                 Variabilní symbol: {order.OrderNumber}
-                                Způsob platby: {order.CalculatedData.Payment.Name}"
+                                Způsob platby: {order.CalculatedData.Payment.SourceData.Name}"
             };
 
             // base
@@ -78,14 +78,15 @@ namespace Libraries.DocumentHtml.Repositories
                             x.TotalPrice))
                     .ToList();
                 items += string.Join(string.Empty, products);
-            }
-            // add payment method to items
-            if (order.Payment != null)
-                items += GenerateInvoiceItem(order.CalculatedData.Payment.Name, order.CalculatedData.Payment.TotalPrice);
-            // add transport to items
-            if (order.Transport != null)
-                items += GenerateInvoiceItem(order.CalculatedData.Transport.Name, order.CalculatedData.Transport.TotalPrice);
 
+                // add payment method to items
+                if (order.CalculatedData.Payment != null)
+                    items += GenerateInvoiceItem(order.CalculatedData.Payment.SourceData.Name, order.CalculatedData.Payment.SourceData.TotalPrice);
+                // add transport to items
+                if (order.CalculatedData.Transport != null)
+                    items += GenerateInvoiceItem(order.CalculatedData.Transport.SourceData.Name, order.CalculatedData.Transport.SourceData.TotalPrice);
+
+            }
             html = InsertValue(html, "items", items);
 
             FileResult result = _documentHtmlLibrary.HtmlToFile(html, $"faktura_{order.OrderNumberFormatted}.pdf");
