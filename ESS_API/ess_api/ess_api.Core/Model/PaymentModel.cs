@@ -14,7 +14,7 @@
     public enum PaymentType
     {
         CashOnDelivery, // Dobirka
-        CashOnPlace, // na miste
+        CashOnPlace, // Platba pri prevzeti
         PaymentOrder // Platebni prikaz
     }
 }

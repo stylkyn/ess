@@ -17,6 +17,14 @@ namespace ess_api.Controllers
         }
 
         [HttpGet]
+        [Route("GetPaymentByTransport")]
+        public async Task<IHttpActionResult> Search([FromUri] PaymentGetByTransportRequest request)
+        {
+            var response = await _paymentService.GetPaymentByTransport(request);
+            return new CreateResult(response);
+        }
+
+        [HttpGet]
         [Route("Search")]
         public async Task<IHttpActionResult> Search([FromUri] PaymentSearchRequest request)
         {

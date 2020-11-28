@@ -5,6 +5,7 @@ using ess_api._4_BL.Services.Transport.Requests;
 using ess_api.Core.Constant;
 using ess_api.Core.Model;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +13,38 @@ namespace ess_api._4_BL.Services.Payment
 {
     public class PaymentService : MainService
     {
+        public async Task<ResponseList<PaymentResponse>> GetPaymentByTransport(PaymentGetByTransportRequest request)
+        {
+            var transport = await _uow.Transports.FindAsync(new Guid(request.TransportId));
+            if (transport == null)
+                return new ResponseList<PaymentResponse>(ResponseStatus.BadRequest, null, ResponseMessagesConstans.NotFound);
+
+            var payments = await _uow.Payments.FindManyAsync();
+
+            switch (transport.Type)
+            {
+                case TransportType.DeliveryPoint:
+                    var possiblePaymentTypes = new List<PaymentType>() { PaymentType.CashOnPlace, PaymentType.PaymentOrder };
+                    payments = payments.Where(payment => possiblePaymentTypes.Contains(payment.Type)).ToList();
+                    break;
+                case TransportType.HomeDelivery:
+                    var possiblePaymentTypes2 = new List<PaymentType>() { PaymentType.CashOnDelivery, PaymentType.PaymentOrder };
+                    payments = payments.Where(payment => possiblePaymentTypes2.Contains(payment.Type)).ToList();
+                    break;
+                case TransportType.PersonalDelivery:
+                    var possiblePaymentTypes3 = new List<PaymentType>() { PaymentType.CashOnPlace, PaymentType.PaymentOrder };
+                    payments = payments.Where(payment => possiblePaymentTypes3.Contains(payment.Type)).ToList();
+                    break;
+                case TransportType.PersonalPickup:
+                    var possiblePaymentTypes4 = new List<PaymentType>() { PaymentType.CashOnPlace, PaymentType.PaymentOrder };
+                    payments = payments.Where(payment => possiblePaymentTypes4.Contains(payment.Type)).ToList();
+                    break;
+            }
+
+            var response = payments.Select(x => _mapService.MapPayment(x)).ToList();
+            return new ResponseList<PaymentResponse>(ResponseStatus.Ok, response);
+        }
+
         public async Task<ResponseList<PaymentResponse>> Search(PaymentSearchRequest request)
         {
             var payments = await _uow.Payments.Search(request?.OnlyActive);
@@ -19,6 +52,7 @@ namespace ess_api._4_BL.Services.Payment
             var response = payments.Select(x => _mapService.MapPayment(x)).ToList();
             return new ResponseList<PaymentResponse>(ResponseStatus.Ok, response);
         }
+
         public async Task<Response<PaymentResponse>> Add(PaymentAddRequest request)
         {
             var result = new PaymentModel

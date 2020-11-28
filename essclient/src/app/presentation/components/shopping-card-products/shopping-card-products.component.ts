@@ -3,7 +3,7 @@ import { MDBModalRef } from 'ng-uikit-pro-standard';
 import { BasketStorageService, IBasketProductStorage } from 'src/app/services/storage/basket.service';
 import { OrderService, ICalculateOrderRequest } from './../../../services/API/order.service';
 import { MapPriceTypes } from 'src/app/models/IPrice';
-import { ICalculatedOrderProductOrder } from 'src/app/models/ICalculateOrder';
+import { ICalculatedOrderProductOrder, ICalculatedOrderTotalOrder } from 'src/app/models/ICalculateOrder';
 import { TransportStorageService } from 'src/app/services/storage/transport.service';
 import { PaymentStorageService } from './../../../services/storage/payment.service';
 import { ProductType } from 'src/app/models/IProduct';
@@ -22,6 +22,13 @@ export class ShoppingCardProductsComponent implements OnInit {
 
     public get calculatedOrder () {
         return this._orderService.calculatedOrder;
+    }
+
+    public get products (): ICalculatedOrderProductOrder[] {
+        return this._orderService.calculatedOrder?.products ?? [];
+    }
+    public get total (): ICalculatedOrderTotalOrder {
+        return this._orderService.calculatedOrder?.total;
     }
     constructor(
         public _basketStorage: BasketStorageService,

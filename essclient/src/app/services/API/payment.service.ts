@@ -6,6 +6,10 @@ import { IPayment, PaymentType } from 'src/app/models/IPayment';
 import { Observable } from 'rxjs';
 import { IImage } from 'src/app/models/IImage';
 
+export interface IPaymentGetByTransportRequest {
+    transportId: string;
+}
+
 export interface IPaymentQueryRequest {
     onlyActive?: boolean;
 }
@@ -33,10 +37,20 @@ export interface IPaymentUpdateRequest {
   providedIn: 'root'
 })
 export class PaymentService extends APIRepository<IPayment> {
+    public paymentsByTrasport: IPayment[] = [];
     public payments: IPayment[] = [];
 
     constructor(public _API: APIService) {
         super(_API, 'Payments');
+    }
+
+    
+    public async fetchPaymentByTransport(request: IPaymentGetByTransportRequest): Promise<IPayment[]> {
+        return this._API.getQuery(`${this.className}/GetPaymentByTransport`, request).pipe(
+            map((payments: IPayment[]) => {
+            this.paymentsByTrasport = payments;
+            return payments;
+        })).toPromise();
     }
 
     public async fetchPayment(request: IPaymentQueryRequest): Promise<IPayment[]> {

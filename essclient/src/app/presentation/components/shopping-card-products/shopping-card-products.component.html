@@ -1,14 +1,14 @@
 <div class="table-responsive">
     <table class="table product-table mb-0">
         <tbody>
-            <tr *ngIf="calculatedOrder?.products?.length == 0">
+            <tr *ngIf="products.length == 0">
                 <td>
                     <h6 class="mt-3">
                         <strong>V košíku nemáte žádné produkty</strong>
                     </h6>
                 </td>
             </tr>
-            <tr *ngFor="let product of calculatedOrder.products">
+            <tr *ngFor="let product of products">
                 <th scope="row">
                     <img src="{{product.product.image.secureUrl}}" alt="{{product.product.image.originalFileName}}" class="img-fluid z-depth-0">
                 </th>
@@ -42,9 +42,9 @@
                         <strong>Celkem</strong>
                     </h4>
                 </td>
-                <td colspan="4" class="text-right">
+                <td *ngIf="total" colspan="4" class="text-right">
                     <h4 class="mt-2">
-                        <strong>{{calculatedOrder.total.totalPrice.czkWithVat}} {{mapPriceTypes(calculatedOrder.total.totalPrice.priceType)}}</strong> s DPH
+                        <strong>{{total.totalPrice.czkWithVat}} {{mapPriceTypes(total.totalPrice.priceType)}}</strong> s DPH
                     </h4>
                 </td>
             </tr>

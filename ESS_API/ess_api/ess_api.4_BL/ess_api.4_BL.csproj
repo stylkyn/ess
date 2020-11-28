@@ -68,6 +68,7 @@
     <Compile Include="Services\Order\Responses\CalculatedOrderResponse.cs" />
     <Compile Include="Services\Order\Responses\OrderResponse.cs" />
     <Compile Include="Services\Payment\PaymentService.cs" />
+    <Compile Include="Services\Payment\Requests\PaymentGetByTransportRequest.cs" />
     <Compile Include="Services\Payment\Requests\PaymentSearchRequest.cs" />
     <Compile Include="Services\Payment\Requests\PaymentAddRequest.cs" />
     <Compile Include="Services\Payment\Requests\PaymentUpdateRequest.cs" />

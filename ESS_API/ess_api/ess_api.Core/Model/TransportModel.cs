@@ -19,9 +19,9 @@ namespace ess_api.Core.Model
 
     public enum TransportType
     {
-        PersonalPickup, // personal pickup on our point
-        PersonalDelivery, // personal delivery by agent
-        HomeDelivery, // delivery to the address
-        DeliveryPoint // delivery to the delivery point
+        PersonalPickup, // osobni vyzvednuti na pobocce
+        PersonalDelivery, // osobni doruceni agentem
+        HomeDelivery, // doruceni na adresu
+        DeliveryPoint // doruceni na vydejnu
     }
 }

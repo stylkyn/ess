@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PaymentType, IPayment } from 'src/app/models/IPayment';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { PaymentService, IPaymentQueryRequest } from 'src/app/services/API/payment.service';
+import { PaymentService, IPaymentQueryRequest, IPaymentGetByTransportRequest } from 'src/app/services/API/payment.service';
 import { orderCustomerRoute } from './../order.routing';
 import { Router } from '@angular/router';
 import { PaymentStorageService } from './../../../../services/storage/payment.service';
@@ -23,7 +23,7 @@ export class OrderPaymentComponent implements OnInit {
     public paymentForm: FormGroup;
 
     public get payments (): IPayment[] {
-        return this._paymentService.payments;
+        return this._paymentService.paymentsByTrasport;
     }
 
     private get paymentStorageType () {
@@ -34,6 +34,7 @@ export class OrderPaymentComponent implements OnInit {
     constructor(
         private _paymentService: PaymentService,
         private _paymentStorage: PaymentStorageService,
+        private _transportStorage: TransportStorageService,
         private _orderBussiness: OrderBussinessService,
         private _formBuilder: FormBuilder,
         private _router: Router
@@ -57,9 +58,9 @@ export class OrderPaymentComponent implements OnInit {
     }
 
     private loadPayments() {
-        const request: IPaymentQueryRequest = {
-            onlyActive: true
+        const request: IPaymentGetByTransportRequest = {
+            transportId: this._transportStorage.transportInStorage.id,
         };
-        this._paymentService.fetchPayment(request);
+        this._paymentService.fetchPaymentByTransport(request);
     }
 }
