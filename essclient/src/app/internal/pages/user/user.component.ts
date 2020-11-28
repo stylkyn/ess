@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
 import { UserService, ISearchUserRequest, userSortFieldMapReverse, UserSortField, IPromoteAgentRequest, IPromoteAdminRequest } from './../../../services/API/user.service';
 import { sortTypeMapReverse, SortType } from 'src/app/models/shared/Sort';
 import { IUser } from './../../../models/IUser';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { UserFormComponent } from './user-form/user-form.component';
 
 @Component({
     selector: 'app-user',
@@ -11,6 +12,8 @@ import { NzModalService } from 'ng-zorro-antd/modal';
     styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
+    @ViewChild('userForm') userForm: UserFormComponent;
+    
     total = 1;
     dataList: IUser[] = [];
     loading = true;
@@ -55,7 +58,7 @@ export class UserComponent implements OnInit {
     }
 
     onQueryParamsChange(params: NzTableQueryParams): void {
-        const { pageSize, pageIndex, sort, filter } = params;
+        const { pageSize, pageIndex, sort } = params;
         const currentSort = sort.find(item => item.value !== null);
         const sortField = (currentSort && currentSort.key) || null;
         const sortType = (currentSort && currentSort.value) || null;
@@ -66,6 +69,11 @@ export class UserComponent implements OnInit {
         this.sortType = sortTypeMapReverse.get(sortType);
 
         this.loadData();
+    }
+
+    // update logic
+    showUpdateDrawer(user: IUser) {
+        this.userForm.open(user);
     }
 
     showPromoteAdminModal(user: IUser): void {
@@ -82,7 +90,7 @@ export class UserComponent implements OnInit {
     promoteAdmin(user: IUser) {
         const request: IPromoteAdminRequest = {
             userId: user.id
-        }
+        };
         this._userService.promoteAdmin(request).subscribe(_ => this.loadData());
     }
 

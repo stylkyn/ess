@@ -7,28 +7,42 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
-import { DeleteOutline } from '@ant-design/icons-angular/icons';
+import { DeleteOutline, FileTwoTone } from '@ant-design/icons-angular/icons';
 import { RouterModule } from '@angular/router';
+import { UserFormComponent } from './user-form/user-form.component';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzFormModule } from 'ng-zorro-antd/form';
 
 @NgModule({
     imports: [
+    CommonModule,
         CommonModule,
         routing,
         ComponentsModule,
+        FormsModule,
+        ReactiveFormsModule,
         
         NzTableModule,
         NzButtonModule,
         NzInputModule,
         NzIconModule,
+        NzFormModule,
         FormsModule,
+        NzDrawerModule,
         NzModalModule,
+        NzGridModule,
+        NzDividerModule,
+        NzInputNumberModule,
         NzToolTipModule,
-        NzIconModule.forChild([DeleteOutline]),
+        NzIconModule.forChild([DeleteOutline, FileTwoTone]),
     ],
-    declarations: [UserComponent],
+    declarations: [UserComponent, UserFormComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
     exports: [
         RouterModule

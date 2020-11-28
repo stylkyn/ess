@@ -2,10 +2,11 @@ import { APIService, IResponse } from './API.service';
 import { APIRepository } from './API-repository';
 import { Observable } from 'rxjs';
 import { Injectable, EventEmitter } from '@angular/core';
-import { IUser, cookieJwtName, IUserOption } from 'src/app/models/IUser';
+import { IUser, cookieJwtName, IUserOption, IUserPersonal } from 'src/app/models/IUser';
 import { map } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { SortType } from 'src/app/models/shared/Sort';
+import { IUserCompany } from './../../models/IUser';
 
 export enum UserSortField {
     Firstname,
@@ -24,6 +25,12 @@ export const userSortFieldMapReverse = new Map<string , UserSortField>([
     ['lastname', UserSortField.Lastname], 
     ['email', UserSortField.Email], 
  ]);
+
+export interface IUserUpdateRequest {
+    id: string;
+    personal: IUserPersonal;
+    company: IUserCompany;
+}
 
 export interface ILoginRequest {
     email: string;
@@ -135,6 +142,10 @@ export class UserService extends APIRepository<IUser> {
                     new Date(user.token.expiresDate).getDate());
                 return user;
             }));
+    }
+
+    public update(request: IUserUpdateRequest): Observable<IUser> {
+        return this._API.post(`${this.className}/Update`, request);
     }
 
     public promoteAgent(request: IPromoteAgentRequest): Observable<IUser>  {

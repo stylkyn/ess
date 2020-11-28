@@ -46,9 +46,6 @@ export class OrderCustomerComponent implements OnInit {
     get companyStreet () { return this.customerForm.get('company.address.street'); }
     get companyHouseNumber () { return this.customerForm.get('company.address.houseNumber'); }
 
-    get companyPhone () { return this.customerForm.get('company.contact.phone'); }
-    get companyEmail () { return this.customerForm.get('company.contact.email'); }
-
     get termsAndConditions () { return this.customerForm.get('termsAndConditions'); }
     get gpdrTerms () { return this.customerForm.get('gpdrTerms'); }
 
