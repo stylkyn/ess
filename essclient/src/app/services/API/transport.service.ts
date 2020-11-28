@@ -6,6 +6,10 @@ import { ITransport, TransportType } from 'src/app/models/ITransport';
 import { Observable } from 'rxjs';
 import { IImage } from 'src/app/models/IImage';
 
+export interface ITransportsForOrderRequest {
+    hasService: boolean;
+}
+
 export interface ITransportQueryRequest {
     onlyActive?: boolean;
 }
@@ -34,10 +38,19 @@ export interface ITransportUpdateRequest {
 })
 export class TransportService extends APIRepository<ITransport> {
 
+    public transportsForOrder: ITransport[] = [];
     public transports: ITransport[] = [];
 
     constructor(public _API: APIService) {
         super(_API, 'transports');
+    }
+
+    public async fetchTransportsForOrder(request: ITransportsForOrderRequest): Promise<ITransport[]> {
+        return this._API.getQuery(`${this.className}/GetTransportsForOrder`, request).pipe(
+            map((transports: ITransport[]) => {
+            this.transportsForOrder = transports;
+            return transports;
+        })).toPromise();
     }
 
     public async fetchTransport(request: ITransportQueryRequest): Promise<ITransport[]> {

@@ -13,11 +13,23 @@ namespace ess_api._4_BL.Services.Transport
 {
     public class TransportService : MainService
     {
+        public async Task<ResponseList<TransportResponse>> GetTransportsForOrder(TransportForOrderRequest request)
+        {
+            var transports = await _uow.Transports.Search(true);
+
+            // pokud neexistuje sluzba, odflitrovat Osobni doruceni agentem
+            if (!request.HasService)
+                transports = transports.Where(transport => transport.Type != TransportType.PersonalDelivery).ToList();
+
+            var response = transports.Select(x => _mapService.MapTransport(x)).ToList();
+            return new ResponseList<TransportResponse>(ResponseStatus.Ok, response);
+        }
+
         public async Task<ResponseList<TransportResponse>> Search(TransportSearchRequest request)
         {
-            var payments = await _uow.Transports.Search(request?.OnlyActive);
+            var transports = await _uow.Transports.Search(request?.OnlyActive);
 
-            var response = payments.Select(x => _mapService.MapTransport(x)).ToList();
+            var response = transports.Select(x => _mapService.MapTransport(x)).ToList();
             return new ResponseList<TransportResponse>(ResponseStatus.Ok, response);
         }
 

@@ -16,6 +16,14 @@ namespace ess_api.Controllers
         }
 
         [HttpGet]
+        [Route("GetTransportsForOrder")]
+        public async Task<IHttpActionResult> GetTransportsForOrder([FromUri] TransportForOrderRequest request)
+        {
+            var response = await _transportService.GetTransportsForOrder(request);
+            return new CreateResult(response);
+        }
+
+        [HttpGet]
         [Route("Search")]
         public async Task<IHttpActionResult> Search([FromUri] TransportSearchRequest request)
         {

@@ -10,5 +10,8 @@ namespace ess_api._4_BL.Services.Payment.Requests
         [Guid]
         [Required]
         public string TransportId { get; set; }
+
+        [Required]
+        public bool HasService { get; set; }
     }
 }

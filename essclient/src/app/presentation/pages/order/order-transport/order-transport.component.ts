@@ -1,5 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { ITransportQueryRequest, TransportService } from 'src/app/services/API/transport.service';
+import { Component, OnInit } from '@angular/core';
+import { TransportService } from 'src/app/services/API/transport.service';
 import { ITransport, TransportType } from 'src/app/models/ITransport';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MapPriceTypes } from 'src/app/models/IPrice';
@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { TransportStorageService } from 'src/app/services/storage/transport.service';
 import { OrderBussinessService } from './../order.service';
 import { presentationOrderRoute } from 'src/app/presentation/theme/presentation-routes';
+import { ITransportsForOrderRequest } from './../../../../services/API/transport.service';
+import { BasketStorageService } from 'src/app/services/storage/basket.service';
 
 @Component({
   selector: 'app-order-transport',
@@ -21,7 +23,7 @@ export class OrderTransportComponent implements OnInit {
     public transportForm: FormGroup;
 
     public get transports (): ITransport[] {
-        return this._transportService.transports;
+        return this._transportService.transportsForOrder;
     }
 
     private get transportStorageType () {
@@ -32,6 +34,7 @@ export class OrderTransportComponent implements OnInit {
     constructor(
         private _transportService: TransportService,
         private _transportStorage: TransportStorageService,
+        private _basketStorage: BasketStorageService,
         private _orderBussiness: OrderBussinessService,
         private _formBuilder: FormBuilder,
         private _router: Router
@@ -55,9 +58,9 @@ export class OrderTransportComponent implements OnInit {
     }
 
     private loadTransports() {
-        const request: ITransportQueryRequest = {
-            onlyActive: true
+        const request: ITransportsForOrderRequest = {
+            hasService: this._basketStorage.hasService(),
         };
-        this._transportService.fetchTransport(request);
+        this._transportService.fetchTransportsForOrder(request);
     }
 }

@@ -8,6 +8,7 @@ import { IImage } from 'src/app/models/IImage';
 
 export interface IPaymentGetByTransportRequest {
     transportId: string;
+    hasService: boolean;
 }
 
 export interface IPaymentQueryRequest {

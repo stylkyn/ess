@@ -22,6 +22,10 @@ export class BasketStorageService {
         this.loadProductsFromStorage();
     }
 
+    public hasService (): boolean {
+        return this.productsInStorage.some(product => product.serviceDate);
+    }
+
     public findSelectedProduct(productId: string): IBasketProductStorage {
         return this.productsInStorage.find(x => x.productId === productId);
     }
