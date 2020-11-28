@@ -20,7 +20,7 @@
                 <td>
                     {{product.product.buy.price.czkWithVat}} {{mapPriceTypes(product.product.buy.price.priceType)}} / ks
                     <br/>
-                    {{moment(product?.service.date)?.format('DD.MM.YYYY')}}
+                    {{product?.service ? moment(product?.service.date)?.format('DD.MM.YYYY') : null}}
                 </td>
                 <td>
                     <p *ngIf="product.product.type == ProductType.Service" class="mb-0">1 ks</p>
