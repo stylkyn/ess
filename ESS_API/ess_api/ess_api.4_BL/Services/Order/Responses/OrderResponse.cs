@@ -17,7 +17,7 @@ namespace ess_api._4_BL.Services.Order.Responses
         [JsonProperty("lastModified")]
         public DateTime LastModified { get; set; }
 
-        [JsonProperty("state")]
+        [JsonProperty("paymentState")]
         public PaymentState PaymentState { get; set; }
 
         [JsonProperty("state")]
