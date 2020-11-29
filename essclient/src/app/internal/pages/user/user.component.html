@@ -49,16 +49,9 @@
             <td>{{ item?.personal?.lastname }}</td>
             <td>{{ item.company?.companyName }}</td>
             <td>
-                <span *ngIf="item.hasAgentAccess && item.hasAdminAccess">Admin</span>
-                <div *ngIf="item.hasAgentAccess && !item.hasAdminAccess" class="d-flex flex-row align-items-center">
-                    Agent
-                    <button class="ml-2" (click)="showPromoteAdminModal(item)" nz-button nzsi nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Povýšit na admina">
-                        <i nz-icon nzType="edit" nzTheme="outline"></i>
-                    </button>
-                </div>
-                <div *ngIf="!item.hasAgentAccess && !item.hasAdminAccess" class="d-flex flex-row align-items-center">
-                    Uživatel
-                    <button class="ml-2" (click)="showPromoteAgentModal(item)" nz-button nzsi nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Povýšit na agenta">
+                <div class="d-flex flex-row align-items-center">
+                    {{getUserRoleName(item)}}
+                    <button class="ml-2" (click)="showChangeRoleModal(item, changeRoleModalTemplate)" nz-button nzsi nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Zmenit role">
                         <i nz-icon nzType="edit" nzTheme="outline"></i>
                     </button>
                 </div>
@@ -76,3 +69,23 @@
         </tr>
     </tbody>
 </nz-table>
+
+<ng-template #changeRoleModalTemplate>
+    <div>
+        <b>
+            {{selectedUser?.email}}
+        </b>
+        <hr/>
+
+        <nz-select class="w-100" [(ngModel)]="selectedRole">
+            <nz-option nzValue="admin" nzLabel="Admin"></nz-option>
+            <nz-option nzValue="agent" nzLabel="Agent"></nz-option>
+            <nz-option nzValue="user" nzLabel="Uživatel"></nz-option>
+        </nz-select>
+    </div>
+</ng-template>
+<!-- <div *nzModalFooter>
+    <span>Modal Footer: </span>
+    <button nz-button nzType="default" (click)="handleCancel(changeRoleModalTemplate)">Zrušit</button>
+    <button nz-button nzType="primary" (click)="changeRole()" >Uložit</button>
+</div> -->

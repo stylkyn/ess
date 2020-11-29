@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NzTableQueryParams } from 'ng-zorro-antd/table';
-import { UserService, ISearchUserRequest, userSortFieldMapReverse, UserSortField, IPromoteAgentRequest, IPromoteAdminRequest } from './../../../services/API/user.service';
+import { UserService, ISearchUserRequest, userSortFieldMapReverse, UserSortField, IUserChangeRoleRequest } from './../../../services/API/user.service';
 import { sortTypeMapReverse, SortType } from 'src/app/models/shared/Sort';
-import { IUser } from './../../../models/IUser';
-import { NzModalService } from 'ng-zorro-antd/modal';
+import { getUserRoleKey, getUserRoleName, IUser, UserRoleKey } from './../../../models/IUser';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { UserFormComponent } from './user-form/user-form.component';
 
 @Component({
@@ -14,6 +14,8 @@ import { UserFormComponent } from './user-form/user-form.component';
 export class UserComponent implements OnInit {
     @ViewChild('userForm') userForm: UserFormComponent;
     
+    getUserRoleName = getUserRoleName;
+
     total = 1;
     dataList: IUser[] = [];
     loading = true;
@@ -22,6 +24,8 @@ export class UserComponent implements OnInit {
     fullText: string = null;
     sortType: SortType = null;
     sortField: UserSortField = null;
+    selectedUser: IUser;
+    selectedRole: UserRoleKey;
 
     public get loggedUser(): IUser {
         return this._userService.user;
@@ -29,7 +33,7 @@ export class UserComponent implements OnInit {
 
     constructor (
         private _userService: UserService,
-        private _modalNz: NzModalService
+        private _modalNz: NzModalService,
     ) { }
 
     ngOnInit(): void {
@@ -76,40 +80,29 @@ export class UserComponent implements OnInit {
         this.userForm.open(user);
     }
 
-    showPromoteAdminModal(user: IUser): void {
-        this._modalNz.confirm({
-            nzTitle: `Opravdu chcete uživatele povýšit na administrátora?`,
-            nzContent: `<b style="color: red;">${user.personal.firstname} ${user.personal.lastname}</br>`,
-            nzOkText: 'Povýšit',
-            nzOkType: 'primary',
-            nzOnOk: () => this.promoteAdmin(user),
-            nzCancelText: 'Zrušit'
+    showChangeRoleModal(user: IUser, changeRoleModalTemplate: TemplateRef<{}>): void {
+        this.selectedUser = user;
+        this.selectedRole = getUserRoleKey(user);
+        this._modalNz.create({
+            nzTitle: `Opravdu chcete změnit přístupy uživatele?`,
+            nzContent: changeRoleModalTemplate,
+            nzCancelText: 'Zrušit',
+            nzOnOk: () => this.changeRole(),
+            nzOkText: 'Uložit',
         });
     }
 
-    promoteAdmin(user: IUser) {
-        const request: IPromoteAdminRequest = {
-            userId: user.id
-        };
-        this._userService.promoteAdmin(request).subscribe(_ => this.loadData());
+    handleCancel(modalNzRef: NzModalRef) {
+        modalNzRef.destroy();
     }
 
-    showPromoteAgentModal(user: IUser): void {
-        this._modalNz.confirm({
-            nzTitle: `Opravdu chcete uživatele povýšit na agenta?`,
-            nzContent: `<b style="color: red;">${user.personal.firstname} ${user.personal.lastname}</br>`,
-            nzOkText: 'Povýšit',
-            nzOkType: 'primary',
-            nzOnOk: () => this.promoteAgent(user),
-            nzCancelText: 'Zrušit'
-        });
-    }
-
-    promoteAgent(user: IUser) {
-        const request: IPromoteAgentRequest = {
-            userId: user.id
+    changeRole() {
+        const request: IUserChangeRoleRequest = {
+            userId: this.selectedUser.id,
+            hasAdminAccess: this.selectedRole == 'admin',
+            hasAgentAccess: this.selectedRole == 'admin' || this.selectedRole == 'agent',
         };
-        this._userService.promoteAgent(request).subscribe(_ => this.loadData());
+        this._userService.changeRole(request).subscribe(_ => this.loadData());
     }
 
     // remove logic

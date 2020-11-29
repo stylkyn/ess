@@ -47,6 +47,29 @@ export interface IUserOption {
     email: string;
 }
 
+export type UserRoleName = 'Admin' | 'Agent' | 'Uživatel';
+export type UserRoleKey = 'admin' | 'agent' | 'user';
+
+export const getUserRoleName = (user: IUser): UserRoleName => {
+    if (user.hasAdminAccess) {
+        return 'Admin';
+    }
+    if (user.hasAgentAccess) {
+        return 'Agent';
+    }
+    return 'Uživatel';
+};
+
+export const getUserRoleKey = (user: IUser): UserRoleKey => {
+    if (user.hasAdminAccess) {
+        return 'admin';
+    }
+    if (user.hasAgentAccess) {
+        return 'agent';
+    }
+    return 'user';
+};
+
 const tokenInitial: IIAuthentificationToken = {
     expiresDate: null,
     jwt: null

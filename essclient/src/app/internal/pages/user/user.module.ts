@@ -18,10 +18,10 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzFormModule } from 'ng-zorro-antd/form';
+import { NzSelectModule } from 'ng-zorro-antd/select';
 
 @NgModule({
     imports: [
-    CommonModule,
         CommonModule,
         routing,
         ComponentsModule,
@@ -36,6 +36,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
         FormsModule,
         NzDrawerModule,
         NzModalModule,
+        NzSelectModule,
         NzGridModule,
         NzDividerModule,
         NzInputNumberModule,

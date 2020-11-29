@@ -98,8 +98,7 @@
     <Compile Include="Services\Transport\Requests\TransportSearchRequest.cs" />
     <Compile Include="Services\Transport\Responses\TransportResponse.cs" />
     <Compile Include="Services\User\Requests\AuthetificationRequest.cs" />
-    <Compile Include="Services\User\Requests\UserPromoteAdminRequest.cs" />
-    <Compile Include="Services\User\Requests\UserPromoteAgentRequest.cs" />
+    <Compile Include="Services\User\Requests\UserChangeRoleRequest.cs" />
     <Compile Include="Services\User\Requests\UserAddRequest.cs" />
     <Compile Include="Services\User\Requests\UserRemoveRequest.cs" />
     <Compile Include="Services\User\Requests\UserRequest.cs" />

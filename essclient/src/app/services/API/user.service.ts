@@ -50,13 +50,12 @@ export interface ISearchUserRequest {
     sortType: SortType;
 }
 
-export interface IPromoteAgentRequest {
+export interface IUserChangeRoleRequest {
     userId: string;
+    hasAgentAccess: boolean;
+    hasAdminAccess: boolean;
 }
 
-export interface IPromoteAdminRequest {
-    userId: string;
-}
 
 @Injectable({
     providedIn: 'root'
@@ -148,16 +147,10 @@ export class UserService extends APIRepository<IUser> {
         return this._API.put(`${this.className}/Update`, request);
     }
 
-    public promoteAgent(request: IPromoteAgentRequest): Observable<IUser>  {
+    public changeRole(request: IUserChangeRoleRequest): Observable<IUser>  {
         this._userOptions = [];
-        return this._API.put(`${this.className}/PromoteAgent`, request);
+        return this._API.put(`${this.className}/ChangeRole`, request);
     }
-
-    public promoteAdmin(request: IPromoteAdminRequest): Observable<IUser>  {
-        this._userOptions = [];
-        return this._API.put(`${this.className}/PromoteAdmin`, request);
-    }
-
 
     public getAllOptions(): Promise<IUserOption[]> {
         if (!this.userOptions || this.userOptions.length === 0)

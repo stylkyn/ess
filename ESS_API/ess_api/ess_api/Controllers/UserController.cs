@@ -93,21 +93,13 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
 
-        [Route("PromoteAdmin")]
-        [JwtAuthenticationAdmin]
-        [HttpPut]
-        public async Task<IHttpActionResult> PromoteAdmin([FromBody]UserPromoteAdminRequest request)
-        {
-            var response = await _userService.PromoteAdmin(request);
-            return new CreateResult(response);
-        }
 
-        [Route("PromoteAgent")]
+        [Route("ChangeRole")]
         [JwtAuthenticationAdmin]
         [HttpPut]
-        public async Task<IHttpActionResult> PromoteAgent([FromBody]UserPromoteAgentRequest request)
+        public async Task<IHttpActionResult> ChangeRole([FromBody]UserChangeRoleRequest request)
         {
-            var response = await _userService.PromoteAgent(request);
+            var response = await _userService.ChangeRole(request);
             return new CreateResult(response);
         }
 
