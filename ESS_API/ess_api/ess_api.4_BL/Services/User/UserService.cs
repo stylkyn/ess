@@ -102,7 +102,7 @@ namespace ess_api._4_BL.Services
             return new Response<UserResponse>(ResponseStatus.Ok, _mapService.MapUser(user, token));
         }
 
-        // this method can update any user if is admin logged or any user can update yourself
+        // this method can update any user if is admin logged or any user can update by himself
         public async Task<Response<UserResponse>> Update(UserUpdateRequest request)
         {
             if (request.Id != null && !request.RequestIdentity.HasAdminAccess)

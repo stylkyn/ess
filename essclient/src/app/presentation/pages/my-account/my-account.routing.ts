@@ -1,9 +1,10 @@
 import { RouterModule, Routes } from '@angular/router';
 import { MetaGuard } from 'ng2-meta';
 import { ModuleWithProviders } from '@angular/core';
-import { presentationMyAccountOrderRoute } from '../../theme/presentation-routes';
+import { presentationMyAccountOrderRoute, presentationMyAccountUserProfile } from '../../theme/presentation-routes';
 import { MyAccountComponent } from './my-account.component';
 import { MyOrderComponent } from './my-order/my-order.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 const APP_ROUTES: Routes = [
@@ -27,6 +28,17 @@ const APP_ROUTES: Routes = [
                     meta: {
                         title: 'Moje objednávky',
                         keywords: 'Moje objednavky'
+                    }
+                }
+            },
+            {
+                path: presentationMyAccountUserProfile,
+                component: UserProfileComponent,
+                canActivate: [MetaGuard],
+                data: {
+                    meta: {
+                        title: 'Můj profil',
+                        keywords: 'Muj profil'
                     }
                 }
             }

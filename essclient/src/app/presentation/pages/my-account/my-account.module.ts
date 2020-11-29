@@ -6,21 +6,42 @@ import { RouterModule } from '@angular/router';
 import { routing } from './my-account.routing';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { ButtonsModule, WavesModule, IconsModule } from 'ng-uikit-pro-standard';
+import { ButtonsModule, WavesModule, IconsModule, CardsModule, InputsModule, InputUtilitiesModule, SelectModule, StickyContentModule, AccordionModule, CheckboxModule, NavbarModule, TabsModule } from 'ng-uikit-pro-standard';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
     imports: [
         CommonModule,
-        RouterModule,
-        NzTableModule,
-        NzDividerModule,
-        ButtonsModule,
+        // plugins
+        CardsModule,
         WavesModule,
+        AccordionModule,
+        NavbarModule,
+        RouterModule,
+        NzDividerModule,
+        NzTableModule,
+        // routing
+        routing,
+        FormsModule,
+        ReactiveFormsModule,
+        // plugins
+        WavesModule,
+        InputsModule,
+        InputUtilitiesModule,
+        ButtonsModule,
+        CheckboxModule,
+        SelectModule,
+        TabsModule,
         IconsModule,
-        routing
+        StickyContentModule,
+        // my modules
+        ComponentsModule
     ],
     declarations: [
         MyAccountComponent,
+        UserProfileComponent,
         MyOrderComponent,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]

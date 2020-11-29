@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/API/user.service';
 import { Router } from '@angular/router';
-import { presentationMyAccountFullOrderRoute, presentationAgentOrdersFullRoute, presentationContactRoute, presentationAboutUsRoute, presentationHomepage, presentationProductRoute } from '../presentation-routes';
+import { presentationMyAccountFullOrderRoute, presentationAgentOrdersFullRoute, presentationContactRoute, presentationAboutUsRoute, presentationHomepage, presentationProductRoute, presentationMyAccountFullProfileRoute } from '../presentation-routes';
 
 @Component({
     selector: 'app-header',
@@ -11,6 +11,7 @@ import { presentationMyAccountFullOrderRoute, presentationAgentOrdersFullRoute, 
 export class HeaderComponent implements OnInit {
     presentationMyAccountFullOrderRoute = presentationMyAccountFullOrderRoute;
     presentationAgentOrdersFullRoute = presentationAgentOrdersFullRoute;
+    presentationMyAccountFullProfileRoute = presentationMyAccountFullProfileRoute;
     presentationContactRoute = presentationContactRoute;
     presentationAboutUsRoute = presentationAboutUsRoute;
     presentationHomepageRoute = presentationHomepage;

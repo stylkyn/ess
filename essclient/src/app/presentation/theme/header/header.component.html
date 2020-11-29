@@ -29,9 +29,15 @@
                         {{userSrv.user?.email}}
                     </a>
                 </li> 
+
+                
+                <li class="nav-item waves-light py-2" mdbWavesEffect>
+                    <a routerLink="/{{presentationMyAccountFullOrderRoute}}">
+                        Můj profil
+                    </a>
+                </li> 
                 <li class="nav-item waves-light py-2"  
-                    *ngIf="userSrv.user?.hasAdminAccess || userSrv.user?.hasAgentAccess"
-                    routerLink="/{{presentationAgentOrdersFullRoute}}" mdbWavesEffect>
+                    *ngIf="userSrv.user?.hasAdminAccess || userSrv.user?.hasAgentAccess" mdbWavesEffect>
                     <a routerLink="/{{presentationMyAccountFullOrderRoute}}">
                         Přiřazené služby
                     </a>
@@ -106,10 +112,34 @@
                         <span class="hide-tablet">{{userSrv.user?.email}}</span>
                     </a>
                     <div class="dropdown-menu dropdown-primary">
-                        <a *ngIf="userSrv.user?.hasAdminAccess || userSrv.user?.hasAgentAccess" class="dropdown-item" routerLink="/{{presentationAgentOrdersFullRoute}}">Přiřazené služby</a>
-                        <a class="dropdown-item" routerLink="/{{presentationMyAccountFullOrderRoute}}">Moje objednávky</a>
+                        <a 
+                            class="dropdown-item" 
+                            routerLink="/{{presentationMyAccountFullProfileRoute}}"
+                        >
+                            Můj profil
+                        </a>
+                        <a 
+                            *ngIf="userSrv.user?.hasAdminAccess || userSrv.user?.hasAgentAccess" 
+                            class="dropdown-item" 
+                            routerLink="/{{presentationAgentOrdersFullRoute}}"
+                        >
+                            Přiřazené služby
+                        </a>
+                        <a 
+                            class="dropdown-item" 
+                            routerLink="/{{presentationMyAccountFullOrderRoute}}"
+                        >
+                            Moje objednávky
+                        </a>
+
                         <div class="divider dropdown-divider"></div>
-                        <a class="dropdown-item" (click)="logOut()">Odhlásit</a>
+                        
+                        <a 
+                            class="dropdown-item" 
+                            (click)="logOut()"
+                        >
+                            Odhlásit
+                        </a>
                       </div>
                 </li> 
 

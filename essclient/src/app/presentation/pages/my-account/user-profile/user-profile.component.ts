@@ -1,27 +1,17 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IUser } from 'src/app/models/IUser';
-import { IUserUpdateRequest } from 'src/app/services/API/user.service';
-import { UserService } from './../../../../services/API/user.service';
-
-type Type = 'update' | 'add';
+import { IUserUpdateRequest, UserService } from 'src/app/services/API/user.service';
 
 @Component({
-    selector: 'app-user-form',
-    templateUrl: './user-form.component.html',
-    styleUrls: ['./user-form.component.scss']
+  selector: 'app-profile-info',
+  templateUrl: './user-profile.component.html',
+  styleUrls: ['./user-profile.component.scss']
 })
-export class UserFormComponent {
-    @Output() changeData = new EventEmitter<IUser>();
+export class UserProfileComponent implements OnInit {
     
-    activeUser: IUser;
     userForm: FormGroup;
-    visible = false;
     isLoading = false;
-
-    get formType (): Type {
-        return this.activeUser ? 'update' : 'add';
-    }
 
     // personal
     get personal () { return this.userForm.get('personal'); }
@@ -52,10 +42,9 @@ export class UserFormComponent {
     get companyStreet () { return this.userForm.get('company.address.street'); }
     get companyHouseNumber () { return this.userForm.get('company.address.houseNumber'); }
 
-    constructor (
+    constructor(
         private _formBuilder: FormBuilder,
-        private _userService: UserService,
-    ) { 
+        private _userService: UserService) { 
         this.userForm = this._formBuilder.group({
             personal: this._formBuilder.group({
                 firstname: [null, Validators.required],
@@ -91,45 +80,28 @@ export class UserFormComponent {
         });
     }
 
-    // drawer actions
-    open(user: IUser = null): void {
-        this.reset();
-        this.visible = true;
-
+    ngOnInit() {
+        const user = this._userService.user;
         if (user) {
             this.userForm.patchValue(user);
-            this.email.setValue(user.email);
-            this.activeUser = user;
+        } else {
+            this._userService.onUserChange.subscribe((loadedUser: IUser) => {
+                this.userForm.patchValue(loadedUser);
+            });
         }
     }
 
-    close(): void {
-        this.visible = false;
-        this.activeUser = null;
-    }
-
-    confirm(): void {
-        this.update();
-    }
-
-    private reset() {
-        this.userForm.reset();
-    }
-
-    private update(): void {
+    public update(): void {
         this.isLoading = true;
         const request: IUserUpdateRequest = {
-            id: this.activeUser?.id,
+            id: this._userService.user?.id,
             personal: this.personal.value,
             company: this.company.value, 
         };
-        console.log(request);
 
         this._userService.update(request).subscribe((user: IUser) => {
-            this.changeData.next(user);
-            this.reset();
-            this.close();
             this.isLoading = false;
         }, (e) => this.isLoading = false);
     }
+
 }
