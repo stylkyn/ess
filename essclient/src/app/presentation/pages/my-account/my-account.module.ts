@@ -10,10 +10,11 @@ import { ButtonsModule, WavesModule, IconsModule, CardsModule, InputsModule, Inp
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../../components/components.module';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @NgModule({
     imports: [
-        CommonModule,
+    CommonModule,
         // plugins
         CardsModule,
         WavesModule,
@@ -22,6 +23,7 @@ import { ComponentsModule } from '../../components/components.module';
         RouterModule,
         NzDividerModule,
         NzTableModule,
+        NzSpinModule,
         // routing
         routing,
         FormsModule,

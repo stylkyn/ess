@@ -5,160 +5,162 @@
                 <h1 nz-typography>Můj profil</h1>
             </div>
         </div>
-        <form [formGroup]="userForm">
-            <mdb-card>
-                <mdb-card-header class="bg-white">Osobní údaje</mdb-card-header>
-                <mdb-card-body formGroupName="personal">
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="md-form">
-                                <input mdbInput mdbValidate type="text" class="form-control" id="firstname" formControlName="firstname">
-                                <label for="firstname">Jméno</label>
-                                <mdb-error *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)">Pole je povinné</mdb-error>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="md-form">
-                                <input mdbInput mdbValidate type="text" class="form-control" id="lastname" formControlName="lastname">
-                                <label for="lastname">Přijmení</label>
-                                <mdb-error *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">Pole je povinné</mdb-error>
-                            </div>
-                        </div>
-                    </div>
-                    <div formGroupName="contact" class="row">
-                        <div class="col-6">
-                            <div class="md-form">
-                                <input mdbInput mdbValidate type="text" class="form-control" id="email" formControlName="email">
-                                <label for="email">Email</label>
-                                <mdb-error *ngIf="email.invalid && (email.dirty || email.touched)">Pole je povinné</mdb-error>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="md-form">
-                                <input mdbInput mdbValidate type="text" class="form-control" id="phone" formControlName="phone">
-                                <label for="phone">Telefon</label>
-                                <mdb-error *ngIf="phone.invalid && (phone.dirty || phone.touched)">Pole je povinné</mdb-error>
-                            </div>
-                        </div>
-                    </div>
-                </mdb-card-body>
-            </mdb-card>
-
-            <mdb-card formGroupName="personal" class="mt-3">
-                <mdb-card-header class="bg-white">Adresa pro doručení</mdb-card-header>
-                <mdb-card-body>
-                    <div formGroupName="address" class="row">
-                        <div class="col-9">
-                            <div class="md-form">
-                                <input mdbInput mdbValidate type="text" class="form-control" id="street" formControlName="street">
-                                <label for="street">Ulice</label>
-                                <mdb-error *ngIf="street.invalid && (street.dirty || street.touched)">Pole je povinné</mdb-error>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="md-form">
-                                <input mdbInput mdbValidate type="text" class="form-control" id="houseNumber" formControlName="houseNumber">
-                                <label for="houseNumber">Číslo popisné</label>
-                                <mdb-error *ngIf="houseNumber.invalid && (houseNumber.dirty || houseNumber.touched)">Pole je povinné</mdb-error>
-                            </div>
-                        </div>
-                        <div class="col-5">
-                            <div class="md-form">
-                                <input mdbInput mdbValidate type="text" class="form-control" id="city" formControlName="city">
-                                <label for="city">Město</label>
-                                <mdb-error *ngIf="city.invalid && (city.dirty || city.touched)">Pole je povinné</mdb-error>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div class="md-form">
-                                <input mdbInput mdbValidate type="text" class="form-control" id="postalCode" formControlName="postalCode">
-                                <label for="postalCode">PSČ</label>
-                                <mdb-error *ngIf="postalCode.invalid && (postalCode.dirty || postalCode.touched)">Pole je povinné</mdb-error>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="md-form">
-                                <input mdbInput mdbValidate type="text" class="form-control" id="country" formControlName="country">
-                                <label for="country">Stát</label>
-                                <mdb-error *ngIf="country.invalid && (country.dirty || country.touched)">Pole je povinné</mdb-error>
-                            </div>
-                        </div>
-                    </div>
-                </mdb-card-body>
-            </mdb-card>
-
-            <mdb-card class="mt-3">
-                <mdb-card-header class="bg-white">Firemní údaje</mdb-card-header>
-                <mdb-card-body>
-                    <div formGroupName="company">
+        <nz-spin [nzSpinning]="isLoading" nzTip="Probíhá ukládání...">
+            <form [formGroup]="userForm">
+                <mdb-card>
+                    <mdb-card-header class="bg-white">Osobní údaje</mdb-card-header>
+                    <mdb-card-body formGroupName="personal">
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="md-form">
-                                    <input mdbInput mdbValidate type="text" class="form-control" id="companyName" formControlName="companyName">
-                                    <label for="companyName">Název firmy</label>
-                                    <mdb-error *ngIf="companyName.invalid && (companyName.dirty || companyName.touched)">Pole je povinné</mdb-error>
+                                    <input mdbInput mdbValidate type="text" class="form-control" id="firstname" formControlName="firstname">
+                                    <label for="firstname">Jméno</label>
+                                    <mdb-error *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)">Pole je povinné</mdb-error>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="md-form">
-                                    <input mdbInput mdbValidate type="text" class="form-control" id="companyId" formControlName="companyId">
-                                    <label for="companyId">IČO</label>
-                                    <mdb-error *ngIf="companyId.invalid && (companyId.dirty || companyId.touched)">Pole je povinné</mdb-error>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="md-form">
-                                    <input mdbInput mdbValidate type="text" class="form-control" id="companyVat" formControlName="companyVat">
-                                    <label for="companyVat">DIČ</label>
-                                    <mdb-error *ngIf="companyVat.invalid && (companyVat.dirty || companyVat.touched)">Pole je povinné</mdb-error>
+                                    <input mdbInput mdbValidate type="text" class="form-control" id="lastname" formControlName="lastname">
+                                    <label for="lastname">Přijmení</label>
+                                    <mdb-error *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">Pole je povinné</mdb-error>
                                 </div>
                             </div>
                         </div>
+                        <div formGroupName="contact" class="row">
+                            <div class="col-6">
+                                <div class="md-form">
+                                    <input mdbInput mdbValidate type="text" class="form-control" id="email" formControlName="email">
+                                    <label for="email">Email</label>
+                                    <mdb-error *ngIf="email.invalid && (email.dirty || email.touched)">Pole je povinné</mdb-error>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="md-form">
+                                    <input mdbInput mdbValidate type="text" class="form-control" id="phone" formControlName="phone">
+                                    <label for="phone">Telefon</label>
+                                    <mdb-error *ngIf="phone.invalid && (phone.dirty || phone.touched)">Pole je povinné</mdb-error>
+                                </div>
+                            </div>
+                        </div>
+                    </mdb-card-body>
+                </mdb-card>
+
+                <mdb-card formGroupName="personal" class="mt-3">
+                    <mdb-card-header class="bg-white">Adresa pro doručení</mdb-card-header>
+                    <mdb-card-body>
                         <div formGroupName="address" class="row">
                             <div class="col-9">
                                 <div class="md-form">
-                                    <input mdbInput mdbValidate type="text" class="form-control" id="companyStreet" formControlName="street">
-                                    <label for="companyStreet">Ulice</label>
+                                    <input mdbInput mdbValidate type="text" class="form-control" id="street" formControlName="street">
+                                    <label for="street">Ulice</label>
                                     <mdb-error *ngIf="street.invalid && (street.dirty || street.touched)">Pole je povinné</mdb-error>
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="md-form">
-                                    <input mdbInput mdbValidate type="text" class="form-control" id="companyHouseNumber" formControlName="houseNumber">
-                                    <label for="companyHouseNumber">Číslo popisné</label>
+                                    <input mdbInput mdbValidate type="text" class="form-control" id="houseNumber" formControlName="houseNumber">
+                                    <label for="houseNumber">Číslo popisné</label>
                                     <mdb-error *ngIf="houseNumber.invalid && (houseNumber.dirty || houseNumber.touched)">Pole je povinné</mdb-error>
                                 </div>
                             </div>
                             <div class="col-5">
                                 <div class="md-form">
-                                    <input mdbInput mdbValidate type="text" class="form-control" id="companyCity" formControlName="city">
-                                    <label for="companyCity">Město</label>
+                                    <input mdbInput mdbValidate type="text" class="form-control" id="city" formControlName="city">
+                                    <label for="city">Město</label>
                                     <mdb-error *ngIf="city.invalid && (city.dirty || city.touched)">Pole je povinné</mdb-error>
                                 </div>
                             </div>
                             <div class="col-3">
                                 <div class="md-form">
-                                    <input mdbInput mdbValidate type="text" class="form-control" id="companyPostalCode" formControlName="postalCode">
-                                    <label for="companyPostalCode">PSČ</label>
+                                    <input mdbInput mdbValidate type="text" class="form-control" id="postalCode" formControlName="postalCode">
+                                    <label for="postalCode">PSČ</label>
                                     <mdb-error *ngIf="postalCode.invalid && (postalCode.dirty || postalCode.touched)">Pole je povinné</mdb-error>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="md-form">
-                                    <input mdbInput mdbValidate type="text" class="form-control" id="companyCountry" formControlName="country">
-                                    <label for="companyCountry">Stát</label>
+                                    <input mdbInput mdbValidate type="text" class="form-control" id="country" formControlName="country">
+                                    <label for="country">Stát</label>
                                     <mdb-error *ngIf="country.invalid && (country.dirty || country.touched)">Pole je povinné</mdb-error>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </mdb-card-body>
-            </mdb-card>
-            <div class="text-right mt-3 mb-3">
-                <button [disabled]="userForm.invalid" (click)="update()" type="button" mdbBtn color="primary" mdbWavesEffect>
-                    Uložit
-                </button>
-            </div>
-        </form>
+                    </mdb-card-body>
+                </mdb-card>
+
+                <mdb-card class="mt-3">
+                    <mdb-card-header class="bg-white">Firemní údaje</mdb-card-header>
+                    <mdb-card-body>
+                        <div formGroupName="company">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="md-form">
+                                        <input mdbInput mdbValidate type="text" class="form-control" id="companyName" formControlName="companyName">
+                                        <label for="companyName">Název firmy</label>
+                                        <mdb-error *ngIf="companyName.invalid && (companyName.dirty || companyName.touched)">Pole je povinné</mdb-error>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="md-form">
+                                        <input mdbInput mdbValidate type="text" class="form-control" id="companyId" formControlName="companyId">
+                                        <label for="companyId">IČO</label>
+                                        <mdb-error *ngIf="companyId.invalid && (companyId.dirty || companyId.touched)">Pole je povinné</mdb-error>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="md-form">
+                                        <input mdbInput mdbValidate type="text" class="form-control" id="companyVat" formControlName="companyVat">
+                                        <label for="companyVat">DIČ</label>
+                                        <mdb-error *ngIf="companyVat.invalid && (companyVat.dirty || companyVat.touched)">Pole je povinné</mdb-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <div formGroupName="address" class="row">
+                                <div class="col-9">
+                                    <div class="md-form">
+                                        <input mdbInput mdbValidate type="text" class="form-control" id="companyStreet" formControlName="street">
+                                        <label for="companyStreet">Ulice</label>
+                                        <mdb-error *ngIf="street.invalid && (street.dirty || street.touched)">Pole je povinné</mdb-error>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="md-form">
+                                        <input mdbInput mdbValidate type="text" class="form-control" id="companyHouseNumber" formControlName="houseNumber">
+                                        <label for="companyHouseNumber">Číslo popisné</label>
+                                        <mdb-error *ngIf="houseNumber.invalid && (houseNumber.dirty || houseNumber.touched)">Pole je povinné</mdb-error>
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div class="md-form">
+                                        <input mdbInput mdbValidate type="text" class="form-control" id="companyCity" formControlName="city">
+                                        <label for="companyCity">Město</label>
+                                        <mdb-error *ngIf="city.invalid && (city.dirty || city.touched)">Pole je povinné</mdb-error>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="md-form">
+                                        <input mdbInput mdbValidate type="text" class="form-control" id="companyPostalCode" formControlName="postalCode">
+                                        <label for="companyPostalCode">PSČ</label>
+                                        <mdb-error *ngIf="postalCode.invalid && (postalCode.dirty || postalCode.touched)">Pole je povinné</mdb-error>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="md-form">
+                                        <input mdbInput mdbValidate type="text" class="form-control" id="companyCountry" formControlName="country">
+                                        <label for="companyCountry">Stát</label>
+                                        <mdb-error *ngIf="country.invalid && (country.dirty || country.touched)">Pole je povinné</mdb-error>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </mdb-card-body>
+                </mdb-card>
+                <div class="text-right mt-3 mb-3">
+                    <button [disabled]="userForm.invalid" (click)="update()" type="button" mdbBtn color="primary" mdbWavesEffect>
+                        Uložit
+                    </button>
+                </div>
+            </form>
+        </nz-spin>
     </div>
 </div>

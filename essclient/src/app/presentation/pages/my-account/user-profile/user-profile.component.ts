@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IUser } from 'src/app/models/IUser';
 import { IUserUpdateRequest, UserService } from 'src/app/services/API/user.service';
+import { MyToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-profile-info',
@@ -44,7 +45,9 @@ export class UserProfileComponent implements OnInit {
 
     constructor(
         private _formBuilder: FormBuilder,
-        private _userService: UserService) { 
+        private _userService: UserService,
+        private _toastService: MyToastService,
+        ) { 
         this.userForm = this._formBuilder.group({
             personal: this._formBuilder.group({
                 firstname: [null, Validators.required],
@@ -100,8 +103,13 @@ export class UserProfileComponent implements OnInit {
         };
 
         this._userService.update(request).subscribe((user: IUser) => {
+            this._toastService.showSuccess('Údaje úspěšně uloženy');
             this.isLoading = false;
-        }, (e) => this.isLoading = false);
+        }, (e) => {
+            this.isLoading = false;
+            this._toastService.showError('Nepodařilo se uložit Vaše údaje');
+
+        });
     }
 
 }
