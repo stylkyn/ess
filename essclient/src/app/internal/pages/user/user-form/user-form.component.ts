@@ -95,8 +95,10 @@ export class UserFormComponent {
     open(user: IUser = null): void {
         this.reset();
         this.visible = true;
+
         if (user) {
             this.userForm.patchValue(user);
+            this.email.setValue(user.email);
             this.activeUser = user;
         }
     }

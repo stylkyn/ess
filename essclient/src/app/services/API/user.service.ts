@@ -145,7 +145,7 @@ export class UserService extends APIRepository<IUser> {
     }
 
     public update(request: IUserUpdateRequest): Observable<IUser> {
-        return this._API.post(`${this.className}/Update`, request);
+        return this._API.put(`${this.className}/Update`, request);
     }
 
     public promoteAgent(request: IPromoteAgentRequest): Observable<IUser>  {

@@ -28,54 +28,50 @@
                         </nz-form-item>
                     </div>
 
+                <nz-divider nzOrientation="left" nzText="Dodací údaje"></nz-divider>
+
                     <ng-container formGroupName="address">
-                        <div nz-row [nzGutter]="16">
-                            <div class="gutter-row" nz-col [nzSpan]="12">
-                                <nz-form-item>
-                                    <nz-form-label>Ulice *</nz-form-label>
-                                    <nz-input-group>
-                                        <input formControlName="street" nz-input placeholder="Zadejte ulici" />
-                                    </nz-input-group>
-                                </nz-form-item>
-                            </div>
-                            <div class="gutter-row" nz-col [nzSpan]="12">
-                                <nz-form-item>
-                                    <nz-form-label>Číslo popisné *</nz-form-label>
-                                    <nz-input-group>
-                                        <input formControlName="houseNumber" type="tel" nz-input placeholder="Zadejte Č.P." />
-                                    </nz-input-group>
-                                </nz-form-item>
-                            </div>
+                        <div class="gutter-row" nz-col [nzSpan]="12">
+                            <nz-form-item>
+                                <nz-form-label>Ulice *</nz-form-label>
+                                <nz-input-group>
+                                    <input formControlName="street" nz-input placeholder="Zadejte ulici" />
+                                </nz-input-group>
+                            </nz-form-item>
+                        </div>
+                        <div class="gutter-row" nz-col [nzSpan]="12">
+                            <nz-form-item>
+                                <nz-form-label>Číslo popisné *</nz-form-label>
+                                <nz-input-group>
+                                    <input formControlName="houseNumber" type="tel" nz-input placeholder="Zadejte Č.P." />
+                                </nz-input-group>
+                            </nz-form-item>
                         </div>
             
-                        <div nz-row [nzGutter]="16">
-                            <div class="gutter-row" nz-col [nzSpan]="12">
-                                <nz-form-item>
-                                    <nz-form-label>Město *</nz-form-label>
-                                    <nz-input-group>
-                                        <input formControlName="city" nz-input placeholder="Zadejte město" />
-                                    </nz-input-group>
-                                </nz-form-item>
-                            </div>
-                            <div class="gutter-row" nz-col [nzSpan]="12">
-                                <nz-form-item>
-                                    <nz-form-label>PSČ popisné *</nz-form-label>
-                                    <nz-input-group>
-                                        <input formControlName="postalCode" nz-input placeholder="Zadejte PSČ" />
-                                    </nz-input-group>
-                                </nz-form-item>
-                            </div>
+                        <div class="gutter-row" nz-col [nzSpan]="12">
+                            <nz-form-item>
+                                <nz-form-label>Město *</nz-form-label>
+                                <nz-input-group>
+                                    <input formControlName="city" nz-input placeholder="Zadejte město" />
+                                </nz-input-group>
+                            </nz-form-item>
                         </div>
-            
-                        <div nz-row [nzGutter]="16">
-                            <div class="gutter-row" nz-col [nzSpan]="24">
-                                <nz-form-item>
-                                    <nz-form-label>Stát *</nz-form-label>
-                                    <nz-input-group>
-                                        <input formControlName="country" nz-input placeholder="Zadejte stát" />
-                                    </nz-input-group>
-                                </nz-form-item>
-                            </div>
+                        <div class="gutter-row" nz-col [nzSpan]="12">
+                            <nz-form-item>
+                                <nz-form-label>PSČ *</nz-form-label>
+                                <nz-input-group>
+                                    <input formControlName="postalCode" nz-input placeholder="Zadejte PSČ" />
+                                </nz-input-group>
+                            </nz-form-item>
+                        </div>
+        
+                        <div class="gutter-row" nz-col [nzSpan]="24">
+                            <nz-form-item>
+                                <nz-form-label>Stát *</nz-form-label>
+                                <nz-input-group>
+                                    <input formControlName="country" nz-input placeholder="Zadejte stát" />
+                                </nz-input-group>
+                            </nz-form-item>
                         </div>
                     </ng-container>
                     
@@ -96,7 +92,7 @@
                         <nz-form-item>
                             <nz-form-label>Email *</nz-form-label>
                             <nz-form-control>
-                                <input [disabled]="true" type="email" formControlName="email" nz-input placeholder="Zadejte email"  />
+                                <input class="disabled" [disabled]="true" type="email" formControlName="email" nz-input placeholder="Zadejte email"  />
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -142,16 +138,16 @@
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
                                 <nz-form-label>Ulice</nz-form-label>
-                                <nz-input-group nzAddOnAfter="kusů">
-                                    <input formControlName="street" type="number" nz-input placeholder="0" />
+                                <nz-input-group>
+                                    <input formControlName="street" type="number" nz-input placeholder="Zadejte ulici" />
                                 </nz-input-group>
                             </nz-form-item>
                         </div>
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
                                 <nz-form-label>Číslo popisné</nz-form-label>
-                                <nz-input-group nzAddOnAfter="dnů">
-                                    <input formControlName="houseNumber" type="number" nz-input placeholder="0" />
+                                <nz-input-group>
+                                    <input formControlName="houseNumber" type="number" nz-input placeholder="Zadejte č.p." />
                                 </nz-input-group>
                             </nz-form-item>
                         </div>
@@ -161,16 +157,16 @@
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
                                 <nz-form-label>Město</nz-form-label>
-                                <nz-input-group nzAddOnAfter="kusů">
-                                    <input formControlName="city" type="number" nz-input placeholder="0" />
+                                <nz-input-group>
+                                    <input formControlName="city" type="number" nz-input placeholder="Zadejte město" />
                                 </nz-input-group>
                             </nz-form-item>
                         </div>
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
-                                <nz-form-label>PSČ popisné</nz-form-label>
-                                <nz-input-group nzAddOnAfter="dnů">
-                                    <input formControlName="postalCode" type="number" nz-input placeholder="0" />
+                                <nz-form-label>PSČ</nz-form-label>
+                                <nz-input-group>
+                                    <input formControlName="postalCode" type="number" nz-input placeholder="Zadejte PSČ" />
                                 </nz-input-group>
                             </nz-form-item>
                         </div>
@@ -181,7 +177,7 @@
                             <nz-form-item>
                                 <nz-form-label>Stát</nz-form-label>
                                 <nz-input-group>
-                                    <input formControlName="country" type="number" nz-input placeholder="0" />
+                                    <input formControlName="country" type="number" nz-input placeholder="Zadejte stát" />
                                 </nz-input-group>
                             </nz-form-item>
                         </div>
