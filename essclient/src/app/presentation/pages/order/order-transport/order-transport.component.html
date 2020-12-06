@@ -6,7 +6,7 @@
                 <ul class="list-group list-group-flush">
                     <li *ngFor="let transport of transports; let i = index" class="list-group-item">
                         <div class="pl-0 form-check">
-                        <input type="radio" (change)="onChangeTransport(transport)" class="form-check-input" id="transportType-{{i}}" [value]="transport.type"
+                        <input type="radio" (change)="onChangeTransport(transport)" class="form-check-input" id="transportType-{{i}}" [value]="transport.id"
                                 formControlName="transportType" name="transportType">
                         <label class="form-check-label OrderTransport-Item" for="transportType-{{i}}">
                             <div class="OrderTransport-Item-imgBox">

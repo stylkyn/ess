@@ -83,7 +83,6 @@ export const tokenToObject = (tokenStr: string): IIAuthentificationToken => {
     }
 
     const token: IIAuthentificationToken = JSON.parse(tokenStr);
-    console.log(token.expiresDate);
     if (!token)
     {
         return tokenInitial;
