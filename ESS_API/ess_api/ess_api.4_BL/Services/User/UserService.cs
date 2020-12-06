@@ -102,6 +102,10 @@ namespace ess_api._4_BL.Services
             if (user == null)
                 return new Response<UserResponse>(ResponseStatus.BadRequest, null, ResponseMessagesConstans.EmailAlreadyExist);
 
+            var emailResult = await _mailingLibrary.SendRegisteredUserEmail(user);
+            if (!emailResult)
+                return new Response<UserResponse>(ResponseStatus.InternalError, null, ResponseMessagesConstans.EmailCannotBeSend);
+
             var token = _authentificationLibrary.GenerateJWT(user);
             return new Response<UserResponse>(ResponseStatus.Ok, _mapService.MapUser(user, token));
         }

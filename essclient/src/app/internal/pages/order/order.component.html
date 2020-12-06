@@ -69,7 +69,7 @@
             </td>
             <td>
                 <div class="d-flex flex-row align-items-center">
-                    {{ PaymentStateName(item.payment.state) }}
+                    {{ PaymentStateName(item.paymentState) }}
                     <button class="ml-2" (click)="changePaymnetStateModal(item, paymentStateModal)" nz-button nzsi nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Upravit stav platby">
                         <i nz-icon nzType="edit" nzTheme="outline"></i>
                     </button>

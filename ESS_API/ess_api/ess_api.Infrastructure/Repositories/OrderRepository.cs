@@ -52,7 +52,7 @@ namespace ess_api.Infrastructure.Repositories
         {
             var types = new List<OrderState>() {
                 OrderState.Confirmed,
-                OrderState.WaitForpaid,
+                OrderState.WaitForPaid,
                 OrderState.AgentsReady,
                 OrderState.AgentOnWay,
             };
@@ -76,7 +76,7 @@ namespace ess_api.Infrastructure.Repositories
         {
             var types = new List<OrderState>() {
                 OrderState.Confirmed,
-                OrderState.WaitForpaid,
+                OrderState.WaitForPaid,
                 OrderState.ReadyToPickup,
                 OrderState.ReadyToShip,
                 OrderState.Sent,

@@ -192,7 +192,7 @@ namespace ess_api._4_BL.Services.Order
                 //string basePath = System.Web.Hosting.HostingEnvironment.ApplicationPhysicalPath;
                 //var invoice = _documentInvoiceRepository.GenerateInvoice(order, basePath);
                 //await _mailingLibrary.SendConfirmedOrderEmail(order, invoice);
-                await _mailingLibrary.SendConfirmedOrderEmail(order, null);
+                await _mailingLibrary.SendConfirmedOrderEmail(order, user, null);
 
                 order.State = OrderState.Confirmed;
             }
@@ -242,6 +242,10 @@ namespace ess_api._4_BL.Services.Order
             order.State = request.State;
             order = await _uow.Orders.FindAndReplaceAsync(order.Id, order);
 
+            var user = await _uow.Users.FindAsync(new Guid(order.Customer.UserId));
+            if (user != null)
+                await _mailingLibrary.SendChangeOrderStateEmail(order, user);
+
             var response = _mapService.MapOrder(order);
             return new Response<OrderResponse>(ResponseStatus.Ok, response);
         }
@@ -254,6 +258,10 @@ namespace ess_api._4_BL.Services.Order
 
             order.PaymentState = request.PaymentState;
             order = await _uow.Orders.FindAndReplaceAsync(order.Id, order);
+
+            var user = await _uow.Users.FindAsync(new Guid(order.Customer.UserId));
+            if (user != null)
+                await _mailingLibrary.SendChangePaymentStateEmail(order, user);
 
             var response = _mapService.MapOrder(order);
             return new Response<OrderResponse>(ResponseStatus.Ok, response);

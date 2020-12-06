@@ -12,6 +12,56 @@ namespace ess_api.Core.Model
         public OrderCustomer Customer { get; set; }
         public CalculatedOrder CalculatedData { get; set; }
 
+        public string GetOrderStateName()
+        {
+            switch (State)
+            {
+                case OrderState.Created:
+                    return "Vytvořená";
+                case OrderState.CalculateReady:
+                    return "Uložen výpočet";
+                case OrderState.TransportReady:
+                    return "Uložena doprava";
+                case OrderState.PaymentReady:
+                    return "Uložena platba";
+                case OrderState.CustomerReady:
+                    return "Uloženy osobní údaje";
+                case OrderState.Confirmed:
+                    return "Potvrzená";
+                case OrderState.WaitForPaid:
+                    return "Zaplacená";
+                case OrderState.ReadyToPickup:
+                    return "Připravena k vyzvednutí";
+                case OrderState.ReadyToShip:
+                    return "Připravena k odeslání";
+                case OrderState.Sent:
+                    return "Odeslaná";
+                case OrderState.Delivered:
+                    return "Doručená";
+                case OrderState.AgentAssign:
+                    return "Čeká na přiřazení agenta";
+                case OrderState.AgentsReady:
+                    return "Agent připraven";
+                case OrderState.AgentOnWay:
+                    return "Agent na cestě";
+                case OrderState.Finished:
+                    return "Dokončená";
+            }
+            return "Neznámý";
+        }
+
+        public string GetOrderPaymentStateName()
+        {
+            switch (PaymentState)
+            {
+                case PaymentState.NotPaid:
+                    return "Nezaplacená";
+                case PaymentState.Paid:
+                    return "Zaplacená";
+            }
+            return "Neznámý";
+        }
+
         public string GetForrmattedOrderNumber()
         {
             return OrderNumber.ToString("00000000");
@@ -43,7 +93,7 @@ namespace ess_api.Core.Model
         CustomerReady,
 
         Confirmed,
-        WaitForpaid,
+        WaitForPaid,
 
         ReadyToPickup,
         ReadyToShip,

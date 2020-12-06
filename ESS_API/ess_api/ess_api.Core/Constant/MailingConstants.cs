@@ -3,9 +3,7 @@
     // SendGrid
     public class MailingConstants
     {
-        public const string SendGridApiKey = "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";
-        // basic
-        public const string EmailNamed = "ELITEC software";
+        public const string SendGridApiKey = "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";
         // sender informations
         public const string SenderAddress = "Tyršovo náměstí";
         public const string SenderCompanyName = "ELITEC software, s.r.o.";
@@ -13,14 +11,16 @@
         public const string SenderState = "Česká Republika";
         public const string SenderZip = "686 01";
         public const string SenderEmail = "info@elitecsoftware.cz";
+        // basic
+        public const string EmailNamed = "Radek Pilar";
         // emails from
-        public const string EmailInfo = "elitecsoftware.system@gmail.com"; //"info@elitecsoftware.cz";
+        public const string EmailInfo = "stylkyn96@gmail.com"; //"info@elitecsoftware.cz";
         // templates Ids
-        public const string ResetPassword = "d-b093f0ae007e45938227c855eebf4d83";
-        public const string RegisteredUser = "d-62db29e8178441538648ead202b7d383";
-        public const string ConfirmedOrder = "d-a4b7fb3e4eb14043bf059142b0ec4032";
-        public const string ChangeOrderState = "d-133c67361ab44207b894fa75a5dedd78";
-        public const string PaymentState = "d-4bdb93470e2a464a9d7484a1a415e08f";
-        public const string ChangeServiceDay = "d-6bbd45e61b7f4d72aa4035a5431d171c";
+        public const string ResetPassword = "d-382aca31fea749e7a5d32ebb825efff1";
+        public const string RegisteredUser = "d-ed7e3694d7ac435888e869b7d4c46bee";
+        public const string ConfirmedOrder = "d-d47328c7390340feb0facac04b159333";
+        public const string ChangeOrderState = "d-20200fdd4e954e3d986536f07848376d";
+        public const string PaymentState = "d-5fb89722f57f4709b9e76de05f9f5cca";
+        public const string ChangeServiceDay = "d-2421d198fcb64625a7bcf9045ec4e66b";
     }
 }

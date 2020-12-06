@@ -1,6 +1,7 @@
 ﻿using ess_api.Core.Constant;
 using ess_api.Core.Extension;
 using ess_api.Core.Model;
+using ess_api.Core.Model.Shared;
 using Libraries.Authetification;
 using Libraries.Authetification.Abstraction;
 using Libraries.Log;
@@ -37,7 +38,11 @@ namespace Libraries.Mailing
             return await SendTransactionalEmail(
                 MailingConstants.RegisteredUser,
                 user.Email,
-                user.GetName()
+                user.GetName(),
+                new
+                {
+                    HomepageUrl = RoutesConstants.BaseUrlClient
+                }
             );
         }
 
@@ -59,43 +64,61 @@ namespace Libraries.Mailing
          *  Orders emails
          */
 
-        public async Task<bool> SendChangeServiceDay(OrderModel order)
+        public async Task<bool> SendChangeServiceDay(OrderModel order, CalculatedOrderProduct product, UserModel user)
         {
+            var token = _authentificationLibrary.GenerateJWT(user);
             return await SendTransactionalEmail(
                 MailingConstants.ChangeServiceDay,
                 order.Customer.GetEmail(),
                 order.Customer.GetName(),
-                order
+                new
+                {
+                    ServisDate = product?.Service?.Date != null ? ((DateTime)product.Service.Date).ToServerFormat() : null,
+                    OrderDetailUrl = $"{RoutesConstants.BaseUrlClient}/{RoutesConstants.OrderSummaryPath}/{order.Id}?jwt={token.Jwt}&expiresDate={token.ExpiresDate.ToServerFormat()}"
+                }
             );
         }
 
-        public async Task<bool> SendChangePaymentStateEmail(OrderModel order)
+        public async Task<bool> SendChangePaymentStateEmail(OrderModel order, UserModel user)
         {
+            var token = _authentificationLibrary.GenerateJWT(user);
             return await SendTransactionalEmail(
                 MailingConstants.PaymentState,
                 order.Customer.GetEmail(),
                 order.Customer.GetName(),
-                order
+                new
+                {
+                    OrderPaymentStateName = order.GetOrderPaymentStateName(),
+                    OrderDetailUrl = $"{RoutesConstants.BaseUrlClient}/{RoutesConstants.OrderSummaryPath}/{order.Id}?jwt={token.Jwt}&expiresDate={token.ExpiresDate.ToServerFormat()}"
+                }
             );
         }
 
-        public async Task<bool> SendChangeOrderStateEmail(OrderModel order)
+        public async Task<bool> SendChangeOrderStateEmail(OrderModel order, UserModel user)
         {
+            var token = _authentificationLibrary.GenerateJWT(user);
             return await SendTransactionalEmail(
                 MailingConstants.ChangeOrderState,
                 order.Customer.GetEmail(),
                 order.Customer.GetName(),
-                order
+                new
+                {
+                    OrderStateName = order.GetOrderStateName(),
+                    OrderDetailUrl = $"{RoutesConstants.BaseUrlClient}/{RoutesConstants.OrderSummaryPath}/{order.Id}?jwt={token.Jwt}&expiresDate={token.ExpiresDate.ToServerFormat()}"
+                }
             );
         }
 
-        public async Task<bool> SendConfirmedOrderEmail(OrderModel order, FileResult invoiceAttachment)
+        public async Task<bool> SendConfirmedOrderEmail(OrderModel order, UserModel user, FileResult invoiceAttachment)
         {
+            var token = _authentificationLibrary.GenerateJWT(user);
             return await SendTransactionalEmail(
                 MailingConstants.ConfirmedOrder,
                 order.Customer.GetEmail(),
                 order.Customer.GetName(),
-                order,
+                new {
+                    OrderDetailUrl = $"{RoutesConstants.BaseUrlClient}/{RoutesConstants.OrderSummaryPath}/{order.Id}?jwt={token.Jwt}&expiresDate={token.ExpiresDate.ToServerFormat()}"
+                },
                 invoiceAttachment
             );
         }

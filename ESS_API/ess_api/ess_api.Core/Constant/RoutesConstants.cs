@@ -4,5 +4,6 @@
     {
         public const string BaseUrlClient = "http://localhost:4200";
         public const string ResetPagePath = "muj-ucet/obnova-hesla";
+        public const string OrderSummaryPath = "objednavka-souhrn";
     }
 }
