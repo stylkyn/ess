@@ -44,7 +44,7 @@
                         <td>
                             {{product.product.buy.price.czkWithVat}} {{mapPriceTypes(product.product.buy.price.priceType)}} / ks
                             <br/>
-                            {{moment(product?.service.date)?.format('DD.MM.YYYY')}}
+                            {{ product?.service?.date && moment(product?.service?.date)?.format('DD.MM.YYYY')}}
                         </td>
                         <td>
                             {{product.count}} ks
