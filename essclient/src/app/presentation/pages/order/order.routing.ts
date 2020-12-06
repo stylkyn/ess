@@ -6,11 +6,13 @@ import { OrderProductsComponent } from './order-products/order-products.componen
 import { OrderTransportComponent } from './order-transport/order-transport.component';
 import { OrderPaymentComponent } from './order-payment/order-payment.component';
 import { OrderCustomerComponent } from './order-customer/order-customer.component';
+import { OrderFinishComponent } from './order-finish/order-finish.component';
 
 export const orderBasketRoute = 'kosik';
 export const orderTransportRoute = 'doprava';
 export const orderPaymentRoute = 'platba';
 export const orderCustomerRoute = 'osobni-udaje';
+export const orderFinishRoute = 'dokoncena';
 
 const APP_ROUTES: Routes = [
     {
@@ -70,6 +72,17 @@ const APP_ROUTES: Routes = [
                     meta: {
                         title: 'Osobní údaje | Elitec',
                         keywords: 'Objednávka Osobní údaje'
+                    }
+                }
+            },
+            {
+                path: orderFinishRoute,
+                component: OrderFinishComponent,
+                canActivate: [MetaGuard],
+                data: {
+                    meta: {
+                        title: 'Dokončená objednávka | Elitec',
+                        keywords: 'Objednávka dokončená'
                     }
                 }
             }

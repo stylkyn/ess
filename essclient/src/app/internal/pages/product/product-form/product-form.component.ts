@@ -100,7 +100,7 @@ export class ProductFormComponent implements OnInit{
     // drawer actions
     open(product: IProduct = null): void {
         this.reset();
-        this.type.setValue(ProductType.Buy);
+        this.type.setValue(product.type ?? ProductType.Buy);
         this.activeProduct = product;
         this.visible = true;
         if (product) {

@@ -13,6 +13,7 @@ import { OrderTransportComponent } from './order-transport/order-transport.compo
 import { OrderPaymentComponent } from './order-payment/order-payment.component';
 import { OrderCustomerComponent } from './order-customer/order-customer.component';
 import { OrderBussinessService } from './order.service';
+import { OrderFinishComponent } from './order-finish/order-finish.component';
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import { OrderBussinessService } from './order.service';
       OrderProductsComponent,
       OrderTransportComponent,
       OrderPaymentComponent,
-      OrderCustomerComponent
+      OrderCustomerComponent,
+      OrderFinishComponent,
   ],
   exports: [
     RouterModule

@@ -11,7 +11,6 @@ export interface IUser {
 export interface IUserPersonal {
     firstname: string;
     lastname: string;
-    password?: string;
     address: IUserAddress;
     contact: IUserContact;
 }

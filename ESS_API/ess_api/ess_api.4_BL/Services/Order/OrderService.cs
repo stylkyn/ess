@@ -111,7 +111,7 @@ namespace ess_api._4_BL.Services.Order
                 if (userEmailExist.Count > 0)
                     user = userEmailExist.FirstOrDefault();
                 else
-                    user = await _userSharedService.Add(request.Customer?.Personal?.Contact?.Email, request.Customer?.Personal?.Password);
+                    user = await _userSharedService.Add(request.Customer?.Personal?.Contact?.Email, Guid.NewGuid().ToString());
             }
 
             // if user with this email already exist

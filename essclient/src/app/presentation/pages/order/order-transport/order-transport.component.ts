@@ -49,7 +49,6 @@ export class OrderTransportComponent implements OnInit {
     }
 
     onChangeTransport(transport: ITransport) {
-        console.log(transport);
         this._transportStorage.set(transport);
         this._orderBussiness.calculateOrder();
     }
