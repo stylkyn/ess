@@ -9,6 +9,7 @@ import { LoginModalContentComponent } from './login-modal-content.component';
 })
 export class LoginModalComponent implements OnInit {
     @Output() showRegister: EventEmitter<any> = new EventEmitter();
+    @Output() showResetPassword: EventEmitter<any> = new EventEmitter();
     modalRef: MDBModalRef;
 
     constructor (private modalService: MDBModalService) { }
@@ -29,6 +30,9 @@ export class LoginModalComponent implements OnInit {
         });
         this.modalRef.content.showRegister.subscribe(x => {
             this.showRegister.next(true);
+        });
+        this.modalRef.content.showResetPassword.subscribe(x => {
+            this.showResetPassword.next(true);
         });
     }
 

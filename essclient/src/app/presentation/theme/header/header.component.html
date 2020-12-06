@@ -48,6 +48,11 @@
                     </a>
                 </li> 
                 <li class="nav-item waves-light py-2" mdbWavesEffect>
+                    <a routerLink="/{{presentationMyAccountFullChangePasswordRoute}}">
+                        Změna hesla
+                    </a>
+                </li> 
+                <li class="nav-item waves-light py-2" mdbWavesEffect>
                     <a (click)="logOut()">
                         Odhlásit
                     </a>
@@ -136,6 +141,12 @@
                         
                         <a 
                             class="dropdown-item" 
+                            routerLink="/{{presentationMyAccountFullChangePasswordRoute}}"
+                        >
+                            Změna hesla
+                        </a>
+                        <a 
+                            class="dropdown-item" 
                             (click)="logOut()"
                         >
                             Odhlásit
@@ -155,5 +166,7 @@
 </mdb-navbar>
 
 <app-shopping-card-modal #shoppingCardModal></app-shopping-card-modal>
-<app-login-modal (showRegister)="registerModal.showModal()" #loginModal></app-login-modal>
+
+<app-login-modal (showRegister)="registerModal.showModal()" (showResetPassword)="resetPasswordModal.showModal()" #loginModal></app-login-modal>
 <app-register-modal (showLogin)="loginModal.showModal()" #registerModal></app-register-modal>
+<app-reset-password-modal #resetPasswordModal></app-reset-password-modal>

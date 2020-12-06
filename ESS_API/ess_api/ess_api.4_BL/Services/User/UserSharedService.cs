@@ -27,5 +27,6 @@ namespace ess_api._4_BL.Services
             user = await _uow.Users.InsertAsync(user);
             return user;
         }
+
     }
 }

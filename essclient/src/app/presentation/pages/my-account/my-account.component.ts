@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/API/user.service';
+import { presentationHomepage } from '../../theme/presentation-routes';
 
 @Component({
   selector: 'app-my-account',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyAccountComponent implements OnInit {
 
-  constructor() { }
+    constructor(private _userService: UserService, private _router: Router) { }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        this._userService.getIsLoadedPromise.then(user => {
+            console.log(user);
+        })
+        .catch(e => {
+            console.log(e);
+            // this._router.navigateByUrl(presentationHomepage);
+        });
+    }
 
 }

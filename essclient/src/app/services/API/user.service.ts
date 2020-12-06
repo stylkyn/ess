@@ -2,11 +2,12 @@ import { APIService, IResponse } from './API.service';
 import { APIRepository } from './API-repository';
 import { Observable } from 'rxjs';
 import { Injectable, EventEmitter } from '@angular/core';
-import { IUser, cookieJwtName, IUserOption, IUserPersonal } from 'src/app/models/IUser';
+import { IUser, cookieJwtName, IUserOption, IUserPersonal, IIAuthentificationToken, tokenToObject } from 'src/app/models/IUser';
 import { map } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { SortType } from 'src/app/models/shared/Sort';
 import { IUserCompany } from './../../models/IUser';
+import { ActivatedRoute } from '@angular/router';
 
 export enum UserSortField {
     Firstname,
@@ -56,6 +57,13 @@ export interface IUserChangeRoleRequest {
     hasAdminAccess: boolean;
 }
 
+export interface IUserResetPasswordRequest {
+    email: string;
+}
+
+export interface IUserChangePasswordRequest {
+    password: string;
+}
 
 @Injectable({
     providedIn: 'root'
@@ -64,12 +72,16 @@ export class UserService extends APIRepository<IUser> {
 
     private _user: IUser;
     private isLoadedPromise: Promise<IUser>;
+    private isLoadedOnce = false;
     private _userOptions: IUserOption[] = [];
 
     public onUserChange: EventEmitter<IUser> = new EventEmitter();
 
     public get getIsLoadedPromise(): Promise<IUser> {
-        return this.isLoadedPromise;
+        if (this.isLoadedOnce) {
+            return this.isLoadedPromise;
+        }
+        return this.authentificationJwt()?.toPromise();
     }
 
     public get user(): IUser {
@@ -88,9 +100,38 @@ export class UserService extends APIRepository<IUser> {
         }
     }
 
-    constructor (public _API: APIService, private _cookieService: CookieService) {
+    constructor (
+        public _API: APIService, 
+        private _cookieService: CookieService, 
+        private route: ActivatedRoute
+        ) {
         super(_API, 'Users');
-        this.isLoadedPromise = this.authentificationJwt().toPromise();
+
+        this.loginWithToken();
+    }
+
+    private loginWithToken() {
+        if (!this.user) {
+            this.route.queryParams.subscribe(params => {
+                const token: IIAuthentificationToken = {
+                    jwt: params['jwt'],
+                    expiresDate: params['expiresDate'],
+                };
+                if (token.jwt) {
+                    this._cookieService.set(
+                        cookieJwtName,
+                        JSON.stringify(token),
+                        new Date(params['expiresDate']).getDate()
+                    );
+                    if (!this.isLoadedOnce) {
+                        this.isLoadedPromise = this.authentificationJwt()?.toPromise();
+                    }
+                }
+            });
+            if (!this.isLoadedOnce) {
+                this.isLoadedPromise = this.authentificationJwt()?.toPromise();
+            }
+        }
     }
 
     public logout() {
@@ -98,10 +139,34 @@ export class UserService extends APIRepository<IUser> {
         this.setUser(null);
     }
 
-    public authentificationJwt(): Observable<IUser> {
+    public changePassword(request: IUserChangePasswordRequest): Observable<IUser> {
+        return this._API.post(`${this.className}/ChangePassword`, request).pipe(
+            map((user: IUser) => {
+                this.setUser(user);
+                return user;
+            }));
+    }
+
+    public resetPassword(request: IUserResetPasswordRequest): Observable<void> {
+        return this._API.post(`${this.className}/ResetPassword`, request);
+    }
+
+    public authentificationJwt(): Observable<IUser> | undefined {
+        const tokenExist = tokenToObject(this._cookieService.get(cookieJwtName))?.jwt;
+        if (!tokenExist) {
+            return undefined;
+        }
+        
+        if (!this.isLoadedOnce) {
+            this.isLoadedOnce = true;
+        }
         return this._API.post(`${this.className}/AuthentificationJwt`, {}).pipe(
             map((user: IUser) => {
                 this.setUser(user);
+                this._cookieService.set(
+                    cookieJwtName,
+                    JSON.stringify(user.token),
+                    new Date(user.token.expiresDate).getDate());
                 return user;
             }));
     }

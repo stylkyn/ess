@@ -14,5 +14,10 @@ namespace ess_api.Core.Extension
                   .Select(offset => from.AddDays(offset))
                   .ToList();
         }
+
+        public static string ToServerFormat(this DateTime value)
+        {
+            return value.ToString("yyyy’-‘MM’-‘dd’T’HH’:’mm’:’ss.fffffffK");
+        }
     }
 }

@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class LoginModalContentComponent implements OnInit{
     @Output() showRegister: EventEmitter<any> = new EventEmitter();
+    @Output() showResetPassword: EventEmitter<any> = new EventEmitter();
     
     public busyForm: Subscription;
     public loginForm: FormGroup;
@@ -57,6 +58,11 @@ export class LoginModalContentComponent implements OnInit{
     showRegisterModal() {
         this._modalRef.hide();
         this.showRegister.next(true);
+    }
+
+    showResetPasswordModal() {
+        this._modalRef.hide();
+        this.showResetPassword.next(true);
     }
 
 }

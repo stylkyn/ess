@@ -115,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constant\MailingConstants.cs" />
+    <Compile Include="Constant\RoutesConstants.cs" />
     <Compile Include="Extension\DecimalExtension.cs" />
     <Compile Include="Model\Shared\CalculatedOrder.cs" />
     <Compile Include="Constant\MongoDBContants.cs" />

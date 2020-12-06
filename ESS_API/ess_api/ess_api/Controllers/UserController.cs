@@ -103,12 +103,30 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
 
+
         [Route("Delete")]
         [JwtAuthenticationAdmin]
         [HttpDelete]
         public async Task<IHttpActionResult> Delete([FromUri]UserRemoveRequest request)
         {
             var response = await _userService.Remove(request);
+            return new CreateResult(response);
+        }
+
+        [Route("ResetPassword")]
+        [HttpPost]
+        public async Task<IHttpActionResult> ResetPassword([FromBody]UserResetPasswordRequest request)
+        {
+            var response = await _userService.ResetPassword(request);
+            return new CreateResult(response);
+        }
+
+        [Route("ChangePassword")]
+        [JwtAuthentication]
+        [HttpPost]
+        public async Task<IHttpActionResult> ChangePassword([FromBody]UserChangePasswordRequest request)
+        {
+            var response = await _userService.ChangePassword(request);
             return new CreateResult(response);
         }
     }

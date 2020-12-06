@@ -23,5 +23,8 @@ namespace ess_api.Core.Constant
         // user
         public const string CannotDeleteYourself = "cannot-delete-yourselft";
 
+        // email
+        public const string EmailCannotBeSend = "email-cannot-be-send";
+
     }
 }

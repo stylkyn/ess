@@ -29,6 +29,7 @@ namespace ess_api.Core.Model
 
         public UserAddress GetAddress() => IsCompany() ? Company.Address : Personal.Address;
         public string GetName() => IsCompany() ? Company.CompanyName : Personal.GetFullName();
+        public string GetEmail() => Personal?.Contact?.Email;
         public bool HasAllData() => UserId != null && Personal != null;
         public bool IsCompany() => Company?.CompanyId != null;
     }

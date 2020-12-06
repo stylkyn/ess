@@ -20,6 +20,8 @@ import { ShoppingCardProductsComponent } from './shopping-card-products/shopping
 import { OrderSummaryCardComponent } from './order-summary-card/order-summary-card.component';
 import { ServiceDateContentComponent } from './service-date/service-date-content.component';
 import { ServiceDateComponent } from './service-date/service-date.component';
+import { ResetPasswordModalContentComponent } from './reset-password-modal/reset-password-modal-content.component';
+import { ResetPasswordModalComponent } from './reset-password-modal/reset-password-modal.component';
 
 @NgModule({
     imports: [
@@ -57,12 +59,15 @@ import { ServiceDateComponent } from './service-date/service-date.component';
         OrderSummaryCardComponent,
         ServiceDateContentComponent,
         ServiceDateComponent,
+        ResetPasswordModalComponent,
+        ResetPasswordModalContentComponent
     ],
     entryComponents: [
         ShoppingCardModalContentComponent,
         LoginModalContentComponent,
         RegisterModalContentComponent,
         ServiceDateContentComponent,
+        ResetPasswordModalContentComponent,
     ],
     exports: [
         DateRangeComponent,
@@ -73,6 +78,7 @@ import { ServiceDateComponent } from './service-date/service-date.component';
         ShoppingCardProductsComponent,
         OrderSummaryCardComponent,
         ServiceDateComponent,
+        ResetPasswordModalComponent
     ]
 })
 export class ComponentsModule { }

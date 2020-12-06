@@ -10,6 +10,10 @@
 
         public bool HasAdminAccess { get; set; } = false;
         public bool HasAgentAccess { get; set; } = false;
+
+        public UserAddress GetAddress() => IsCompany() ? Company.Address : Personal.Address;
+        public string GetName() => IsCompany() ? Company.CompanyName : Personal.GetFullName();
+        public bool IsCompany() => Company?.CompanyId != null;
     }
     public class UserPersonal
     {

@@ -33,6 +33,10 @@
             </div>
             <button [ngBusy]="busyForm" [disabled]="loginForm.invalid" (click)="confirmLogin()" mdbBtn color="info" outline="true" rounded="true" block="true" class="my-4 waves-effect z-depth-0" mdbWavesEffect type="submit">Přihlásit</button>
 
+            <p>Zapomněli jste heslo?
+                <a class="register-btn" (click)="showResetPasswordModal()">Obnovit Heslo.</a>
+            </p>
+
             <p>Nemáte ještě účet?
                 <a class="register-btn" (click)="showRegisterModal()">Zaregistrujte se u nás!</a>
             </p>

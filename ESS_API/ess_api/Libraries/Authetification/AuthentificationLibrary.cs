@@ -1,5 +1,6 @@
 ﻿using ess_api.Core.Constant;
 using ess_api.Core.Model;
+using Libraries.Authetification.Abstraction;
 using Libraries.Authetification.Responses;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -10,7 +11,7 @@ using System.Text;
 
 namespace Libraries.Authetification
 {
-    public class AuthentificationLibrary
+    public class AuthentificationLibrary : IAuthentificationLibrary
     {
         public readonly byte[] _secret;
         public readonly JwtSecurityTokenHandler _handler;

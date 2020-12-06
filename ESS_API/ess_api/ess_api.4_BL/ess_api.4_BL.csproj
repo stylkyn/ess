@@ -101,6 +101,8 @@
     <Compile Include="Services\User\Requests\UserChangeRoleRequest.cs" />
     <Compile Include="Services\User\Requests\UserAddRequest.cs" />
     <Compile Include="Services\User\Requests\UserRemoveRequest.cs" />
+    <Compile Include="Services\User\Requests\UserChangePasswordRequest.cs" />
+    <Compile Include="Services\User\Requests\UserResetPasswordRequest.cs" />
     <Compile Include="Services\User\Requests\UserRequest.cs" />
     <Compile Include="Services\Category\Requests\CategoryRequest.cs" />
     <Compile Include="Services\Product\Requests\ProductRequest.cs" />
