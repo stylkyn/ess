@@ -61,6 +61,12 @@ export interface ISetOrderAgent {
     orderId: string;
 }
 
+export interface IUpdateOrderRequest {
+    orderId: string;
+    customer: IOrderCustomerRequest;
+    calculateOrder: ICalculateOrderRequest;
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -128,6 +134,15 @@ export class OrderService extends APIRepository<IProduct> {
 
     public verifyProductsAvailability(orderId: string): Observable<IOrder> {
         return this._API.getQuery(`${this.className}/VerifyProductsAvailability`, { orderId: orderId });
+    }
+
+    public setOrder(request: ISetOrderRequest): Promise<IOrder> {
+        return this._API.post(`${this.className}/SetOrder`, request).pipe(
+            map((order: IOrder) => {
+                this.activeOrder = order;
+                return order;
+            })
+        ).toPromise();
     }
 
     public setOrder(request: ISetOrderRequest): Promise<IOrder> {

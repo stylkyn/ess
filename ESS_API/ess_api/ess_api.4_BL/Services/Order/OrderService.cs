@@ -92,6 +92,40 @@ namespace ess_api._4_BL.Services.Order
             return new Response<OrderResponse>(ResponseStatus.Ok, response);
         }
 
+        public async Task<Response<OrderResponse>> UpdateOrder(UpdateOrderRequest request)
+        {
+            var order = await _uow.Orders.FindAsync(new Guid(request.OrderId));
+            if (order == null)
+                return new Response<OrderResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
+
+            if (request.CalculateOrder != null)
+            {
+                var calculatedData = await CalculateOrder(request.CalculateOrder.Products, request.CalculateOrder?.TransportId, request.CalculateOrder?.PaymentId);
+                order.CalculatedData = calculatedData;
+            }
+
+            if (request.Customer != null)
+            {
+                order.Customer.Personal = new UserPersonal
+                {
+                    Address = request.Customer.Personal.Address,
+                    Contact = request.Customer.Personal.Contact,
+                    Firstname = request.Customer.Personal.Firstname,
+                    Lastname = request.Customer.Personal.Lastname,
+                };
+                order.Customer.Company = request.Customer.Company != null ? new UserCompany
+                {
+                    Address = request.Customer.Company.Address != null ? request.Customer.Company.Address : request.Customer.Personal.Address,
+                    CompanyId = request.Customer.Company.CompanyId,
+                    CompanyName = request.Customer.Company.CompanyName,
+                    CompanyVat = request.Customer.Company.CompanyVat
+                } : null;
+            }
+
+            var response = _mapService.MapOrder(order);
+            return new Response<OrderResponse>(ResponseStatus.Ok, response);
+        }
+
         public async Task<Response<OrderResponse>> SetOrder(SetOrderRequest request)
         {
             OrderModel order = new OrderModel();
