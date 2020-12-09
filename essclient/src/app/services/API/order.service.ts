@@ -145,12 +145,7 @@ export class OrderService extends APIRepository<IProduct> {
         ).toPromise();
     }
 
-    public setOrder(request: ISetOrderRequest): Promise<IOrder> {
-        return this._API.post(`${this.className}/SetOrder`, request).pipe(
-            map((order: IOrder) => {
-                this.activeOrder = order;
-                return order;
-            })
-        ).toPromise();
+    public updateOrder(request: IUpdateOrderRequest): Observable<IOrder> {
+        return this._API.post(`${this.className}/UpdateOrder`, request);
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MapPriceTypes } from 'src/app/models/IPrice';
 import { getProductTypeName, IProduct, ProductType } from 'src/app/models/IProduct';
 import { IOrder, OrderState, OrderStateName } from 'src/app/models/IOrder';
@@ -12,6 +12,9 @@ import { PaymentState, PaymentStateName } from 'src/app/models/IPayment';
 import { ISetOrderState, ISetOrderAgent } from './../../../services/API/order.service';
 import { ICalculatedOrderProductOrder, ICalculatedOrderProductService } from 'src/app/models/ICalculateOrder';
 import * as moment from 'moment';
+import { TransportService } from 'src/app/services/API/transport.service';
+import { PaymentService } from 'src/app/services/API/payment.service';
+import { OrderFormComponent } from './order-form/order-form.component';
 
 @Component({
     selector: 'app-order',
@@ -19,6 +22,7 @@ import * as moment from 'moment';
     styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit {
+    @ViewChild('orderForm') userForm: OrderFormComponent;
     MapPriceTypes = MapPriceTypes;
     PaymentState = PaymentState;
     OrderState = OrderState;
@@ -71,12 +75,16 @@ export class OrderComponent implements OnInit {
     constructor (
         private _orderService: OrderService,
         private _userService: UserService,
+        private _transportService: TransportService,
+        private _paymentService: PaymentService,
         private _modalNz: NzModalService,
     ) { }
 
     ngOnInit(): void {
         this.loadData();
         this.loadUserOptions();
+        this._transportService.fetchTransport({});
+        this._paymentService.fetchPayment({});
     }
 
     // users logic
@@ -220,7 +228,6 @@ export class OrderComponent implements OnInit {
             productId: product.product.id,
             userId: this.selectedAgentId
         };
-        console.log(product);
         this._orderService.setOrderAgent(request)
             .subscribe((orderResponse: IOrder) => { 
                 this.selectedOrder = orderResponse;
@@ -236,5 +243,10 @@ export class OrderComponent implements OnInit {
     // show order detail
     showDetail(order: IOrder) {
         window.open(getOrderRoute(order));
+    }
+
+    // update logic
+    showUpdateDrawer(order: IOrder) {
+        this.userForm.open(order);
     }
 }

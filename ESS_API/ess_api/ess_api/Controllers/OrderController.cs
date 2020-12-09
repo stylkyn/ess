@@ -99,6 +99,24 @@ namespace ess_api.Controllers
             }
         }
 
+        [HttpPost]
+        [RequiredRequest]
+        [JwtAuthenticationAdmin]
+        [Route("UpdateOrder")]
+        public async Task<IHttpActionResult> UpdateOrder([FromBody] UpdateOrderRequest request)
+        {
+            try
+            {
+                var response = await _orderService.UpdateOrder(request);
+                return new CreateResult(response);
+            }
+            catch (Exception e)
+            {
+                var response = new Response<OrderResponse>(ResponseStatus.InternalError, null, e.Message);
+                return new CreateResult(response);
+            }
+        }
+
         [HttpPut]
         [JwtAuthenticationAdmin]
         [Route("SetOrderAgent")]

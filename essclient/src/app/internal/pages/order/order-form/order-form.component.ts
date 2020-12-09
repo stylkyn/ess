@@ -1,8 +1,13 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
+import { ICalculatedOrderProductOrder } from 'src/app/models/ICalculateOrder';
 import { IOrder } from 'src/app/models/IOrder';
-import { IOrderUpdateRequest, IUpdateOrderRequest } from 'src/app/services/API/order.service';
+import { IUpdateOrderRequest } from 'src/app/services/API/order.service';
+import { TransportService } from 'src/app/services/API/transport.service';
 import { OrderService } from '../../../../services/API/order.service';
+import { PaymentService } from './../../../../services/API/payment.service';
+import { ITransport } from 'src/app/models/ITransport';
+import { IPayment } from './../../../../models/IPayment';
 
 type Type = 'update' | 'add';
 
@@ -13,7 +18,7 @@ type Type = 'update' | 'add';
 })
 export class OrderFormComponent {
     @Output() changeData = new EventEmitter<IOrder>();
-    
+
     activeOrder: IOrder;
     orderForm: FormGroup;
     visible = false;
@@ -22,6 +27,20 @@ export class OrderFormComponent {
     get formType (): Type {
         return this.activeOrder ? 'update' : 'add';
     }
+
+    get transports(): ITransport[] {
+        return this._transportService.transports;
+    }
+
+    get payments(): IPayment[] {
+        return this._paymentService.payments;
+    }
+
+    // calculateOrder
+    get calculateOrder () { return this.orderForm.get('calculateOrder'); }
+    get products (): FormArray { return this.orderForm.get('calculateOrder.products') as FormArray; }
+    get paymentId () { return this.orderForm.get('calculateOrder.paymentId'); }
+    get transportId () { return this.orderForm.get('calculateOrder.transportId'); }
 
     // personal
     get personal () { return this.orderForm.get('personal'); }
@@ -55,8 +74,15 @@ export class OrderFormComponent {
     constructor (
         private _formBuilder: FormBuilder,
         private _orderService: OrderService,
+        private _transportService: TransportService,
+        private _paymentService: PaymentService,
     ) { 
         this.orderForm = this._formBuilder.group({
+            calculateOrder: this._formBuilder.group({
+                paymentId: [null, Validators.required],
+                transportId: [null, Validators.required],
+                products: this._formBuilder.array([])
+            }),
             personal: this._formBuilder.group({
                 firstname: [null, Validators.required],
                 lastname: [null, Validators.required],
@@ -99,6 +125,9 @@ export class OrderFormComponent {
         if (order) {
             this.orderForm.patchValue(order);
             this.activeOrder = order;
+            this.activeOrder.calculatedData.products.forEach((product: ICalculatedOrderProductOrder) => {
+                this.products.push(this.createProductItem(product));
+            });
         }
     }
 
@@ -111,6 +140,14 @@ export class OrderFormComponent {
         this.update();
     }
 
+    private createProductItem(product: ICalculatedOrderProductOrder): FormGroup {
+        return this._formBuilder.group({
+            productId: product.product.id,
+            serviceDate: product.service?.date,
+            count: product.count,
+        });
+      }
+
     private reset() {
         this.orderForm.reset();
     }
@@ -122,11 +159,16 @@ export class OrderFormComponent {
             customer: {
                 personal: this.personal.value,
                 company: this.company.value, 
+            },
+            calculateOrder: {
+                paymentId: this.paymentId.value,
+                transportId: this.transportId.value,
+                products: this.products.value,
             }
         };
         console.log(request);
 
-        this._orderService.update(request).subscribe((user: IOrder) => {
+        this._orderService.updateOrder(request).subscribe((user: IOrder) => {
             this.changeData.next(user);
             this.reset();
             this.close();

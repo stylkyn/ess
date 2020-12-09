@@ -7,7 +7,29 @@
     (nzOnClose)="close()">
     <nz-spin [nzSpinning]="isLoading" nzTip="Probíhá ukládání...">
         
-        <form [formGroup]="userForm" nzLayout="vertical" nz-form>
+        <form [formGroup]="orderForm" nzLayout="vertical" nz-form>
+            <ng-container formGroupName="calculateOrder">
+                <nz-divider nzOrientation="left" nzText="Osobní údaje"></nz-divider>
+                <div nz-row [nzGutter]="16">
+                    <div class="gutter-row" nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Typ dopravy *</nz-form-label>
+                            <nz-select formControlName="transportId">
+                                <nz-option *ngfor="let transport of transports" [nzValue]="transport.id" [nzLabel]="transport.name"></nz-option>
+                              </nz-select>
+                        </nz-form-item>
+                    </div>
+                    <div class="gutter-row" nz-col [nzSpan]="12">
+                        <nz-form-item>
+                            <nz-form-label>Typ platby *</nz-form-label>
+                            <nz-form-control>
+                                <nz-option *ngfor="let payment of payments" [nzValue]="payment.id" [nzLabel]="payment.name"></nz-option>
+                                <input formControlName="paymentId" nz-input placeholder="Zadejte typ platby"  />
+                            </nz-form-control>
+                        </nz-form-item>
+                    </div>
+            </ng-container>
+
             <ng-container formGroupName="personal">
                 <nz-divider nzOrientation="left" nzText="Osobní údaje"></nz-divider>
                 <div nz-row [nzGutter]="16">

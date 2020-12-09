@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrderComponent } from './order.component';
 import { routing } from './order.routing';
@@ -16,6 +16,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { DeleteOutline, PlusOutline, EyeOutline } from '@ant-design/icons-angular/icons';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { RouterModule } from '@angular/router';
+import { OrderFormComponent } from './order-form/order-form.component';
 
 @NgModule({
     imports: [
@@ -36,7 +37,8 @@ import { RouterModule } from '@angular/router';
         NzToolTipModule,
         NzFormModule,
     ],
-    declarations: [OrderComponent],
+    declarations: [OrderComponent, OrderFormComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
     exports: [
         RouterModule
     ],

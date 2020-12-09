@@ -11,6 +11,13 @@ export interface ITransport {
     totalPrice: IPrice;
 }
 
+export enum TransportType {
+    PersonalPickup,
+    PersonalDelivery,
+    HomeDelivery,
+    DeliveryPoint
+}
+
 export const getTransportTypeName = (type: TransportType) => {
     switch (type) {
         case TransportType.PersonalPickup:
@@ -25,9 +32,21 @@ export const getTransportTypeName = (type: TransportType) => {
     return '';
 };
 
-export enum TransportType {
-    PersonalPickup,
-    PersonalDelivery,
-    HomeDelivery,
-    DeliveryPoint
-}
+export const getTransportOptions = [
+    {
+        value: TransportType.PersonalPickup,
+        label: getTransportTypeName(TransportType.PersonalPickup)
+    },
+    {
+        value: TransportType.PersonalDelivery,
+        label: getTransportTypeName(TransportType.PersonalDelivery)
+    },
+    {
+        value: TransportType.HomeDelivery,
+        label: getTransportTypeName(TransportType.HomeDelivery)
+    },
+    {
+        value: TransportType.DeliveryPoint,
+        label: getTransportTypeName(TransportType.DeliveryPoint)
+    },
+];

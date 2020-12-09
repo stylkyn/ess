@@ -2,6 +2,9 @@
     <div class="d-flex">
         <h1 nz-typography>Objednávky</h1>
     </div>
+    <div class="d-flex">
+        <app-order-form #orderForm (changeData)="loadData()"></app-order-form>
+    </div>
 </div>
 
 <nz-table nzShowSizeChanger [nzData]="dataList" [nzFrontPagination]="false" [nzLoading]="loading" [nzTotal]="total" [nzShowTotal]="totalTemplate" [nzPageSize]="pageSize" [nzPageIndex]="pageNumber" (nzQueryParams)="onQueryParamsChange($event)">
@@ -90,6 +93,10 @@
             <td>{{ item.calculatedData?.total?.totalPrice?.czkWithoutVat}} {{MapPriceTypes(item.calculatedData?.total?.totalPrice?.priceType) }}</td>
             <td>{{ item.calculatedData?.total?.totalPrice?.czkWithVat}} {{MapPriceTypes(item?.calculatedData?.total.totalPrice?.priceType) }}</td>
             <td>
+                <button (click)="showUpdateDrawer(item)" nz-button nzType="primary" nzShape="circle"
+                    nz-tooltip nzTooltipTitle="Upravit uživatele">
+                    <i nz-icon nzType="edit"></i>
+                </button>
                 <div class="d-flex justify-content-end">
                     <button (click)="showDetail(item)" nz-button nzsi nzType="primary" nzShape="circle" nz-tooltip nzTooltipTitle="Zobrazit produkt">
                         <i nz-icon nzType="eye" nzTheme="outline"></i>

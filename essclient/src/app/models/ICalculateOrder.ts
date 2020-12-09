@@ -1,7 +1,7 @@
 import { IProduct } from './IProduct';
 import { IPrice, initPrice } from './IPrice';
-import { IPayment, PaymentType } from './IPayment';
-import { ITransport, TransportType } from './ITransport';
+import { IPayment } from './IPayment';
+import { ITransport } from './ITransport';
 
 export interface ICalculatedOrder {
     products: ICalculatedOrderProductOrder[];

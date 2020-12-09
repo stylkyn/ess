@@ -60,6 +60,7 @@
     <Compile Include="Services\Order\Requests\GetAccountOrdersRequest.cs" />
     <Compile Include="Services\Order\Requests\SetOrderPaymentStateRequest.cs" />
     <Compile Include="Services\Order\Requests\SetOrderAgentRequest.cs" />
+    <Compile Include="Services\Order\Requests\UpdateOrderRequest.cs" />
     <Compile Include="Services\Order\Requests\SetOrderStateRequest.cs" />
     <Compile Include="Services\Order\Requests\GetOrderRequest.cs" />
     <Compile Include="Services\Order\Requests\OrderSearchRequest.cs" />
