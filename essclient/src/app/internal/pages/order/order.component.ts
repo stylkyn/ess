@@ -22,7 +22,7 @@ import { OrderFormComponent } from './order-form/order-form.component';
     styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit {
-    @ViewChild('orderForm') userForm: OrderFormComponent;
+    @ViewChild('orderForm') orderForm: OrderFormComponent;
     MapPriceTypes = MapPriceTypes;
     PaymentState = PaymentState;
     OrderState = OrderState;
@@ -247,6 +247,6 @@ export class OrderComponent implements OnInit {
 
     // update logic
     showUpdateDrawer(order: IOrder) {
-        this.userForm.open(order);
+        this.orderForm.open(order);
     }
 }

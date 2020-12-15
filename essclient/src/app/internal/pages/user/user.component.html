@@ -58,9 +58,9 @@
             </td>
             <td class="d-flex justify-content-end">
                 <button (click)="showUpdateDrawer(item)" nz-button nzType="primary" nzShape="circle"
-                        nz-tooltip nzTooltipTitle="Upravit uživatele">
-                        <i nz-icon nzType="edit"></i>
-                    </button>
+                    nz-tooltip nzTooltipTitle="Upravit uživatele">
+                    <i nz-icon nzType="edit"></i>
+                </button>
                 <button *ngIf="loggedUser.email != item.email" (click)="showDeleteConfirm(item)" nz-button nzType="danger" nzShape="circle"
                     nz-tooltip nzTooltipTitle="Odstranit uživatele">
                     <i nz-icon nzType="delete" nzTheme="outline"></i>

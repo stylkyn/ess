@@ -17,6 +17,7 @@ import { DeleteOutline, PlusOutline, EyeOutline } from '@ant-design/icons-angula
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { RouterModule } from '@angular/router';
 import { OrderFormComponent } from './order-form/order-form.component';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 
 @NgModule({
     imports: [
@@ -28,6 +29,7 @@ import { OrderFormComponent } from './order-form/order-form.component';
 
         NzTableModule,
         NzButtonModule,
+        NzDrawerModule,
         NzInputModule,
         NzIconModule.forChild([DeleteOutline, PlusOutline, EyeOutline]),
         NzModalModule,

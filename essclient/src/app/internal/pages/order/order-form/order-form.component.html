@@ -15,19 +15,28 @@
                         <nz-form-item>
                             <nz-form-label>Typ dopravy *</nz-form-label>
                             <nz-select formControlName="transportId">
-                                <nz-option *ngfor="let transport of transports" [nzValue]="transport.id" [nzLabel]="transport.name"></nz-option>
+                                <nz-option 
+                                    *ngFor="let transport of transports" 
+                                    [nzValue]="transport.id" 
+                                    [nzLabel]="transport.name">
+                                </nz-option>
                               </nz-select>
                         </nz-form-item>
                     </div>
                     <div class="gutter-row" nz-col [nzSpan]="12">
                         <nz-form-item>
                             <nz-form-label>Typ platby *</nz-form-label>
-                            <nz-form-control>
-                                <nz-option *ngfor="let payment of payments" [nzValue]="payment.id" [nzLabel]="payment.name"></nz-option>
+                            <nz-select formControlName="transportId">
+                                <nz-option 
+                                    *ngFor="let payment of payments" 
+                                    [nzValue]="payment.id" 
+                                    [nzLabel]="payment.name">
+                                </nz-option>
                                 <input formControlName="paymentId" nz-input placeholder="Zadejte typ platby"  />
-                            </nz-form-control>
+                            </nz-select>
                         </nz-form-item>
                     </div>
+                </div>
             </ng-container>
 
             <ng-container formGroupName="personal">
@@ -210,7 +219,7 @@
 
 
             <hr class="mt-4"/>
-            <button [disabled]="userForm.invalid" (click)="confirm()" nz-button nzType="primary" nzShape="round" class="pull-right">Uložit <i nz-icon nzType="check"></i></button>
+            <button [disabled]="orderForm.invalid" (click)="confirm()" nz-button nzType="primary" nzShape="round" class="pull-right">Uložit <i nz-icon nzType="check"></i></button>
         </form>
     </nz-spin>
 </nz-drawer>

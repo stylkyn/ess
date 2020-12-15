@@ -3,7 +3,7 @@
     // SendGrid
     public class MailingConstants
     {
-        public const string SendGridApiKey = "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";
+        public const string SendGridApiKey = null; // TODO: Move to secured file
         // sender informations
         public const string SenderAddress = "Tyršovo náměstí";
         public const string SenderCompanyName = "ELITEC software, s.r.o.";
