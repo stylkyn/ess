@@ -8,6 +8,7 @@ import { OrderService } from '../../../../services/API/order.service';
 import { PaymentService } from './../../../../services/API/payment.service';
 import { ITransport } from 'src/app/models/ITransport';
 import { IPayment } from './../../../../models/IPayment';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 type Type = 'update' | 'add';
 
@@ -76,6 +77,7 @@ export class OrderFormComponent {
         private _orderService: OrderService,
         private _transportService: TransportService,
         private _paymentService: PaymentService,
+        private _modalNz: NzModalService,
     ) { 
         this.orderForm = this._formBuilder.group({
             calculateOrder: this._formBuilder.group({
@@ -117,13 +119,63 @@ export class OrderFormComponent {
         });
     }
 
+    showDeleteConfirm(product: ICalculatedOrderProductOrder, index: number): void {
+        this._modalNz.confirm({
+            nzTitle: `Opravdu chcete smazat tento produkt?`,
+            nzContent: `<b style="color: red;">${product?.product.name}</br>`,
+            nzOkText: 'Smazat',
+            nzOkType: 'danger',
+            nzOnOk: () => {
+                this.removeProductFromControls(product);
+            },
+            nzCancelText: 'Zrušit'
+        });
+    }
+
+    getProductById(productId: string): ICalculatedOrderProductOrder {
+        return this.activeOrder?.calculatedData?.products?.find(p => p.product.id == productId);
+    }
+
     // drawer actions
     open(order: IOrder = null): void {
         this.reset();
         this.visible = true;
 
         if (order) {
-            this.orderForm.patchValue(order);
+            this.orderForm.patchValue({
+                calculateOrder: {
+                    paymentId: order.calculatedData?.payment?.paymentId,
+                    transportId: order.calculatedData?.transport?.transportId,
+                    products: [] // order.calculatedData?.products
+                },
+                personal: {
+                    firstname: order.customer?.personal?.firstname,
+                    lastname: order.customer?.personal?.lastname,
+                    address: {
+                        country: order.customer?.personal?.address?.country,
+                        postalCode: order.customer?.personal?.address?.postalCode,
+                        city: order.customer?.personal?.address?.city,
+                        street: order.customer?.personal?.address?.street,
+                        houseNumber: order.customer?.personal?.address?.houseNumber,
+                    },
+                    contact: {
+                        phone: order.customer?.personal?.contact?.phone,
+                        email: order.customer?.personal?.contact?.email,
+                    },
+                },
+                company: {
+                    companyName: [null],
+                    companyId: [null],
+                    companyVat: [null],
+                    address: this._formBuilder.group({
+                        country: ['Česká Republika'],
+                        postalCode: [null],
+                        city: [null],
+                        street: [null],
+                        houseNumber: [null],
+                    })
+                },
+            });
             this.activeOrder = order;
             this.activeOrder.calculatedData.products.forEach((product: ICalculatedOrderProductOrder) => {
                 this.products.push(this.createProductItem(product));
@@ -146,10 +198,15 @@ export class OrderFormComponent {
             serviceDate: product.service?.date,
             count: product.count,
         });
-      }
+    }
+
+    private removeProductFromControls(product: ICalculatedOrderProductOrder) {
+        this.products.controls = this.products.controls.filter(control => control.value.productId == product.product.id);
+    }
 
     private reset() {
         this.orderForm.reset();
+        this.products.controls = [];
     }
 
     private update(): void {

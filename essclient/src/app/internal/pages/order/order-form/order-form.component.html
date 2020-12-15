@@ -3,13 +3,13 @@
     [nzMaskClosable]="true" 
     [nzWidth]="620" 
     [nzVisible]="visible" 
-    [nzTitle]="formType == 'update' ? 'Úprava uživatele' : 'Přidání uživatele'" 
+    [nzTitle]="formType == 'update' ? 'Úprava objednávky' : 'Přidání objednávky'" 
     (nzOnClose)="close()">
     <nz-spin [nzSpinning]="isLoading" nzTip="Probíhá ukládání...">
         
         <form [formGroup]="orderForm" nzLayout="vertical" nz-form>
             <ng-container formGroupName="calculateOrder">
-                <nz-divider nzOrientation="left" nzText="Osobní údaje"></nz-divider>
+                <nz-divider nzOrientation="left" nzText="Doprava a platba"></nz-divider>
                 <div nz-row [nzGutter]="16">
                     <div class="gutter-row" nz-col [nzSpan]="12">
                         <nz-form-item>
@@ -26,7 +26,7 @@
                     <div class="gutter-row" nz-col [nzSpan]="12">
                         <nz-form-item>
                             <nz-form-label>Typ platby *</nz-form-label>
-                            <nz-select formControlName="transportId">
+                            <nz-select formControlName="paymentId">
                                 <nz-option 
                                     *ngFor="let payment of payments" 
                                     [nzValue]="payment.id" 
@@ -37,8 +37,56 @@
                         </nz-form-item>
                     </div>
                 </div>
+    
+                <nz-divider nzOrientation="left" nzText="Produkty"></nz-divider>
+                <ng-container formArrayName="products" *ngFor="let item of products.controls; let i = index;">
+                    <ng-container [formGroupName]="i">
+                        <div nz-row>
+                            <div nz-col [nzSpan]="24">
+                                <input type="hidden" formControlName="productId" />
+                                <h5><strong>{{getProductById(item.value.productId)?.product?.name}}</strong></h5>
+                            </div>
+                            <div
+                                className="order-form-product-image"
+                                nz-col 
+                                [nzSpan]="6"
+                            >
+                                <img [src]="getProductById(item.value.productId)?.product?.image?.secureUrl" [alt]="getProductById(item.value.productId)?.product?.name" height="60px" />
+                            </div>
+                            <div
+                                nz-col 
+                                [nzSpan]="9"
+                                *ngIf="getProductById(item.value.productId)?.service?.date"
+                            >
+                                <nz-form-item>
+                                    <nz-form-label>Datum servisu *</nz-form-label>
+                                    <nz-input-group>
+                                        <input formControlName="serviceDate" nz-input placeholder="Zadejte datum servisu" />
+                                    </nz-input-group>
+                                </nz-form-item>
+                            </div>
+                            <div
+                                nz-col 
+                                [nzSpan]="9"
+                            >
+                                <nz-form-item>
+                                    <nz-form-label>Počet kusů*</nz-form-label>
+                                    <nz-input-group>
+                                        <input formControlName="count" type="tel" nz-input placeholder="Zadejte počet kusů" />
+                                    </nz-input-group>
+                                </nz-form-item>
+                            </div>
+                            <div *ngIf="products.controls.length > 1" className="order-form-delete" nz-col>
+                                <button (click)="showDeleteConfirm(getProductById(item.value.productId))" nz-button nzType="danger" nzShape="circle"
+                                    nz-tooltip nzTooltipTitle="Odstranit produkt">
+                                    <i nz-icon nzType="delete" nzTheme="outline"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
             </ng-container>
-
+s
             <ng-container formGroupName="personal">
                 <nz-divider nzOrientation="left" nzText="Osobní údaje"></nz-divider>
                 <div nz-row [nzGutter]="16">

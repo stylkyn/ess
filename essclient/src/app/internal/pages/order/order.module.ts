@@ -18,6 +18,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { RouterModule } from '@angular/router';
 import { OrderFormComponent } from './order-form/order-form.component';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 @NgModule({
     imports: [
@@ -30,6 +31,7 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
         NzTableModule,
         NzButtonModule,
         NzDrawerModule,
+        NzDividerModule,
         NzInputModule,
         NzIconModule.forChild([DeleteOutline, PlusOutline, EyeOutline]),
         NzModalModule,
