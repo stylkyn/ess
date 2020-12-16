@@ -11,6 +11,8 @@ using Libraries.Mailing.Request;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -64,18 +66,17 @@ namespace Libraries.Mailing
          *  Orders emails
          */
 
-        public async Task<bool> SendChangeServiceDay(OrderModel order, CalculatedOrderProduct product, UserModel user)
+        public async Task<bool> SendChangeServiceDay(OrderModel order, List<CalculatedOrderProduct> products, UserModel user)
         {
             var token = _authentificationLibrary.GenerateJWT(user);
             return await SendTransactionalEmail(
                 MailingConstants.ChangeServiceDay,
                 order.Customer.GetEmail(),
                 order.Customer.GetName(),
-                new
-                {
+                products.Select(product => new {
                     ServisDate = product?.Service?.Date != null ? ((DateTime)product.Service.Date).ToServerFormat() : null,
-                    OrderDetailUrl = $"{RoutesConstants.BaseUrlClient}/{RoutesConstants.OrderSummaryPath}/{order.Id}?jwt={token.Jwt}&expiresDate={token.ExpiresDate.ToServerFormat()}"
-                }
+                    OrderDetailUrl = $s"{RoutesConstants.BaseUrlClient}/{RoutesConstants.OrderSummaryPath}/{order.Id}?jwt={token.Jwt}&expiresDate={token.ExpiresDate.ToServerFormat()}"
+                }).ToArray()
             );
         }
 

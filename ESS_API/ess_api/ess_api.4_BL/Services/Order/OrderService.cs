@@ -101,6 +101,27 @@ namespace ess_api._4_BL.Services.Order
             if (request.CalculateOrder != null)
             {
                 var calculatedData = await CalculateOrder(request.CalculateOrder.Products, request.CalculateOrder?.TransportId, request.CalculateOrder?.PaymentId);
+
+                // if some servise date was changed - send email to user
+                var changedServices = new List<CalculatedOrderProduct>();
+                request.CalculateOrder.Products.ForEach(productRequest =>
+                {
+                    if (productRequest.ServiceDate?.Date != null)
+                        return;
+                    
+                    var product = order.CalculatedData.Products.FirstOrDefault(p => p.Service?.Date != null && p.Product.Id.ToString() == productRequest.ProductId);
+
+                    if (product?.Service?.Date != null && product.Service.Date.Value.Date != productRequest.ServiceDate.Value.Date)
+                    {
+                        sendServiceChangeDateEmail = true;
+                    }
+                });
+                if (changedServices.Count() > 0)
+                {
+                    var user = await _uow.Users.GetUser(request.RequestIdentity.UserEmail);
+                    await _mailingLibrary.SendChangeServiceDay(order, user, null);
+                }
+                
                 order.CalculatedData = calculatedData;
             }
 
