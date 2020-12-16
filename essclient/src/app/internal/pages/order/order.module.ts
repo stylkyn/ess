@@ -19,6 +19,7 @@ import { RouterModule } from '@angular/router';
 import { OrderFormComponent } from './order-form/order-form.component';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 @NgModule({
     imports: [
@@ -28,6 +29,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
         FormsModule,
         ReactiveFormsModule,
 
+        NzDatePickerModule,
         NzTableModule,
         NzButtonModule,
         NzDrawerModule,

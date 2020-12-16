@@ -9,6 +9,7 @@ import { PaymentService } from './../../../../services/API/payment.service';
 import { ITransport } from 'src/app/models/ITransport';
 import { IPayment } from './../../../../models/IPayment';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { en_US, NzI18nService, zh_CN } from 'ng-zorro-antd/i18n';
 
 type Type = 'update' | 'add';
 
@@ -146,7 +147,7 @@ export class OrderFormComponent {
                 calculateOrder: {
                     paymentId: order.calculatedData?.payment?.paymentId,
                     transportId: order.calculatedData?.transport?.transportId,
-                    products: [] // order.calculatedData?.products
+                    products: []
                 },
                 personal: {
                     firstname: order.customer?.personal?.firstname,
@@ -164,15 +165,15 @@ export class OrderFormComponent {
                     },
                 },
                 company: {
-                    companyName: [null],
-                    companyId: [null],
-                    companyVat: [null],
+                    companyName: order.customer?.company?.companyName,
+                    companyId: order.customer?.company?.companyId,
+                    companyVat: order.customer?.company?.companyVat,
                     address: this._formBuilder.group({
-                        country: ['Česká Republika'],
-                        postalCode: [null],
-                        city: [null],
-                        street: [null],
-                        houseNumber: [null],
+                        country: order.customer?.company?.address?.country,
+                        postalCode: order.customer?.company?.address?.postalCode,
+                        city: order.customer?.company?.address?.city,
+                        street: order.customer?.company?.address?.street,
+                        houseNumber: order.customer?.company?.address?.houseNumber,
                     })
                 },
             });
@@ -201,7 +202,7 @@ export class OrderFormComponent {
     }
 
     private removeProductFromControls(product: ICalculatedOrderProductOrder) {
-        this.products.controls = this.products.controls.filter(control => control.value.productId == product.product.id);
+        this.products.controls = this.products.controls.filter(control => control.value.productId != product.product.id);
     }
 
     private reset() {
@@ -220,7 +221,11 @@ export class OrderFormComponent {
             calculateOrder: {
                 paymentId: this.paymentId.value,
                 transportId: this.transportId.value,
-                products: this.products.value,
+                products: this.products.controls.map(control => ({
+                    productId: control.value.productId,
+                    serviceDate: control.value.serviceDate,
+                    count: control.value.count,
+                })),
             }
         };
         console.log(request);

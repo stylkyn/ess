@@ -99,7 +99,7 @@ namespace ess_api.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         [RequiredRequest]
         [JwtAuthenticationAdmin]
         [Route("UpdateOrder")]

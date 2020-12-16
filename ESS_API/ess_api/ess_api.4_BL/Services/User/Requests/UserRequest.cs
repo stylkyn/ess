@@ -22,15 +22,10 @@ namespace ess_api._4_BL.Services.Requests
 
     public class UserCompanyRequest
     {
-        [Required]
         public string CompanyName { get; set; }
-        // DIC
 
-        [Required]
         public string CompanyVat { get; set; }
 
-        // IC
-        [Required]
         public string CompanyId { get; set; }
 
         public UserAddress Address { get; set; }

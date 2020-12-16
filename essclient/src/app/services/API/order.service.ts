@@ -146,6 +146,6 @@ export class OrderService extends APIRepository<IProduct> {
     }
 
     public updateOrder(request: IUpdateOrderRequest): Observable<IOrder> {
-        return this._API.post(`${this.className}/UpdateOrder`, request);
+        return this._API.put(`${this.className}/UpdateOrder`, request);
     }
 }

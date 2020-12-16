@@ -121,6 +121,7 @@ namespace ess_api._4_BL.Services.Order
                     CompanyVat = request.Customer.Company.CompanyVat
                 } : null;
             }
+            await _uow.Orders.FindAndReplaceAsync(order.Id, order);
 
             var response = _mapService.MapOrder(order);
             return new Response<OrderResponse>(ResponseStatus.Ok, response);

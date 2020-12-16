@@ -55,19 +55,7 @@
                             </div>
                             <div
                                 nz-col 
-                                [nzSpan]="9"
-                                *ngIf="getProductById(item.value.productId)?.service?.date"
-                            >
-                                <nz-form-item>
-                                    <nz-form-label>Datum servisu *</nz-form-label>
-                                    <nz-input-group>
-                                        <input formControlName="serviceDate" nz-input placeholder="Zadejte datum servisu" />
-                                    </nz-input-group>
-                                </nz-form-item>
-                            </div>
-                            <div
-                                nz-col 
-                                [nzSpan]="9"
+                                [nzSpan]="products.controls.length > 1 ? 5 : 9"
                             >
                                 <nz-form-item>
                                     <nz-form-label>Počet kusů*</nz-form-label>
@@ -76,7 +64,19 @@
                                     </nz-input-group>
                                 </nz-form-item>
                             </div>
-                            <div *ngIf="products.controls.length > 1" className="order-form-delete" nz-col>
+                            <div
+                                nz-col 
+                                [nzSpan]="9"
+                                *ngIf="getProductById(item.value.productId)?.service?.date"
+                            >
+                                <nz-form-item>
+                                    <nz-form-label>Datum servisu *</nz-form-label>
+                                    <nz-input-group>
+                                        <nz-date-picker formControlName="serviceDate"></nz-date-picker>
+                                    </nz-input-group>
+                                </nz-form-item>
+                            </div>
+                            <div *ngIf="products.controls.length > 1" class="order-form-delete" nz-col>
                                 <button (click)="showDeleteConfirm(getProductById(item.value.productId))" nz-button nzType="danger" nzShape="circle"
                                     nz-tooltip nzTooltipTitle="Odstranit produkt">
                                     <i nz-icon nzType="delete" nzTheme="outline"></i>
@@ -86,7 +86,6 @@
                     </ng-container>
                 </ng-container>
             </ng-container>
-s
             <ng-container formGroupName="personal">
                 <nz-divider nzOrientation="left" nzText="Osobní údaje"></nz-divider>
                 <div nz-row [nzGutter]="16">

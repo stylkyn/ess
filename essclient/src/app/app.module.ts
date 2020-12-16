@@ -46,13 +46,14 @@ const gapiClientConfig: NgGapiClientConfig = {
     ].join(' '),
     cookie_policy: 'single_host_origin',
 };
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 @NgModule({
     declarations: [
         AppComponent,
     ],
     imports: [
-        BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
         BrowserAnimationsModule,
         FormsModule,
         HttpModule,
@@ -78,6 +79,7 @@ const gapiClientConfig: NgGapiClientConfig = {
             upload_preset: "ml_default"
         }),
         NzIconModule.forRoot([PictureTwoTone]),
+        NzDatePickerModule,
 
     ],
     providers: [
