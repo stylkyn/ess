@@ -14,7 +14,6 @@ export class MyAccountComponent implements OnInit {
 
     ngOnInit() {
         this._userService.getIsLoadedPromise.then(user => {
-            console.log(user);
         })
         .catch(e => {
             console.log(e);

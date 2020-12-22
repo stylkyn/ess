@@ -5,6 +5,8 @@ import { IOrder } from 'src/app/models/IOrder';
 export const presentationHomepage = `homepage`;
 export const presentationContactRoute = `kontakt`;
 export const presentationAboutUsRoute = `o-nas`;
+export const presentationGdprRoute = `gdpr`;
+export const presentationTermsRoute = `obchodni-podminky`;
 export const presentationProductRoute = `nase-produkty`;
 export const presentationOrderRoute = `objednavka`;
 export const presentationOrderSummaryRoute = `objednavka-souhrn`;

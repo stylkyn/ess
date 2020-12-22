@@ -22,6 +22,7 @@ import { ServiceDateContentComponent } from './service-date/service-date-content
 import { ServiceDateComponent } from './service-date/service-date.component';
 import { ResetPasswordModalContentComponent } from './reset-password-modal/reset-password-modal-content.component';
 import { ResetPasswordModalComponent } from './reset-password-modal/reset-password-modal.component';
+import { NgValidatorsModule } from '@ng-validators/ng-validators';
 
 @NgModule({
     imports: [
@@ -45,6 +46,7 @@ import { ResetPasswordModalComponent } from './reset-password-modal/reset-passwo
         NgBusyModule,
         ModalModule.forRoot(),
         NgxDaterangepickerMd.forRoot(),
+        NgValidatorsModule
     ],
     declarations: [
         ShoppingCardModalComponent,

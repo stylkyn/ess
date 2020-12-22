@@ -13,7 +13,7 @@
                 <div nz-row [nzGutter]="16">
                     <div class="gutter-row" nz-col [nzSpan]="12">
                         <nz-form-item>
-                            <nz-form-label>Typ dopravy *</nz-form-label>
+                            <nz-form-label nzRequired>Typ dopravy</nz-form-label>
                             <nz-select formControlName="transportId">
                                 <nz-option 
                                     *ngFor="let transport of transports" 
@@ -25,7 +25,7 @@
                     </div>
                     <div class="gutter-row" nz-col [nzSpan]="12">
                         <nz-form-item>
-                            <nz-form-label>Typ platby *</nz-form-label>
+                            <nz-form-label nzRequired>Typ platby</nz-form-label>
                             <nz-select formControlName="paymentId">
                                 <nz-option 
                                     *ngFor="let payment of payments" 
@@ -58,10 +58,10 @@
                                 [nzSpan]="products.controls.length > 1 ? 5 : 9"
                             >
                                 <nz-form-item>
-                                    <nz-form-label>Počet kusů*</nz-form-label>
-                                    <nz-input-group>
-                                        <input formControlName="count" type="tel" nz-input placeholder="Zadejte počet kusů" />
-                                    </nz-input-group>
+                                    <nz-form-label nzRequired>Počet kusů</nz-form-label>
+                                    <nz-input-control nzErrorTip="Zadejte číslo od 1 a více">
+                                        <input formControlName="count" type="number" nz-input placeholder="Zadejte počet kusů" />
+                                    </nz-input-control>
                                 </nz-form-item>
                             </div>
                             <div
@@ -70,10 +70,10 @@
                                 *ngIf="getProductById(item.value.productId)?.service?.date"
                             >
                                 <nz-form-item>
-                                    <nz-form-label>Datum servisu *</nz-form-label>
-                                    <nz-input-group>
+                                    <nz-form-label nzRequired>Datum servisu</nz-form-label>
+                                    <nz-input-control  nzErrorTip="Zadejte email ve formátu (YYYY-MM-DD)">
                                         <nz-date-picker formControlName="serviceDate"></nz-date-picker>
-                                    </nz-input-group>
+                                    </nz-input-control>
                                 </nz-form-item>
                             </div>
                             <div *ngIf="products.controls.length > 1" class="order-form-delete" nz-col>
@@ -91,16 +91,16 @@
                 <div nz-row [nzGutter]="16">
                     <div class="gutter-row" nz-col [nzSpan]="12">
                         <nz-form-item>
-                            <nz-form-label>Jméno *</nz-form-label>
-                            <nz-form-control>
+                            <nz-form-label nzRequired>Jméno </nz-form-label>
+                            <nz-form-control nzErrorTip="Pole je povinné">
                                 <input formControlName="firstname" nz-input placeholder="Zadejte jméno"  />
                             </nz-form-control>
                         </nz-form-item>
                     </div>
                     <div class="gutter-row" nz-col [nzSpan]="12">
                         <nz-form-item>
-                            <nz-form-label>Přijmení *</nz-form-label>
-                            <nz-form-control>
+                            <nz-form-label nzRequired>Přijmení </nz-form-label>
+                            <nz-form-control nzErrorTip="Pole je povinné">
                                 <input formControlName="lastname" nz-input placeholder="Zadejte přijímení"  />
                             </nz-form-control>
                         </nz-form-item>
@@ -111,44 +111,48 @@
                     <ng-container formGroupName="address">
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
-                                <nz-form-label>Ulice *</nz-form-label>
-                                <nz-input-group>
+                                <nz-form-label nzRequired>Ulice</nz-form-label>
+                                <nz-input-control nzErrorTip="Pole je povinné">
                                     <input formControlName="street" nz-input placeholder="Zadejte ulici" />
-                                </nz-input-group>
+                                </nz-input-control>
                             </nz-form-item>
                         </div>
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
-                                <nz-form-label>Číslo popisné *</nz-form-label>
-                                <nz-input-group>
+                                <nz-form-label nzRequired>Číslo popisné</nz-form-label>
+                                <nz-input-control nzErrorTip="Pole je povinné">
                                     <input formControlName="houseNumber" type="tel" nz-input placeholder="Zadejte Č.P." />
-                                </nz-input-group>
+                                </nz-input-control>
                             </nz-form-item>
                         </div>
             
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
-                                <nz-form-label>Město *</nz-form-label>
-                                <nz-input-group>
+                                <nz-form-label nzRequired>Město</nz-form-label>
+                                <nz-input-control nzErrorTip="Pole je povinné">
                                     <input formControlName="city" nz-input placeholder="Zadejte město" />
-                                </nz-input-group>
+                                </nz-input-control>
                             </nz-form-item>
                         </div>
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
-                                <nz-form-label>PSČ *</nz-form-label>
-                                <nz-input-group>
-                                    <input formControlName="postalCode" nz-input placeholder="Zadejte PSČ" />
-                                </nz-input-group>
+                                <nz-form-label nzRequired>PSČ</nz-form-label>
+                                <nz-input-control nzErrorTip="Zadej ve formátu (100 00)">
+                                    <input matInput mask="000 00" formControlName="postalCode" nz-input placeholder="Zadejte PSČ" />
+                                </nz-input-control>
                             </nz-form-item>
                         </div>
         
                         <div class="gutter-row" nz-col [nzSpan]="24">
                             <nz-form-item>
-                                <nz-form-label>Stát *</nz-form-label>
-                                <nz-input-group>
-                                    <input formControlName="country" nz-input placeholder="Zadejte stát" />
-                                </nz-input-group>
+                                <nz-form-label nzRequired>Stát </nz-form-label>
+                                <nz-select formControlName="country">
+                                    <nz-option 
+                                        *ngFor="let country of countriesOptions" 
+                                        [nzValue]="country.value" 
+                                        [nzLabel]="country.label">
+                                    </nz-option>
+                                </nz-select>
                             </nz-form-item>
                         </div>
                     </ng-container>
@@ -160,16 +164,16 @@
                 <div formGroupName="contact" nz-row [nzGutter]="16">
                     <div class="gutter-row" nz-col [nzSpan]="12">
                         <nz-form-item>
-                            <nz-form-label>Telefon *</nz-form-label>
-                            <nz-form-control>
-                                <input formControlName="phone" type="tel" nz-input placeholder="Zadejte telefon"  />
+                            <nz-form-label nzRequired>Telefon</nz-form-label>
+                            <nz-form-control nzErrorTip="Zadejte ve formátu (+420 XXX XXX XXX)">
+                                <input prefix="+" mask="000 000 000 000" formControlName="phone" type="tel" nz-input placeholder="Zadejte telefon"  />
                             </nz-form-control>
                         </nz-form-item>
                     </div>
                     <div class="gutter-row" nz-col [nzSpan]="12">
                         <nz-form-item>
-                            <nz-form-label>Email *</nz-form-label>
-                            <nz-form-control>
+                            <nz-form-label nzRequired>Email</nz-form-label>
+                            <nz-form-control nzErrorTip="Zadejte validní email">
                                 <input class="disabled" [disabled]="true" type="email" formControlName="email" nz-input placeholder="Zadejte email"  />
                             </nz-form-control>
                         </nz-form-item>
@@ -196,7 +200,7 @@
                         <nz-form-item>
                             <nz-form-label>IČO</nz-form-label>
                             <nz-form-control>
-                                <input formControlName="companyId" nz-input placeholder="Zadejte IČO"  />
+                                <input mask="0000000000" formControlName="companyId" nz-input placeholder="Zadejte IČO"  />
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -205,7 +209,7 @@
                         <nz-form-item>
                             <nz-form-label>DIČ</nz-form-label>
                             <nz-form-control>
-                                <input formControlName="companyVat" nz-input placeholder="Zadejte DIČ"  />
+                                <input mask="AA0000000000" formControlName="companyVat" nz-input placeholder="Zadejte DIČ"  />
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -244,7 +248,7 @@
                             <nz-form-item>
                                 <nz-form-label>PSČ</nz-form-label>
                                 <nz-input-group>
-                                    <input formControlName="postalCode" type="number" nz-input placeholder="Zadejte PSČ" />
+                                    <input matInput mask="000 00" formControlName="postalCode" type="number" nz-input placeholder="Zadejte PSČ" />
                                 </nz-input-group>
                             </nz-form-item>
                         </div>
@@ -253,10 +257,14 @@
                     <div nz-row [nzGutter]="16">
                         <div class="gutter-row" nz-col [nzSpan]="24">
                             <nz-form-item>
-                                <nz-form-label>Stát</nz-form-label>
-                                <nz-input-group>
-                                    <input formControlName="country" type="number" nz-input placeholder="Zadejte stát" />
-                                </nz-input-group>
+                                <nz-form-labe>Stát</nz-form-labe>
+                                <nz-select formControlName="country">
+                                    <nz-option 
+                                        *ngFor="let country of countriesOptions" 
+                                        [nzValue]="country.value" 
+                                        [nzLabel]="country.label">
+                                    </nz-option>
+                                </nz-select>
                             </nz-form-item>
                         </div>
                     </div>

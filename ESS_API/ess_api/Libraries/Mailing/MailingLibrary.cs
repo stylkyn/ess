@@ -75,7 +75,7 @@ namespace Libraries.Mailing
                 order.Customer.GetName(),
                 products.Select(product => new {
                     ServisDate = product?.Service?.Date != null ? ((DateTime)product.Service.Date).ToServerFormat() : null,
-                    OrderDetailUrl = $s"{RoutesConstants.BaseUrlClient}/{RoutesConstants.OrderSummaryPath}/{order.Id}?jwt={token.Jwt}&expiresDate={token.ExpiresDate.ToServerFormat()}"
+                    OrderDetailUrl = $"{RoutesConstants.BaseUrlClient}/{RoutesConstants.OrderSummaryPath}/{order.Id}?jwt={token.Jwt}&expiresDate={token.ExpiresDate.ToServerFormat()}"
                 }).ToArray()
             );
         }

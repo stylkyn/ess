@@ -3,7 +3,7 @@ import { ModuleWithProviders } from '@angular/core';
 import { ThemeComponent } from './theme.component';
 import { MetaGuard, MetaConfig } from 'ng2-meta';
 import { HomepageComponent } from '../pages/homepage/homepage.component';
-import { presentationProductRoute, presentationOrderRoute, presentationOrderSummaryRoute, presentationHomepage, presentationMyAccountRoute, presentationAgentRoute, presentationContactRoute, presentationAboutUsRoute } from './presentation-routes';
+import { presentationProductRoute, presentationOrderRoute, presentationOrderSummaryRoute, presentationHomepage, presentationMyAccountRoute, presentationAgentRoute, presentationContactRoute, presentationAboutUsRoute, presentationGdprRoute, presentationTermsRoute } from './presentation-routes';
 
 // defaultni data pro meta tagy
 const metaConfig: MetaConfig = {
@@ -56,6 +56,14 @@ const APP_ROUTES: Routes = [
         {
             path: presentationAboutUsRoute,
             loadChildren: () => import('./../pages/about-us/about-us.module').then(mod => mod.AboutUsModule)
+        },
+        {
+            path: presentationTermsRoute,
+            loadChildren: () => import('./../pages/terms/terms.module').then(mod => mod.TermsModule)
+        },
+        {
+            path: presentationGdprRoute,
+            loadChildren: () => import('./../pages/gdpr/gdpr.module').then(mod => mod.GdprModule)
         },
     ]}
 ];

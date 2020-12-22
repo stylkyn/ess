@@ -31,14 +31,14 @@
                                 <div class="md-form">
                                     <input mdbInput mdbValidate type="text" class="form-control" id="email" formControlName="email">
                                     <label for="email">Email</label>
-                                    <mdb-error *ngIf="email.invalid && (email.dirty || email.touched)">Pole je povinné</mdb-error>
+                                    <mdb-error *ngIf="email.invalid && (email.dirty || email.touched)">Zadejte validní email</mdb-error>
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="md-form">
-                                    <input mdbInput mdbValidate type="text" class="form-control" id="phone" formControlName="phone">
+                                    <input prefix="+" mask="000 000 000 000" mdbInput mdbValidate type="tel" class="form-control" id="phone" formControlName="phone">
                                     <label for="phone">Telefon</label>
-                                    <mdb-error *ngIf="phone.invalid && (phone.dirty || phone.touched)">Pole je povinné</mdb-error>
+                                    <mdb-error *ngIf="phone.invalid && (phone.dirty || phone.touched)">Zadejte ve formátu (+420 XXX XXX XXX)</mdb-error>
                                 </div>
                             </div>
                         </div>
@@ -72,15 +72,14 @@
                             </div>
                             <div class="col-3">
                                 <div class="md-form">
-                                    <input mdbInput mdbValidate type="text" class="form-control" id="postalCode" formControlName="postalCode">
+                                    <input matInput mask="000 00" mdbInput mdbValidate type="text" class="form-control" id="postalCode" formControlName="postalCode">
                                     <label for="postalCode">PSČ</label>
-                                    <mdb-error *ngIf="postalCode.invalid && (postalCode.dirty || postalCode.touched)">Pole je povinné</mdb-error>
+                                    <mdb-error *ngIf="postalCode.invalid && (postalCode.dirty || postalCode.touched)">Zadej ve formátu (100 00)</mdb-error>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="md-form">
-                                    <input mdbInput mdbValidate type="text" class="form-control" id="country" formControlName="country">
-                                    <label for="country">Stát</label>
+                                    <mdb-select formControlName="country" [options]="countriesOptions"></mdb-select>
                                     <mdb-error *ngIf="country.invalid && (country.dirty || country.touched)">Pole je povinné</mdb-error>
                                 </div>
                             </div>
@@ -102,16 +101,16 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="md-form">
-                                        <input mdbInput mdbValidate type="text" class="form-control" id="companyId" formControlName="companyId">
+                                        <input mask="0000000000" mdbInput mdbValidate type="text" class="form-control" id="companyId" formControlName="companyId">
                                         <label for="companyId">IČO</label>
-                                        <mdb-error *ngIf="companyId.invalid && (companyId.dirty || companyId.touched)">Pole je povinné</mdb-error>
+                                        <mdb-error *ngIf="companyId.invalid && (companyId.dirty || companyId.touched)">Minimální počet znaků je 8</mdb-error>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="md-form">
-                                        <input mdbInput mdbValidate type="text" class="form-control" id="companyVat" formControlName="companyVat">
+                                        <input mask="AA0000000000" mdbInput mdbValidate type="text" class="form-control" id="companyVat" formControlName="companyVat">
                                         <label for="companyVat">DIČ</label>
-                                        <mdb-error *ngIf="companyVat.invalid && (companyVat.dirty || companyVat.touched)">Pole je povinné</mdb-error>
+                                        <mdb-error *ngIf="companyVat.invalid && (companyVat.dirty || companyVat.touched)">Minimální počet znaků je 10</mdb-error>
                                     </div>
                                 </div>
                             </div>
@@ -139,15 +138,14 @@
                                 </div>
                                 <div class="col-3">
                                     <div class="md-form">
-                                        <input mdbInput mdbValidate type="text" class="form-control" id="companyPostalCode" formControlName="postalCode">
+                                        <input matInput mask="000 00" mdbInput mdbValidate type="text" class="form-control" id="companyPostalCode" formControlName="postalCode">
                                         <label for="companyPostalCode">PSČ</label>
-                                        <mdb-error *ngIf="postalCode.invalid && (postalCode.dirty || postalCode.touched)">Pole je povinné</mdb-error>
+                                        <mdb-error *ngIf="postalCode.invalid && (postalCode.dirty || postalCode.touched)"></mdb-error>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="md-form">
-                                        <input mdbInput mdbValidate type="text" class="form-control" id="companyCountry" formControlName="country">
-                                        <label for="companyCountry">Stát</label>
+                                        <mdb-select formControlName="country" [options]="countriesOptions"></mdb-select>
                                         <mdb-error *ngIf="country.invalid && (country.dirty || country.touched)">Pole je povinné</mdb-error>
                                     </div>
                                 </div>

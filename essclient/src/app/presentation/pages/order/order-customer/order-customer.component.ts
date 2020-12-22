@@ -5,10 +5,12 @@ import { CustomerStorageService, ICustomerStorage } from 'src/app/services/stora
 import { clearValidators } from 'src/app/utils/formUtils';
 import { OrderBussinessService } from './../order.service';
 import { IOrder } from './../../../../models/IOrder';
-import { presentationOrderRoute, presentationOrderSummaryRoute } from 'src/app/presentation/theme/presentation-routes';
-import { UserService, ILoginRequest } from './../../../../services/API/user.service';
+import { presentationGdprRoute, presentationOrderRoute } from 'src/app/presentation/theme/presentation-routes';
+import { UserService } from './../../../../services/API/user.service';
 import { orderFinishRoute } from './../order.routing';
-
+import { getCountriesOptions } from 'src/app/models/ICounter';
+import { presentationTermsRoute } from './../../../theme/presentation-routes';
+import { email } from '@ng-validators/ng-validators';
 @Component({
   selector: 'app-order-customer',
   templateUrl: './order-customer.component.html',
@@ -17,6 +19,10 @@ import { orderFinishRoute } from './../order.routing';
 export class OrderCustomerComponent implements OnInit {
     customerForm: FormGroup;
 
+    presentationTermsRoute = presentationTermsRoute;
+    presentationGdprRoute = presentationGdprRoute;
+
+    public countriesOptions = getCountriesOptions();
     // personal
     get firstname () { return this.customerForm.get('personal.firstname'); }
     get lastname () { return this.customerForm.get('personal.lastname'); }
@@ -53,7 +59,7 @@ export class OrderCustomerComponent implements OnInit {
         private _router: Router,
         private _customerStorage: CustomerStorageService,
         private _orderBussiness: OrderBussinessService,
-        private _userService: UserService
+        private _userService: UserService,
         ) {
         this.customerForm = this._formBuilder.group({
             personal: this._formBuilder.group({
@@ -61,21 +67,21 @@ export class OrderCustomerComponent implements OnInit {
                 lastname: [null, Validators.required],
                 address: this._formBuilder.group({
                     country: ['Česká Republika', Validators.required],
-                    postalCode: [null, Validators.required],
+                    postalCode: [null, [Validators.required, Validators.minLength(5)]],
                     city: [null, Validators.required],
                     street: [null, Validators.required],
                     houseNumber: [null, Validators.required],
                 }),
                 contact: this._formBuilder.group({
-                    phone: [null, Validators.required],
-                    email: [null, Validators.required],
+                    phone: [420, [Validators.required, Validators.minLength(4)]],
+                    email: [null, [Validators.required, email]],
                 }),
             }),
             invoiceToCompany: [false],
             company: this._formBuilder.group({
                 companyName: [null],
                 companyId: [null],
-                companyVat: [null],
+                companyVat: ['CZ'],
                 transportToSameAddress: [false],
                 address: this._formBuilder.group({
                     country: ['Česká Republika'],
@@ -87,6 +93,32 @@ export class OrderCustomerComponent implements OnInit {
             }),
             termsAndConditions: [false, Validators.requiredTrue],
             gpdrTerms: [false, Validators.requiredTrue]
+        });
+        this.invoiceToCompany.valueChanges.subscribe(value => {
+            if (value) {
+                this.companyName.setValidators(Validators.required);
+                this.companyId.setValidators([Validators.required, Validators.minLength(8)]);
+                this.companyVat.setValidators([Validators.required, Validators.minLength(10)]);
+            } else {
+                this.companyName.setValidators(null);
+                this.companyId.setValidators(null);
+                this.companyVat.setValidators(null);
+            }
+        });
+        this.transportToSameAddress.valueChanges.subscribe(value => {
+            if (!value) {
+                this.companyCountry.setValidators(Validators.required);
+                this.companyPostalCode.setValidators([Validators.required, Validators.minLength(5)]);
+                this.companyCity.setValidators(Validators.required);
+                this.companyStreet.setValidators(Validators.required);
+                this.houseNumber.setValidators(Validators.required);
+            } else {
+                this.companyCountry.setValidators(null);
+                this.companyPostalCode.setValidators(null);
+                this.companyCity.setValidators(null);
+                this.companyStreet.setValidators(null);
+                this.houseNumber.setValidators(null);
+            }
         });
     }
 

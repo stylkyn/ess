@@ -1,7 +1,7 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MDBSpinningPreloader, WavesModule, AccordionModule, 
+import { WavesModule, AccordionModule,
     InputsModule, NavbarModule, CardsModule, ButtonsModule, 
     SelectModule, TabsModule, IconsModule, InputUtilitiesModule, CheckboxModule, StickyContentModule } from 'ng-uikit-pro-standard';
 import { ComponentsModule } from '../../components/components.module';
@@ -14,13 +14,15 @@ import { OrderPaymentComponent } from './order-payment/order-payment.component';
 import { OrderCustomerComponent } from './order-customer/order-customer.component';
 import { OrderBussinessService } from './order.service';
 import { OrderFinishComponent } from './order-finish/order-finish.component';
+import { NgValidatorsModule } from '@ng-validators/ng-validators';
+import { NgxMaskModule } from 'ngx-mask';
 
+ 
 @NgModule({
   imports: [
     CommonModule,
     // plugins
     CardsModule,
-    WavesModule,
     AccordionModule,
     NavbarModule,
     // my modules
@@ -38,7 +40,9 @@ import { OrderFinishComponent } from './order-finish/order-finish.component';
     TabsModule,
     IconsModule,
     StickyContentModule,
-
+    NgValidatorsModule,
+    NgxMaskModule,
+    
     ComponentsModule
   ],
   declarations: [

@@ -9,7 +9,8 @@ import { PaymentService } from './../../../../services/API/payment.service';
 import { ITransport } from 'src/app/models/ITransport';
 import { IPayment } from './../../../../models/IPayment';
 import { NzModalService } from 'ng-zorro-antd/modal';
-import { en_US, NzI18nService, zh_CN } from 'ng-zorro-antd/i18n';
+import { email, gt, lte,  } from '@ng-validators/ng-validators';
+import { getCountriesOptions } from 'src/app/models/ICounter';
 
 type Type = 'update' | 'add';
 
@@ -20,6 +21,8 @@ type Type = 'update' | 'add';
 })
 export class OrderFormComponent {
     @Output() changeData = new EventEmitter<IOrder>();
+
+    countriesOptions = getCountriesOptions();
 
     activeOrder: IOrder;
     orderForm: FormGroup;
@@ -91,20 +94,20 @@ export class OrderFormComponent {
                 lastname: [null, Validators.required],
                 address: this._formBuilder.group({
                     country: ['Česká Republika', Validators.required],
-                    postalCode: [null, Validators.required],
+                    postalCode: [null, [Validators.required, Validators.minLength(5)]],
                     city: [null, Validators.required],
                     street: [null, Validators.required],
                     houseNumber: [null, Validators.required],
                 }),
                 contact: this._formBuilder.group({
-                    phone: [null, Validators.required],
-                    email: [null, Validators.required],
+                    phone: [420, Validators.required],
+                    email: [null, [Validators.required, email]],
                 }),
             }),
             company: this._formBuilder.group({
                 companyName: [null],
                 companyId: [null],
-                companyVat: [null],
+                companyVat: ['CZ'],
                 address: this._formBuilder.group({
                     country: ['Česká Republika'],
                     postalCode: [null],
@@ -197,7 +200,21 @@ export class OrderFormComponent {
         return this._formBuilder.group({
             productId: product.product.id,
             serviceDate: product.service?.date,
-            count: product.count,
+            count: [product.count, [Validators.required, gt(0), lte(100)]],
+        }, {
+            validator: (group: any) => {
+                let errors = {};
+                if (product.service?.date && !group.value.serviceDate) {
+                    group.controls.serviceDate.setErrors({serviceDate: true});
+                    errors = { ...errors, serviceDate: true }
+                }
+
+                if (group.value.count <= 0) {
+                    group.controls.serviceDate.setErrors({count: true});
+                    errors = { ...errors, count: true }
+                }
+                return errors;
+            }
         });
     }
 

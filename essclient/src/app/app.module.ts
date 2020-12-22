@@ -47,10 +47,11 @@ const gapiClientConfig: NgGapiClientConfig = {
     cookie_policy: 'single_host_origin',
 };
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NgxMaskModule, IConfig } from 'ngx-mask';
 
 @NgModule({
     declarations: [
-        AppComponent,
+    AppComponent,
     ],
     imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -80,6 +81,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
         }),
         NzIconModule.forRoot([PictureTwoTone]),
         NzDatePickerModule,
+        NgxMaskModule.forRoot(),
 
     ],
     providers: [

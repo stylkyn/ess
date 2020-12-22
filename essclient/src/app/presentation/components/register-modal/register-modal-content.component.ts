@@ -3,6 +3,7 @@ import { MDBModalRef } from 'ng-uikit-pro-standard';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService, ICreateUserRequest } from 'src/app/services/API/user.service';
 import { Subscription } from 'rxjs';
+import { email } from '@ng-validators/ng-validators';
 
 @Component({
   selector: 'app-register-modal-content',
@@ -37,7 +38,7 @@ export class RegisterModalContentComponent implements OnInit{
 
     ngOnInit(): void {
         this.registerForm = this._formBuilder.group({
-            email: ['', [Validators.required, Validators.email]],
+            email: ['', [Validators.required, email]],
             password: ['', [Validators.required, Validators.minLength(6)]],
             passwordConfirm: ['', [Validators.required, Validators.minLength(6)]],
             terms: [false, Validators.pattern('true')]

@@ -20,6 +20,8 @@ import { OrderFormComponent } from './order-form/order-form.component';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NgxMaskModule } from 'ngx-mask';
+import { NgValidatorsModule } from '@ng-validators/ng-validators';
 
 @NgModule({
     imports: [
@@ -42,6 +44,8 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
         NzGridModule,
         NzToolTipModule,
         NzFormModule,
+        NgxMaskModule,
+        NgValidatorsModule,
     ],
     declarations: [OrderComponent, OrderFormComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],

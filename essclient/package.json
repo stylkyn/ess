@@ -14,7 +14,8 @@
     "build:ssr": "ng build --prod && ng run mdb-angular-pro:server:production",
     "build:client-and-server-bundles": "ng build --prod && ng run mdb-angular-pro:server:production --bundleDependencies all",
     "dev:ssr": "ng run mdb-angular-pro:serve-ssr",
-    "prerender": "ng run mdb-angular-pro:prerender"
+    "prerender": "ng run mdb-angular-pro:prerender",
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
@@ -29,6 +30,7 @@
     "@angular/platform-server": "^9.1.1",
     "@angular/router": "^9.1.1",
     "@cloudinary/angular-5.x": "^1.2.2",
+    "@ng-validators/ng-validators": "^0.12.1",
     "@nguniversal/express-engine": "^9.1.0",
     "@nguniversal/module-map-ngfactory-loader": "^9.0.0-next.9",
     "angular-calendar": "^0.28.2",
@@ -52,6 +54,7 @@
     "ng2-meta": "^5.0.0",
     "ngx-cookie-service": "^3.0.3",
     "ngx-daterangepicker-material": "^2.1.11",
+    "ngx-mask": "^11.1.4",
     "node": "^13.5.0",
     "rxjs": "^6.5.5",
     "screenfull": "5.0.x",

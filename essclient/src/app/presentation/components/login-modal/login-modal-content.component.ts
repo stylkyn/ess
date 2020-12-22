@@ -3,6 +3,7 @@ import { MDBModalRef } from 'ng-uikit-pro-standard';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService, ILoginRequest } from 'src/app/services/API/user.service';
 import { Subscription } from 'rxjs';
+import { email } from '@ng-validators/ng-validators';
 
 @Component({
   selector: 'app-login-modal-content',
@@ -32,7 +33,7 @@ export class LoginModalContentComponent implements OnInit{
 
     ngOnInit(): void {
         this.loginForm = this._formBuilder.group({
-            email: ['', [Validators.required, Validators.email]],
+            email: ['', [Validators.required, email]],
             password: ['', Validators.required]
         });
         this.loginForm.valueChanges.subscribe(x => {

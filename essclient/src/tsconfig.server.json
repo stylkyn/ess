@@ -8,12 +8,12 @@
     "main.server.ts",
     "./app/presentation/theme/theme.module.ts",
     "./app/internal/theme/theme.module.ts",
-    "./../server.ts",
+    "./../server.ts"
   ],
   "angularCompilerOptions": {
     "entryModule": "./app/app.server.module#AppServerModule"
   },
   "include": [
-    "**/*.d.ts"
+    "**/*.d.ts",
   ]
 }

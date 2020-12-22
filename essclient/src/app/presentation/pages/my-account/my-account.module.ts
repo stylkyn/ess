@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../../components/components.module';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { NgxMaskModule } from 'ngx-mask';
 
 @NgModule({
     imports: [
@@ -39,6 +40,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
         TabsModule,
         IconsModule,
         StickyContentModule,
+        NgxMaskModule,
         // my modules
         ComponentsModule
     ],

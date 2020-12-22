@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IUser } from 'src/app/models/IUser';
 import { IUserUpdateRequest, UserService } from 'src/app/services/API/user.service';
+import { getCountriesOptions } from 'src/app/models/ICounter';
 import { MyToastService } from 'src/app/services/toast.service';
 
 @Component({
@@ -11,6 +12,8 @@ import { MyToastService } from 'src/app/services/toast.service';
 })
 export class UserProfileComponent implements OnInit {
     
+    countriesOptions = getCountriesOptions();
+
     userForm: FormGroup;
     isLoading = false;
 
@@ -54,20 +57,20 @@ export class UserProfileComponent implements OnInit {
                 lastname: [null, Validators.required],
                 address: this._formBuilder.group({
                     country: ['Česká Republika', Validators.required],
-                    postalCode: [null, Validators.required],
+                    postalCode: [null, [Validators.required, Validators.minLength(5)]],
                     city: [null, Validators.required],
                     street: [null, Validators.required],
                     houseNumber: [null, Validators.required],
                 }),
                 contact: this._formBuilder.group({
-                    phone: [null, Validators.required],
+                    phone: [420, [Validators.required, Validators.minLength(4)]],
                     email: [null, Validators.required],
                 }),
             }),
             company: this._formBuilder.group({
                 companyName: [null],
                 companyId: [null],
-                companyVat: [null],
+                companyVat: ['CZ'],
                 address: this._formBuilder.group({
                     country: ['Česká Republika'],
                     postalCode: [null],

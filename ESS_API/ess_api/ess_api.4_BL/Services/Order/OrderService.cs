@@ -113,13 +113,13 @@ namespace ess_api._4_BL.Services.Order
 
                     if (product?.Service?.Date != null && product.Service.Date.Value.Date != productRequest.ServiceDate.Value.Date)
                     {
-                        sendServiceChangeDateEmail = true;
+                        changedServices.Add(product);
                     }
                 });
                 if (changedServices.Count() > 0)
                 {
                     var user = await _uow.Users.GetUser(request.RequestIdentity.UserEmail);
-                    await _mailingLibrary.SendChangeServiceDay(order, user, null);
+                    await _mailingLibrary.SendChangeServiceDay(order, changedServices, user);
                 }
                 
                 order.CalculatedData = calculatedData;
