@@ -13,64 +13,68 @@
                 <div nz-row [nzGutter]="16">
                     <div class="gutter-row" nz-col [nzSpan]="12">
                         <nz-form-item>
-                            <nz-form-label>Jméno *</nz-form-label>
-                            <nz-form-control>
+                            <nz-form-label nzRequired>Jméno </nz-form-label>
+                            <nz-form-control nzErrorTip="Pole je povinné">
                                 <input formControlName="firstname" nz-input placeholder="Zadejte jméno"  />
                             </nz-form-control>
                         </nz-form-item>
                     </div>
                     <div class="gutter-row" nz-col [nzSpan]="12">
                         <nz-form-item>
-                            <nz-form-label>Přijmení *</nz-form-label>
-                            <nz-form-control>
+                            <nz-form-label nzRequired>Přijmení </nz-form-label>
+                            <nz-form-control nzErrorTip="Pole je povinné">
                                 <input formControlName="lastname" nz-input placeholder="Zadejte přijímení"  />
                             </nz-form-control>
                         </nz-form-item>
                     </div>
 
-                <nz-divider nzOrientation="left" nzText="Dodací údaje"></nz-divider>
+                    <nz-divider nzOrientation="left" nzText="Dodací údaje"></nz-divider>
 
                     <ng-container formGroupName="address">
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
-                                <nz-form-label>Ulice *</nz-form-label>
-                                <nz-input-group>
+                                <nz-form-label nzRequired>Ulice</nz-form-label>
+                                <nz-input-control nzErrorTip="Pole je povinné">
                                     <input formControlName="street" nz-input placeholder="Zadejte ulici" />
-                                </nz-input-group>
+                                </nz-input-control>
                             </nz-form-item>
                         </div>
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
-                                <nz-form-label>Číslo popisné *</nz-form-label>
-                                <nz-input-group>
+                                <nz-form-label nzRequired>Číslo popisné</nz-form-label>
+                                <nz-input-control nzErrorTip="Pole je povinné">
                                     <input formControlName="houseNumber" type="tel" nz-input placeholder="Zadejte Č.P." />
-                                </nz-input-group>
+                                </nz-input-control>
                             </nz-form-item>
                         </div>
             
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
-                                <nz-form-label>Město *</nz-form-label>
-                                <nz-input-group>
+                                <nz-form-label nzRequired>Město</nz-form-label>
+                                <nz-input-control nzErrorTip="Pole je povinné">
                                     <input formControlName="city" nz-input placeholder="Zadejte město" />
-                                </nz-input-group>
+                                </nz-input-control>
                             </nz-form-item>
                         </div>
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
-                                <nz-form-label>PSČ *</nz-form-label>
-                                <nz-input-group>
-                                    <input formControlName="postalCode" nz-input placeholder="Zadejte PSČ" />
-                                </nz-input-group>
+                                <nz-form-label nzRequired>PSČ</nz-form-label>
+                                <nz-input-control nzErrorTip="Zadej ve formátu (100 00)">
+                                    <input matInput mask="000 00" formControlName="postalCode" nz-input placeholder="Zadejte PSČ" />
+                                </nz-input-control>
                             </nz-form-item>
                         </div>
         
                         <div class="gutter-row" nz-col [nzSpan]="24">
                             <nz-form-item>
-                                <nz-form-label>Stát *</nz-form-label>
-                                <nz-input-group>
-                                    <input formControlName="country" nz-input placeholder="Zadejte stát" />
-                                </nz-input-group>
+                                <nz-form-label nzRequired>Stát </nz-form-label>
+                                <nz-select formControlName="country">
+                                    <nz-option 
+                                        *ngFor="let country of countriesOptions" 
+                                        [nzValue]="country.value" 
+                                        [nzLabel]="country.label">
+                                    </nz-option>
+                                </nz-select>
                             </nz-form-item>
                         </div>
                     </ng-container>
@@ -82,16 +86,16 @@
                 <div formGroupName="contact" nz-row [nzGutter]="16">
                     <div class="gutter-row" nz-col [nzSpan]="12">
                         <nz-form-item>
-                            <nz-form-label>Telefon *</nz-form-label>
-                            <nz-form-control>
-                                <input formControlName="phone" type="tel" nz-input placeholder="Zadejte telefon"  />
+                            <nz-form-label nzRequired>Telefon</nz-form-label>
+                            <nz-form-control nzErrorTip="Zadejte ve formátu (+420 XXX XXX XXX)">
+                                <input prefix="+" mask="000 000 000 000" formControlName="phone" type="tel" nz-input placeholder="Zadejte telefon"  />
                             </nz-form-control>
                         </nz-form-item>
                     </div>
                     <div class="gutter-row" nz-col [nzSpan]="12">
                         <nz-form-item>
-                            <nz-form-label>Email *</nz-form-label>
-                            <nz-form-control>
+                            <nz-form-label nzRequired>Email</nz-form-label>
+                            <nz-form-control nzErrorTip="Zadejte validní email">
                                 <input class="disabled" [disabled]="true" type="email" formControlName="email" nz-input placeholder="Zadejte email"  />
                             </nz-form-control>
                         </nz-form-item>
@@ -116,9 +120,9 @@
                 <div nz-row [nzGutter]="16">
                     <div class="gutter-row" nz-col [nzSpan]="12">
                         <nz-form-item>
-                            <nz-form-label>IČO</nz-form-label>
-                            <nz-form-control>
-                                <input formControlName="companyId" nz-input placeholder="Zadejte IČO"  />
+                            <nz-form-label >IČO</nz-form-label>
+                            <nz-form-control nzErrorTip="Minimální počet znaků je 8 (00000000)">
+                                <input mask="0000000000" formControlName="companyId" nz-input placeholder="Zadejte IČO"  />
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -126,8 +130,8 @@
                     <div class="gutter-row" nz-col [nzSpan]="12">
                         <nz-form-item>
                             <nz-form-label>DIČ</nz-form-label>
-                            <nz-form-control>
-                                <input formControlName="companyVat" nz-input placeholder="Zadejte DIČ"  />
+                            <nz-form-control nzErrorTip="Minimální počet znaků je 10 (CZ00000000)">
+                                <input mask="AA0000000000" formControlName="companyVat" nz-input placeholder="Zadejte DIČ"  />
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -138,17 +142,17 @@
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
                                 <nz-form-label>Ulice</nz-form-label>
-                                <nz-input-group>
+                                <nz-input-control>
                                     <input formControlName="street" type="number" nz-input placeholder="Zadejte ulici" />
-                                </nz-input-group>
+                                </nz-input-control>
                             </nz-form-item>
                         </div>
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
                                 <nz-form-label>Číslo popisné</nz-form-label>
-                                <nz-input-group>
+                                <nz-input-control>
                                     <input formControlName="houseNumber" type="number" nz-input placeholder="Zadejte č.p." />
-                                </nz-input-group>
+                                </nz-input-control>
                             </nz-form-item>
                         </div>
                     </div>
@@ -157,17 +161,17 @@
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
                                 <nz-form-label>Město</nz-form-label>
-                                <nz-input-group>
+                                <nz-input-control>
                                     <input formControlName="city" type="number" nz-input placeholder="Zadejte město" />
-                                </nz-input-group>
+                                </nz-input-control>
                             </nz-form-item>
                         </div>
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
                                 <nz-form-label>PSČ</nz-form-label>
-                                <nz-input-group>
-                                    <input formControlName="postalCode" type="number" nz-input placeholder="Zadejte PSČ" />
-                                </nz-input-group>
+                                <nz-input-control nzErrorTip="Zadejte ve formátu (100 00)">
+                                    <input matInput mask="000 00" formControlName="postalCode" type="number" nz-input placeholder="Zadejte PSČ" />
+                                </nz-input-control>
                             </nz-form-item>
                         </div>
                     </div>
@@ -175,17 +179,20 @@
                     <div nz-row [nzGutter]="16">
                         <div class="gutter-row" nz-col [nzSpan]="24">
                             <nz-form-item>
-                                <nz-form-label>Stát</nz-form-label>
-                                <nz-input-group>
-                                    <input formControlName="country" type="number" nz-input placeholder="Zadejte stát" />
-                                </nz-input-group>
+                                <nz-form-labe>Stát</nz-form-labe>
+                                <nz-select formControlName="country">
+                                    <nz-option 
+                                        *ngFor="let country of countriesOptions" 
+                                        [nzValue]="country.value" 
+                                        [nzLabel]="country.label">
+                                    </nz-option>
+                                </nz-select>
                             </nz-form-item>
                         </div>
                     </div>
                 </ng-container>
                 
             </ng-container>
-
 
             <hr class="mt-4"/>
             <button [disabled]="userForm.invalid" (click)="confirm()" nz-button nzType="primary" nzShape="round" class="pull-right">Uložit <i nz-icon nzType="check"></i></button>

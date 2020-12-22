@@ -19,6 +19,8 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NgxMaskModule } from 'ngx-mask';
+import { NgValidatorsModule } from '@ng-validators/ng-validators';
 
 @NgModule({
     imports: [
@@ -42,6 +44,8 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
         NzInputNumberModule,
         NzToolTipModule,
         NzIconModule.forChild([DeleteOutline, FileTwoTone]),
+        NgxMaskModule,
+        NgValidatorsModule
     ],
     declarations: [UserComponent, UserFormComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],

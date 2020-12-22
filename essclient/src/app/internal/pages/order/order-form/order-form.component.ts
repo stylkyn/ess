@@ -205,13 +205,11 @@ export class OrderFormComponent {
             validator: (group: any) => {
                 let errors = {};
                 if (product.service?.date && !group.value.serviceDate) {
-                    group.controls.serviceDate.setErrors({serviceDate: true});
-                    errors = { ...errors, serviceDate: true }
+                    errors = { ...errors, serviceDate: true };
                 }
 
                 if (group.value.count <= 0) {
-                    group.controls.serviceDate.setErrors({count: true});
-                    errors = { ...errors, count: true }
+                    errors = { ...errors, count: true };
                 }
                 return errors;
             }

@@ -1,5 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { email } from '@ng-validators/ng-validators';
+import { getCountriesOptions } from 'src/app/models/ICounter';
 import { IUser } from 'src/app/models/IUser';
 import { IUserUpdateRequest } from 'src/app/services/API/user.service';
 import { UserService } from './../../../../services/API/user.service';
@@ -13,6 +15,8 @@ type Type = 'update' | 'add';
 })
 export class UserFormComponent {
     @Output() changeData = new EventEmitter<IUser>();
+
+    countriesOptions = getCountriesOptions();
     
     activeUser: IUser;
     userForm: FormGroup;
@@ -62,20 +66,20 @@ export class UserFormComponent {
                 lastname: [null, Validators.required],
                 address: this._formBuilder.group({
                     country: ['Česká Republika', Validators.required],
-                    postalCode: [null, Validators.required],
+                    postalCode: [null, [Validators.required, Validators.minLength(5)]],
                     city: [null, Validators.required],
                     street: [null, Validators.required],
                     houseNumber: [null, Validators.required],
                 }),
                 contact: this._formBuilder.group({
-                    phone: [null, Validators.required],
-                    email: [null, Validators.required],
+                    phone: [420, Validators.required],
+                    email: [null, [Validators.required, email]],
                 }),
             }),
             company: this._formBuilder.group({
                 companyName: [null],
                 companyId: [null],
-                companyVat: [null],
+                companyVat: ['CZ'],
                 address: this._formBuilder.group({
                     country: ['Česká Republika'],
                     postalCode: [null],
@@ -84,10 +88,6 @@ export class UserFormComponent {
                     houseNumber: [null],
                 })
             }),
-        }, {
-            validator: (group: any) => {
-                return null;
-            }
         });
     }
 
