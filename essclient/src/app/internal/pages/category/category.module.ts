@@ -17,6 +17,8 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { RouterModule } from '@angular/router';
+import { NgxMaskModule } from 'ngx-mask';
+import { NgValidatorsModule } from '@ng-validators/ng-validators';
 
 @NgModule({
     imports: [
@@ -34,7 +36,9 @@ import { RouterModule } from '@angular/router';
         NzDrawerModule,
         NzFormModule,
         NzSpinModule,
-        NzToolTipModule
+        NzToolTipModule,
+        NgxMaskModule,
+        NgValidatorsModule
     ],
     declarations: [CategoryComponent, CategoryFormComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],

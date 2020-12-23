@@ -34,34 +34,34 @@
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
                                 <nz-form-label nzRequired>Ulice</nz-form-label>
-                                <nz-input-control nzErrorTip="Pole je povinné">
+                                <nz-form-control nzErrorTip="Pole je povinné">
                                     <input formControlName="street" nz-input placeholder="Zadejte ulici" />
-                                </nz-input-control>
+                                </nz-form-control>
                             </nz-form-item>
                         </div>
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
                                 <nz-form-label nzRequired>Číslo popisné</nz-form-label>
-                                <nz-input-control nzErrorTip="Pole je povinné">
-                                    <input formControlName="houseNumber" type="tel" nz-input placeholder="Zadejte Č.P." />
-                                </nz-input-control>
+                                <nz-form-control nzErrorTip="Pole je povinné">
+                                    <input formControlName="houseNumber" type="text" nz-input placeholder="Zadejte Č.P." />
+                                </nz-form-control>
                             </nz-form-item>
                         </div>
             
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
                                 <nz-form-label nzRequired>Město</nz-form-label>
-                                <nz-input-control nzErrorTip="Pole je povinné">
+                                <nz-form-control nzErrorTip="Pole je povinné">
                                     <input formControlName="city" nz-input placeholder="Zadejte město" />
-                                </nz-input-control>
+                                </nz-form-control>
                             </nz-form-item>
                         </div>
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
                                 <nz-form-label nzRequired>PSČ</nz-form-label>
-                                <nz-input-control nzErrorTip="Zadej ve formátu (100 00)">
+                                <nz-form-control nzErrorTip="Zadej ve formátu (100 00)">
                                     <input matInput mask="000 00" formControlName="postalCode" nz-input placeholder="Zadejte PSČ" />
-                                </nz-input-control>
+                                </nz-form-control>
                             </nz-form-item>
                         </div>
         
@@ -131,7 +131,7 @@
                         <nz-form-item>
                             <nz-form-label>DIČ</nz-form-label>
                             <nz-form-control nzErrorTip="Minimální počet znaků je 10 (CZ00000000)">
-                                <input mask="AA0000000000" formControlName="companyVat" nz-input placeholder="Zadejte DIČ"  />
+                                <input mask="SS0000000000" formControlName="companyVat" nz-input placeholder="Zadejte DIČ"  />
                             </nz-form-control>
                         </nz-form-item>
                     </div>
@@ -142,17 +142,17 @@
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
                                 <nz-form-label>Ulice</nz-form-label>
-                                <nz-input-control>
+                                <nz-form-control>
                                     <input formControlName="street" type="number" nz-input placeholder="Zadejte ulici" />
-                                </nz-input-control>
+                                </nz-form-control>
                             </nz-form-item>
                         </div>
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
                                 <nz-form-label>Číslo popisné</nz-form-label>
-                                <nz-input-control>
+                                <nz-form-control>
                                     <input formControlName="houseNumber" type="number" nz-input placeholder="Zadejte č.p." />
-                                </nz-input-control>
+                                </nz-form-control>
                             </nz-form-item>
                         </div>
                     </div>
@@ -161,17 +161,17 @@
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
                                 <nz-form-label>Město</nz-form-label>
-                                <nz-input-control>
+                                <nz-form-control>
                                     <input formControlName="city" type="number" nz-input placeholder="Zadejte město" />
-                                </nz-input-control>
+                                </nz-form-control>
                             </nz-form-item>
                         </div>
                         <div class="gutter-row" nz-col [nzSpan]="12">
                             <nz-form-item>
                                 <nz-form-label>PSČ</nz-form-label>
-                                <nz-input-control nzErrorTip="Zadejte ve formátu (100 00)">
-                                    <input matInput mask="000 00" formControlName="postalCode" type="number" nz-input placeholder="Zadejte PSČ" />
-                                </nz-input-control>
+                                <nz-form-control nzErrorTip="Zadejte ve formátu (100 00)">
+                                    <input matInput mask="000 00" formControlName="postalCode" type="text" nz-input placeholder="Zadejte PSČ" />
+                                </nz-form-control>
                             </nz-form-item>
                         </div>
                     </div>

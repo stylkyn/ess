@@ -82,7 +82,7 @@ export class OrderFormComponent {
         private _transportService: TransportService,
         private _paymentService: PaymentService,
         private _modalNz: NzModalService,
-    ) { 
+    ) {
         this.orderForm = this._formBuilder.group({
             calculateOrder: this._formBuilder.group({
                 paymentId: [null, Validators.required],

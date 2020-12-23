@@ -65,10 +65,10 @@ export class UserFormComponent {
                 firstname: [null, Validators.required],
                 lastname: [null, Validators.required],
                 address: this._formBuilder.group({
+                    street: [null, Validators.required],
                     country: ['Česká Republika', Validators.required],
                     postalCode: [null, [Validators.required, Validators.minLength(5)]],
                     city: [null, Validators.required],
-                    street: [null, Validators.required],
                     houseNumber: [null, Validators.required],
                 }),
                 contact: this._formBuilder.group({
