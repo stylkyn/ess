@@ -16,11 +16,11 @@
             </nz-form-item>
             <nz-form-item>
                 <nz-form-label nzRequired>Url slug</nz-form-label>
-                <nz-form-contro nzErrorTip="Zadejte ve formátu (nova-kategorie)">
+                <nz-form-control nzErrorTip="Zadaný slug již existuje, nebo obsahuje více než 30 znaků, zadejte prosím jiný slug ve formátu (nova-kategorie)">
                     <nz-input-group nzAddOnBefore="/nase-produkty/" nzAddOnAfter="/{produkt}.cz">
-                        <input mask="XXXXXXXXXXXXXXXXXXX" [specialCharacters]="['-']"  formControlName="slug" type="text" nz-input placeholder="Zadejte url slug" />
+                        <input mask="UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU" [patterns]="urlSlugPattern" [validation]="false" formControlName="slug" type="text" nz-input placeholder="Zadejte url slug" />
                     </nz-input-group>
-                </nz-form-contro>
+                </nz-form-control>
             </nz-form-item>
             <hr class="mt-4"/>
             <button [disabled]="categoryForm.invalid" (click)="confirm()" nz-button nzType="primary" nzShape="round" class="pull-right">Uložit <i nz-icon nzType="check"></i></button>

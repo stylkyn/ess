@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CategoryService, ICategoryCreateRequest, ICategoryUpdateRequest } from './../../../../services/API/category.service';
 import { ICategory } from 'src/app/models/ICategory';
+import { urlSlugPattern } from 'src/app/utils/regexUtils';
 
 // tslint:disable-next-line:no-bitwise
 type Type = 'update' | 'add';
@@ -11,9 +12,11 @@ type Type = 'update' | 'add';
     templateUrl: './category-form.component.html',
     styleUrls: ['./category-form.component.scss']
 })
-export class CategoryFormComponent {
+export class CategoryFormComponent implements OnInit {
     @Output() changeData = new EventEmitter<ICategory>();
-    
+
+    urlSlugPattern = urlSlugPattern;
+
     activeCategory: ICategory;
     categoryForm: FormGroup;
     visible = false;
@@ -21,6 +24,10 @@ export class CategoryFormComponent {
 
     public get type (): Type {
         return this.activeCategory ? 'update' : 'add';
+    }
+
+    public get categories (): ICategory[] {
+        return this._categoryService.categories;
     }
 
     get name () { return this.categoryForm.get('name'); }
@@ -32,8 +39,20 @@ export class CategoryFormComponent {
     ) { 
         this.categoryForm = _fb.group({
             name: ['', Validators.required],
-            slug: ['', Validators.required],
+            slug: ['', [Validators.required, Validators.maxLength(30)]],
+        }, {
+            validators: (groups: any) => {
+                const isDuplicate = this.categories.find(category => category.urlName == groups.value.slug && category.id != this.activeCategory.id);
+                if (isDuplicate) {
+                    groups.controls.slug.setErrors({ slug: true });
+                    return { slug: true };
+                }
+            }
         });
+    }
+
+    ngOnInit() {
+        this._categoryService.getAll();
     }
 
     open(category: ICategory = null): void {
