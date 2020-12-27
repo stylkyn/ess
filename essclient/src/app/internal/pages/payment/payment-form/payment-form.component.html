@@ -10,7 +10,7 @@
         
         <form [formGroup]="paymentForm" nzLayout="vertical" nz-form>
             <nz-form-item>
-                <nz-form-label>Typ *</nz-form-label>
+                <nz-form-label nzRequired>Typ</nz-form-label>
                 <nz-radio-group formControlName="type" nzButtonStyle="solid">
                     <label nz-radio-button [nzValue]="PaymentType.CashOnDelivery">{{ getPaymentTypeName(PaymentType.CashOnDelivery) }}</label>
                     <label nz-radio-button [nzValue]="PaymentType.CashOnPlace">{{ getPaymentTypeName(PaymentType.CashOnPlace) }}</label>
@@ -20,36 +20,42 @@
             <div nz-row [nzGutter]="16">
                 <div class="gutter-row" nz-col [nzSpan]="12">
                     <nz-form-item>
-                        <nz-form-label>Název *</nz-form-label>
-                        <nz-form-control>
+                        <nz-form-label nzRequired>Název</nz-form-label>
+                        <nz-form-control nzErrorTip="Pole je povinné">
                             <input formControlName="name" nz-input placeholder="Zadejte název"  />
                         </nz-form-control>
                     </nz-form-item>
                 </div>
                 <div class="gutter-row" nz-col [nzSpan]="12">
                     <nz-form-item>
-                        <nz-form-label>Cena bez DPH *</nz-form-label>
-                        <nz-input-number
+                        <nz-form-label nzRequired>Cena bez DPH</nz-form-label>
+                        <nz-form-control nzErrorTip="Pole je povinné">
+                            <nz-input-number
                             formControlName="price"
                             class="w-100"
                             nzPlaceHolder="0 Kč"
-                            [nzMin]="1"
+                            [nzMin]="0"
                             [nzStep]="100"
                             [nzFormatter]="formatterCurrency"
                             [nzParser]="parserCurrency"
                             ></nz-input-number>
+                        </nz-form-control>
                     </nz-form-item>
                 </div>
             </div>
             <div nz-row [nzGutter]="16">
                 <div class="gutter-row" nz-col [nzSpan]="16">
-                    <nz-form-label>Popis</nz-form-label>
-                    <textarea
-                        formControlName="description"
-                        nz-input
-                        placeholder="Zadejte popis přepravy"
-                        [nzAutosize]="{ minRows: 3, maxRows: 10 }">
-                    </textarea>
+                    <nz-form-item>
+                        <nz-form-label>Popis</nz-form-label>
+                            <nz-form-control>
+                                <textarea
+                                formControlName="description"
+                                nz-input
+                                placeholder="Zadejte popis přepravy"
+                                [nzAutosize]="{ minRows: 3, maxRows: 10 }">
+                            </textarea>
+                        </nz-form-control>
+                    </nz-form-item>
                 </div>
                 <div class="gutter-row" nz-col [nzSpan]="8">
                     <nz-form-item>

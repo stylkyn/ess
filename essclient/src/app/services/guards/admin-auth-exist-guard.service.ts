@@ -13,7 +13,10 @@ export class AdminAuthExistGuardService implements CanActivate {
             return this._router.parseUrl(adminDashFullRoute);
             
         return new Promise((resolve) => {
-            this._userService.getIsLoadedPromise.then(user => {
+            if (!this._userService.getIsLoadedPromise)
+                resolve(true);
+
+            this._userService.getIsLoadedPromise?.then(user => {
                 if (user?.hasAdminAccess)
                     resolve(this._router.parseUrl(adminDashFullRoute));
                 resolve(true);

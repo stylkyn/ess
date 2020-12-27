@@ -1,3 +1,6 @@
 export const urlSlugPattern = {
-    'U': {pattern: new RegExp('[A-z,1-9,-]')},
+    'U': {
+        pattern: new RegExp('[A-z,1-9,-]'),
+        optional: true,
+    },
 };

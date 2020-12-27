@@ -123,7 +123,6 @@ export class UserFormComponent {
             personal: this.personal.value,
             company: this.company.value, 
         };
-        console.log(request);
 
         this._userService.update(request).subscribe((user: IUser) => {
             this.changeData.next(user);

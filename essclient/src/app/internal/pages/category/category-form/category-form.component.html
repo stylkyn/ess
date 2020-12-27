@@ -18,7 +18,7 @@
                 <nz-form-label nzRequired>Url slug</nz-form-label>
                 <nz-form-control nzErrorTip="Zadaný slug již existuje, nebo obsahuje více než 30 znaků, zadejte prosím jiný slug ve formátu (nova-kategorie)">
                     <nz-input-group nzAddOnBefore="/nase-produkty/" nzAddOnAfter="/{produkt}.cz">
-                        <input mask="UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU" [patterns]="urlSlugPattern" [validation]="false" formControlName="slug" type="text" nz-input placeholder="Zadejte url slug" />
+                        <input mask="UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU" [patterns]="urlSlugPattern" [dropSpecialCharacters]="false" [validation]="false" formControlName="slug" type="text" nz-input placeholder="Zadejte url slug" />
                     </nz-input-group>
                 </nz-form-control>
             </nz-form-item>

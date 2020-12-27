@@ -243,7 +243,6 @@ export class OrderFormComponent {
                 })),
             }
         };
-        console.log(request);
 
         this._orderService.updateOrder(request).subscribe((user: IOrder) => {
             this.changeData.next(user);

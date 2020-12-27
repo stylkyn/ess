@@ -45,13 +45,13 @@ export class PaymentFormComponent {
             name: ['', Validators.required],
             description: [''],
             isActive: [true, Validators.required],
-            price: [null, [Validators.required, Validators.min(1)]],
+            price: [null, [Validators.required, Validators.min(0)]],
         });
     }
 
     // price input set currency
-    formatterCurrency = (value: number) => value ? `${value} Kč` : '';
-    parserCurrency = (value: string) => value ? value.replace(' Kč', '') : '';
+    formatterCurrency = (value: number) => value || value == 0 ? `${value} Kč` : '';
+    parserCurrency = (value: string) => value || value == '0' ? value.replace(' Kč', '') : '';
 
     // main image set
     mainImageChanged(image: IImage) {

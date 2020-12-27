@@ -31,7 +31,6 @@ export class PaymentComponent implements OnInit {
     }
 
     loadData(): void {
-        console.log('loaddata');
         this.loading = true;
 
         const request: IPaymentQueryRequest = { };

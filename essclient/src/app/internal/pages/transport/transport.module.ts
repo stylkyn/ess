@@ -23,6 +23,8 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { RouterModule } from '@angular/router';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NgxMaskModule } from 'ngx-mask';
+import { NgValidatorsModule } from '@ng-validators/ng-validators';
 
 @NgModule({
     imports: [
@@ -46,7 +48,9 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
         NzDividerModule,
         NzRadioModule,
         NzInputNumberModule,
-        NzToolTipModule
+        NzToolTipModule,
+        NgxMaskModule,
+        NgValidatorsModule
     ],
     declarations: [TransportComponent, TransportFormComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],

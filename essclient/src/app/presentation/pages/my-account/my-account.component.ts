@@ -16,7 +16,6 @@ export class MyAccountComponent implements OnInit {
         this._userService.getIsLoadedPromise.then(user => {
         })
         .catch(e => {
-            console.log(e);
             // this._router.navigateByUrl(presentationHomepage);
         });
     }

@@ -74,6 +74,10 @@ export class ProductService extends APIRepository<IProduct> {
         super(_API, 'Products');
     }
 
+    public getAll(): Promise<IProduct[]> {
+        return this._API.get<IProduct[]>(`${this.className}/GetAll`).toPromise();
+    }
+
     public search(request: IProductSearchRequest): Observable<IResponse<IProduct[]>> {
         return this._API.getQueryTotal<IProduct[]>(`${this.className}/Search`, request);
     }

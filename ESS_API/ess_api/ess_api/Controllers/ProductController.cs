@@ -1,4 +1,5 @@
 ﻿using ess_api._4_BL.Services.Product.Requests;
+using ess_api._4_BL.Services.Requests;
 using ess_api.App_Start.Filters;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -13,6 +14,18 @@ namespace ess_api.Controllers
         public ProductsController()
         {
             _productService = new _4_BL.Services.Product.ProductService();
+        }
+
+        [HttpGet]
+        [JwtAuthenticationAdmin]
+        [Route("GetAll")]
+        public async Task<IHttpActionResult> Getall([FromUri] Request request)
+        {
+            if (request == null)
+                request = new Request();
+            
+            var response = await _productService.GetAll(request);
+            return new CreateResult(response);
         }
 
         [HttpGet]

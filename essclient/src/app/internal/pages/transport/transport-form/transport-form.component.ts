@@ -1,7 +1,5 @@
-import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { IProduct, ProductType } from 'src/app/models/IProduct';
-import { ProductService, IProductUpdateRequest, IProductCreateRequest } from 'src/app/services/API/product.service';
 import { ITransportAddRequest, ITransportUpdateRequest, TransportService } from 'src/app/services/API/transport.service';
 import { IImage } from '../../../../models/IImage';
 import { FileUploadComponent } from '../../../components/file-upload/file-upload.component';
@@ -47,13 +45,13 @@ export class TransportFormComponent {
             name: ['', Validators.required],
             description: [''],
             isActive: [true, Validators.required],
-            price: [null, [Validators.required, Validators.min(1)]],
+            price: [null, [Validators.required, Validators.min(0)]],
         });
     }
 
     // price input set currency
-    formatterCurrency = (value: number) => value ? `${value} Kč` : '';
-    parserCurrency = (value: string) => value ? value.replace(' Kč', '') : '';
+    formatterCurrency = (value: number) => value || value == 0 ? `${value} Kč` : '';
+    parserCurrency = (value: string) => value || value == '0' ? value.replace(' Kč', '') : '';
 
     // main image set
     mainImageChanged(image: IImage) {
