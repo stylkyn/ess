@@ -22,6 +22,8 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { RouterModule } from '@angular/router';
+import { NgxMaskModule } from 'ngx-mask';
+import { NgValidatorsModule } from '@ng-validators/ng-validators';
 
 @NgModule({
     imports: [
@@ -44,7 +46,9 @@ import { RouterModule } from '@angular/router';
         NzDividerModule,
         NzRadioModule,
         NzInputNumberModule,
-        NzToolTipModule
+        NzToolTipModule,
+        NgxMaskModule,
+        NgValidatorsModule
     ],
     declarations: [ProductComponent, ProductFormComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],

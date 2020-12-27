@@ -24,6 +24,15 @@ namespace ess_api._4_BL.Services.Product
             _productSharedService = new ProductSharedService();
         }
 
+        public async Task<ResponseList<ProductResponse>> GetAll(Request request)
+        {
+            var products = await _uow.Products.FindManyAsync();
+            if (products == null)
+                return new ResponseList<ProductResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
+
+            return new ResponseList<ProductResponse>(ResponseStatus.Ok, _mapService.MapProducts(products));
+        }
+
         /*
          * GET
          * **/

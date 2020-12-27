@@ -36,13 +36,13 @@ export class CategoryFormComponent implements OnInit {
     constructor (
         private _fb: FormBuilder,
         private _categoryService: CategoryService
-    ) { 
+    ) {
         this.categoryForm = _fb.group({
             name: ['', Validators.required],
             slug: ['', [Validators.required, Validators.maxLength(30)]],
         }, {
             validators: (groups: any) => {
-                const isDuplicate = this.categories.find(category => category.urlName == groups.value.slug && category.id != this.activeCategory.id);
+                const isDuplicate = this.categories.find(category => category.urlName == groups.value.slug && category.id != this.activeCategory?.id);
                 if (isDuplicate) {
                     groups.controls.slug.setErrors({ slug: true });
                     return { slug: true };

@@ -8,6 +8,7 @@ import { CategoryService } from './../../../../services/API/category.service';
 import { removeAccents } from 'src/app/utils/stringUtils';
 import { FileUploadComponent } from './../../../components/file-upload/file-upload.component';
 import { MultipleFileUploadComponent } from './../../../components/multiple-file-upload/multiple-file-upload.component';
+import { urlSlugPattern } from 'src/app/utils/regexUtils';
 
 // tslint:disable-next-line:no-bitwise
 type Type = 'update' | 'add';
@@ -22,7 +23,10 @@ export class ProductFormComponent implements OnInit{
     @Output() changeData = new EventEmitter<IProduct>();
     @ViewChild('mainImageUploader') mainImageUploader: FileUploadComponent;
     @ViewChild('galleryUploader') galleryUploader: MultipleFileUploadComponent;
+
+    urlSlugPattern = urlSlugPattern;
     
+    products: IProduct[] = [];
     categories: ICategory[];
     activeProduct: IProduct;
     mainImage: IImage;
@@ -68,6 +72,29 @@ export class ProductFormComponent implements OnInit{
             price: [null, [Validators.required, Validators.min(1)]],
             stockCount: [null],
             stockPreOrderDays: [14]
+        }, {
+            validators: (groups: any) => {
+                let errors = { };
+                const isDuplicate = this.products.some(product => product.urlName == groups.value.slug && product.id != this.activeProduct?.id);
+                if (isDuplicate) {
+                    groups.controls.slug.setErrors({ slug: true });
+                    errors = { ...errors, slug: true };
+                }
+
+                if (groups.value.type == ProductType.Buy) {
+                    if (!groups.value.stockCount || groups.value.stockCount < 0) {
+                        groups.controls.stockCount.setErrors({ slug: true });
+                        errors = { ...errors, stockCount: true };
+                    }
+
+                    if (!groups.value.stockPreOrderDays || groups.value.stockPreOrderDays <= 0) {
+                        groups.controls.stockPreOrderDays.setErrors({ slug: true });
+                        errors = { ...errors, stockPreOrderDays: true };
+                    }
+                }
+
+                return errors;
+            }
         });
         this.name.valueChanges.subscribe(name => {
             const slug = removeAccents(name).replace(' ', '-').toLowerCase();
@@ -77,15 +104,20 @@ export class ProductFormComponent implements OnInit{
 
     ngOnInit() {
         this.loadCategories();
+        this.loadProductSlugs();
     }
 
     loadCategories() {
         this._categoryService.getAll().then(categories => this.categories = categories);
     }
 
+    loadProductSlugs() {
+        this._productService.getAll().then(products => this.products = products);
+    }
+
     // price input set currency
-    formatterCurrency = (value: number) => value ? `${value} Kč` : '';
-    parserCurrency = (value: string) => value ? value.replace(' Kč', '') : '';
+    formatterCurrency = (value: number) => value || value == 0 ? `${value} Kč` : '';
+    parserCurrency = (value: string) => value || value == '0' ? value.replace(' Kč', '') : '';
 
     // main image set
     mainImageChanged(image: IImage) {
