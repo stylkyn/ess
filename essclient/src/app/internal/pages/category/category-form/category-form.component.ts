@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CategoryService, ICategoryCreateRequest, ICategoryUpdateRequest } from './../../../../services/API/category.service';
 import { ICategory } from 'src/app/models/ICategory';
 import { urlSlugPattern } from 'src/app/utils/regexUtils';
+import { removeAccents } from 'src/app/utils/stringUtils';
 
 // tslint:disable-next-line:no-bitwise
 type Type = 'update' | 'add';
@@ -48,6 +49,10 @@ export class CategoryFormComponent implements OnInit {
                     return { slug: true };
                 }
             }
+        });
+        this.name.valueChanges.subscribe(name => {
+            const slug = removeAccents(name).replace(' ', '-').toLowerCase();
+            this.slug.setValue(slug);
         });
     }
 
