@@ -2,7 +2,7 @@ import { APIService, IResponse } from './API.service';
 import { APIRepository } from './API-repository';
 import { Observable } from 'rxjs';
 import { Injectable, EventEmitter } from '@angular/core';
-import { IUser, cookieJwtName, IUserOption, IUserPersonal, IIAuthentificationToken, tokenToObject } from 'src/app/models/IUser';
+import { IUser, cookieJwtName, IUserOption, IUserPersonal, IIAuthentificationToken, tokenToObject, IUserEmailExist } from 'src/app/models/IUser';
 import { map } from 'rxjs/operators';
 import { CookieService } from 'ngx-cookie-service';
 import { SortType } from 'src/app/models/shared/Sort';
@@ -65,6 +65,11 @@ export interface IUserChangePasswordRequest {
     password: string;
 }
 
+export interface IUserGetByEmail {
+    email: string;
+}
+
+
 @Injectable({
     providedIn: 'root'
 })
@@ -82,6 +87,10 @@ export class UserService extends APIRepository<IUser> {
             return this.isLoadedPromise;
         }
         return this.authentificationJwt()?.toPromise();
+    }
+
+    public get isLogged(): boolean {
+        return this._user ? true : false;
     }
 
     public get user(): IUser {
@@ -149,6 +158,10 @@ export class UserService extends APIRepository<IUser> {
 
     public resetPassword(request: IUserResetPasswordRequest): Observable<void> {
         return this._API.post(`${this.className}/ResetPassword`, request);
+    }
+
+    public getByEmail(request: IUserGetByEmail): Promise<IUserEmailExist> {
+        return this._API.getQuery<IUserEmailExist>(`${this.className}/GetByEmail`, request).toPromise();
     }
 
     public authentificationJwt(): Observable<IUser> | undefined {

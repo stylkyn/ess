@@ -23,9 +23,10 @@
                     <div formGroupName="contact" class="row">
                         <div class="col-6">
                             <div class="md-form">
-                                <input mdbInput mdbValidate type="text" class="form-control" id="email" formControlName="email">
-                                <label for="email">Email</label>
-                                <mdb-error *ngIf="email.invalid && (email.dirty || email.touched)">Zadejte validní email</mdb-error>
+                                <input [readonly]="emailDisabled" (focus)="isEmailActive = true" (blur)="verifyEmail()" mdbInput mdbValidate type="text" class="form-control" id="email" formControlName="email">
+                                <label [ngClass]="{'disabled': emailDisabled}" for="email">Email</label>
+                                <mdb-error *ngIf="email.invalid && (email.dirty || email.touched) && !emailExist">Zadejte validní email</mdb-error>
+                                <mdb-error *ngIf="emailExist">Zadaný email již existuje v naší databázi, před uložením objednávky se prosím přihlašte</mdb-error>
                             </div>
                         </div>
                         <div class="col-6">
@@ -163,7 +164,7 @@
                         </a>
                     </mdb-checkbox>
                 </div>
-                <button [disabled]="customerForm.invalid" (click)="onConfirm()" type="button" mdbBtn color="primary" mdbWavesEffect>
+                <button [disabled]="customerForm.invalid || isEmailActive" (click)="onConfirm()" type="button" mdbBtn color="primary" mdbWavesEffect>
                     Potvrdit objednávku
                 </button>
             </div>

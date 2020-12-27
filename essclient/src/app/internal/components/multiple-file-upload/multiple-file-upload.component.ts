@@ -31,7 +31,6 @@ export class MultipleFileUploadComponent implements OnInit, OnChanges {
     ngOnInit() {
         this.imagesForUploader = this.initial?.map(i => this.toImageUploader(i, 'done')) ?? [];
         this.imagesList = this.initial;
-        console.log(this.imagesForUploader, this.imagesList);
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -42,13 +41,11 @@ export class MultipleFileUploadComponent implements OnInit, OnChanges {
             this.imagesForUploader = [];
             this.imagesList = [];
         }
-        console.log(this.imagesForUploader, this.imagesList);
     }
 
     public reset() {
         this.imagesForUploader = [];
         this.imagesList = [];
-        console.log('reset-called');
     }
 
     upload = (item: UploadXHRArgs) => {

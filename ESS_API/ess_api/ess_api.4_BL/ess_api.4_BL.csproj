@@ -110,8 +110,10 @@
     <Compile Include="ResponseData.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="Services\User\Requests\UserSearchRequest.cs" />
+    <Compile Include="Services\User\Requests\UserSearchByEmail.cs" />
     <Compile Include="Services\User\Requests\UserUpdateRequest.cs" />
     <Compile Include="Services\User\Responses\UserOptionResponse.cs" />
+    <Compile Include="Services\User\Responses\UserExistResponse.cs" />
     <Compile Include="Services\User\Responses\UserResponse.cs" />
     <Compile Include="Services\Category\Responses\CategoryResponse.cs" />
     <Compile Include="Services\Product\Responses\ProductResponse.cs" />

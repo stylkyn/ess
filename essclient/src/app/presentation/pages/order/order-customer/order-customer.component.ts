@@ -11,6 +11,7 @@ import { orderFinishRoute } from './../order.routing';
 import { getCountriesOptions } from 'src/app/models/ICounter';
 import { presentationTermsRoute } from './../../../theme/presentation-routes';
 import { email } from '@ng-validators/ng-validators';
+import { IUser } from 'src/app/models/IUser';
 @Component({
   selector: 'app-order-customer',
   templateUrl: './order-customer.component.html',
@@ -21,6 +22,9 @@ export class OrderCustomerComponent implements OnInit {
 
     presentationTermsRoute = presentationTermsRoute;
     presentationGdprRoute = presentationGdprRoute;
+    emailExist = false;
+    emailDisabled = false;
+    isEmailActive = false;
 
     public countriesOptions = getCountriesOptions();
     // personal
@@ -120,6 +124,9 @@ export class OrderCustomerComponent implements OnInit {
                 this.houseNumber.setValidators(null);
             }
         });
+        this.email.valueChanges.subscribe(() => {
+            this.emailExist = false;
+        });
     }
 
     ngOnInit() {
@@ -131,6 +138,31 @@ export class OrderCustomerComponent implements OnInit {
             this.setCompanyAddressValidator(transportToSameAddress));
 
         this.setCompanyValidator(this._customerStorage.customerInStorage?.invoiceToCompany);
+        this._userService.onUserChange.subscribe(user => {
+            if (user) {
+                this.email.setValue(user.email);
+                this.emailDisabled = true;
+                this.emailExist = false;
+                this.email.setErrors(null);
+            }
+        });
+        if (this._userService.isLogged) {
+            this.email.setValue(this._userService.user?.email);
+            this.emailDisabled = true;
+        }
+    }
+
+    verifyEmail() {
+        if (!this._userService.isLogged && this.email.valid) {
+            this._userService.getByEmail({ email: this.email.value })
+                .then(useEmailExist => {
+                    if (useEmailExist.userExist) {
+                        this.emailExist = true;
+                        this.email.setErrors({ email: true });
+                    }
+                });
+        }
+        this.isEmailActive = false;
     }
 
     /**

@@ -46,6 +46,12 @@ export interface IUserOption {
     email: string;
 }
 
+export interface IUserEmailExist {
+    userExist: boolean;
+    email: string;
+}
+
+
 export type UserRoleName = 'Admin' | 'Agent' | 'Uživatel';
 export type UserRoleKey = 'admin' | 'agent' | 'user';
 

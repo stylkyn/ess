@@ -41,6 +41,17 @@ namespace ess_api._4_BL.Services
             var user = await _uow.Users.FindAsync(new Guid(id));
             return new Response<UserResponse>(ResponseStatus.Ok, _mapService.MapUser(user));
         }
+
+        public async Task<Response<UserExistResponse>> GetByEmail(UserSearchByEmail request)
+        {
+            var user = await _uow.Users.GetUser(request.Email);
+            var result = new UserExistResponse {
+                UserExist = user != null,
+                Email = user?.Email,
+            };
+            return new Response<UserExistResponse>(ResponseStatus.Ok, result);
+        }
+
         public async Task<ResponseList<UserResponse>> Search(UserSearchRequest request)
         {
             int skip = request.PageNumber * request.PageSize;

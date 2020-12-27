@@ -49,6 +49,14 @@ namespace ess_api.Controllers
             return new CreateResult(response);
         }
 
+        [Route("GetByEmail")]
+        [HttpGet]
+        public async Task<IHttpActionResult> GetByEmail([FromUri]UserSearchByEmail request)
+        {
+            var response = await _userService.GetByEmail(request);
+            return new CreateResult(response);
+        }
+
         // LOGIN - VERIFY USER
         [Route("Authentification")]
         [HttpPost]

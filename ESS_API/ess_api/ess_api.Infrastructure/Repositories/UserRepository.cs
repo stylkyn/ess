@@ -49,7 +49,8 @@ namespace ess_api.Infrastructure.Repositories
 
         public async Task<UserModel> GetUser(string email)
         {
-            var users = await FindManyAsync(x => x.Email == email);
+            var emailLower = email.ToLower();
+            var users = await FindManyAsync(x => x.Email.ToLower() == emailLower);
             if (users.Count == 0)
                 return null;
 
