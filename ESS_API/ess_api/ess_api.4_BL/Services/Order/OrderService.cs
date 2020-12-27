@@ -244,13 +244,15 @@ namespace ess_api._4_BL.Services.Order
                 }
                 await Task.WhenAll(productUpdatedTask);
 
+
+                order.State = OrderState.Confirmed;
+                order = await _uow.Orders.FindAndReplaceAsync(order.Id, order);
+
                 // TODO: Fix generating invoice on Azure 
                 // string basePath = System.Web.Hosting.HostingEnvironment.ApplicationPhysicalPath;
                 // var invoice = _documentInvoiceRepository.GenerateInvoice(order, basePath);
                 // await _mailingLibrary.SendConfirmedOrderEmail(order, invoice);
                 await _mailingLibrary.SendConfirmedOrderEmail(order, user, null);
-
-                order.State = OrderState.Confirmed;
             }
 
             var response = _mapService.MapOrder(order);
