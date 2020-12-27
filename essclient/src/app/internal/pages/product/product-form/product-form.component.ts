@@ -126,6 +126,7 @@ export class ProductFormComponent implements OnInit{
 
     // gallery set
     galleryChanged(images: IImage[]) {
+        console.log(images);
         this.gallery = images;
     }
 
@@ -133,9 +134,12 @@ export class ProductFormComponent implements OnInit{
     open(product: IProduct = null): void {
         this.reset();
         this.type.setValue(product?.type ?? ProductType.Buy);
-        this.activeProduct = product;
+        this.gallery = [];
+        this.mainImage = undefined;
         this.visible = true;
+
         if (product) {
+            this.activeProduct = product;
             this.name.setValue(product.name);
             this.slug.setValue(product.urlName);
             this.previewName.setValue(product.previewName);
@@ -202,6 +206,7 @@ export class ProductFormComponent implements OnInit{
             this.reset();
             this.close();
             this.isLoading = false;
+            this._categoryService.getAll().then(categories => this.categories = categories);
         }, (e) => this.isLoading = false);
     }
 
@@ -236,6 +241,7 @@ export class ProductFormComponent implements OnInit{
             this.reset();
             this.close();
             this.isLoading = false;
+            this._categoryService.getAll().then(categories => this.categories = categories);
         }, (e) => this.isLoading = false);
     }
 }
