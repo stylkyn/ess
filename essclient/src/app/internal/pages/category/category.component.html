@@ -29,26 +29,35 @@
                     <button (click)="fullTextChange()" nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
                 </ng-template>
             </th>
+            <th colspan="2"></th>
         </tr>
         <tr>
+            <th nzColumnKey="photo">Foto</th>
             <th nzColumnKey="email">Název</th>
             <th nzColumnKey="firstname">Url slug</th>
-            <th class="text-right" nzColumnKey="companyName"></th>
+            <th nzColumnKey="isActive">Aktivní</th>
+            <th class="text-right"></th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let item of dataList; let i = index">
+            <td>
+                <img *ngIf="item?.image" [src]="item.image.secureUrl" [alt]="item.image.originalFileName" height="60px" />
+            </td>
             <td>{{ item.name }}</td>
             <td>{{ item.urlName }}</td>
-            <td class="d-flex justify-content-end">
-                <button (click)="showUpdateDrawer(item)" nz-button nzType="primary" nzShape="circle"
-                    nz-tooltip nzTooltipTitle="Upravit kategorii">
-                    <i nz-icon nzType="edit"></i>
-                </button>
-                <button (click)="showDeleteConfirm(item)" nz-button nzType="danger" nzShape="circle"
-                    nz-tooltip nzTooltipTitle="Odstranit kategorii">
-                    <i nz-icon nzType="delete" nzTheme="outline"></i>
-                </button>
+            <td>{{ item.isActive ? 'Aktivní' : 'Neaktivní' }}</td>
+            <td>
+                <div class="d-flex justify-content-end">
+                    <button (click)="showUpdateDrawer(item)" nz-button nzType="primary" nzShape="circle"
+                        nz-tooltip nzTooltipTitle="Upravit kategorii">
+                        <i nz-icon nzType="edit"></i>
+                    </button>
+                    <button (click)="showDeleteConfirm(item)" nz-button nzType="danger" nzShape="circle"
+                        nz-tooltip nzTooltipTitle="Odstranit kategorii">
+                        <i nz-icon nzType="delete" nzTheme="outline"></i>
+                    </button>
+                </div>
             </td>
         </tr> 
     </tbody>

@@ -1,4 +1,5 @@
-﻿using ess_api.Core.Model;
+﻿using ess_api._4_BL.Shared.Responses;
+using ess_api.Core.Model;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -17,5 +18,11 @@ namespace ess_api._4_BL.Services.Responses
 
         [JsonProperty("subcategories")]
         public List<CategoryResponse> Subcategories { get; set; } = new List<CategoryResponse>();
+
+        [JsonProperty("isActive")]
+        public bool IsActive { get; set; }
+
+        [JsonProperty("image")]
+        public ImageResponse Image { get; set; }
     }
 }

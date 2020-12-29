@@ -5,10 +5,13 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ICategory, initCategory } from 'src/app/models/ICategory';
+import { IImage } from './../../models/IImage';
 
 interface ICategorySetRequest {
     id?: string;
     name: string;
+    isActive: boolean;
+    image: IImage;
     urlName: string;
     parentCategoryId?: string;
 }

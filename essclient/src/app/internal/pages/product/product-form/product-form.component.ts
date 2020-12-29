@@ -45,6 +45,7 @@ export class ProductFormComponent implements OnInit{
         return removeAccents(categoryName).replace(' ', '-').toLowerCase();
     }
 
+    get isActive () { return this.productForm.get('isActive'); }
     get type () { return this.productForm.get('type'); }
     get categoryId () { return this.productForm.get('categoryId'); }
     get previewName () { return this.productForm.get('previewName'); }
@@ -67,6 +68,7 @@ export class ProductFormComponent implements OnInit{
             name: ['', Validators.required],
             description: ['', Validators.required],
             previewName: ['', Validators.required],
+            isActive: [true],
             previewDescription: ['', Validators.required],
             slug: ['', Validators.required],
             price: [null, [Validators.required, Validators.min(1)]],
@@ -126,7 +128,6 @@ export class ProductFormComponent implements OnInit{
 
     // gallery set
     galleryChanged(images: IImage[]) {
-        console.log(images);
         this.gallery = images;
     }
 
@@ -134,6 +135,7 @@ export class ProductFormComponent implements OnInit{
     open(product: IProduct = null): void {
         this.reset();
         this.type.setValue(product?.type ?? ProductType.Buy);
+        this.isActive.setValue(true);
         this.gallery = [];
         this.mainImage = undefined;
         this.visible = true;
@@ -144,6 +146,7 @@ export class ProductFormComponent implements OnInit{
             this.slug.setValue(product.urlName);
             this.previewName.setValue(product.previewName);
             this.description.setValue(product.description);
+            this.isActive.setValue(product.isActive);
             this.previewDescription.setValue(product.previewDescription);
             this.price.setValue(product.totalPrice?.czkWithoutVat);
             this.categoryId.setValue(product.categoryId);
@@ -188,6 +191,7 @@ export class ProductFormComponent implements OnInit{
             description: this.description.value,
             previewDescription: this.previewDescription.value,
             type: this.type.value,
+            isActive: this.isActive.value,
             buy: ProductType.Buy == this.type.value ? {
                 priceWithoutVat: this.price.value
             }: null,
@@ -219,6 +223,7 @@ export class ProductFormComponent implements OnInit{
             previewName: this.previewName.value,
             image: this.mainImage,
             gallery: this.gallery,
+            isActive: this.isActive.value,
             categoryId: this.categoryId.value,
             description: this.description.value,
             previewDescription: this.previewDescription.value,

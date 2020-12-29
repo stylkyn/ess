@@ -24,6 +24,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { RouterModule } from '@angular/router';
 import { NgxMaskModule } from 'ngx-mask';
 import { NgValidatorsModule } from '@ng-validators/ng-validators';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 
 @NgModule({
     imports: [
@@ -48,7 +49,8 @@ import { NgValidatorsModule } from '@ng-validators/ng-validators';
         NzInputNumberModule,
         NzToolTipModule,
         NgxMaskModule,
-        NgValidatorsModule
+        NgValidatorsModule,
+        NzCheckboxModule,
     ],
     declarations: [ProductComponent, ProductFormComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],

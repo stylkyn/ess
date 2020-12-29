@@ -42,6 +42,7 @@ export interface IProductSetRequest {
     description: string;
     previewDescription: string;
     type: ProductType;
+    isActive: boolean;
     buy: BuyRequest;
     service: ServiceRequest;
     deposit: DepositRequest;

@@ -22,8 +22,20 @@
                     </nz-input-group>
                 </nz-form-control>
             </nz-form-item>
+
+            <nz-divider nzOrientation="left" nzText="Konfigurace"></nz-divider>
+            <nz-form-item class="form-item-inline">
+                <nz-form-label>Zobrazení produktu na webu:</nz-form-label>
+                <nz-form-control>
+                    <label nz-checkbox formControlName="isActive">Aktivní</label>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-divider nzOrientation="left" nzText="Hlavní obrázek *"></nz-divider>
+            <app-file-upload #mainImageUploader [initial]="this.activeCategory?.image" (changed)="mainImageChanged($event)" ></app-file-upload>
+
             <hr class="mt-4"/>
-            <button [disabled]="categoryForm.invalid" (click)="confirm()" nz-button nzType="primary" nzShape="round" class="pull-right">Uložit <i nz-icon nzType="check"></i></button>
+            <button [disabled]="categoryForm.invalid || !mainImage" (click)="confirm()" nz-button nzType="primary" nzShape="round" class="pull-right">Uložit <i nz-icon nzType="check"></i></button>
         </form>
     </nz-spin>
 </nz-drawer>

@@ -49,6 +49,9 @@ namespace ess_api._4_BL.Services.Product.Responses
 
         [JsonProperty("stock")]
         public ProductStockResponse Stock { get; set; }
+
+        [JsonProperty("isActive")]
+        public bool IsActive { get; set; }
     }
 
     public class ProductStockResponse

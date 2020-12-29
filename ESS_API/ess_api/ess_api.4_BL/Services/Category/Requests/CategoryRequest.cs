@@ -10,6 +10,8 @@ namespace ess_api._4_BL.Services.Requests
         public string Id { get; set; }
         public string Name { get; set; }
         public string UrlName { get; set; }
+        public bool IsActive { get; set; }
+        public Image Image { get; set; }
         public string ParentCategoryId { get; set; }
     }
 }

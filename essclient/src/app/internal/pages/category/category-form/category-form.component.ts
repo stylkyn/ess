@@ -1,9 +1,11 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CategoryService, ICategoryCreateRequest, ICategoryUpdateRequest } from './../../../../services/API/category.service';
 import { ICategory } from 'src/app/models/ICategory';
 import { urlSlugPattern } from 'src/app/utils/regexUtils';
 import { removeAccents } from 'src/app/utils/stringUtils';
+import { FileUploadComponent } from 'src/app/internal/components/file-upload/file-upload.component';
+import { IImage } from 'src/app/models/IImage';
 
 // tslint:disable-next-line:no-bitwise
 type Type = 'update' | 'add';
@@ -15,11 +17,13 @@ type Type = 'update' | 'add';
 })
 export class CategoryFormComponent implements OnInit {
     @Output() changeData = new EventEmitter<ICategory>();
+    @ViewChild('mainImageUploader') mainImageUploader: FileUploadComponent;
 
     urlSlugPattern = urlSlugPattern;
 
     activeCategory: ICategory;
     categoryForm: FormGroup;
+    mainImage: IImage;
     visible = false;
     isLoading = false;
 
@@ -31,6 +35,7 @@ export class CategoryFormComponent implements OnInit {
         return this._categoryService.categories;
     }
 
+    get isActive () { return this.categoryForm.get('isActive'); }
     get name () { return this.categoryForm.get('name'); }
     get slug () { return this.categoryForm.get('slug'); }
 
@@ -40,6 +45,7 @@ export class CategoryFormComponent implements OnInit {
     ) {
         this.categoryForm = _fb.group({
             name: ['', Validators.required],
+            isActive: [true, Validators.required],
             slug: ['', [Validators.required, Validators.maxLength(30)]],
         }, {
             validators: (groups: any) => {
@@ -62,16 +68,21 @@ export class CategoryFormComponent implements OnInit {
 
     open(category: ICategory = null): void {
         this.activeCategory = category;
+        this.isActive.setValue(true);
         this.visible = true;
+        this.mainImage = null;
         if (category) {
-            this.name.setValue(category?.name);
-            this.slug.setValue(category?.urlName);
+            this.name.setValue(category.name);
+            this.slug.setValue(category.urlName);
+            this.isActive.setValue(category.isActive);
+            this.mainImage = category.image;
         }
     }
 
     close(): void {
         this.visible = false;
         this.categoryForm.reset();
+        this.mainImage = null;
         this.activeCategory = null;
     }
 
@@ -82,11 +93,18 @@ export class CategoryFormComponent implements OnInit {
             this.update();
     }
 
+    // main image set
+    mainImageChanged(image: IImage) {
+        this.mainImage = image;
+    }
+
     private add(): void {
         this.isLoading = true;
         const request: ICategoryCreateRequest = {
             name: this.name.value,
-            urlName: this.slug.value
+            urlName: this.slug.value,
+            isActive: this.isActive.value,
+            image: this.mainImage,
         };
         this._categoryService.add(request).subscribe((category: ICategory) => {
             this.changeData.next(category);
@@ -100,7 +118,9 @@ export class CategoryFormComponent implements OnInit {
         const request: ICategoryUpdateRequest = {
             id: this.activeCategory?.id,
             name: this.name.value,
-            urlName: this.slug.value
+            urlName: this.slug.value,
+            isActive: this.isActive.value,
+            image: this.mainImage,
         };
         this._categoryService.update(request).subscribe((category: ICategory) => {
             this.changeData.next(category);

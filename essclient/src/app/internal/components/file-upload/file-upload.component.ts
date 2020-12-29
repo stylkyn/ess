@@ -30,6 +30,9 @@ export class FileUploadComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         if (changes.initial.currentValue)
             this.activeImage = changes.initial.currentValue;
+        else {
+            this.activeImage = null;
+        }
     }
 
     public reset() {

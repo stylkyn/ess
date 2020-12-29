@@ -27,6 +27,9 @@ namespace ess_api._4_BL.Services.Product.Responses
         [JsonProperty("name")]
         public string Name { get; set; }
 
+        [JsonProperty("isActive")]
+        public bool IsActive { get; set; }
+
         [JsonProperty("urlName")]
         public string UrlName { get; set; }
 

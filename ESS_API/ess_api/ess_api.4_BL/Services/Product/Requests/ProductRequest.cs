@@ -30,6 +30,7 @@ namespace ess_api._4_BL.Services.Product.Requests
         [Required]
         public string CategoryId { get; set; }
 
+        public bool IsActive { get; set; }
         public string Description { get; set; }
         public string PreviewDescription { get; set; }
 

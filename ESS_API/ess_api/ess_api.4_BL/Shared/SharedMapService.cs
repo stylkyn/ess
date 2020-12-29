@@ -180,6 +180,7 @@ namespace ess_api._4_BL.Shared
                 Description = request.Description,
                 CategoryId = request.CategoryId,
                 Gallery = request.Gallery.Select(x => MapImage(x)).ToList(),
+                IsActive = request.IsActive,
                 Buy = request.Buy != null ? new ProductBuyResponse
                 {
                     Price = MapPrice(request.Buy.Price)
@@ -215,6 +216,7 @@ namespace ess_api._4_BL.Shared
                 Image = MapImage(request.Image),
                 Description = request.Description,
                 CategoryId = request.CategoryId,
+                IsActive = request.IsActive,
                 Gallery = request.Gallery.Select(i => MapImage(i)).ToList(),
                 Service = request.Service != null ? new ProductDetailServiceResponse
                 {
@@ -269,7 +271,9 @@ namespace ess_api._4_BL.Shared
                 Id = category.Id.ToString(),
                 Name = category.Name,
                 ParentCategoryId = category?.ParentCategoryId,
-                UrlName = category.UrlName
+                UrlName = category.UrlName,
+                Image = MapImage(category.Image),
+                IsActive = category.IsActive,
             };
         }
 

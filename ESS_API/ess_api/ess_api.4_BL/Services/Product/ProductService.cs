@@ -51,7 +51,7 @@ namespace ess_api._4_BL.Services.Product
             var products = new List<ProductModel>();
             // get all products 
             if (request.CategoryUrlName.IsEmpty() && request.CategoryId.IsEmpty()) {
-                products = await _uow.Products.Search();
+                products = await _uow.Products.Search(true);
                 return new ResponseList<ProductResponse>(ResponseStatus.Ok, _mapService.MapProducts(products.ToList()));
             }
 
@@ -70,13 +70,13 @@ namespace ess_api._4_BL.Services.Product
             categories.Add(categoryId);
 
 
-            products = await _uow.Products.Search(categories);
+            products = await _uow.Products.Search(categories, true);
             return new ResponseList<ProductResponse>(ResponseStatus.Ok, _mapService.MapProducts(products.ToList()));
         }
 
         public async Task<Response<ProductDetailResponse>> GetByUrl(GetProductDetailByUrlRequest request)
         {
-            var products = await _uow.Products.FindManyAsync(x => x.UrlName == request.UrlName);
+            var products = await _uow.Products.FindManyAsync(x => x.UrlName == request.UrlName && x.IsActive);
             if (products.IsEmpty())
                 return new Response<ProductDetailResponse>(
                     ResponseStatus.NotFound, 
@@ -92,7 +92,7 @@ namespace ess_api._4_BL.Services.Product
         public async Task<Response<ProductDetailResponse>> Get(GetProductDetailRequest request)
         {
             var product = await _uow.Products.FindAsync(new Guid(request.ProductId));
-            if (product == null)
+            if (product == null || !product.IsActive)
                 return new Response<ProductDetailResponse>(ResponseStatus.NotFound, null, $"Product with id: {request.ProductId} was not founded");
 
 
@@ -119,6 +119,7 @@ namespace ess_api._4_BL.Services.Product
                 Description = request.Description,
                 PreviewName = request.PreviewName,
                 Image = request.Image,
+                IsActive = request.IsActive,
                 Gallery = request.Gallery,
                 PreviewDescription = request.PreviewDescription,
                 UrlName = WebUtility.UrlEncode(request.UrlName),
@@ -170,6 +171,7 @@ namespace ess_api._4_BL.Services.Product
             product.PreviewDescription = request.PreviewDescription;
             product.PreviewName = request.PreviewName;
             product.Image = request.Image;
+            product.IsActive = request.IsActive;
             product.Gallery = request.Gallery;
             product.Type = request.Type;
             product.Stock.Count = request.Stock.Count;

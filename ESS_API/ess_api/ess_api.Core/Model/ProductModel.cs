@@ -19,6 +19,7 @@ namespace ess_api.Core.Model
         public string Description { get; set; }
         public string CategoryId { get; set; }
 
+        public bool IsActive { get; set; } = true;
         public ProductType Type { get; set; }
         public ProductDeposit Deposit { get; set; } = null;
         public ProductBuy Buy { get; set; } = null;

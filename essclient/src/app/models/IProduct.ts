@@ -13,6 +13,7 @@ export interface IProduct {
     image: IImage;
     gallery: IImage[];
 
+    isActive: boolean;
     type: ProductType;
     deposit: IProductDeposit;
     buy: IProductBuy;
@@ -75,6 +76,7 @@ export const initProduct: IProduct = {
     categoryId: null,
     previewName: null,
     image: null,
+    isActive: true,
     gallery: [],
     type: null,
     deposit: null,

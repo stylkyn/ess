@@ -42,7 +42,7 @@
                     <nz-option nzLabel="Služba" [nzValue]="ProductType.Service"></nz-option>
                 </nz-select>
             </th>
-            <th colspan="3"></th>
+            <th colspan="4"></th>
         </tr>
         <tr>
             <th nzColumnKey="photo">Foto</th>
@@ -52,6 +52,7 @@
             <th nzColumnKey="type">Typ</th>
             <th nzColumnKey="priceWithoutVat">Cena bez DPH</th>
             <th nzColumnKey="priceWIthVat">Cena s DPH</th>
+            <th nzColumnKey="isActive">Aktivní</th>
             <th class="text-right"></th>
         </tr>
     </thead>
@@ -66,6 +67,7 @@
             <td>{{ getProductTypeName(item.type) }}</td>
             <td>{{ item.totalPrice?.czkWithoutVat}} {{MapPriceTypes(item?.totalPrice?.priceType) }}</td>
             <td>{{ item.totalPrice?.czkWithVat}} {{MapPriceTypes(item?.totalPrice?.priceType) }}</td>
+            <td>{{ item.isActive ? 'Aktivní' : 'Neaktivní' }}</td>
             <td>
                 <div class="d-flex justify-content-end">
                     <button (click)="showDetail(item)" nz-button nzsi nzType="primary" nzShape="circle"

@@ -17,7 +17,7 @@ namespace ess_api._4_BL.Services
          * **/
         public async Task<ResponseList<CategoryResponse>> GetTree()
         {
-            var categories = await _uow.Categories.FindManyAsync();
+            var categories = await _uow.Categories.FindManyAsync(c => c.IsActive);
             return new ResponseList<CategoryResponse>(ResponseStatus.Ok, MapCategoryTree(categories.ToList()));
         }
 
@@ -36,7 +36,7 @@ namespace ess_api._4_BL.Services
 
         public async Task<Response<CategoryResponse>> GetByUrl(string urlName)
         {
-            var categories = await _uow.Categories.FindManyAsync(x => x.UrlName == urlName);
+            var categories = await _uow.Categories.FindManyAsync(x => x.UrlName == urlName && x.IsActive);
             if (categories == null)
                 return new Response<CategoryResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
 
@@ -47,7 +47,7 @@ namespace ess_api._4_BL.Services
         public async Task<Response<CategoryResponse>> Get(string id)
         {
             var category = await _uow.Categories.FindAsync(new Guid(id));
-            if (category == null)
+            if (category == null || !category.IsActive)
                 return new Response<CategoryResponse>(ResponseStatus.NotFound, _mapService.MapCategory(category), ResponseMessagesConstans.NotFound);
 
             return new Response<CategoryResponse>(ResponseStatus.Ok, _mapService.MapCategory(category));
@@ -56,8 +56,7 @@ namespace ess_api._4_BL.Services
         public async Task<ResponseList<CategoryResponse>> Search(CategorySearchRequest request)
         {
             int skip = request.PageNumber * request.PageSize;
-            (var categories, int total) = await _uow.Categories.SearchCategory(request.FullText,         skip, 
-                request.PageSize);
+            (var categories, int total) = await _uow.Categories.SearchCategory(request.FullText, skip, request.PageSize);
             if (categories == null)
                 return new ResponseList<CategoryResponse>(ResponseStatus.NotFound, null, ResponseMessagesConstans.NotFound);
 
@@ -73,7 +72,9 @@ namespace ess_api._4_BL.Services
             {
                 Name = request.Name,
                 UrlName = WebUtility.UrlEncode(request.UrlName),
-                ParentCategoryId = request.ParentCategoryId
+                ParentCategoryId = request.ParentCategoryId,
+                Image = request.Image,
+                IsActive = request.IsActive,
             };
 
             await _uow.Categories.InsertAsync(category);
@@ -89,6 +90,8 @@ namespace ess_api._4_BL.Services
             category.Name = request.Name;
             category.UrlName = WebUtility.UrlEncode(request.UrlName);
             category.ParentCategoryId = request.ParentCategoryId;
+            category.Image = request.Image;
+            category.IsActive = request.IsActive;
 
             await _uow.Categories.ReplaceAsync(category.Id, category);
             return new Response<CategoryResponse>(ResponseStatus.Ok, _mapService.MapCategory(category));
@@ -97,6 +100,21 @@ namespace ess_api._4_BL.Services
         public async Task<Response> Remove(CategoryRemoveRequest request)
         {
             await _uow.Categories.DeleteAsync(new Guid(request.Id));
+
+            // remove category from products, disable visibility of products
+            var products = await _uow.Products.FindManyAsync(p => p.CategoryId == request.Id);
+            if (products != null)
+            {
+                var productTasks = new List<Task>();
+                foreach(var product in products)
+                {
+                    product.CategoryId = null;
+                    product.IsActive = false;
+                    var productTask = _uow.Products.FindAndReplaceAsync(product.Id, product);
+                    productTasks.Add(productTask);
+                }
+                await Task.WhenAll(productTasks);
+            }
             return new Response(ResponseStatus.Ok);
         }
 

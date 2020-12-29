@@ -13,19 +13,30 @@ namespace ess_api.Repository
 
         public ProductRepository(DBContext _db) : base(_db) { }
 
-        public async Task<List<ProductModel>> Search()
+        public async Task<List<ProductModel>> Search(bool? isActive)
         {
+            if (isActive != null)
+            {
+                return await FindManyAsync(x => isActive == x.IsActive);
+            }
             return await FindManyAsync(x => true);
         }
 
-        public async Task<List<ProductModel>> Search(string categoryId)
+        public async Task<List<ProductModel>> Search(string categoryId, bool? isActive)
         {
-            return await FindManyAsync(x => 
-                x.CategoryId == categoryId);
+            if (isActive != null)
+            {
+                return await FindManyAsync(x => x.CategoryId == categoryId && x.IsActive == isActive);
+            }
+            return await FindManyAsync(x => x.CategoryId == categoryId);
         }
 
-        public async Task<List<ProductModel>> Search(List<string> categories)
+        public async Task<List<ProductModel>> Search(List<string> categories, bool? isActive)
         {
+            if (isActive != null)
+            {
+                return await FindManyAsync(x => (categories.Contains(x.CategoryId) || categories.Count == 0) && x.IsActive == isActive);
+            }
             return await FindManyAsync(x => categories.Contains(x.CategoryId) || categories.Count == 0);
         }
 
