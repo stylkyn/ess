@@ -43,7 +43,7 @@
                     <nz-option nzLabel="Nezaplacená" [nzValue]="PaymentState.NotPaid"></nz-option>
                 </nz-select>
             </th>
-            <th colspan="4"></th>
+            <th colspan="5"></th>
         </tr>
         <tr>
             <th nzColumnKey="email">Číslo objednávky</th>
@@ -80,12 +80,13 @@
             </td>
             <td>{{ hasService ? 'Se službou' : 'Bez služby' }}</td>
             <td>
-                <div class="d-flex flex-row align-items-center">
+                <div *ngIf="hasService" class="d-flex flex-row align-items-center">
                     {{ hasUnassignedAgent(item) ? 'Chybí agent' : 'Ok' }}
                     <button class="ml-2" (click)="changeAgentSetupModal(item, agentSetupModal)" nz-button nzsi nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Správa agentů">
                         <i nz-icon nzType="edit" nzTheme="outline"></i>
                     </button>
                 </div>
+                <div *ngIf="!hasService">-</div>
             </td>
             <td>
                 {{ moment(item.createdDate).format('D.M.YYYY') }}
