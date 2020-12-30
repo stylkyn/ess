@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService, IProductSearchRequest } from '../../../../services/API/product.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService, ICategoryRequest } from './../../../../services/API/category.service';
 import { MapPriceTypes } from 'src/app/models/IPrice';
 import { IProduct } from 'src/app/models/IProduct';
+import { getProductRoute } from 'src/app/presentation/theme/presentation-routes';
 
 @Component({
     selector: 'app-eshop-products',
@@ -14,9 +15,14 @@ export class EshopProductsComponent implements OnInit {
     public mapPriceTypes = MapPriceTypes;
     public products: IProduct[] = [];
 
+    get categories () {
+        return this._categoryService.categories;
+    }
+
     constructor (
         public _categoryService: CategoryService,
         public _productService: ProductService,
+        private _router: Router,
         private _route: ActivatedRoute) {
         this._route.url.subscribe(() => {
             const urlName = this._route.snapshot.paramMap.get('categoryUrlName');
@@ -27,6 +33,7 @@ export class EshopProductsComponent implements OnInit {
     }
 
     ngOnInit() {
+        this._categoryService.getAll();
     }
 
     setActiveCategory(urlName: string) {
@@ -46,6 +53,12 @@ export class EshopProductsComponent implements OnInit {
         this._productService.search(request).subscribe(products => { 
             this.products = products.data;
         });
+    }
+
+     // show detail produkt
+     showDetail(product: IProduct) {
+        const category = this.categories.find(c => c.id == product.categoryId);
+        this._router.navigateByUrl(getProductRoute(product, category));
     }
 
 }

@@ -149,11 +149,14 @@ export class ProductFormComponent implements OnInit{
             this.isActive.setValue(product.isActive);
             this.previewDescription.setValue(product.previewDescription);
             this.price.setValue(product.totalPrice?.czkWithoutVat);
-            this.categoryId.setValue(product.categoryId);
             this.gallery = product.gallery;
             this.mainImage = product.image;
             this.stockCount.setValue(product.stock.count);
             this.stockPreOrderDays.setValue(product.stock.preOrderDays);
+            
+            if (this.categories.some(c => c.id == product.categoryId)) {
+                this.categoryId.setValue(product.categoryId);
+            }
         }
     }
 
@@ -163,6 +166,11 @@ export class ProductFormComponent implements OnInit{
     }
 
     confirm(): void {
+        if(this.categoryId.invalid) {
+            this.productForm.markAllAsTouched();
+            return;
+        }
+
         if (this.formType == 'add')
             this.add();
         else if (this.formType == 'update')

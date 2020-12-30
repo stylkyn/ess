@@ -2,7 +2,7 @@
     <h1 class="_ShopMain-title h3 pt-4 mb-4">{{_categoryService.activeCategory?.name}}</h1>
     <div class="row">
     <div class="col-lg-4 col-md-6 mb-4" *ngFor="let product of products">
-      <mdb-card class="_Shop-card align-items-start" [routerLink]="product.urlName">
+      <mdb-card class="_Shop-card align-items-start" (click)="showDetail(product)">
         <div style="max-height: 200px;" class="view overlay waves-light" mdbWavesEffect>
           <mdb-card-img [src]="product.image.secureUrl" [alt]="product?.name"></mdb-card-img>
           <a>
