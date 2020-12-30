@@ -13,11 +13,11 @@ import { compareDate } from 'src/app/utils/dateUtils';
 export class ServiceDateContentComponent {
     product: IProduct;
     public onSelectDate = new EventEmitter<moment.Moment>();
-    public selectedServiceDate: moment.Moment;
+    public selectedServiceDate: moment.Moment = moment(new Date());
 
     public get minDate (): moment.Moment {
         return moment(this.product?.service?.availabilities[0]?.day ?? new Date());
-     }
+    }
  
     public get maxDate (): moment.Moment {
          const datesLength = this.product?.service?.availabilities.length;

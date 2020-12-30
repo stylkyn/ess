@@ -54,6 +54,7 @@
     "ng2-meta": "^5.0.0",
     "ngx-cookie-service": "^3.0.3",
     "ngx-daterangepicker-material": "^2.1.11",
+    "ngx-facebook": "^3.0.0-0",
     "ngx-mask": "^11.1.4",
     "node": "^13.5.0",
     "rxjs": "^6.5.5",

@@ -37,7 +37,7 @@
     <mdb-card-footer>
         <div class="pull-right">
             <button type="button" mdbBtn color="link" class="waves-light" aria-label="Close" (click)="_modalRef.hide()" mdbWavesEffect>Zrušit</button>
-            <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="confirmDate()" mdbWavesEffect>Zvolit termín</button>
+            <button [disabled]="!selectedServiceDate" type="button" mdbBtn color="primary" class="relative waves-light" (click)="confirmDate()" mdbWavesEffect>Zvolit termín</button>
         </div>
     </mdb-card-footer>
 </mdb-card>

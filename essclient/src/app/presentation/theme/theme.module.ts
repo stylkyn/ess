@@ -11,6 +11,7 @@ import { HeaderComponent } from './header/header.component';
 import { HomepageComponent } from './../pages/homepage/homepage.component';
 import { ComponentsModule } from './../components/components.module';
 import { RouterModule } from '@angular/router';
+import { FacebookModule } from 'ngx-facebook';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { RouterModule } from '@angular/router';
     WavesModule,
     InputsModule,
     IconsModule,
+    FacebookModule,
 
     ComponentsModule,
   ],

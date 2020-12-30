@@ -56,6 +56,10 @@ export class EshopDetailComponent implements OnInit {
         if (!selectedProduct) {
             return 0;
         }
+
+        if (this._activeProduct.stock.count < selectedProduct.productsCount) {
+            return this._activeProduct.stock.count;
+        }
         return selectedProduct.productsCount;
     }
 

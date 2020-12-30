@@ -48,6 +48,7 @@ const gapiClientConfig: NgGapiClientConfig = {
 };
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { FacebookModule } from 'ngx-facebook';
 
 @NgModule({
     declarations: [
@@ -82,7 +83,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
         NzIconModule.forRoot([PictureTwoTone]),
         NzDatePickerModule,
         NgxMaskModule.forRoot(),
-
+        FacebookModule.forRoot(),
     ],
     providers: [
         MDBSpinningPreloader,

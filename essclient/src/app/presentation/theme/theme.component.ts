@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FacebookService, InitParams, LoginResponse } from 'ngx-facebook';
 
 @Component({
   selector: 'app-theme',
@@ -7,9 +8,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ThemeComponent implements OnInit {
 
-  constructor() { }
+    constructor(private facebookService: FacebookService) { }
 
-  ngOnInit() {
-  }
+    ngOnInit(): void {
+        this.initFacebookService();
+    }
+
+    private initFacebookService(): void {
+        const initParams: InitParams = { xfbml: true, version: 'v3.3', appId: '361664051240704' };
+        this.facebookService.init(initParams)
+            .then(a => 
+                
+                this.facebookService.login()
+                    .then((response: LoginResponse) => console.log(response))
+                    .catch((error: any) => console.error(error))
+                
+                )
+            .catch(e => console.log(e));
+
+        console.log(this.facebookService.getAuthResponse());
+
+        this.facebookService.getLoginStatus()
+            .then(a => console.log(a))
+            .catch(c => console.log(c));
+
+        console.log('ready');
+    }
 
 }
