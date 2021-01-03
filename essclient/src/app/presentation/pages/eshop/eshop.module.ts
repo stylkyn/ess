@@ -3,7 +3,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
     MDBSpinningPreloader, SidenavModule, WavesModule, AccordionModule, CarouselModule,
-    InputsModule, NavbarModule, CardsModule, BreadcrumbModule, ButtonsModule, SelectModule
+    InputsModule, NavbarModule, CardsModule, BreadcrumbModule, ButtonsModule, SelectModule, LightBoxModule
 } from 'ng-uikit-pro-standard';
 import { ComponentsModule } from '../../components/components.module';
 import { EshopComponent } from './eshop.component';
@@ -34,6 +34,7 @@ import { EshopMenuComponent } from './eshop-menu/eshop-menu.component';
         BreadcrumbModule,
         ButtonsModule,
         SelectModule,
+        LightBoxModule,
 
         ComponentsModule
     ],

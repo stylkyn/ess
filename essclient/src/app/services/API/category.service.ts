@@ -70,6 +70,14 @@ export class CategoryService extends APIRepository<ICategory> {
         return this._API.getQueryTotal<ICategory[]>(`${this.className}/Search`, request);
     }
 
+    public getAllOnce(): Promise<ICategory[]> {
+        if (this.categories.length > 0) {
+            return;
+        }
+        return this.getAll();
+    }
+
+
     public getAll(): Promise<ICategory[]> {
         return this._API.get<ICategory[]>(`${this.className}/GetAll`).pipe(
             map((categories: ICategory[]) => {

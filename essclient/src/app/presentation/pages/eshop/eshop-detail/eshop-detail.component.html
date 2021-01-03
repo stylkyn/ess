@@ -1,33 +1,13 @@
-<section class="EshopDetail magazine-section mt-3 mb-5">
-    <mdb-breadcrumb>
-        <a class="EshopDetail-breadcrumb" *ngIf="category" routerLink="/nase-produkty/{{category.urlName}}">
-            <mdb-breadcrumb-item  class="active">{{category.name}}</mdb-breadcrumb-item>
-        </a>
-    </mdb-breadcrumb>
+<section class="EshopDetail container magazine-section mt-3 mb-5">
     <div class="row">
         <div class="col-lg-6 col-md-12">
             <div class="single-news mb-lg-0 mb-4">
-                <div class="view overlay rounded z-depth-1-half mb-4">
-                    <img class="img-fluid" [src]="_activeProduct.image?.secureUrl" alt="{{_activeProduct.image?.originalFileName}}">
-                    <a>
-                        <div class="mask rgba-white-slight waves-light" mdbWavesEffect></div>
-                    </a>
+                <div class="mb-4">
+                    <mdb-image-modal class="main-image" [modalImages]="productImage" type="no-margin"></mdb-image-modal>
                 </div>
-                <mdb-carousel [isControls]="true" class="carousel-multi-item multi-animation" [type]="'carousel-multi-item'" [animation]="'slide'">
-                    <mdb-carousel-item *ngFor="let item of _activeProduct.gallery; let i = index">
-                        <div class="col-md-4" [ngClass]="{'d-none d-md-block': cardIndex !== 0}" *ngFor="let img of _activeProduct.gallery; let cardIndex = index">
-                            <mdb-card class="mb-3">
-                                <div class="view overlay rounded z-depth-1-half">
-                                    <img class="img-fluid" [src]="img?.secureUrl" alt="{{img?.originalFileName}}">
-                                    <a>
-                                        <div class="mask rgba-white-slight waves-light" mdbWavesEffect></div>
-                                    </a>
-                                </div>
-                            </mdb-card>
-                        </div>
-                    </mdb-carousel-item>
-                </mdb-carousel>
-                <h3 class="font-weight-bold dark-grey-text mb-3">
+                <mdb-image-modal [modalImages]="galleryImages" type="no-margin"></mdb-image-modal>
+                <hr/>
+                <h3 class="font-weight-bold dark-grey-text mb-3 mt-3">
                     <a>{{_activeProduct.name}}</a>
                 </h3>
                 <p class="dark-grey-text mb-lg-0 mb-md-5 mb-4">{{_activeProduct.description}}</p>
@@ -39,42 +19,38 @@
                     <a>{{_activeProduct.previewName}}</a>
                 </h2>
                 <p class="dark-grey-text mb-lg-0 mb-md-5 mb-4">{{_activeProduct.previewDescription}}</p>
-                <div class="row">
-                    <div class="col-md-6">
+
+                <div class="pt-3" *ngIf="_activeProduct.type != ProductType.Service">
+                    <span class="font-weight-bold text-success" *ngIf="_activeProduct.stock.count > 4">Skladem</span>
+                    <span class="font-weight-bold text-warning" *ngIf="_activeProduct.stock.count > 1 && _activeProduct.stock.count <= 4">Skladem poslední {{_activeProduct.stock.count}} kusy</span>
+                    <span class="font-weight-bold text-warning" *ngIf="_activeProduct.stock.count == 1">Skladem poslední kus</span>
+                    <span class="font-weight-bold text-warning" *ngIf="_activeProduct.stock.count == 0">Očekáváme do {{_activeProduct.stock.preOrderDays}} dnů</span>
+                </div>
+                
+                <div class="d-flex">
+                    <div class="EshopDetail-pricing">
+                        <span class="EshopDetail-pricing-value">
+                            {{_activeProduct.buy?.price?.czkWithVat}} {{mapPriceTypes(_activeProduct.buy?.price?.priceType)}}
+                            <span class="EshopDetail-pricing-vat">s DPH {{_activeProductVAT}}%</span>
+                        </span>
                     </div>
-                    <div class="col-md-6">
-                    </div>
-                  </div>
-                <div class="EshopDetail-pricing">
-                    <div class="row">
-                        <div class="col-12">
-                            <span class="EshopDetail-pricing-value">
-                                {{_activeProduct.buy?.price?.czkWithVat}} {{mapPriceTypes(_activeProduct.buy?.price?.priceType)}}
-                                <span class="EshopDetail-pricing-vat">s DPH {{_activeProductVAT}}%</span>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <span class="EshopDetail-pricing-value">
-                                {{_activeProduct.buy?.price?.czkWithoutVat}} {{mapPriceTypes(_activeProduct.buy?.price?.priceType)}}
-                                <span class="EshopDetail-pricing-vat">bez DPH</span>
-                            </span>
-                        </div>
+    
+                    <div class="EshopDetail-pricing-without">
+                        <span class="EshopDetail-pricing-value">
+                            {{_activeProduct.buy?.price?.czkWithoutVat}} {{mapPriceTypes(_activeProduct.buy?.price?.priceType)}}
+                            <span class="EshopDetail-pricing-vat">bez DPH</span>
+                        </span>
                     </div>
                 </div>
-                <div class="mt-3 w-50">
+
+                <div class="mt-1 w-50">
                     <!-- No service -->
                     <ng-container *ngIf="_activeProduct.type != ProductType.Service">
-                        <span class="font-weight-bold text-success" *ngIf="_activeProduct.stock.count > 4">Skladem</span>
-                        <span class="font-weight-bold text-warning" *ngIf="_activeProduct.stock.count > 1 && _activeProduct.stock.count <= 4">Skladem poslední {{_activeProduct.stock.count}} kusy</span>
-                        <span class="font-weight-bold text-warning" *ngIf="_activeProduct.stock.count == 1">Skladem poslední kus</span>
-                        <span class="font-weight-bold text-warning" *ngIf="_activeProduct.stock.count == 0">Očekáváme do {{_activeProduct.stock.preOrderDays}} dnů</span>
                         <button 
+                            class="shopping-btn"
                             *ngIf="productsCount == 0" 
                             (click)="saveProductBasket(productsCount + 1, true)" 
                             [disabled]="!_activeProduct.stock.count || _activeProduct.stock.count == 0" 
-                            outline="true" 
                             type="button" 
                             color="primary" 
                             mdbWavesEffect
@@ -99,9 +75,9 @@
                             </strong>
                         </p>
                         <button 
+                            class="shopping-btn"
                             *ngIf="productsCount == 0" 
                             (click)="serviceDateModal.showModal()" 
-                            outline="true" 
                             type="button" 
                             color="primary" 
                             mdbWavesEffect
@@ -110,9 +86,9 @@
                             Vybrat termín
                         </button>
                         <button 
+                            class="shopping-btn"
                             *ngIf="productsCount > 0" 
                             (click)="saveProductBasket(0)" 
-                            outline="true" 
                             type="button" 
                             color="danger" 
                             mdbWavesEffect

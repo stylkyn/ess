@@ -70,7 +70,7 @@ export class CategoryFormComponent implements OnInit {
         this.activeCategory = category;
         this.isActive.setValue(true);
         this.visible = true;
-        this.mainImage = null;
+        this.mainImage = undefined;
         if (category) {
             this.name.setValue(category.name);
             this.slug.setValue(category.urlName);

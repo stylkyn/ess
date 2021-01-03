@@ -1,10 +1,12 @@
-<section class="container-fluid">
-    <div class="row">
-        <div class="col-3">
-            <app-eshop-menu [categoriesTree]="_categoryService.categoriesTree"></app-eshop-menu>
-        </div>
-        <div class="col-9">
-            <router-outlet></router-outlet>
-        </div>
+<section class="container-fluid mt-4 pt-4">
+    <div class="container">
+        <mdb-breadcrumb *ngIf="_categoryService.activeCategory?.id" >
+            <mdb-breadcrumb-item [routerLink]="'/' + presentationProductRoute" class="blue-text">
+                Naše produkty
+            </mdb-breadcrumb-item>
+            <mdb-breadcrumb-item [routerLink]="_categoryService.activeCategory?.urlName" class="blue-text">{{_categoryService.activeCategory?.name}}</mdb-breadcrumb-item>
+            <mdb-breadcrumb-item *ngIf="_productService.activeProduct?.id" class="blue-text">{{_productService.activeProduct?.name}}</mdb-breadcrumb-item>
+        </mdb-breadcrumb>
     </div>
+    <router-outlet></router-outlet>
 </section>

@@ -1,0 +1,6 @@
+.product-image, .product-title {
+    cursor: pointer !important;
+    &:hover {
+        text-decoration: underline;
+    }
+}

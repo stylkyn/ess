@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { MDBModalRef } from 'ng-uikit-pro-standard';
+import { MDBModalRef, MDBModalService } from 'ng-uikit-pro-standard';
 import { BasketStorageService, IBasketProductStorage } from 'src/app/services/storage/basket.service';
 import { OrderService, ICalculateOrderRequest } from './../../../services/API/order.service';
 import { MapPriceTypes } from 'src/app/models/IPrice';
 import { ICalculatedOrderProductOrder, ICalculatedOrderTotalOrder } from 'src/app/models/ICalculateOrder';
 import { TransportStorageService } from 'src/app/services/storage/transport.service';
 import { PaymentStorageService } from './../../../services/storage/payment.service';
-import { ProductType } from 'src/app/models/IProduct';
+import { IProduct, ProductType } from 'src/app/models/IProduct';
 import * as moment from 'moment';
+import { getProductRoute } from '../../theme/presentation-routes';
+import { Router } from '@angular/router';
+import { ICategory } from './../../../models/ICategory';
+import { CategoryService } from './../../../services/API/category.service';
 
 @Component({
   selector: 'app-shopping-card-products',
@@ -24,9 +28,14 @@ export class ShoppingCardProductsComponent implements OnInit {
         return this._orderService.calculatedOrder;
     }
 
+    public get categories (): ICategory[] {
+        return this._categoryService.categories;
+    }
+
     public get products (): ICalculatedOrderProductOrder[] {
         return this._orderService.calculatedOrder?.products ?? [];
     }
+
     public get total (): ICalculatedOrderTotalOrder {
         return this._orderService.calculatedOrder?.total;
     }
@@ -34,8 +43,12 @@ export class ShoppingCardProductsComponent implements OnInit {
         public _basketStorage: BasketStorageService,
         public _transportStorage: TransportStorageService,
         public _paymentStorage: PaymentStorageService,
-        public _orderService: OrderService
+        public _categoryService: CategoryService,
+        public _orderService: OrderService,
+        public _router: Router,
+        private _modalService: MDBModalService
     ) {
+        this._categoryService.getAllOnce();
     }
 
     ngOnInit(): void {
@@ -60,6 +73,12 @@ export class ShoppingCardProductsComponent implements OnInit {
         };
         this._basketStorage.setProduct(request);
         this.calculateOrder();
+    }
+
+    showDetail(product: ICalculatedOrderProductOrder) {
+        const category = this.categories.find(c => c.id == product.product.categoryId);
+        this._router.navigateByUrl(getProductRoute(product.product, category));
+        this._modalService.hide(1);
     }
 
     calculateOrder () {

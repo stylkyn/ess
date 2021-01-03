@@ -1,5 +1,8 @@
 @import '../config';
 
 .breadcrumb {
-    background-color: #fafafa;
+    background-color: #f2f2f2;
+    &-item {
+        outline: none;
+    }
 }

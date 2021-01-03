@@ -1,0 +1,32 @@
+.category-card {
+    cursor: pointer;
+    &:hover {
+        .card-title {
+            text-decoration: underline;
+        }
+    }
+    &-box {
+        min-height: 235px;
+        justify-content: center;
+        background: rgb(0, 0, 0, 0.4);
+        transition: 0.15s;
+
+        &:hover {
+            background-color: rgba(63, 81, 181, 0.5);
+
+            .category-card-box-title {
+                background: transparent;
+            }
+        }
+
+        &-title {
+            width: 100%;
+            background: #00000066;
+        }
+    }
+
+    .card-title {
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+}

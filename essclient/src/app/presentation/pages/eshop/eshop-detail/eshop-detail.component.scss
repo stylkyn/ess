@@ -1,9 +1,12 @@
 @import '../../../../../styles/config';
 
 ::ng-deep {
-    .breadcrumb {
-        padding-left: 0 !important;
-        padding-bottom: 0 !important;
+    .main-image {
+        figure {
+            width: 100% !important;
+            max-width: 100% !important;
+            flex: auto;
+        }
     }
     .EshopDetail {
         mdb-carousel {
@@ -12,18 +15,30 @@
             }
         }
         &-pricing {
-            margin: 0;
-            padding: 5px 0;
-            text-align: left;
-            box-shadow: none;
-            background: #fafafa;
-            border-radius: 4px;
-            align-items: center;
+            background: #f9f9f9;
+            padding: 8px 20px;
+            font-size: 20px;
+            color: #ff5454;
+            font-weight: bold !important;
+            display: table;
+            border: 1px solid #e66969;
+            margin-top: 10px;
+            border-right: none;
+            border-bottom-left-radius: 5px;
+            border-top-left-radius: 5px;
 
-            &-value {
-                font-weight: 600;
-                font-size: 20px;
+            &-without { 
+                display: flex;
+                align-items: center;
+                margin-top: 10px;
+                padding: 0 15px;
+                border: 1px solid #e4595985;
+                font-weight: 500;
+                opacity: 0.8;
+                border-bottom-right-radius: 5px;
+                border-top-right-radius: 5px;
             }
+
             &-vat {
                 font-size: 11px;
                 font-weight: 400;
@@ -38,6 +53,10 @@
                 cursor: pointer !important;
                 color: $blue;
             }
+        }
+
+        .shopping-btn {
+            margin-left: 1px !important;
         }
     }
 }

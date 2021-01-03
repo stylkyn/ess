@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductService, IProductSearchRequest } from '../../../../services/API/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService, ICategoryRequest } from './../../../../services/API/category.service';
@@ -9,11 +9,12 @@ import { getProductRoute } from 'src/app/presentation/theme/presentation-routes'
 @Component({
     selector: 'app-eshop-products',
     templateUrl: './eshop-products.component.html',
-    styleUrls: []
+    styleUrls: ['./eshop-products.component.scss']
 })
-export class EshopProductsComponent implements OnInit {
+export class EshopProductsComponent implements OnInit, OnDestroy {
     public mapPriceTypes = MapPriceTypes;
     public products: IProduct[] = [];
+    public isCategoryEmpty = true;
 
     get categories () {
         return this._categoryService.categories;
@@ -32,14 +33,21 @@ export class EshopProductsComponent implements OnInit {
         });
     }
 
+    ngOnDestroy(): void {
+        this._categoryService.activeCategory = null;
+    }
+
     ngOnInit() {
         this._categoryService.getAll();
     }
 
     setActiveCategory(urlName: string) {
-        // tslint:disable-next-line:curly
-        if (!urlName) return;
+        if (!urlName) {
+            this.isCategoryEmpty = true;
+            return;
+        }
 
+        this.isCategoryEmpty = false;
         const request: ICategoryRequest = {
             UrlName: urlName
         };
@@ -51,12 +59,15 @@ export class EshopProductsComponent implements OnInit {
             categoryUrlName: categoryUrlName,
         };
         this._productService.search(request).subscribe(products => { 
+            if (this.isCategoryEmpty) {
+                this.products = products.data.slice(0, products.data.length <= 10 ? products.data.length : 10);
+            }
             this.products = products.data;
         });
     }
 
      // show detail produkt
-     showDetail(product: IProduct) {
+    showDetail(product: IProduct) {
         const category = this.categories.find(c => c.id == product.categoryId);
         this._router.navigateByUrl(getProductRoute(product, category));
     }

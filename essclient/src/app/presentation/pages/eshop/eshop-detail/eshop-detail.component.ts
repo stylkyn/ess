@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductService, IProductByUrlRequest } from 'src/app/services/API/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { MapPriceTypes, MapVatTypes } from 'src/app/models/IPrice';
 import { MyToastService } from 'src/app/services/toast.service';
 import { BasketStorageService, IBasketProductStorage } from '../../../../services/storage/basket.service';
-import { CategoryService } from './../../../../services/API/category.service';
+import { CategoryService, ICategoryRequest } from './../../../../services/API/category.service';
 import { ICategory } from './../../../../models/ICategory';
 import { ProductType } from 'src/app/models/IProduct';
 import * as moment from 'moment';
@@ -14,7 +14,7 @@ import * as moment from 'moment';
     templateUrl: './eshop-detail.component.html',
     styleUrls: ['./eshop-detail.component.scss']
 })
-export class EshopDetailComponent implements OnInit {
+export class EshopDetailComponent implements OnInit, OnDestroy {
     mapPriceTypes = MapPriceTypes;
     ProductType = ProductType;
     mapVatTypes = MapVatTypes;
@@ -23,7 +23,32 @@ export class EshopDetailComponent implements OnInit {
         { value: 1, label: '1' },
         { value: 2, label: '2' },
         { value: 3, label: '3' },
+    ];
+
+    get productImage(): any[] {
+        if (!this._activeProduct?.image) {
+            return [];
+        }
+        const result = [
+            {
+                img: this._activeProduct.image.secureUrl,
+                thumb: this._activeProduct.image.secureUrl,
+                description: this._activeProduct.name,
+            }
         ];
+        return result;
+    }
+
+    get galleryImages(): any[] {
+        if (!this._activeProduct?.gallery) {
+            return [];
+        }
+        return this._activeProduct.gallery.map(i => ({
+            img: i.secureUrl,
+            thumb: i.secureUrl,
+            description: i.originalFileName,
+        }));
+    }
 
         
     get category(): ICategory {
@@ -71,14 +96,31 @@ export class EshopDetailComponent implements OnInit {
         private _categoryService: CategoryService
         ) {
         this._route.url.subscribe(() => {
-            const urlName = this._route.snapshot.paramMap.get('productUrlName');
+            const proudctUrlName = this._route.snapshot.paramMap.get('productUrlName');
+            const categoryUrlName = this._route.snapshot.paramMap.get('categoryUrlName');
 
-            this.loadActiveProduct(urlName);
+            this.setActiveCategory(categoryUrlName);
+            this.loadActiveProduct(proudctUrlName);
         });
+    }
+
+    ngOnDestroy(): void {
+        this._productService.activeProduct = null;
     }
 
     ngOnInit() {
         this._categoryService.getAll();
+    }
+
+    setActiveCategory(urlName: string) {
+        if (!urlName) {
+            return;
+        }
+
+        const request: ICategoryRequest = {
+            UrlName: urlName
+        };
+        this._categoryService.fetchActiveCategory(request);
     }
 
     loadActiveProduct(urlName: string) {

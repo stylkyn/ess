@@ -58,7 +58,7 @@
     "ngx-mask": "^11.1.4",
     "node": "^13.5.0",
     "rxjs": "^6.5.5",
-    "screenfull": "5.0.x",
+    "screenfull": "^4.2.1",
     "smoothscroll-polyfill": "0.4.x",
     "tslib": "^1.10.0",
     "uuid": "^8.0.0",
