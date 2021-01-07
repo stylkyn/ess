@@ -9,6 +9,7 @@ import { removeAccents } from 'src/app/utils/stringUtils';
 import { FileUploadComponent } from './../../../components/file-upload/file-upload.component';
 import { MultipleFileUploadComponent } from './../../../components/multiple-file-upload/multiple-file-upload.component';
 import { urlSlugPattern } from 'src/app/utils/regexUtils';
+import { StockRequest } from './../../../../services/API/product.service';
 
 // tslint:disable-next-line:no-bitwise
 type Type = 'update' | 'add';
@@ -84,7 +85,7 @@ export class ProductFormComponent implements OnInit{
                 }
 
                 if (groups.value.type == ProductType.Buy) {
-                    if (!groups.value.stockCount || groups.value.stockCount < 0) {
+                    if (groups.value.stockCount == null || groups.value.stockCount == undefined || groups.value.stockCount < 0) {
                         groups.controls.stockCount.setErrors({ slug: true });
                         errors = { ...errors, stockCount: true };
                     }
@@ -224,7 +225,6 @@ export class ProductFormComponent implements OnInit{
 
     private update(): void {
         this.isLoading = true;
-        console.log(this.slug.value);
         const request: IProductUpdateRequest = {
             id: this.activeProduct?.id,
             name: this.name.value,

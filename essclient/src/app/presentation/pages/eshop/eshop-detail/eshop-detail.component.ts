@@ -110,6 +110,7 @@ export class EshopDetailComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this._categoryService.getAll();
+        window.scrollBy({ top: 0 });
     }
 
     setActiveCategory(urlName: string) {
