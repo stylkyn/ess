@@ -99,7 +99,9 @@ export class ProductFormComponent implements OnInit{
             }
         });
         this.name.valueChanges.subscribe(name => {
-            const slug = removeAccents(name).replace(' ', '-').toLowerCase();
+            console.log(name);
+            const slug = removeAccents(name).split(' ').join('-').toLowerCase();
+            console.log(slug);
             this.slug.setValue(slug);
         });
     }
@@ -224,6 +226,7 @@ export class ProductFormComponent implements OnInit{
 
     private update(): void {
         this.isLoading = true;
+        console.log(this.slug.value);
         const request: IProductUpdateRequest = {
             id: this.activeProduct?.id,
             name: this.name.value,

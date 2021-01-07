@@ -1,4 +1,6 @@
 <div *ngIf="order" class="container py-5">
+    <h1 class="h1">Vaše objednávka {{order.orderNumberFormatted}} je ve stavu</h1>
+    <hr/>
     <div class="OrderSummary-Tab d-flex">
         <ng-container *ngFor="let state of orderSummaryStates(order); let last = last;">
             <a class="OrderSummary-Tab-item disabled {{state.type <= order.state ? 'active' : ''}}">
@@ -27,8 +29,8 @@
         </ng-container>
     </div>
     <hr />
+    <h1 class="h1">Produkty</h1>
     <mdb-card>
-        <mdb-card-header class="bg-white">Shrnutí objednávky</mdb-card-header>
         <div class="table-responsive">
             <table class="OrderSummary-Table OrderSummary-Table-products table product-table mb-0">
                 <tbody>

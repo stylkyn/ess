@@ -57,7 +57,7 @@ export class CategoryFormComponent implements OnInit {
             }
         });
         this.name.valueChanges.subscribe(name => {
-            const slug = removeAccents(name).replace(' ', '-').toLowerCase();
+            const slug = removeAccents(name).split(' ').join('-').toLowerCase();
             this.slug.setValue(slug);
         });
     }
