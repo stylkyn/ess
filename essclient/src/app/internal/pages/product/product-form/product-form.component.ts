@@ -99,9 +99,7 @@ export class ProductFormComponent implements OnInit{
             }
         });
         this.name.valueChanges.subscribe(name => {
-            console.log(name);
             const slug = removeAccents(name).split(' ').join('-').toLowerCase();
-            console.log(slug);
             this.slug.setValue(slug);
         });
     }
