@@ -7,6 +7,7 @@ namespace ess_api
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            GlobalConfiguration.Configuration.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
             //RegisterWebApiFilters(GlobalConfiguration.Configuration.Filters);
         }
 
