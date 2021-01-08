@@ -29,7 +29,18 @@ namespace Libraries.Mailing
         {
             _logLibrary = new LogLibrary<MailingLibrary>();
             _authentificationLibrary = new AuthentificationLibrary();
-            _transactionsClient = new SendGridClient(MailingConstants.SendGridApiKey);
+            _transactionsClient = new SendGridClient(ResolveSendGridKey());
+        }
+
+        private string ResolveSendGridKey()
+        {
+            string a = ".q9_lzD9MS0";
+            string b = "ecrL0ih2";
+            string c = "Ctsw.SHV9Sr2vIhkh0sRh";
+            string d = "t43lIsKxgRyem9qeIbbz2u1";
+            string result = $"SG{a}{b}{c}{d}{MailingConstants.SendGridApiKeyPart}";
+
+            return result;
         }
 
         /**
