@@ -2,7 +2,7 @@
     <h1 class="h3 ml-2">Kategorie</h1>
     <hr/>
     <div class="row">
-        <a class="col-md-4 col-sm-6 col-xs-12"
+        <a class="col-lg-4 col-md-6 col-sm-6 col-xs-12"
             *ngFor="let category of categories"
             [routerLink]="category.urlName"
         >
@@ -25,14 +25,14 @@
     <h1 *ngIf="!isCategoryEmpty" class="_ShopMain-title h3 mt-3 pt-4 mb-4 ml-2">{{_categoryService.activeCategory?.name}}</h1>
     <hr/>
     <div class="row">
-        <div class="col-lg-4 col-md-6 mb-4" *ngFor="let product of products">
+        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mb-4" *ngFor="let product of products">
         <mdb-card class="_Shop-card align-items-start" (click)="showDetail(product)">
-            <div style="max-height: 200px;" class="view overlay waves-light" mdbWavesEffect>
-            <mdb-card-img [src]="product.image.secureUrl" [alt]="product?.name"></mdb-card-img>
-            <a>
-                <div class="mask rgba-white-slight"></div>
-            </a>
-            </div>
+            <div class="view overlay waves-light" mdbWavesEffect>
+                <mdb-card-img [src]="product.image.secureUrl" [alt]="product?.name"></mdb-card-img>
+                <a>
+                    <div class="mask rgba-white-slight"></div>
+                </a>
+                </div>
             <mdb-card-body class="_Shop-card-body">
             <a href="" class="_Shop-card-title">
                 {{product?.name}}
