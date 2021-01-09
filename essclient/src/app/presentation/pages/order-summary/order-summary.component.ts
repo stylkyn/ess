@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { orderSummaryStates, IOrderStateOption, OrderState, IOrderCustomer } from 'src/app/models/IOrder';
 import { OrderService } from 'src/app/services/API/order.service';
 import { IOrder } from './../../../models/IOrder';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IGetOrderRequets } from './../../../services/API/order.service';
 import { MapPriceTypes } from 'src/app/models/IPrice';
 import { PaymentType } from 'src/app/models/IPayment';
@@ -42,6 +42,7 @@ export class OrderSummaryComponent implements OnInit {
 
     constructor(
         private _orderService: OrderService,
+        private router: Router,
         private route: ActivatedRoute) { 
     }
 
@@ -55,6 +56,8 @@ export class OrderSummaryComponent implements OnInit {
         };
         await this._orderService.fetchOrder(request).then(order => { 
             this.activeOrder = { ...order };
+        }).catch(e => {
+            this.router.navigateByUrl('/');
         });
     }
 }
