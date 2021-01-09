@@ -3,11 +3,22 @@
 .OrderSummary {
     &-Tab {
         display: flex;
+        flex-wrap: wrap;
+
+        > div {
+            padding-left: 20px;
+        }
+
+        > a {
+            flex-grow: 1;
+            width: auto;
+        }
+        
         &-item {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 100%;
+            flex-basis: auto;
             opacity: 0.8;
     
             button {

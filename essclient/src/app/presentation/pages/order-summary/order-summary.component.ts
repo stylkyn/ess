@@ -22,9 +22,10 @@ export class OrderSummaryComponent implements OnInit {
     PaymentType = PaymentType;
     mapPriceTypes = MapPriceTypes;
     moment = moment;
+    activeOrder: IOrder;
 
     public get order(): IOrder {
-        return this._orderService.activeOrder;
+        return this.activeOrder;
     }
 
     public get transport(): ITransport {
@@ -52,6 +53,8 @@ export class OrderSummaryComponent implements OnInit {
         const request: IGetOrderRequets = {
             orderId: this.route.snapshot.paramMap.get('orderId')
         };
-        await this._orderService.fetchOrder(request);
+        await this._orderService.fetchOrder(request).then(order => { 
+            this.activeOrder = { ...order };
+        });
     }
 }
