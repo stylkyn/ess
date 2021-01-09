@@ -118,3 +118,13 @@
         }
     }
 }
+
+@media screen and (max-width: 768px) {
+    .OrderSummary-total-price-label {
+        float: none !important;
+        text-align: right !important;
+    }
+    .hide-sm {
+        display: none !important;
+    }
+}

@@ -43,12 +43,12 @@
                                 <strong>{{product.product.name}}</strong>
                             </h5>
                         </td>
-                        <td>
+                        <td class="hide-sm">
                             {{product.product.buy.price.czkWithVat}} {{mapPriceTypes(product.product.buy.price.priceType)}} / ks
                             <br/>
                             {{ product?.service?.date && moment(product?.service?.date)?.format('DD.MM.YYYY')}}
                         </td>
-                        <td>
+                        <td class="hide-sm">
                             {{product.count}} ks
                         </td>
                         <td class="OrderSummary-Card-price text-right">
@@ -60,7 +60,7 @@
         </div>
     </mdb-card>
     <div class="row">
-        <div class="col">
+        <div class="col-md-6 col-sm-12">
             <h3 class="h5 mt-4 mb-3">Doprava</h3>
             <mdb-card>
                 <div class="table-responsive">
@@ -87,7 +87,7 @@
                 </div>
             </mdb-card>
         </div>
-        <div class="col">
+        <div class="col-md-6 col-sm-12">
             <h3 class="h5 mt-4 mb-3">Platba</h3>
             <mdb-card>
                 <div class="table-responsive">
@@ -116,7 +116,7 @@
         </div>
         <div class="col-12">
             <hr />
-            <h3 class="h4 mt-4 mb-2 pull-left">Celková cena za objednávku</h3>
+            <h3 class="h4 mt-4 mb-2 pull-left OrderSummary-total-price-label">Celková cena za objednávku</h3>
             <div class="text-right">
                 <h5 *ngIf="order?.calculatedData?.total?.totalPrice" class="mt-4 h3">
                     <strong class="ml-4">{{order.calculatedData.total.totalPrice.czkWithVat}} {{mapPriceTypes(order.calculatedData.total.totalPrice.priceType)}}</strong> s DPH
@@ -129,7 +129,7 @@
     </div>
     <hr class="mt-2"/>
     <div *ngIf="customer" class="row">
-        <div class="col-6">
+        <div class="col-md-6 col-sm-12">
             <h3 class="h5 mt-4 mb-3">Doručovací údaje</h3>
             <mdb-card class="OrderSummary-Card-address">
                 <mdb-card-body>
@@ -152,7 +152,7 @@
                 </mdb-card-body>
             </mdb-card>
         </div>
-        <div class="col-6">
+        <div class="col-md-6 col-sm-12">
             <h3 class="h5 mt-4 mb-3">Kontaktní údaje</h3>
             <mdb-card class="OrderSummary-Card-address">
                 <mdb-card-body>
