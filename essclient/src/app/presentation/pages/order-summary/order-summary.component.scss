@@ -54,6 +54,9 @@
 
     &-Table {
         &-products {
+            &-image {
+                max-height: 100px;
+            }
         }
         &-transport {
             img {
@@ -81,6 +84,11 @@
         }
     }
     &-Card {
+        &-price span {
+            white-space: nowrap;
+            font-size: 19px;
+            font-weight: 700;
+        }
         &-address {
             p {
                 margin-bottom: 0;
