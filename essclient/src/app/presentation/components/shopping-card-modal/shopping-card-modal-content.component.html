@@ -6,13 +6,14 @@
     <h4 class="modal-title w-100" id="myModalLabel">Košík</h4>
 </div>
 <div class="modal-body">
+    <h2 class="h4 mt-3 ml-2">Produkty</h2>
     <app-shopping-card-products></app-shopping-card-products>
     <hr class="mt-0" />
-    <a routerLink="/objednavka" (click)="modalRef.hide()"  class="pull-right" mdbBtn color="primary">
+    <a routerLink="/objednavka" (click)="modalRef.hide()"  class="pull-right basket-button" mdbBtn color="primary">
         Pokračovat k objednávce
         <mdb-icon fas icon="angle-right" class="right"></mdb-icon>
     </a>
 </div>
 <div class="modal-footer">
-    <button type="button" mdbBtn color="primary" class="waves-light" aria-label="Close" outline="true" (click)="modalRef.hide()" mdbWavesEffect>Chci ještě nakupovat</button>
+    <button type="button" mdbBtn color="primary" class="waves-light basket-button" aria-label="Close" outline="true" (click)="modalRef.hide()" mdbWavesEffect>Chci ještě nakupovat</button>
 </div>

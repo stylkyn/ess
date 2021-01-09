@@ -44,13 +44,7 @@ export class OrderComponent implements OnInit{
         private _orderBussiness: OrderBussinessService,
         private _router: Router
         ) { 
-            if (this.isCustomerValid)
-                    this._router.navigateByUrl(`${presentationOrderRoute}/${orderCustomerRoute}`);
-            else if (this.isPaymentValid)
-                    this._router.navigateByUrl(`${presentationOrderRoute}/${orderPaymentRoute}`);
-            else if (this.isTransportValid)
-                    this._router.navigateByUrl(`${presentationOrderRoute}/${orderTransportRoute}`);
-            else this._router.navigateByUrl(`${presentationOrderRoute}/${orderBasketRoute}`);
+            this._router.navigateByUrl(`${presentationOrderRoute}/${orderBasketRoute}`);
     }
 
     ngOnInit(): void {

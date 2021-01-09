@@ -1,6 +1,45 @@
+.product-image {
+    max-height: 100px;
+}
+
 .product-image, .product-title {
     cursor: pointer !important;
     &:hover {
         text-decoration: underline;
+    }
+}
+
+.price-title {
+    white-space: nowrap;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.total-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+@media screen and (max-width: 768px) {
+    .total-price-label {
+        float: none !important;
+        text-align: right !important;
+    }
+    .hide-sm {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 568px) {
+    .total-price {
+        flex-direction: column !important;
+        margin-top: 12px !important;
+        text-align: right !important;
+        align-items: flex-end !important;
+        &-label {
+            margin-bottom: -10px !important;
+        }
     }
 }
