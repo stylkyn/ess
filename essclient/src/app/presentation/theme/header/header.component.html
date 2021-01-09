@@ -8,6 +8,22 @@
     </logo>
     <links>
         <ul class="navbar-nav mr-auto">
+            <li class="nav-item waves-light" mdbWavesEffect>
+                <a class="nav-link" routerLink="/{{presentationHomepageRoute}}">Homepage</a>
+            </li>   
+            <li class="nav-item waves-light" mdbWavesEffect>
+                <a class="nav-link" routerLink="/{{presentationProductRoute}}">Naše produkty</a>
+            </li>   
+            <li class="nav-item waves-light" mdbWavesEffect>
+                <a class="nav-link" routerLink="/{{presentationContactRoute}}">Kontakt</a>
+            </li>
+            <li class="nav-item waves-light" mdbWavesEffect>
+                <a class="nav-link" routerLink="/{{presentationAboutUsRoute}}">O nás</a>
+            </li>
+        </ul>
+    </links>
+    <links>
+        <ul class="navbar-nav mr-auto">
             <hr class="w-100" />
             <!-- loged aut -->
             <li *ngIf="!userSrv.user" class="nav-item waves-light py-2" mdbWavesEffect>
