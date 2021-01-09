@@ -5,7 +5,7 @@
                 <div class="mb-4">
                     <mdb-image-modal class="main-image" [modalImages]="productImage" type="no-margin"></mdb-image-modal>
                 </div>
-                <mdb-image-modal [modalImages]="galleryImages" type="no-margin"></mdb-image-modal>
+                <mdb-image-modal class="EshopDetail-gallery" [modalImages]="galleryImages" type="no-margin"></mdb-image-modal>
                 <hr/>
                 <h3 class="font-weight-bold dark-grey-text mb-3 mt-3">
                     <a>{{_activeProduct.name}}</a>
@@ -18,7 +18,7 @@
                 <h2 class="font-weight-bold dark-grey-text mb-3">
                     <a>{{_activeProduct.previewName}}</a>
                 </h2>
-                <p class="dark-grey-text mb-lg-0 mb-md-5 mb-4">{{_activeProduct.previewDescription}}</p>
+                <p class="EshopDetail-previewDescription dark-grey-text mb-lg-0 mb-md-5 mb-4">{{_activeProduct.previewDescription}}</p>
 
                 <div class="pt-3" *ngIf="_activeProduct.type != ProductType.Service">
                     <span class="font-weight-bold text-success" *ngIf="_activeProduct.stock.count > 4">Skladem</span>
@@ -43,7 +43,7 @@
                     </div>
                 </div>
 
-                <div class="mt-1 w-50">
+                <div class="EshopDetail-button-block mt-1 w-50">
                     <!-- No service -->
                     <ng-container *ngIf="_activeProduct.type != ProductType.Service">
                         <button 
