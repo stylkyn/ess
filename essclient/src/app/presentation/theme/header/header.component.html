@@ -48,13 +48,13 @@
 
                 
                 <li class="nav-item waves-light py-2" mdbWavesEffect>
-                    <a routerLink="/{{presentationMyAccountFullOrderRoute}}">
+                    <a routerLink="/{{presentationMyAccountFullProfileRoute}}">
                         Můj profil
                     </a>
                 </li> 
                 <li class="nav-item waves-light py-2"  
                     *ngIf="userSrv.user?.hasAdminAccess || userSrv.user?.hasAgentAccess" mdbWavesEffect>
-                    <a routerLink="/{{presentationMyAccountFullOrderRoute}}">
+                    <a routerLink="/{{presentationAgentOrdersFullRoute}}">
                         Přiřazené služby
                     </a>
                 </li> 
