@@ -61,9 +61,10 @@ export class EshopProductsComponent implements OnInit, OnDestroy {
         };
         this._productService.search(request).subscribe(products => { 
             if (this.isCategoryEmpty) {
-                this.products = products.data.slice(0, products.data.length <= 10 ? products.data.length : 10);
+                this.products = products.data.slice(0, products.data.length <= 12 ? products.data.length : 12);
+            } else {
+                this.products = products.data;
             }
-            this.products = products.data;
         });
     }
 

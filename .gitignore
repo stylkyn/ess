@@ -1,6 +1,6 @@
 packages
-bin/
-obj/
+bin
+obj
 sqlite3
 .vs
 *.ide

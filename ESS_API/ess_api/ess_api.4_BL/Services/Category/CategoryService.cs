@@ -2,6 +2,7 @@
 using ess_api._4_BL.Services.Responses;
 using ess_api.Core.Constant;
 using ess_api.Core.Model;
+using ess_api.DAL.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace ess_api._4_BL.Services
         public async Task<ResponseList<CategoryResponse>> Get()
         {
             
-            var categories = await _uow.Categories.FindManyAsync();
+            var categories = await _uow.Categories.FindManyAsync(x => true, SortType.ASC, x => x.Name);
             return new ResponseList<CategoryResponse>(ResponseStatus.Ok, _mapService.MapCategories(categories.ToList()));
         }
 

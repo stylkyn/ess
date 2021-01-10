@@ -35,9 +35,9 @@ namespace ess_api.Repository
         {
             if (isActive != null)
             {
-                return await FindManyAsync(x => (categories.Contains(x.CategoryId) || categories.Count == 0) && x.IsActive == isActive);
+                return await FindManyAsync(x => (categories.Contains(x.CategoryId) || categories.Count == 0) && x.IsActive == isActive, SortType.DESC, p => p.CreatedDate);
             }
-            return await FindManyAsync(x => categories.Contains(x.CategoryId) || categories.Count == 0);
+            return await FindManyAsync(x => categories.Contains(x.CategoryId) || categories.Count == 0, SortType.DESC, p => p.CreatedDate);
         }
 
         public async Task<(List<ProductModel>, int)> SearchExtend(string categoryId, string fullText, ProductType? type, int skip, int take)
