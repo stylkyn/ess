@@ -25,9 +25,10 @@ export class OrderPaymentComponent implements OnInit {
         return this._paymentService.paymentsByTrasport;
     }
 
-    private get paymentStorageType () {
+    public get activePayment(): IPayment {
+        console.log(this._paymentStorage.paymentInStorage.id);
         return this._paymentStorage.paymentInStorage != null ?
-            this._paymentStorage.paymentInStorage.type : null;
+            this._paymentStorage.paymentInStorage : null;
     }
 
     constructor(
@@ -40,7 +41,7 @@ export class OrderPaymentComponent implements OnInit {
         private _router: Router
         ) {
             this.paymentForm = this._formBuilder.group({
-                paymentType: [this.paymentStorageType, [Validators.required]],
+                paymentId: [this.activePayment?.id, [Validators.required]],
             });
         }
 
@@ -48,7 +49,7 @@ export class OrderPaymentComponent implements OnInit {
         this.loadPayments();
     }
 
-    public onChangeTransport(payment: IPayment) {
+    public onChangePayment(payment: IPayment) {
         this._paymentStorage.set(payment);
         this._orderBussiness.calculateOrder();
     }

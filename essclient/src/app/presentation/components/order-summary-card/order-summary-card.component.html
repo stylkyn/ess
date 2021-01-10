@@ -1,71 +1,72 @@
-<mdb-card *ngIf="order" class="OrderSummaryCard">
-    <mdb-card-header class="bg-white">Souhrn</mdb-card-header>
-    <mdb-card-body class="py-0 px-2">
-        <div class="table-responsive">
-            <table class="table product-table mb-0 OrderSummaryCard-table">
-                <tbody>
-                    <tr *ngFor="let product of products">
-                        <th scope="row">
-                            <img src="{{product.product.image.secureUrl}}" alt="{{product.product.name}}" class="img-fluid z-depth-0">
-                        </th>
-                        <td class="w-100">
-                            <h5 class="OrderSummaryCard-name">
-                                <strong>{{product.count}}x {{product.product.name}}</strong>
-                            </h5>
-                        </td>
-                        <td class="font-weight-bold OrderSummaryCard-price">
-                            <strong>{{product.totalPrice.czkWithVat}} {{mapPriceTypes(product.totalPrice.priceType)}}</strong>
-                        </td>
-                    </tr>
-
-                    <tr *ngIf="transport">
-                        <th scope="row">
-                            <img [alt]="transport.name" [src]="transport.image.secureUrl" />
-                        </th>
-                        <td class="w-100">
-                            <h5 class="OrderSummaryCard-name">
-                                <strong>{{transport.name}}</strong>
-                            </h5>
-                        </td>
-                        <td class="font-weight-bold OrderSummaryCard-price">
-                            <strong>
-                                <span *ngIf="transport.totalPrice?.czkWithVat > 0">{{transport.totalPrice?.czkWithVat}} {{mapPriceTypes(transport.totalPrice?.priceType)}}</span>
-                                <span *ngIf="transport.totalPrice?.czkWithVat == 0">Zdarma</span>
-                            </strong>
-                        </td>
-                    </tr>
-
-                    <tr *ngIf="payment">
-                        <th scope="row">
-                            <img [alt]="payment.name" [src]="payment.image.secureUrl" />
-                        </th>
-                        <td class="w-100">
-                            <h5 class="OrderSummaryCard-name">
-                                <strong>{{payment.name}}</strong>
-                            </h5>
-                        </td>
-                        <td class="font-weight-bold OrderSummaryCard-price">
-                            <strong>
-                                <span *ngIf="payment.totalPrice?.czkWithVat > 0">{{payment.totalPrice?.czkWithVat}} {{mapPriceTypes(payment.totalPrice?.priceType)}}</span>
-                                <span *ngIf="payment.totalPrice?.czkWithVat == 0">Zdarma</span>
-                            </strong>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td colspan="2">
-                            <h4 class="mt-2 OrderSummaryCard-total-name">
-                                <strong>Celkem s DPH</strong>
-                            </h4>
-                        </td>
-                        <td *ngIf="total" colspan="4" >
-                            <h4>
-                                <strong class="OrderSummaryCard-total-price">{{total.totalPrice.czkWithVat}} {{mapPriceTypes(total.totalPrice.priceType)}}</strong>
-                            </h4>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </mdb-card-body>
-</mdb-card>
+<div>
+    <h3 class="h5 mt-2 mb-3 {{xl ? 'OrderSummaryTitleXl' : ''}}">Shrnutí objednávky</h3>
+    <mdb-card *ngIf="order" class="OrderSummaryCard {{xl ? 'xl' : ''}}">
+        <mdb-card-body class="py-0 px-2">
+            <div class="table-responsive">
+                <table class="table product-table mb-0 OrderSummaryCard-table">
+                    <tbody>
+                        <tr *ngFor="let product of products">
+                            <th scope="row">
+                                <img src="{{product.product.image.secureUrl}}" alt="{{product.product.name}}" class="img-fluid z-depth-0">
+                            </th>
+                            <td class="w-100">
+                                <h5 class="OrderSummaryCard-name">
+                                    <strong>{{product.count}}x {{product.product.name}}</strong>
+                                </h5>
+                            </td>
+                            <td class="font-weight-bold OrderSummaryCard-price">
+                                <strong>{{product.totalPrice.czkWithVat}} {{mapPriceTypes(product.totalPrice.priceType)}}</strong>
+                            </td>
+                        </tr>
+    
+                        <tr *ngIf="transport">
+                            <th scope="row">
+                                <img [alt]="transport.name" [src]="transport.image.secureUrl" />
+                            </th>
+                            <td class="w-100">
+                                <h5 class="OrderSummaryCard-name">
+                                    <strong>{{transport.name}}</strong>
+                                </h5>
+                            </td>
+                            <td class="font-weight-bold OrderSummaryCard-price">
+                                <strong>
+                                    <span *ngIf="transport.totalPrice?.czkWithVat > 0">{{transport.totalPrice?.czkWithVat}} {{mapPriceTypes(transport.totalPrice?.priceType)}}</span>
+                                    <span *ngIf="transport.totalPrice?.czkWithVat == 0">Zdarma</span>
+                                </strong>
+                            </td>
+                        </tr>
+    
+                        <tr *ngIf="payment">
+                            <th scope="row">
+                                <img [alt]="payment.name" [src]="payment.image.secureUrl" />
+                            </th>
+                            <td class="w-100">
+                                <h5 class="OrderSummaryCard-name">
+                                    <strong>{{payment.name}}</strong>
+                                </h5>
+                            </td>
+                            <td class="font-weight-bold OrderSummaryCard-price">
+                                <strong>
+                                    <span *ngIf="payment.totalPrice?.czkWithVat > 0">{{payment.totalPrice?.czkWithVat}} {{mapPriceTypes(payment.totalPrice?.priceType)}}</span>
+                                    <span *ngIf="payment.totalPrice?.czkWithVat == 0">Zdarma</span>
+                                </strong>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr class="mt-0 mb-0" />
+                <div class="col-12 OrderSummaryCard-total-price my-3 pl-2">
+                    <h3 class="h6 pull-left OrderSummaryCard-total-price-label mb-0 mt-0">Cena celkem:</h3>
+                    <div class="text-right">
+                        <h5 *ngIf="total?.totalPrice" class="h6">
+                            <strong class="ml-4">{{total.totalPrice.czkWithVat}} {{mapPriceTypes(total.totalPrice.priceType)}}</strong> s DPH
+                        </h5>
+                        <h6 *ngIf="total?.totalPrice" class="mt-2 h6 opacity-8">
+                           <strong class="ml-4">{{total.totalPrice.czkWithoutVat}} {{mapPriceTypes(total.totalPrice.priceType)}}</strong> bez DPH
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </mdb-card-body>
+    </mdb-card>
+</div>

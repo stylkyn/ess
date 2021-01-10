@@ -1,14 +1,16 @@
-<div class="row">
-    <div class="col-8">
+<div class="row OrderPayment">
+    <div class="col-lg-8 col-md-7 col-sm-12 col-xs-12">
         <form [formGroup]="paymentForm">
+            <h3 class="h5 mt-2 mb-3">Platba</h3>
             <mdb-card>
-                <mdb-card-header class="bg-white">Platba</mdb-card-header>
                 <ul class="list-group list-group-flush">
-                    <li *ngFor="let payment of payments; let i = index" class="list-group-item">
+                    <li *ngFor="let payment of payments; let i = index" class="list-group-item {{payment.id == this.activePayment?.id ? 'list-group-item-active' : ''}}">
                         <div class="pl-0 form-check">
-                        <input (change)="onChangeTransport(payment)" type="radio" class="form-check-input" id="paymentType-{{i}}" [value]="payment.type"
-                                formControlName="paymentType" name="paymentType">
-                        <label class="form-check-label OrderPayment-Item" for="paymentType-{{i}}">
+                        <input (change)="onChangePayment(payment)" type="radio" 
+                                class="form-check-input" 
+                                id="paymentId-{{i}}" [value]="payment.id"
+                                formControlName="paymentId" name="paymentId">
+                        <label class="form-check-label OrderPayment-Item" for="paymentId-{{i}}">
                             <div class="OrderPayment-Item-imgBox">
                                 <img [alt]="payment.name" [src]="payment.image.secureUrl" />
                             </div>
@@ -36,7 +38,7 @@
             </button>
         </div>
     </div>
-    <div class="col-4">
+    <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12">
         <app-order-summary-card></app-order-summary-card>
     </div>
 </div>

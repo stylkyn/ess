@@ -18,8 +18,13 @@ export class HeaderComponent {
     presentationAboutUsRoute = presentationAboutUsRoute;
     presentationHomepageRoute = presentationHomepage;
     presentationProductRoute = presentationProductRoute;
+    actualPage = "";
     
-    constructor (public userSrv: UserService, private router: Router) { }
+    constructor (public userSrv: UserService, private router: Router) { 
+        router.events.subscribe((val: any) => {
+            this.actualPage = val.url;
+        });
+    }
 
     public onBasketClick() {
     }

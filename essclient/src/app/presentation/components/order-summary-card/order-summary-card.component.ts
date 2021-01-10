@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BasketStorageService } from 'src/app/services/storage/basket.service';
 import { OrderService } from 'src/app/services/API/order.service';
 import { MapPriceTypes } from 'src/app/models/IPrice';
@@ -13,6 +13,7 @@ import { ICalculatedOrderProductOrder, ICalculatedOrderTotalOrder } from 'src/ap
   styleUrls: ['./order-summary-card.component.scss']
 })
 export class OrderSummaryCardComponent {
+    @Input() xl: boolean;
     TransportType = TransportType;
     PaymentType = PaymentType;
     mapPriceTypes = MapPriceTypes;

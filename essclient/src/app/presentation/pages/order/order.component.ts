@@ -4,9 +4,9 @@ import { BasketStorageService } from 'src/app/services/storage/basket.service';
 import { TransportStorageService } from 'src/app/services/storage/transport.service';
 import { PaymentStorageService } from './../../../services/storage/payment.service';
 import { CustomerStorageService } from 'src/app/services/storage/customer.service';
-import { Router } from '@angular/router';
 import { OrderBussinessService } from './order.service';
-import { presentationOrderSummaryRoute, presentationOrderRoute } from '../../theme/presentation-routes';
+import { presentationOrderSummaryRoute } from '../../theme/presentation-routes';
+import { MDBModalService } from 'ng-uikit-pro-standard';
 
 @Component({
     selector: 'app-order',
@@ -42,12 +42,12 @@ export class OrderComponent implements OnInit{
         private _paymentStorage: PaymentStorageService,
         private _customerStorage: CustomerStorageService,
         private _orderBussiness: OrderBussinessService,
-        private _router: Router
+        private _modalService: MDBModalService
         ) { 
-            this._router.navigateByUrl(`${presentationOrderRoute}/${orderBasketRoute}`);
     }
 
     ngOnInit(): void {
+        this._modalService.hide(2);
         this._orderBussiness.calculateOrder();
     }
 }

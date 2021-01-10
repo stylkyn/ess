@@ -1,8 +1,9 @@
 <div class="row">
-    <div class="col-8">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
         <form [formGroup]="customerForm">
+
+            <h3 class="h5 mt-2 mb-3">Osobní údaje</h3>
             <mdb-card>
-                <mdb-card-header class="bg-white">Osobní údaje</mdb-card-header>
                 <mdb-card-body formGroupName="personal">
                     <div class="row">
                         <div class="col-6">
@@ -21,7 +22,7 @@
                         </div>
                     </div>
                     <div formGroupName="contact" class="row">
-                        <div class="col-6">
+                        <div class="col-sm-6 col-xs-12">
                             <div class="md-form">
                                 <input [readonly]="emailDisabled" (focus)="isEmailActive = true" (blur)="verifyEmail()" mdbInput mdbValidate type="text" class="form-control" id="email" formControlName="email">
                                 <label [ngClass]="{'disabled': emailDisabled}" for="email">Email</label>
@@ -29,7 +30,7 @@
                                 <mdb-error *ngIf="emailExist">Zadaný email již existuje v naší databázi, před uložením objednávky se prosím přihlašte</mdb-error>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-sm-6 col-xs-12">
                             <div class="md-form">
                                 <input prefix="+" mask="000 000 000 000" mdbInput mdbValidate type="tel" class="form-control" id="phone" formControlName="phone">
                                 <label for="phone">Telefon</label>
@@ -39,39 +40,40 @@
                     </div>
                 </mdb-card-body>
             </mdb-card>
+
+            <h3 class="h5 mt-4 mb-3">Adresa pro doručení</h3>
             <mdb-card formGroupName="personal" class="mt-3">
-                <mdb-card-header class="bg-white">Adresa pro doručení</mdb-card-header>
                 <mdb-card-body>
                     <div formGroupName="address" class="row">
-                        <div class="col-9">
+                        <div class="col-sm-9 col-xs-7">
                             <div class="md-form">
                                 <input mdbInput mdbValidate type="text" class="form-control" id="street" formControlName="street">
                                 <label for="street">Ulice</label>
                                 <mdb-error *ngIf="street.invalid && (street.dirty || street.touched)">Pole je povinné</mdb-error>
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-sm-3 col-xs-5">
                             <div class="md-form">
                                 <input mdbInput mdbValidate type="text" class="form-control" id="houseNumber" formControlName="houseNumber">
                                 <label for="houseNumber">Číslo popisné</label>
                                 <mdb-error *ngIf="houseNumber.invalid && (houseNumber.dirty || houseNumber.touched)">Pole je povinné</mdb-error>
                             </div>
                         </div>
-                        <div class="col-5">
+                        <div class="col-sm-5 col-xs-7">
                             <div class="md-form">
                                 <input mdbInput mdbValidate type="text" class="form-control" id="city" formControlName="city">
                                 <label for="city">Město</label>
                                 <mdb-error *ngIf="city.invalid && (city.dirty || city.touched)">Pole je povinné</mdb-error>
                             </div>
                         </div>
-                        <div class="col-3">
+                        <div class="col-sm-3 col-xs-5">
                             <div class="md-form">
                                 <input matInput mask="000 00" mdbInput mdbValidate type="text" class="form-control" id="postalCode" formControlName="postalCode">
                                 <label for="postalCode">PSČ</label>
                                 <mdb-error *ngIf="postalCode.invalid && (postalCode.dirty || postalCode.touched)">Zadej ve formátu (100 00)</mdb-error>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-sm-4 col-xs-12">
                             <div class="md-form">
                                 <mdb-select formControlName="country" [options]="countriesOptions"></mdb-select>
                                 <mdb-error *ngIf="country.invalid && (country.dirty || country.touched)">Pole je povinné</mdb-error>
@@ -81,8 +83,8 @@
                 </mdb-card-body>
             </mdb-card>
 
+            <h3 class="h5 mt-4 mb-3">Firemní údaje</h3>
             <mdb-card class="mt-3">
-                <mdb-card-header class="bg-white">Firemní údaje</mdb-card-header>
                 <mdb-card-body>
                     <mdb-checkbox formControlName="invoiceToCompany">Fakturovat na firmu</mdb-checkbox>
                     <div *ngIf="invoiceToCompany.value == true" formGroupName="company">
@@ -94,14 +96,14 @@
                                     <mdb-error *ngIf="companyName.invalid && (companyName.dirty || companyName.touched)">Pole je povinné</mdb-error>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-sm-6 col-xs-12">
                                 <div class="md-form">
                                     <input mask="0000000000" mdbInput mdbValidate type="text" class="form-control" id="companyId" formControlName="companyId">
                                     <label for="companyId">IČO</label>
                                     <mdb-error *ngIf="companyId.invalid && (companyId.dirty || companyId.touched)">Minimální počet znaků je 8 (00000000)</mdb-error>
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-sm-6 col-xs-12">
                                 <div class="md-form">
                                     <input mask="SS0000000000" mdbInput mdbValidate type="text" class="form-control" id="companyVat" formControlName="companyVat">
                                     <label for="companyVat">DIČ</label>
@@ -111,35 +113,35 @@
                         </div>
                         <mdb-checkbox formControlName="transportToSameAddress">Doručit na jinout adresu</mdb-checkbox>
                         <div *ngIf="transportToSameAddress.value == true" formGroupName="address" class="row">
-                            <div class="col-9">
+                            <div class="col-sm-9 col-xs-7">
                                 <div class="md-form">
                                     <input mdbInput mdbValidate type="text" class="form-control" id="companyStreet" formControlName="street">
                                     <label for="companyStreet">Ulice</label>
                                     <mdb-error *ngIf="street.invalid && (street.dirty || street.touched)">Pole je povinné</mdb-error>
                                 </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-sm-3 col-xs-5">
                                 <div class="md-form">
                                     <input mdbInput mdbValidate type="text" class="form-control" id="companyHouseNumber" formControlName="houseNumber">
                                     <label for="companyHouseNumber">Číslo popisné</label>
                                     <mdb-error *ngIf="houseNumber.invalid && (houseNumber.dirty || houseNumber.touched)">Pole je povinné</mdb-error>
                                 </div>
                             </div>
-                            <div class="col-5">
+                            <div class="col-sm-5 col-xs-7">
                                 <div class="md-form">
                                     <input mdbInput mdbValidate type="text" class="form-control" id="companyCity" formControlName="city">
                                     <label for="companyCity">Město</label>
                                     <mdb-error *ngIf="city.invalid && (city.dirty || city.touched)">Pole je povinné</mdb-error>
                                 </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-sm-3 col-xs-5">
                                 <div class="md-form">
                                     <input mask="000 00" mdbInput mdbValidate type="text" class="form-control" id="companyPostalCode" formControlName="postalCode">
                                     <label for="companyPostalCode">PSČ</label>
                                     <mdb-error *ngIf="postalCode.invalid && (postalCode.dirty || postalCode.touched)">Zadejte ve formátu (100 00)</mdb-error>
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-sm-4 col-xs-12">
                                 <div class="md-form">
                                     <mdb-select formControlName="country" [options]="countriesOptions"></mdb-select>
                                     <mdb-error *ngIf="country.invalid && (country.dirty || country.touched)">Pole je povinné</mdb-error>
@@ -149,6 +151,10 @@
                     </div>
                 </mdb-card-body>
             </mdb-card>
+
+            <hr />
+            <app-order-summary-card [xl]="true" class="d-none d-sm-block d-xs-visible mt-4"></app-order-summary-card>
+
             <div class="text-right mt-3 mb-3">
                 <div class="mt-4 mb-1 mr-2">
                     <mdb-checkbox formControlName="termsAndConditions">
@@ -170,7 +176,7 @@
             </div>
         </form>
     </div>
-    <div class="col-4">
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 d-block d-sm-none d-xs-hide">
         <div class="sticky-top-header">
             <app-order-summary-card></app-order-summary-card>
         </div>

@@ -77,7 +77,7 @@
 
             <hr class="w-100" />
             <li class="nav-item waves-light py-2" mdbWavesEffect>
-                <a (click)="shoppingCardModal.showModal()">
+                <a [routerLink]="actualPage" (click)="shoppingCardModal.showModal()">
                     <mdb-icon class="pr-1" fas icon="shopping-basket"></mdb-icon>
                     Košík
                 </a>

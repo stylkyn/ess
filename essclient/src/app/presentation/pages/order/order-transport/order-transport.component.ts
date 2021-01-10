@@ -26,9 +26,9 @@ export class OrderTransportComponent implements OnInit {
         return this._transportService.transportsForOrder;
     }
 
-    private get transportStorageType () {
+    public get activeTransport(): ITransport {
         return this._transportStorage.transportInStorage != null ?
-            this._transportStorage.transportInStorage.type : null;
+            this._transportStorage.transportInStorage : null;
     }
 
     constructor(
@@ -40,7 +40,7 @@ export class OrderTransportComponent implements OnInit {
         private _router: Router
         ) {
             this.transportForm = this._formBuilder.group({
-                transportType: [this.transportStorageType, [Validators.required]],
+                transportId: [this.activeTransport?.id, [Validators.required]],
             });
         }
 

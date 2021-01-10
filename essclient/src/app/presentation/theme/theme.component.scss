@@ -1,7 +1,17 @@
-main {
-    margin-top: 80px;
+::ng-deep {
+    main {
+        margin-top: 80px;
+    
+        @media only screen and (max-width: 990.98px) {
+            margin-top: 60px;
+        }
+        .form-control {
+            font-weight: 500 !important;
+        }
 
-    @media only screen and (max-width: 990.98px) {
-        margin-top: 60px;
+        mdb-select * {
+            font-family: Open Sans, sans-serif !important;
+        }
+        
     }
 }

@@ -2,11 +2,21 @@
 
 .OrderTab {
     display: flex;
+    flex-wrap: wrap;
+
+    > div {
+        padding-left: 20px;
+    }
+
+    > a {
+        flex-grow: 1;
+        width: auto;
+    }
     &-item {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 100%;
+        flex-basis: auto;
         opacity: 0.8;
 
         button {
@@ -48,5 +58,19 @@
         white-space: nowrap;
         color: $black;
         font-weight: 500;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .order-container {
+        max-width: 100% !important;
+    }
+}
+
+
+
+@media screen and (min-width: 768.98px) and (max-width: 999px) {
+    .order-container {
+        max-width: 95% !important;
     }
 }

@@ -1,4 +1,7 @@
 .OrderTransport {
+    .list-group-item {
+        font-weight: 500;
+    }
     &-Item {
         display: flex !important;
         flex-direction: row !important;
