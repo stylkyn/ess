@@ -88,9 +88,11 @@ export class CategoryService extends APIRepository<ICategory> {
                 return categories;
             })).toPromise();
 
-        result.finally(x => {
+        result.then(x => {
             this.isGetAllLoading = false;
-        })
+        }).catch(e => {
+            this.isGetAllLoading = false;
+        });
         return result;
     }
 
