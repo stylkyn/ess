@@ -20,6 +20,14 @@ export class EshopProductsComponent implements OnInit, OnDestroy {
         return this._categoryService.categories;
     }
 
+    get isCategoriesLoading () {
+        return this._categoryService.isGetAllLoading;
+    }
+
+    get isSearchLoading () {
+        return this._productService.isSearchLoading;
+    }
+    
     constructor (
         public _categoryService: CategoryService,
         public _productService: ProductService,

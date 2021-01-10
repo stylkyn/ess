@@ -107,3 +107,27 @@ hr{
 .list-group-item-active {
     background: #4285f40f;
 }
+
+.Skeleton {
+    &-category {
+        display: flex;
+        width: 100%;
+        span {
+            width: 100% !important;
+            height: 235px !important;
+            margin: 5px !important;
+            border-radius: 5px !important;
+        }
+    }
+
+    &-product {
+        display: flex;
+        width: 100%;
+        span {
+            width: 100% !important;
+            height: 270px !important;
+            margin: 5px !important;
+            border-radius: 5px !important;
+        }
+    }
+}

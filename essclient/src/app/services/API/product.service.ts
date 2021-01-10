@@ -70,6 +70,7 @@ export interface BuyRequest {
 
 export class ProductService extends APIRepository<IProduct> {
     activeProduct: IProduct = initProduct;
+    isSearchLoading = false;
 
     constructor (public _API: APIService) {
         super(_API, 'Products');
@@ -80,7 +81,14 @@ export class ProductService extends APIRepository<IProduct> {
     }
 
     public search(request: IProductSearchRequest): Observable<IResponse<IProduct[]>> {
-        return this._API.getQueryTotal<IProduct[]>(`${this.className}/Search`, request);
+        this.isSearchLoading = true;
+        const result = this._API.getQueryTotal<IProduct[]>(`${this.className}/Search`, request);
+        result.subscribe(x => {
+            this.isSearchLoading = false;   
+        }, (e) => {
+            this.isSearchLoading = false;   
+        });
+        return result;
     }
 
     public searchExtend(request: IProductSearchExtendRequest): Observable<IResponse<IProduct[]>> {

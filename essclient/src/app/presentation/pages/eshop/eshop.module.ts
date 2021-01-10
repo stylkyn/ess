@@ -12,6 +12,7 @@ import { EshopProductsComponent } from './eshop-products/eshop-products.componen
 import { routing } from './eshop.routing';
 import { RouterModule } from '@angular/router';
 import { EshopMenuComponent } from './eshop-menu/eshop-menu.component';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
     imports: [
@@ -35,6 +36,7 @@ import { EshopMenuComponent } from './eshop-menu/eshop-menu.component';
         ButtonsModule,
         SelectModule,
         LightBoxModule,
+        NgxSkeletonLoaderModule,
 
         ComponentsModule
     ],
