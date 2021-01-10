@@ -26,7 +26,6 @@ export class OrderPaymentComponent implements OnInit {
     }
 
     public get activePayment(): IPayment {
-        console.log(this._paymentStorage.paymentInStorage.id);
         return this._paymentStorage.paymentInStorage != null ?
             this._paymentStorage.paymentInStorage : null;
     }
