@@ -66,3 +66,26 @@
         }
     }
 }
+
+@media screen and (max-width: 568px) {
+    .ShadowCard {
+        &-item {
+            min-width: 100%;
+        }
+    }
+    #mainCarousel{
+        max-height: 60vh;
+
+        .carousel-item .carousel-caption { 
+            margin-top: -25%;
+
+            > .row{
+                flex-direction: column-reverse;
+    
+                img {
+                    max-height: 65px;
+                }
+            }
+        }
+    }
+}
