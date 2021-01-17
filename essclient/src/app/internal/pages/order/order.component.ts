@@ -48,10 +48,6 @@ export class OrderComponent implements OnInit {
     fullText: string = null;
     visibleRemovePopup: boolean;
 
-    public get hasService(): boolean { 
-        return this._orderService.activeOrder?.calculatedData?.products.some(product => product.service) ?? false;
-    }
-
     public get services(): ICalculatedOrderProductService[] { 
         return this._orderService.activeOrder?.calculatedData?.products.filter(product => product.service).map(x => x.service) ?? [];
     }
@@ -85,6 +81,10 @@ export class OrderComponent implements OnInit {
         this.loadUserOptions();
         this._transportService.fetchTransport({});
         this._paymentService.fetchPayment({});
+    }
+
+    public hasService(order: IOrder): boolean { 
+        return order.calculatedData?.products.some(product => product.service) ?? false;
     }
 
     // users logic

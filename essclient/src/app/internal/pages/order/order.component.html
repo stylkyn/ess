@@ -78,15 +78,15 @@
                     </button>
                 </div>
             </td>
-            <td>{{ hasService ? 'Se službou' : 'Bez služby' }}</td>
+            <td>{{ hasService(item) ? 'Se službou' : 'Bez služby' }}</td>
             <td>
-                <div *ngIf="hasService" class="d-flex flex-row align-items-center">
+                <div *ngIf="hasService(item)" class="d-flex flex-row align-items-center">
                     {{ hasUnassignedAgent(item) ? 'Chybí agent' : 'Ok' }}
                     <button class="ml-2" (click)="changeAgentSetupModal(item, agentSetupModal)" nz-button nzsi nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Správa agentů">
                         <i nz-icon nzType="edit" nzTheme="outline"></i>
                     </button>
                 </div>
-                <div *ngIf="!hasService">-</div>
+                <div *ngIf="!hasService(item)">-</div>
             </td>
             <td>
                 {{ moment(item.createdDate).format('D.M.YYYY') }}
