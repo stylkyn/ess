@@ -60,7 +60,7 @@
                                 <nz-form-item>
                                     <nz-form-label nzRequired>Počet kusů</nz-form-label>
                                     <nz-form-control nzErrorTip="Zadejte číslo od 1">
-                                        <input formControlName="count" type="number" nz-input placeholder="Zadejte počet kusů" />
+                                        <input [readOnly]="getProductById(item.value.productId)?.service?.date" formControlName="count" type="number" nz-input placeholder="Zadejte počet kusů" />
                                     </nz-form-control>
                                 </nz-form-item>
                             </div>
