@@ -246,7 +246,7 @@ export class ProductFormComponent implements OnInit{
             }: null,
             deposit: null,
             stock: {
-                count: this.stockCount.value ?? 0,
+                count: this.type.value == ProductType.Service ? 1 : this.stockCount.value ?? 0,
                 preOrderDays: this.stockPreOrderDays.value ?? 14,
             }
         };
