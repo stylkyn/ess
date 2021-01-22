@@ -10,7 +10,7 @@
         <form [formGroup]="categoryForm" nzLayout="vertical" nz-form>
             <nz-form-item>
                 <nz-form-label nzRequired>Název</nz-form-label>
-                <nz-form-control nzErrorTip="Pole je povinné">
+                <nz-form-control nzErrorTip="Pole je povinné (max 100 znaků)">
                     <input formControlName="name" nz-input placeholder="Zadejte název"  />
                 </nz-form-control>
             </nz-form-item>

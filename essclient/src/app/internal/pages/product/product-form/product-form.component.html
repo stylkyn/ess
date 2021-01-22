@@ -18,7 +18,7 @@
                 <div class="gutter-row" nz-col [nzSpan]="12">
                     <nz-form-item>
                         <nz-form-label nzRequired>Název</nz-form-label>
-                        <nz-form-control nzErrorTip="Pole je povinné">
+                        <nz-form-control nzErrorTip="Pole je povinné (max 100 znaků)">
                             <input formControlName="name" nz-input placeholder="Zadejte název"  />
                         </nz-form-control>
                     </nz-form-item>
@@ -26,7 +26,7 @@
                 <div class="gutter-row" nz-col [nzSpan]="12">
                     <nz-form-item>
                         <nz-form-label nzRequired>Náhled - Název</nz-form-label>
-                        <nz-form-control nzErrorTip="Pole je povinné">
+                        <nz-form-control nzErrorTip="Pole je povinné (max 100 znaků)">
                             <input formControlName="previewName" nz-input placeholder="Zadejte název"  />
                         </nz-form-control>
                     </nz-form-item>
@@ -36,7 +36,7 @@
                 <div class="gutter-row" nz-col [nzSpan]="12">
                     <nz-form-item>
                         <nz-form-label nzRequired>Detailní popis</nz-form-label>
-                        <nz-form-control nzErrorTip="Pole je povinné">
+                        <nz-form-control nzErrorTip="Pole je povinné (max 10000 znaků)">
                             <textarea
                                 formControlName="description"
                                 nz-input
@@ -49,7 +49,7 @@
                 <div class="gutter-row" nz-col [nzSpan]="12">
                     <nz-form-item>
                         <nz-form-label nzRequired>Náhled - krátký popis</nz-form-label>
-                        <nz-form-control nzErrorTip="Pole je povinné">
+                        <nz-form-control nzErrorTip="Pole je povinné (max 500 znaků)">
                             <textarea
                                 formControlName="previewDescription"
                                 nz-input
@@ -74,7 +74,7 @@
                 <div class="gutter-row" nz-col [nzSpan]="8">
                     <nz-form-item>
                         <nz-form-label nzRequired>Cena bez DPH</nz-form-label>
-                        <nz-form-control nzErrorTip="Pole je povinné">
+                        <nz-form-control nzErrorTip="Pole je povinné (min 1, max 100 000 000)">
                             <nz-input-number
                                 formControlName="price"
                                 class="w-100"

@@ -66,13 +66,13 @@ export class ProductFormComponent implements OnInit{
         this.productForm = _fb.group({
             type: [ProductType.Buy, Validators.required],
             categoryId: [null, Validators.required],
-            name: ['', Validators.required],
-            description: ['', Validators.required],
-            previewName: ['', Validators.required],
+            name: ['', [Validators.required, Validators.maxLength(100)]],
+            description: ['', [Validators.required, Validators.maxLength(10000)]],
+            previewName: ['', [Validators.required, Validators.maxLength(100)]],
             isActive: [true],
-            previewDescription: ['', Validators.required],
+            previewDescription: ['', [Validators.required, Validators.maxLength(500)]],
             slug: ['', Validators.required],
-            price: [null, [Validators.required, Validators.min(1)]],
+            price: [null, [Validators.required, Validators.min(1), Validators.max(100000000)]],
             stockCount: [null],
             stockPreOrderDays: [14]
         }, {

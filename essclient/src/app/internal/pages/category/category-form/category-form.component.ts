@@ -44,7 +44,7 @@ export class CategoryFormComponent implements OnInit {
         private _categoryService: CategoryService
     ) {
         this.categoryForm = _fb.group({
-            name: ['', Validators.required],
+            name: ['', [Validators.required, Validators.maxLength(100)]],
             isActive: [true, Validators.required],
             slug: ['', [Validators.required, Validators.maxLength(30)]],
         }, {
