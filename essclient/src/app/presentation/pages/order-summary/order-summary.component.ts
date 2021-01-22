@@ -9,6 +9,7 @@ import { PaymentType } from 'src/app/models/IPayment';
 import { ITransport, TransportType } from 'src/app/models/ITransport';
 import * as moment from 'moment';
 import { IPayment } from './../../../models/IPayment';
+import { ProductType } from 'src/app/models/IProduct';
 
 @Component({
   selector: 'app-order-summary',
@@ -23,6 +24,7 @@ export class OrderSummaryComponent implements OnInit {
     mapPriceTypes = MapPriceTypes;
     moment = moment;
     activeOrder: IOrder;
+    ProductType = ProductType;
 
     public get order(): IOrder {
         return this.activeOrder;

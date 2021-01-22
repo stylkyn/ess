@@ -44,7 +44,12 @@
                             </h5>
                         </td>
                         <td class="hide-sm">
-                            {{product.product.buy.price.czkWithVat}} {{mapPriceTypes(product.product.buy.price.priceType)}} / ks
+                            {{
+                                product.product?.type == ProductType.Buy ? product.product?.buy?.price?.czkWithVat : product?.product?.service?.price?.czkWithVat
+                            }}
+                            {{
+                                mapPriceTypes( product.product?.type == ProductType.Buy ? product.product.buy.price.priceType : product.product.service.price.priceType)
+                            }} / ks
                             <br/>
                             {{ product?.service?.date && moment(product?.service?.date)?.format('DD.MM.YYYY')}}
                         </td>
